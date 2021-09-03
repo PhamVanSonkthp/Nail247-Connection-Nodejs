@@ -1,6 +1,9 @@
 <%- include("header", {tab: "home" , title: "Trang chủ" }); %>
     <!-- BEGIN: Content -->
 
+    <script src="../views/client/dist/js/ckeditor/ckeditor.js"></script>
+    <script src="../views/client/dist/js/ckeditor/samples/js/sample.js"></script>
+
     <div id="add-item-modal" class="modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -25,7 +28,9 @@
 
                     <div class="mt-2">
                         <b>Content:</b>
-                        <textarea id="EdtContentProduct" style="height: 100px;" class="form-control"></textarea>
+                        <textarea id="editor" autocomplete="off" type="text"
+                                class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                                placeholder="Content"></textarea>
                     </div>
 
                     <div class="mt-2">
@@ -47,7 +52,8 @@
 
                     <div class="form-group mt-5">
                         <b>Status option:</b>
-                        <button id="btn_status" type="button" onclick="enableProduct()" class="btn btn-sm btn-secondary ml-2"></button>
+                        <button id="btn_status" type="button" onclick="enableProduct()"
+                            class="btn btn-sm btn-secondary ml-2"></button>
                         <span class="ml-2">Click to hide/show this option</span>
                     </div>
 
@@ -389,14 +395,14 @@
 
         function editProduct(i) {
             index_edit = i;
-            $('#EdtTitleProduct').val(products[i].name);
-            $('#EdtContentProduct').val(products[i].content);
+            $('#EdtTitleProduct').val(products[i].name)
+            CKEDITOR.instances['editor'].setData(products[i].content)
 
-            if(products[i].status == 1){
+            if (products[i].status == 1) {
                 $('#btn_status').html('Show');
                 $('#btn_status').removeClass('btn-secondary')
                 $('#btn_status').addClass('btn-success');
-            }else{
+            } else {
                 $('#btn_status').html('Hide');
                 $('#btn_status').removeClass('btn-success')
                 $('#btn_status').addClass('btn-secondary');
@@ -452,7 +458,7 @@
             toggleModalAddProduct();
 
             showLoading();
-            socket.emit('update-options-posts', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, options_posts: decriptions, content: $('#EdtContentProduct').val() }, (response) => {
+            socket.emit('update-options-posts', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, options_posts: decriptions, content: CKEDITOR.instances.editor.getData() }, (response) => {
                 hideLoading();
                 if (response != null) {
                     products[index_edit] = response;
@@ -478,6 +484,8 @@
         $('#draw_5').addClass('side-menu--open');
         $('#draw_5_1').addClass('side-menu--active');
         $('#draw_5_wrap').addClass('side-menu__sub-open')
+
+        initSample()
     </script>
     <!-- END: SCRIPT -->
     <%- include("footer"); %>

@@ -186,22 +186,27 @@
                 $('#DialogLoading').hide()
                 let data = response;
                 if (data != null) {
-                    document.cookie = "_id = " + data._id;
-                    // document.cookie = "phone = " + data.phone;
-                    // document.cookie = "name = " + data.name;
-                    document.cookie = "password = " + data.password;
-                    //document.cookie = "address = " + data.address;
-                    // document.cookie = "image = " + data.image;
-                    // document.cookie = "point = " + data.point;
-
-                    // setCookie('_id' , data._id , 7);
-                    // setCookie('password' , data.password , 7);
+                    // document.cookie = "_id = " + data._id;
+                    // document.cookie = "password = " + data.password;
+                    setCookie('_id' , data._id)
+                    setCookie('name' , data.name)
+                    setCookie('password' , data.password)
                     window.location.replace("/admin");
                 } else {
                     $("#title").show();
                     $("#BtnLogin").prop('disabled', false);
                 }
             });
+        }
+
+        function setCookie(name, value, days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            }
+            else var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=./";
         }
 
         function signUp() {

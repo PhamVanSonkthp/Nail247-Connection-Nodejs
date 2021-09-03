@@ -17,7 +17,17 @@ function getCookie(name) {
 }
 
 function removeCookie(name) {
-	document.cookie = name + "=removed; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=../";
+	document.cookie = name + "=removed; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/admin";
+}
+
+function setCookie(name, value, days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		var expires = "; expires=" + date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name + "=" + value + expires + "; path=/admin";
 }
 
 function nameMonthToNumber(val) {
@@ -34,7 +44,7 @@ function nameMonthToNumber(val) {
 
 function logout() {
 	removeCookie('_id');
-	window.location.replace("sign-in");
+	window.location.replace("../admin/sign-in");
 }
 
 String.prototype.replaceAllTxt = function replaceAll(search, replace) {

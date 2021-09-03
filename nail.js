@@ -201,7 +201,7 @@ const dbFirebase = admin.firestore();
 
 // connect db
 mongoose.connect(process.env.DB_CONNECTION + process.env.DB_NAME, options).then(() => {
-  console.log('nail 247 ready to serve!');
+  console.log('nail 247 connected database!')
 
   app.use(function (req, res, next) {
     // if (!req.headers.token || req.headers.token != token) {
@@ -211,14 +211,14 @@ mongoose.connect(process.env.DB_CONNECTION + process.env.DB_NAME, options).then(
     //   next()
     // }
 
-    fetchAPI(req , res)
+    fetchAPI(req, res)
     next()
-    
+
   });
 
 }).catch(err => console.log(err));
 
-function fetchAPI(req , res) {
+function fetchAPI(req, res) {
   helper.saveTraffics(req, 0)
 
   const adminRoute = require('./routes/admin');
@@ -230,7 +230,7 @@ function fetchAPI(req , res) {
   const agencyRoute = require('./routes/agency');
   app.use('/agency', agencyRoute);
 
- 
+
 
   const historyPaymentsRoute = require('./routes/history-payments');
   app.use('/history-payments', historyPaymentsRoute);
@@ -249,8 +249,8 @@ app.use('/sell-salon', sellSalonRoute);
 const nailSuppliesRoute = require('./routes/nail-supplies');
 app.use('/nail-supplies', nailSuppliesRoute);
 
-server.listen(8000);
-
+server.listen(process.env.PORT || 8000)
+console.log('nail 247 listening port: ' + (process.env.PORT || 8000))
 
 function trafficsSocket() {
   helper.saveTraffics('', 1)

@@ -203,14 +203,14 @@
                             </div>
                             <div class="p-2"> <a onclick="onPost(0)" style="cursor: pointer;"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                    <i data-feather="printer" class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i>
+                                    <i data-feather="briefcase" class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i>
                                     Post a job</a> <a onclick="onPost(1)" style="cursor: pointer;"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                    <i data-feather="external-link"
+                                    <i data-feather="shopping-cart"
                                         class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a sell salon
                                 </a> <a onclick="onPost(2)" style="cursor: pointer;"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                    <i data-feather="file-text"
+                                    <i data-feather="shopping-bag"
                                         class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a nail supply
                                 </a> </div>
                         </div>
@@ -305,37 +305,7 @@
         </div>
     </div>
 
-    <div onclick="closeNav()" id="container_nav"
-        style="z-index: 1000; margin-left: 250px; width: 100%; position: fixed; top: 0; right: 0; bottom: 0; display: none;">
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <div class="side-bar__mn">
-                <div class="side__list-mn">
-                    <ul id="menu-list" class="menu-side">
-                        <li class="menu-item">
-                            <a class="select menu-link" href="./index.html"><i class="fas fa-question-circle"></i>
-                                FAQ</a>
-                        </li>
-                        <li class="menu-item">
-                            <a class="menu-link" href="./find-a-job.html"><i class="fas fa-play-circle"></i> User
-                                manual</a>
-                        </li>
-                        <li class="menu-item">
-                            <a class="menu-link" href="./salon-for-sale.html"><i class="fas fa-phone-square-alt"></i>
-                                Contact</a>
-                        </li>
-                        <li class="menu-item">
-                            <a class="menu-link" href="#"><i class="fas fa-star"></i> Feedback</a>
-                        </li>
-                        <li class="menu-item menu-item--decor-sb">
-                            <a class="menu-link " href="#"><i class="fas fa-cogs"></i> Setting</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <%- include("nav-menu"); %>
 
     <div id="modal_post_job" class="modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -643,6 +613,8 @@
         var codePostJob
         var optionsPostJob, indexPostJob = 0, packagePostJob, monthsProviderPostJob, costPostJob
         var titlePostJob, salonNamePostJob, contentPostJob, phonePostJob, salaryPostJob, emailPostJob, countryPostJob
+
+        const urlParams = new URLSearchParams(window.location.search)
 
         function uploadPostJob() {
 
@@ -967,6 +939,10 @@
 
         function deleteAllCookies() {
             document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+        }
+
+        if(isDefine(urlParams.get('post'))){
+            onPost(0)
         }
     </script>
 

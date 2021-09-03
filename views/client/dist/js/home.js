@@ -147,7 +147,7 @@ function showFilter() {
 function onSearch(val) {
     if ($('#keyword').val().length) {
         $('#container_drop_result > div').empty()
-        $('#container_drop_result > div').append('<div type="text" style="cursor: pointer;" disabled class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"><svg width="25" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#ef4c8c" class="w-8 h-8"> <g fill="none" fill-rule="evenodd" stroke-width="4"> <circle cx="22" cy="22" r="1"> <animate attributeName="r" begin="0s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"></animate> <animate attributeName="stroke-opacity" begin="0s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"></animate> </circle> <circle cx="22" cy="22" r="1"> <animate attributeName="r" begin="-0.9s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"></animate> <animate attributeName="stroke-opacity" begin="-0.9s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"></animate> </circle> </g> </svg></div>')
+        $('#container_drop_result > div').append('<div type="text" style="cursor: pointer;" disabled class="p-3 h-full form-control pl-5 w-full box pr-5 placeholder-theme-13 no-border"><svg width="25" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#ef4c8c" class="w-8 h-8"> <g fill="none" fill-rule="evenodd" stroke-width="4"> <circle cx="22" cy="22" r="1"> <animate attributeName="r" begin="0s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"></animate> <animate attributeName="stroke-opacity" begin="0s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"></animate> </circle> <circle cx="22" cy="22" r="1"> <animate attributeName="r" begin="-0.9s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"></animate> <animate attributeName="stroke-opacity" begin="-0.9s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"></animate> </circle> </g> </svg></div>')
         $('#container_fillter').show(200)
         $('#container_drop_result > div').show(200)
         $('#container_drop_result').show(200)
@@ -158,10 +158,10 @@ function onSearch(val) {
                     $('#container_drop_result > div').empty()
                     if (isDefine(response) && response.length > 0) {
                         for (let i = 0; i < response.length; i++) {
-                            $('#container_drop_result > div').append('<div type="text" style="cursor: pointer;" disabled class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border" onclick="search(\'' + response[i].title + '\')"><span class="font-medium">' + response[i].title + '</span></div>')
+                            $('#container_drop_result > div').append('<div type="text" style="cursor: pointer;" disabled class="p-3 h-full form-control pl-5 w-full box pr-5 placeholder-theme-13 no-border" onclick="search(\'' + escapeHtml(response[i].title) + '\')"><span class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</span></div>')
                         }
                     } else {
-                        $('#container_drop_result > div').append('<div type="text" style="cursor: pointer;" disabled class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border">No results</div>')
+                        $('#container_drop_result > div').append('<div type="text" style="cursor: pointer;" disabled class="p-3 h-full form-control pl-5 w-full box pr-5 placeholder-theme-13 no-border">No results</div>')
                     }
 
                     $('#container_fillter').show(200)
@@ -274,7 +274,7 @@ $(document).ready(function () {
             $('#keyword').attr("placeholder", "Search Salon for Sale by City or Zipcode")
             $('#select_range_salary').html('<option value="0" selected>Price</option><option value="1">0$ - 500$</option><option value="2">500$ - 1,000$</option><option value="3">1,000$ - 2,000$</option><option value="4">2,000$ up</option>')
         } else if (this.value == 'nail-supply') {
-            $('#keyword').attr("placeholder", "Search nail supply by City or Zipcode")
+            $('#keyword').attr("placeholder", "Search nail supply")
             $('#select_range_salary').html('<option value="0" selected>Price</option><option value="1">0$ - 500$</option><option value="2">500$ - 1,000$</option><option value="3">1,000$ - 2,000$</option><option value="4">2,000$ up</option>')
         } else if (this.value == 'find-job') {
             $('#keyword').attr("placeholder", "Search a Job by City or Zipcode")
@@ -312,3 +312,18 @@ socket.emit('welcomes', null, (response) => {
         $('#lbl_contents').html(page)
     }
 })
+
+function onMyAcount(){
+    if( isDefine(getCookie('_id')) && getCookie('_id') != 'null'){
+        window.location.href = '../agency/account'
+    }else{
+        toggleModalSignInSignUp()
+    }
+}
+function onPostAd(){
+    if( isDefine(getCookie('_id')) && getCookie('_id') != 'null'){
+        window.location.href = '../agency/account?post=show'
+    }else{
+        toggleModalSignInSignUp()
+    }
+}

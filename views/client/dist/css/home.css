@@ -6,6 +6,14 @@ html,
             line-height: normal !important;
         }
 
+        .ellipsis{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
         .no-border {
             border: 0 !important;
             box-shadow: none !important;

@@ -1,0 +1,28 @@
+2021-09-02T17:45:21: PM2 log: ===============================================================================
+2021-09-02T17:45:21: PM2 log: --- New PM2 Daemon started ----------------------------------------------------
+2021-09-02T17:45:21: PM2 log: Time                 : Thu Sep 02 2021 17:45:21 GMT+0000 (Coordinated Universal Time)
+2021-09-02T17:45:21: PM2 log: PM2 version          : 5.1.1
+2021-09-02T17:45:21: PM2 log: Node.js version      : 16.8.0
+2021-09-02T17:45:21: PM2 log: Current arch         : x64
+2021-09-02T17:45:21: PM2 log: PM2 home             : /home/ec2-user/.pm2
+2021-09-02T17:45:21: PM2 log: PM2 PID file         : /home/ec2-user/.pm2/pm2.pid
+2021-09-02T17:45:21: PM2 log: RPC socket file      : /home/ec2-user/.pm2/rpc.sock
+2021-09-02T17:45:22: PM2 log: BUS socket file      : /home/ec2-user/.pm2/pub.sock
+2021-09-02T17:45:22: PM2 log: Application log path : /home/ec2-user/.pm2/logs
+2021-09-02T17:45:22: PM2 log: Worker Interval      : 30000
+2021-09-02T17:45:22: PM2 log: Process dump file    : /home/ec2-user/.pm2/dump.pm2
+2021-09-02T17:45:22: PM2 log: Concurrent actions   : 2
+2021-09-02T17:45:22: PM2 log: SIGTERM timeout      : 1600
+2021-09-02T17:45:22: PM2 log: ===============================================================================
+2021-09-02T17:45:22: PM2 log: App [nail:0] starting in -fork mode-
+2021-09-02T17:45:22: PM2 log: App [nail:0] online
+2021-09-02T18:03:36: PM2 log: Stopping app:nail id:0
+2021-09-02T18:03:36: PM2 log: App [nail:0] exited with code [0] via signal [SIGINT]
+2021-09-02T18:03:36: PM2 log: pid=11394 msg=process killed
+2021-09-02T18:03:36: PM2 log: App [nail:0] starting in -fork mode-
+2021-09-02T18:03:36: PM2 log: App [nail:0] online
+2021-09-02T18:13:50: PM2 log: Stopping app:nail id:0
+2021-09-02T18:13:50: PM2 log: App [nail:0] exited with code [0] via signal [SIGINT]
+2021-09-02T18:13:50: PM2 log: pid=13158 msg=process killed
+2021-09-02T18:13:50: PM2 log: App [nail:0] starting in -fork mode-
+2021-09-02T18:13:50: PM2 log: App [nail:0] online

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html lang="en" class="light">
+<!-- BEGIN: Head -->
+
+<head>
+    <meta charset="utf-8">
+    <link id="css_form_validate">
+    <script id="js_form_validate"></script>
+
+    <meta charset="utf-8">
+    <title>24h Gruop | Login</title>
+    <link rel="shortcut icon" href="/views-s24h/Source/src/images/icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="24h Gruop | Login">
+    <meta name="keywords" content="24 Gruop">
+
+    <!-- BEGIN: CSS Assets-->
+    <link rel="stylesheet" href="/views-s24h/Source/dist/css/app.css" />
+    <!-- END: CSS Assets-->
+
+    <!-- BEGIN: JS Assets-->
+    <script src="node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script src="/views-s24h/Source/dist/js/jquery.min.js"></script>
+    <script src="/views-s24h/Source/dist/js/sha512.min.js"></script>
+    <!-- END: JS Assets-->
+
+    <script>
+        const socket = io.connect('/', { secure: true });
+
+        function getCookie(name) {
+            function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
+            var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
+            return match ? match[1] : null;
+        }
+
+        function removeCookie(name) {
+            document.cookie = name + "=removed; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+        }
+    </script>
+
+    <style>
+        .height-100 {
+            height: 100vh !important;
+        }
+
+        .card {
+            width: 400px !important;
+            border: none !important;
+            height: 300px !important;
+            box-shadow: 0px 5px 20px 0px #d2dae3 !important;
+            z-index: 1 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .card h6 {
+            color: red !important;
+            font-size: 20px !important;
+        }
+
+        .inputs input {
+            width: 40px !important;
+            height: 40px !important;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+            margin: 0 !important;
+        }
+
+        .card-2 {
+            background-color: #fff !important;
+            padding: 10px !important;
+            width: 350p !important;
+        }
+    </style>
+</head>
+<!-- END: Head -->
+
+<body class="login">
+
+    <div id="DialogLoading" class="text-center" style="height: 100%; width: 100%; position: fixed; z-index: 1000; ">
+        <div style="position: fixed; left: 0;right: 0;top: 0;bottom: 0;opacity: 0.5;background-color: rgb(61, 73, 73);">
+        </div>
+        <div style="color: white; position: absolute;width: 100%;top: 0;bottom: 0;right: 0;left: 0;margin: auto;height: 100px;"
+            class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
+
+            <svg width="20" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8">
+                <defs>
+                    <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
+                        <stop stop-color="rgb(45, 55, 72)" stop-opacity="0" offset="0%"></stop>
+                        <stop stop-color="rgb(45, 55, 72)" stop-opacity=".631" offset="63.146%"></stop>
+                        <stop stop-color="rgb(45, 55, 72)" offset="100%"></stop>
+                    </linearGradient>
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <g transform="translate(1 1)">
+                        <path d="M36 18c0-9.94-8.06-18-18-18" id="Oval-2" stroke="url(#a)" stroke-width="3">
+                            <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18"
+                                dur="0.9s" repeatCount="indefinite"></animateTransform>
+                        </path>
+                        <circle fill="rgb(45, 55, 72)" cx="36" cy="18" r="1">
+                            <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18"
+                                dur="0.9s" repeatCount="indefinite"></animateTransform>
+                        </circle>
+                    </g>
+                </g>
+            </svg>
+
+            <div class="text-center text-xs mt-2">Đang tải dữ liệu</div>
+        </div>
+    </div>
+
+    <div class="container sm:px-10">
+        <div class="block xl:grid grid-cols-2 gap-4">
+            <!-- BEGIN: Login Info -->
+            <div class="hidden xl:flex flex-col min-h-screen">
+                <a href="" class="intro-x flex items-center pl-5 pt-4">
+                    <img class="w-10 p-2" src="https://laptop365.xyz/public/img/icon.png" style="background: white;
+                        border-radius: 50%;">
+                    <span class="hidden xl:block text-white text-lg ml-3">24h Gruop</span>
+                </a>
+                <div class="my-auto">
+                    <img class="-intro-x w-1/2 -mt-16" src="/views-s24h/Source/dist/images/illustration.svg">
+                    <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
+                        24h Group
+                        <br>
+                        Uy tín là hàng đầu!
+                    </div>
+                    <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-gray-500">Hân hạnh được phục
+                        vụ quý khách</div>
+                </div>
+            </div>
+            <!-- END: Login Info -->
+            <!-- BEGIN: Login Form -->
+            <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
+                <div id="container_sign_up"
+                    class="my-auto mx-auto xl:ml-20 bg-white dark:bg-dark-1 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
+                    <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
+                        Đăng ký
+                    </h2>
+
+                    <div class="intro-x mt-8">
+                        <input autocomplete="off" type="text" id="username"
+                            class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4"
+                            placeholder="Số điện thoại">
+                        <input type="password" id="password"
+                            class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4"
+                            placeholder="Mật khẩu">
+                        <input type="password" id="password_confirm"
+                            class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4"
+                            placeholder="Nhập lại mật khẩu">
+
+                        <div class="form-group mt-2">
+                            <span id="title" class="text-danger" style="color: red;display: none;"></span>
+                        </div>
+                    </div>
+                    <div class="intro-x flex items-center text-gray-700 dark:text-gray-600 mt-4 text-xs sm:text-sm">
+                        <label class="cursor-pointer select-none" for="remember-me">Bằng cách tiếp tục, bạn đồng ý
+                            với</label>
+                        <a class="text-theme-1 dark:text-theme-10 ml-1" href="">Chính sách quyền riêng tư</a>.
+                    </div>
+                    <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+                        <button class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
+                            onclick="signUp()">Đăng ký</button>
+                        <button class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top"
+                            onclick="login()">Đăng nhập</button>
+                    </div>
+                </div>
+
+                <div id="container_validate" style="display: none;"
+                    class="container height-100 d-flex justify-content-center align-items-center my-auto mx-auto xl:ml-20 bg-white dark:bg-dark-1 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
+                    <div class="position-relative">
+                        <div class="card p-2 text-center">
+                            <div> <p>Một mã xác nhận đã được gửi tới</p> <strong id="validate_phone"></strong>
+                            </div>
+                            <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2"> <input
+                                    class="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" />
+                                <input class="m-2 text-center form-control rounded" type="text" id="second"
+                                    maxlength="1" /> <input class="m-2 text-center form-control rounded" type="text"
+                                    id="third" maxlength="1" /> <input class="m-2 text-center form-control rounded"
+                                    type="text" id="fourth" maxlength="1" /> <input
+                                    class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" />
+                                <input class="m-2 text-center form-control rounded" type="text" id="sixth"
+                                    maxlength="1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Login Form -->
+        </div>
+    </div>
+    <!-- BEGIN: JS Assets-->
+    <script src="/views-s24h/Source/dist/js/app.js"></script>
+    <!-- END: JS Assets-->
+
+    <script type="text/javascript" charset="utf-8">
+
+        if (getCookie('_id')) {
+            let _id = getCookie('_id');
+            let password = getCookie('password');
+            $('#DialogLoading').show();
+            socket.emit('recent-login', { _id: _id, password: password }, (response) => {
+                if (response != null) {
+                    window.location.replace("/ui-profile");
+                } else {
+                    $('#DialogLoading').hide();
+                    removeCookie('_id');
+                    removeCookie('password');
+                }
+            });
+        } else {
+            $('#DialogLoading').hide();
+        }
+
+        function login() {
+            window.location = "/ui-login";
+        }
+
+        function signUp() {
+            $('#title').hide();
+            if ($("#username").val().length == 0) {
+                $("#username").focus();
+                $('#title').show();
+                $('#title').html('Số điện thoại không được bỏ trống');
+                return;
+            }
+
+            if ($("#username").val().length < 8) {
+                $("#username").focus();
+                $('#title').show();
+                $('#title').html('Số điện thoại không hợp lệ');
+                return;
+            }
+
+            if ($("#password").val().length == 0) {
+                $("#password").focus();
+                $('#title').show();
+                $('#title').html('Mật khẩu không được bỏ trống');
+                return;
+            }
+
+            if ($("#password_confirm").val().length == 0) {
+                $("#password_confirm").focus();
+                $('#title').show();
+                $('#title').html('Mật khẩu không được bỏ trống');
+                return;
+            }
+
+            if ($("#password_confirm").val() != $("#password").val()) {
+                $("#password_confirm").focus();
+                $('#title').show();
+                $('#title').html('Mật khẩu không khớp');
+                return;
+            }
+
+            $('#DialogLoading').show();
+            let phone = $("#username").val();
+
+            let password = sha512.hmac('18900519', $("#password").val());
+
+            socket.emit('check-exist-user', { phone: phone }, (response) => {
+                $('#DialogLoading').hide();
+                if (response == null) {
+                    $('#css_form_validate').attr('href', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css');
+                    $('#css_form_validate').attr('rel', 'stylesheet');
+
+                    $('#js_form_validate').attr('src', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js');
+
+                    $('#container_sign_up').hide();
+                    $('#container_validate').show();
+
+                    $('#validate_phone').html(phone);
+
+                } else {
+                    $('#title').show();
+                    $('#title').html('Số điện thoại đã được sử dụng');
+                }
+            })
+
+        }
+    </script>
+
+
+    <script>
+
+        var inputs;
+        document.addEventListener("DOMContentLoaded", function (event) {
+            function OTPInput() {
+                inputs = document.querySelectorAll('#otp > *[id]');
+                for (let i = 0; i < inputs.length; i++) { 
+                    inputs[i].addEventListener('keydown', function (event) {
+                        if (event.key === "Backspace") {
+                            inputs[i].value = '';
+                            if (i !== 0) {
+                                inputs[i - 1].focus();
+                            }
+                            validateCode(); 
+                        }else {
+                            if(i === inputs.length - 1 && inputs[i].value !== '') {
+                                validateCode();
+                                return true; 
+                            }else if (true) {  
+                                inputs[i].value = event.key; 
+                                if (i !== inputs.length - 1) {
+                                    inputs[i + 1].focus();
+                                }
+                                event.preventDefault(); 
+                                validateCode();
+                            } else if (event.keyCode > 64 && event.keyCode < 91) { 
+                                inputs[i].value = String.fromCharCode(event.keyCode); 
+                                if (i !== inputs.length - 1) {
+                                    inputs[i + 1].focus();
+                                } 
+                                event.preventDefault();
+                                validateCode(); 
+                            } 
+                        } 
+                    }); 
+                }
+                validateCode();
+            }
+            OTPInput();
+        });
+
+        function validateCode() {
+            let phoneCode = '';
+            for (let i = 0; i < inputs.length; i++) {
+                phoneCode += inputs[i].value;
+            }
+
+            if(phoneCode.length == 6){
+                $('#DialogLoading').show();
+                console.log(phoneCode);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+TypeError: Cannot read property 'split' of null
+    at Object.decryptText [as decrypt] (/home/ec2-user/node_modules/encrypt-with-password/index.js:63:38)
+    at Object.exports.decrypt (/home/ec2-user/helper/helper.js:165:23)
+    at Object.exports.checkLogin (/home/ec2-user/helper/helper.js:172:70)
+    at Socket.<anonymous> (/home/ec2-user/nail.js:1204:40)
+    at Socket.emit (node:events:394:28)
+    at Socket.emitUntyped (/home/ec2-user/node_modules/socket.io/dist/typed-events.js:69:22)
+    at /home/ec2-user/node_modules/socket.io/dist/socket.js:428:39
+    at processTicksAndRejections (node:internal/process/task_queues:78:11)
+TypeError: Cannot read property 'split' of null
+    at Object.decryptText [as decrypt] (/home/ec2-user/node_modules/encrypt-with-password/index.js:63:38)
+    at Object.exports.decrypt (/home/ec2-user/helper/helper.js:165:23)
+    at Object.exports.checkLogin (/home/ec2-user/helper/helper.js:172:70)
+    at Socket.<anonymous> (/home/ec2-user/nail.js:366:40)
+    at Socket.emit (node:events:394:28)
+    at Socket.emitUntyped (/home/ec2-user/node_modules/socket.io/dist/typed-events.js:69:22)
+    at /home/ec2-user/node_modules/socket.io/dist/socket.js:428:39
+    at processTicksAndRejections (node:internal/process/task_queues:78:11)
+TypeError: Cannot read property 'split' of null
+    at Object.decryptText [as decrypt] (/home/ec2-user/node_modules/encrypt-with-password/index.js:63:38)
+    at Object.exports.decrypt (/home/ec2-user/helper/helper.js:165:23)
+    at Object.exports.checkLogin (/home/ec2-user/helper/helper.js:172:70)
+    at Socket.<anonymous> (/home/ec2-user/nail.js:414:40)
+    at Socket.emit (node:events:394:28)
+    at Socket.emitUntyped (/home/ec2-user/node_modules/socket.io/dist/typed-events.js:69:22)
+    at /home/ec2-user/node_modules/socket.io/dist/socket.js:428:39
+    at processTicksAndRejections (node:internal/process/task_queues:78:11)
+TypeError: Cannot read property 'split' of null
+    at Object.decryptText [as decrypt] (/home/ec2-user/node_modules/encrypt-with-password/index.js:63:38)
+    at Object.exports.decrypt (/home/ec2-user/helper/helper.js:165:23)
+    at Object.exports.checkLogin (/home/ec2-user/helper/helper.js:172:70)
+    at Socket.<anonymous> (/home/ec2-user/nail.js:462:40)
+    at Socket.emit (node:events:394:28)
+    at Socket.emitUntyped (/home/ec2-user/node_modules/socket.io/dist/typed-events.js:69:22)
+    at /home/ec2-user/node_modules/socket.io/dist/socket.js:428:39
+    at processTicksAndRejections (node:internal/process/task_queues:78:11)
+TypeError: Cannot read property 'split' of null
+    at Object.decryptText [as decrypt] (/home/ec2-user/node_modules/encrypt-with-password/index.js:63:38)
+    at Object.exports.decrypt (/home/ec2-user/helper/helper.js:165:23)
+    at Object.exports.checkLogin (/home/ec2-user/helper/helper.js:172:70)
+    at Socket.<anonymous> (/home/ec2-user/nail.js:1373:40)
+    at Socket.emit (node:events:394:28)
+    at Socket.emitUntyped (/home/ec2-user/node_modules/socket.io/dist/typed-events.js:69:22)
+    at /home/ec2-user/node_modules/socket.io/dist/socket.js:428:39
+    at processTicksAndRejections (node:internal/process/task_queues:78:11)
+TypeError: Cannot read property 'split' of null
+    at Object.decryptText [as decrypt] (/home/ec2-user/node_modules/encrypt-with-password/index.js:63:38)
+    at Object.exports.decrypt (/home/ec2-user/helper/helper.js:165:23)
+    at Object.exports.checkLogin (/home/ec2-user/helper/helper.js:172:70)
+    at Socket.<anonymous> (/home/ec2-user/nail.js:1400:40)
+    at Socket.emit (node:events:394:28)
+    at Socket.emitUntyped (/home/ec2-user/node_modules/socket.io/dist/typed-events.js:69:22)
+    at /home/ec2-user/node_modules/socket.io/dist/socket.js:428:39
+    at processTicksAndRejections (node:internal/process/task_queues:78:11)
+MongoError: Can't extract geo keys: { _id: ObjectId('6131106f1a95002c827466e8'), location: { type: "point", coordinates: [ 0, 0 ] }, name: null, phone: "84378115213", email: "abc@gmail.com", password: "26e5556d35bebab660c17eaf2ffebb823ddfb4b009a6e1f687e95fdf40ee637040fe258bb737d537c5d04d2558f2d2e802b2ef492944330f0b8e4bb17222e1d5", code: 0, country: null, city: null, state: null, link_slug: null, status: 1, createdAt: new Date(1630605423968), updatedAt: new Date(1630605423968), __v: 0 }  unknown GeoJSON type: { type: "point", coordinates: [ 0, 0 ] }
+    at Function.create (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/core/error.js:57:12)
+    at toError (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/utils.js:130:22)
+    at /home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/operations/common_functions.js:258:39
+    at handler (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/core/sdam/topology.js:953:24)
+    at /home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/cmap/connection_pool.js:350:13
+    at handleOperationResult (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/core/sdam/server.js:565:5)
+    at MessageStream.messageHandler (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/cmap/connection.js:281:5)
+    at MessageStream.emit (node:events:394:28)
+    at processIncomingData (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/cmap/message_stream.js:144:12)
+    at MessageStream._write (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/cmap/message_stream.js:42:5)
+    at writeOrBuffer (node:internal/streams/writable:389:12)
+    at _write (node:internal/streams/writable:330:10)
+    at MessageStream.Writable.write (node:internal/streams/writable:334:10)
+    at Socket.ondata (node:internal/streams/readable:754:22)
+    at Socket.emit (node:events:394:28)
+    at addChunk (node:internal/streams/readable:315:12) {
+  driver: true,
+  index: 0,
+  code: 16755
+}
+MongoError: Can't extract geo keys: { _id: ObjectId('613111671a95002c827466f5'), location: { type: "point", coordinates: [ 0, 0 ] }, name: null, phone: "84378115213", email: "asf", password: "26e5556d35bebab660c17eaf2ffebb823ddfb4b009a6e1f687e95fdf40ee637040fe258bb737d537c5d04d2558f2d2e802b2ef492944330f0b8e4bb17222e1d5", code: 0, country: null, city: null, state: null, link_slug: null, status: 1, createdAt: new Date(1630605671869), updatedAt: new Date(1630605671869), __v: 0 }  unknown GeoJSON type: { type: "point", coordinates: [ 0, 0 ] }
+    at Function.create (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/core/error.js:57:12)
+    at toError (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/utils.js:130:22)
+    at /home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/operations/common_functions.js:258:39
+    at handler (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/core/sdam/topology.js:953:24)
+    at /home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/cmap/connection_pool.js:350:13
+    at handleOperationResult (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/core/sdam/server.js:565:5)
+    at MessageStream.messageHandler (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/cmap/connection.js:281:5)
+    at MessageStream.emit (node:events:394:28)
+    at processIncomingData (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/cmap/message_stream.js:144:12)
+    at MessageStream._write (/home/ec2-user/node_modules/mongoose/node_modules/mongodb/lib/cmap/message_stream.js:42:5)
+    at writeOrBuffer (node:internal/streams/writable:389:12)
+    at _write (node:internal/streams/writable:330:10)
+    at MessageStream.Writable.write (node:internal/streams/writable:334:10)
+    at Socket.ondata (node:internal/streams/readable:754:22)
+    at Socket.emit (node:events:394:28)
+    at addChunk (node:internal/streams/readable:315:12) {
+  driver: true,
+  index: 0,
+  code: 16755
+}
+TypeError: Cannot read property 'public_key' of null
+    at Socket.<anonymous> (/home/ec2-user/nail.js:2290:25)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+TypeError: Cannot read property 'public_key' of null
+    at Socket.<anonymous> (/home/ec2-user/nail.js:2290:25)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+TypeError: Cannot read property 'public_key' of null
+    at Socket.<anonymous> (/home/ec2-user/nail.js:2290:25)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+TypeError: Cannot read property 'public_key' of null
+    at Socket.<anonymous> (/home/ec2-user/nail.js:2290:25)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+TypeError: Cannot read property 'public_key' of null
+    at Socket.<anonymous> (/home/ec2-user/nail.js:2290:25)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+TypeError: Cannot read property 'public_key' of null
+    at Socket.<anonymous> (/home/ec2-user/nail.js:2290:25)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+TypeError: Cannot read property 'public_key' of null
+    at Socket.<anonymous> (/home/ec2-user/nail.js:2290:25)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+TypeError: Cannot read property 'public_key' of null
+    at Socket.<anonymous> (/home/ec2-user/nail.js:2290:25)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+TypeError: Cannot read property '_doc' of null
+    at Socket.<anonymous> (/home/ec2-user/nail.js:1980:23)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at runNextTicks (node:internal/process/task_queues:65:3)
+    at processImmediate (node:internal/timers:437:9)

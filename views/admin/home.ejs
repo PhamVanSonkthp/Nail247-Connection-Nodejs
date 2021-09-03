@@ -1,0 +1,549 @@
+<%- include("header", {tab: "home" , title: "Trang chủ" }); %>
+    <!-- BEGIN: Content -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <div class="report-box-3 report-box-3--content grid grid-cols-12 gap-6 xl:-mt-5 xxl:-mt-8 -mb-10 z-40 xxl:z-10"
+        style="padding-bottom: 20px;">
+        <div class="col-span-12 xxl:col-span-9">
+            <div class="grid grid-cols-12 gap-6">
+                <div class="col-span-12 xxl:col-span-12">
+                    <div class="grid grid-cols-12 gap-6">
+                        <!-- BEGIN: General Report -->
+                        <div class="col-span-12 mt-8">
+                            <div class="intro-y flex items-center h-10">
+                                <h2 class="text-lg font-medium truncate mr-5">
+                                    Dashboard
+                                </h2>
+
+                                <a href="" class="ml-auto flex items-center text-theme-1 dark:text-theme-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-refresh-ccw w-4 h-4 mr-3">
+                                        <polyline points="1 4 1 10 7 10"></polyline>
+                                        <polyline points="23 20 23 14 17 14"></polyline>
+                                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15">
+                                        </path>
+                                    </svg> Reload Data
+                                </a>
+                            </div>
+                            <div class="grid grid-cols-12 gap-6 mt-5">
+                                <a href="posts-jobs" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                                    <div class="report-box zoom-in h-full">
+                                        <div class="box p-5 h-full">
+                                            <div class="flex">
+                                                <i data-feather="briefcase" class="report-box__icon text-theme-10"></i>
+                                            </div>
+                                            <div id="counter_posts_jobs" class="text-3xl font-medium leading-8 mt-6">
+                                                <div
+                                                    class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
+                                                    <svg width="25" viewBox="0 0 44 44"
+                                                        xmlns="http://www.w3.org/2000/svg" stroke="rgb(45, 55, 72)"
+                                                        class="w-8 h-8">
+                                                        <g fill="none" fill-rule="evenodd" stroke-width="4">
+                                                            <circle cx="22" cy="22" r="1">
+                                                                <animate attributeName="r" begin="0s" dur="1.8s"
+                                                                    values="1; 20" calcMode="spline" keyTimes="0; 1"
+                                                                    keySplines="0.165, 0.84, 0.44, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                                <animate attributeName="stroke-opacity" begin="0s"
+                                                                    dur="1.8s" values="1; 0" calcMode="spline"
+                                                                    keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                            </circle>
+                                                            <circle cx="22" cy="22" r="1">
+                                                                <animate attributeName="r" begin="-0.9s" dur="1.8s"
+                                                                    values="1; 20" calcMode="spline" keyTimes="0; 1"
+                                                                    keySplines="0.165, 0.84, 0.44, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                                <animate attributeName="stroke-opacity" begin="-0.9s"
+                                                                    dur="1.8s" values="1; 0" calcMode="spline"
+                                                                    keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                            </circle>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="text-base text-gray-600 mt-1">Number posts jobs</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="posts-sell-salons" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                                    <div class="report-box zoom-in h-full">
+                                        <div class="box p-5 h-full">
+                                            <div class="flex">
+                                                <i data-feather="shopping-cart"
+                                                    class="report-box__icon text-theme-10"></i>
+                                            </div>
+                                            <div id="counter_posts_sell_salons"
+                                                class="text-3xl font-medium leading-8 mt-6">
+                                                <div
+                                                    class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
+                                                    <svg width="25" viewBox="0 0 44 44"
+                                                        xmlns="http://www.w3.org/2000/svg" stroke="rgb(45, 55, 72)"
+                                                        class="w-8 h-8">
+                                                        <g fill="none" fill-rule="evenodd" stroke-width="4">
+                                                            <circle cx="22" cy="22" r="1">
+                                                                <animate attributeName="r" begin="0s" dur="1.8s"
+                                                                    values="1; 20" calcMode="spline" keyTimes="0; 1"
+                                                                    keySplines="0.165, 0.84, 0.44, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                                <animate attributeName="stroke-opacity" begin="0s"
+                                                                    dur="1.8s" values="1; 0" calcMode="spline"
+                                                                    keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                            </circle>
+                                                            <circle cx="22" cy="22" r="1">
+                                                                <animate attributeName="r" begin="-0.9s" dur="1.8s"
+                                                                    values="1; 20" calcMode="spline" keyTimes="0; 1"
+                                                                    keySplines="0.165, 0.84, 0.44, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                                <animate attributeName="stroke-opacity" begin="-0.9s"
+                                                                    dur="1.8s" values="1; 0" calcMode="spline"
+                                                                    keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                            </circle>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="text-base text-gray-600 mt-1">Number posts sells salons</div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="posts-nail-supplies" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                                    <div class="report-box zoom-in h-full">
+                                        <div class="box p-5 h-full">
+                                            <div class="flex">
+                                                <i data-feather="shopping-bag" class="report-box__icon text-theme-10"></i>
+                                            </div>
+                                            <div id="counter_nail_supplies" class="text-3xl font-medium leading-8 mt-6">
+                                                <div
+                                                    class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
+                                                    <svg width="25" viewBox="0 0 44 44"
+                                                        xmlns="http://www.w3.org/2000/svg" stroke="rgb(45, 55, 72)"
+                                                        class="w-8 h-8">
+                                                        <g fill="none" fill-rule="evenodd" stroke-width="4">
+                                                            <circle cx="22" cy="22" r="1">
+                                                                <animate attributeName="r" begin="0s" dur="1.8s"
+                                                                    values="1; 20" calcMode="spline" keyTimes="0; 1"
+                                                                    keySplines="0.165, 0.84, 0.44, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                                <animate attributeName="stroke-opacity" begin="0s"
+                                                                    dur="1.8s" values="1; 0" calcMode="spline"
+                                                                    keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                            </circle>
+                                                            <circle cx="22" cy="22" r="1">
+                                                                <animate attributeName="r" begin="-0.9s" dur="1.8s"
+                                                                    values="1; 20" calcMode="spline" keyTimes="0; 1"
+                                                                    keySplines="0.165, 0.84, 0.44, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                                <animate attributeName="stroke-opacity" begin="-0.9s"
+                                                                    dur="1.8s" values="1; 0" calcMode="spline"
+                                                                    keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                            </circle>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="text-base text-gray-600 mt-1">Number posts nail supplies</div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="users" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                                    <div class="report-box zoom-in h-full">
+                                        <div class="box p-5 h-full">
+                                            <div class="flex">
+                                                <i data-feather="users" class="report-box__icon text-theme-10"></i>
+                                            </div>
+                                            <div id="counter_agencies" class="text-3xl font-medium leading-8 mt-6">
+                                                <div
+                                                    class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
+                                                    <svg width="25" viewBox="0 0 44 44"
+                                                        xmlns="http://www.w3.org/2000/svg" stroke="rgb(45, 55, 72)"
+                                                        class="w-8 h-8">
+                                                        <g fill="none" fill-rule="evenodd" stroke-width="4">
+                                                            <circle cx="22" cy="22" r="1">
+                                                                <animate attributeName="r" begin="0s" dur="1.8s"
+                                                                    values="1; 20" calcMode="spline" keyTimes="0; 1"
+                                                                    keySplines="0.165, 0.84, 0.44, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                                <animate attributeName="stroke-opacity" begin="0s"
+                                                                    dur="1.8s" values="1; 0" calcMode="spline"
+                                                                    keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                            </circle>
+                                                            <circle cx="22" cy="22" r="1">
+                                                                <animate attributeName="r" begin="-0.9s" dur="1.8s"
+                                                                    values="1; 20" calcMode="spline" keyTimes="0; 1"
+                                                                    keySplines="0.165, 0.84, 0.44, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                                <animate attributeName="stroke-opacity" begin="-0.9s"
+                                                                    dur="1.8s" values="1; 0" calcMode="spline"
+                                                                    keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1"
+                                                                    repeatCount="indefinite"></animate>
+                                                            </circle>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="text-base text-gray-600 mt-1">Number users</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+                        <!-- END: General Report -->
+                        <!-- BEGIN: Sales Report -->
+
+                        <div class="col-span-12 xl:col-span-9 mt-2">
+                            <div class="intro-y flex items-center h-10">
+                                <h2 class="text-lg font-medium truncate mr-5">
+                                    Sales: <span id="total_money_sales" class="text-theme-6"></span>
+                                </h2>
+                            </div>
+
+                            <div class="intro-y box mt-5 h-full">
+                                <div id="piechart" class="h-full"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-span-12 xl:col-span-3 mt-2 h-full">
+                            <div class="intro-y flex items-center h-10">
+                                <h2 class="text-lg font-medium truncate mr-5">
+                                    Visitors
+                                </h2>
+                                <a href="" class="ml-auto text-theme-1 dark:text-theme-10 truncate">View on Map</a>
+                            </div>
+                            <div class="intro-y mt-5">
+                                <div class="box p-5">
+                                    <div class="flex items-center">
+                                        Realtime active users
+                                        <div class="dropdown ml-auto">
+                                            <a class="dropdown-toggle w-5 h-5 block -mr-2" href="javascript:;"
+                                                aria-expanded="false"> <svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    class="feather feather-more-vertical w-5 h-5 text-gray-600 dark:text-gray-300">
+                                                    <circle cx="12" cy="12" r="1"></circle>
+                                                    <circle cx="12" cy="5" r="1"></circle>
+                                                    <circle cx="12" cy="19" r="1"></circle>
+                                                </svg> </a>
+                                            <div class="dropdown-menu w-40">
+                                                <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                                                    <a href=""
+                                                        class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="feather feather-file-text w-4 h-4 mr-2">
+                                                            <path
+                                                                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">
+                                                            </path>
+                                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                                                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                                                            <polyline points="10 9 9 9 8 9"></polyline>
+                                                        </svg> Export </a>
+                                                    <a href=""
+                                                        class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="feather feather-settings w-4 h-4 mr-2">
+                                                            <circle cx="12" cy="12" r="3"></circle>
+                                                            <path
+                                                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                                            </path>
+                                                        </svg> Settings </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-medium mt-2">214</div>
+                                    <div class="border-b border-gray-200 flex pb-2 mt-4">
+                                        <div class="text-gray-600 dark:text-gray-600 text-xs">Page views per second
+                                        </div>
+                                        <div
+                                            class="text-theme-9 flex text-xs font-medium tooltip cursor-pointer ml-auto">
+                                            49% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-chevron-up w-4 h-4 ml-0.5">
+                                                <polyline points="18 15 12 9 6 15"></polyline>
+                                            </svg> </div>
+                                    </div>
+                                    <div class="mt-2 border-b broder-gray-200">
+                                        <div class="-mb-1.5 -ml-2.5">
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div class=""></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div class=""></div>
+                                                </div>
+                                            </div>
+                                            <canvas id="report-bar-chart" height="85" width="230"
+                                                style="display: block; width: 230px; height: 85px;"
+                                                class="chartjs-render-monitor"></canvas>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="text-gray-600 dark:text-gray-600 text-xs border-b border-gray-200 flex mb-2 pb-2 mt-4">
+                                        <div>Top Active Pages</div>
+                                        <div class="ml-auto">Active Users</div>
+                                    </div>
+                                    <div class="flex">
+                                        <div>/letz-lara…review/2653</div>
+                                        <div class="ml-auto">472</div>
+                                    </div>
+                                    <div class="flex mt-1.5">
+                                        <div>/rubick…review/1674</div>
+                                        <div class="ml-auto">294</div>
+                                    </div>
+                                    <div class="flex mt-1.5">
+                                        <div>/profile…review/46789</div>
+                                        <div class="ml-auto">83</div>
+                                    </div>
+                                    <div class="flex mt-1.5">
+                                        <div>/profile…review/24357</div>
+                                        <div class="ml-auto">21</div>
+                                    </div>
+                                    <button
+                                        class="btn btn-outline-secondary border-dashed w-full py-1 px-2 mt-4">Real-Time
+                                        Report</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-span-12 xl:col-span-12 mt-10">
+                            <div class="intro-y block sm:flex items-center h-10">
+                                <h2 class="text-lg font-medium truncate mr-5">
+                                    Traffics
+                                </h2>
+
+                                <a class="ml-auto flex items-center text-theme-1 dark:text-theme-10">
+                                    <select id="select_type_chart" class="w-20 form-select box mt-3 sm:mt-0">
+                                        <option value="1">Day</option>
+                                        <option value="2">Month</option>
+                                        <option value="3">Year</option>
+                                    </select>
+                                </a>
+
+                            </div>
+                            <div class="intro-y box p-5 mt-12 sm:mt-5">
+                                <canvas id="lineChart" style="width: 100%"></canvas>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-span-12 xxl:col-span-3">
+            <div class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 mt-3 xxl:mt-8">
+                <div class="intro-x flex items-center h-10">
+                    <h2 class="text-lg font-medium truncate mr-5">
+                        Lastest posts jobs
+                    </h2>
+                </div>
+                <div class="mt-5" id="container_posts_jobs">
+                </div>
+
+                <div class="intro-x flex items-center h-10">
+                    <h2 class="text-lg font-medium truncate mr-5">
+                        Lastest posts sells salons
+                    </h2>
+                </div>
+                <div class="mt-5" id="container_posts_sells_salons">
+                </div>
+
+                <div class="intro-x flex items-center h-10">
+                    <h2 class="text-lg font-medium truncate mr-5">
+                        Lastest posts nail supplies
+                    </h2>
+                </div>
+                <div class="mt-5" id="container_posts_nail_supplies">
+                </div>
+
+            </div>
+        </div>
+        <!-- END: Content -->
+    </div>
+    <!-- END: Content -->
+
+    </div>
+    <!-- BEGIN: SCRIPT -->
+
+    <script>
+
+        var ctxL = document.getElementById("lineChart").getContext('2d');
+        var myLineChart
+
+        socket.emit('counter-dashboard', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+            if (response) {
+                $('#counter_posts_jobs').html(escapeHtml(response[0]))
+                $('#counter_posts_sell_salons').html(escapeHtml(response[1]))
+                $('#counter_nail_supplies').html(escapeHtml(response[2]))
+                $('#counter_agencies').html(escapeHtml(response[3]))
+            }
+        });
+
+        socket.emit('post-jobs', { _id: getCookie('_id'), password: getCookie('password'), limit: 5, offset: 0 }, (response) => {
+            if (response) {
+                for (let i = 0; i < response.length; i++) {
+                    let flag = response[i].status ? 'text-theme-9' : 'text-theme-6';
+                    let image;
+                    if (!empty(response[i].images)) {
+                        image = urlImagePostJobsIcon + response[i].images[0];
+                    }else{
+                        image = '../views/admin/dist/images/no-image.png'
+                    }
+                    $('#container_posts_jobs').append('<a href="../posts-jobs/'+escapeHtml(response[i].link_slug)+'"><div class="intro-x"> <div class="box px-5 py-3 mb-3 flex items-center zoom-in"> <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"> <img src="' + escapeHtml(image) + '"> </div> <div class="ml-4 mr-auto"> <div class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</div> <div class="text-gray-600 text-xs mt-0.5 ellipsis">' + escapeHtml(response[i].content) + '</div> </div> <div class="' + flag + '">' + escapeHtml(formatMoney(response[i].cost)) + '$</div> </div> </div></a>');
+                }
+                $('#container_posts_jobs').append('<a href="posts-jobs" class="intro-x w-full block text-center rounded-md py-3 border border-dotted border-theme-15 dark:border-dark-5 text-theme-16 dark:text-gray-600">View More</a>');
+            }
+        });
+
+        socket.emit('post-sell-salons', { _id: getCookie('_id'), password: getCookie('password'), limit: 5, offset: 0 }, (response) => {
+            if (response) {
+                for (let i = 0; i < response.length; i++) {
+                    let flag = response[i].status ? 'text-theme-9' : 'text-theme-6';
+                    let image;
+                    
+                    if (!empty(response[i].images)) {
+                        image = urlImagePostSellsSalonsIcon + response[i].images[0];
+                    }else{
+                        image = '../views/admin/dist/images/no-image.png'
+                    }
+                    $('#container_posts_sells_salons').append('<a href="../posts-sell-salons/'+escapeHtml(response[i].link_slug)+'"><div class="intro-x"> <div class="box px-5 py-3 mb-3 flex items-center zoom-in"> <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"> <img src="' + escapeHtml(image) + '"> </div> <div class="ml-4 mr-auto"> <div class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</div> <div class="text-gray-600 text-xs mt-0.5 ellipsis">' + escapeHtml(response[i].content) + '</div> </div> <div class="' + flag + '">' + escapeHtml(formatMoney(response[i].price)) + '$</div> </div> </div></a>');
+                }
+                $('#container_posts_sells_salons').append('<a href="posts-sell-salons" class="intro-x w-full block text-center rounded-md py-3 border border-dotted border-theme-15 dark:border-dark-5 text-theme-16 dark:text-gray-600">View More</a>');
+            }
+        });
+
+        socket.emit('post-nail-supplies', { _id: getCookie('_id'), password: getCookie('password'), limit: 5, offset: 0 }, (response) => {
+            if (response) {
+                for (let i = 0; i < response.length; i++) {
+                    let flag = response[i].status ? 'text-theme-9' : 'text-theme-6';
+                    let image;
+                    if (!empty(response[i].images)) {
+                        image = urlImagePostNailSuppliesIcon + response[i].images[0];
+                    }else{
+                        image = '../views/admin/dist/images/no-image.png'
+                    }
+                    $('#container_posts_nail_supplies').append('<a href="../posts-nail-supplies/'+escapeHtml(response[i].link_slug)+'"><div class="intro-x"> <div class="box px-5 py-3 mb-3 flex items-center zoom-in"> <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"> <img src="' + escapeHtml(image) + '"> </div> <div class="ml-4 mr-auto"> <div class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</div> <div class="text-gray-600 text-xs mt-0.5 ellipsis">' + escapeHtml(response[i].content) + '</div> </div> <div class="' + flag + '">' + escapeHtml(formatMoney(response[i].price)) + '$</div> </div> </div></a>');
+                }
+                $('#container_posts_nail_supplies').append('<a href="posts-nail-supplies" class="intro-x w-full block text-center rounded-md py-3 border border-dotted border-theme-15 dark:border-dark-5 text-theme-16 dark:text-gray-600">View More</a>');
+            }
+        });
+
+        // payments
+
+        socket.emit('chart-sales', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+            if (response) {
+                $('#total_money_sales').html(escapeHtml(formatMoney(response[6])) + ' $')
+                cavasPieChart(response)
+            }
+        });
+
+        // traffics
+
+        function canvasChart(status) {
+            socket.emit('traffics', { _id: getCookie('_id'), password: getCookie('password'), status: status }, (response) => {
+                if (response) {
+                    myLineChart.data.labels = response.labels
+                    myLineChart.data.datasets = [{
+                        label: response.datas[0].label,
+                        data: response.datas[0].datas,
+                        backgroundColor: [
+                            'rgba(105, 0, 132, .2)',
+                        ],
+                        borderColor: [
+                            'rgba(200, 99, 132, .7)',
+                        ],
+                        borderWidth: 2
+                    },
+                    {
+                        label: response.datas[1].label,
+                        data: response.datas[1].datas,
+                        backgroundColor: [
+                            'rgba(0, 137, 132, .2)',
+                        ],
+                        borderColor: [
+                            'rgba(0, 10, 130, .7)',
+                        ],
+                        borderWidth: 2
+                    }
+                    ]
+
+                    myLineChart.update();
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            myLineChart = new Chart(ctxL, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            canvasChart($('#select_type_chart').val())
+            $('#select_type_chart').on('change', function () {
+                canvasChart($('#select_type_chart').val())
+            });
+            $('#draw_1').addClass('side-menu--active')
+        });
+
+
+        function cavasPieChart(object) {
+            // Load google charts
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Draw the chart and set the chart values
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['Jobs: ' + formatMoney(object[3]) + ' $', object[0]],
+                    ['Sell salons: ' + formatMoney(object[4]) + ' $', object[1]],
+                    ['Nail supplies: ' + formatMoney(object[5]) + ' $', object[2]],
+                ]);
+
+                // Optional; add a title and set the width and height of the chart
+                var options = { 'width': '100%', 'height': '100%' };
+
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+        }
+    </script>
+
+    <!-- END: SCRIPT -->
+    <%- include("footer"); %>

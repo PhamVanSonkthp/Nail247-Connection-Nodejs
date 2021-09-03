@@ -1,0 +1,204 @@
+<%- include("header"); %>
+
+    <link rel="stylesheet" href="../views/client/dist/css/search.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+
+    </div>
+
+    <div class="contenter mt-5" style="background-color: white;">
+        <div class="container">
+
+            <div class="grid grid-cols-3 gap-12">
+                <div class="col-span-12 xl:col-span-1">
+                    <h1 id="result_counter" class="-intro-x font-medium" style="font-size: 2rem;padding-bottom:1rem">
+                        Searching...
+                    </h1>
+
+                    <div class="-intro-x breadcrumb mr-auto hidden sm:flex"><i
+                            class="fas fa-map-marker-alt fa-lg mr-2"></i> <a href="../">Location: 247 Nail Salons</a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevron-right breadcrumb__icon">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg> <a class="breadcrumb--active">Search for<b id="lbl_country"></b></a> </div>
+                </div>
+
+                <div class="col-span-12 xl:col-span-2 container-hidden-mobile -intro-x">
+                    <h1 style="padding-bottom: 1rem;">
+                        Related City:
+                    </h1>
+                    <div class="container">
+                        <div id="slick" style="display: flex;max-height: 3rem;">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container-hidden-mobile -intro-x">
+                <button class="btn bg-primary shadow-md mr-2 text-white"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter block mx-auto">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg><span class="ml-1">Filter Distance & Salary</span></button>
+            </div>
+
+            <div class="grid grid-cols-12 gap-6 mt-5">
+                <div class="col-span-12 xl:col-span-3 p-5 container-hidden-mobile -intro-x" style="background-color: #efefef;">
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button font-medium" type="button">
+                                    Categories
+                                </button>
+                            </h2>
+                            <div class="accordion-collapse">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li id="categories_1_1" onclick="changeCategories('find-job')">
+                                            Find a job
+                                        </li>
+                                        <li id="categories_1_2" onclick="changeCategories('sell-salon')">
+                                            Sell salons
+                                        </li>
+                                        <li id="categories_1_3" onclick="changeCategories('nail-supply')">
+                                            Nail supplies
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button font-medium" type="button">
+                                    Radius
+                                </button>
+                            </h2>
+                            <div class="accordion-collapse">
+                                <div class="accordion-body" style="padding-left: 1rem;" id="container_distance">
+
+                                    <div class="form-check" style="padding: 0.3rem;" onclick="changeDistace(0,0)">
+                                        <input class="form-check-input" type="checkbox" value="" id="categories_2_1"
+                                            checked>
+                                        <label id="lbl_categories_2_1" class="form-check-label font-medium"
+                                            for="categories_2_1">
+                                            Any
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check" style="padding: 0.3rem;" onclick="changeDistace(1,20)">
+                                        <input class="form-check-input" type="checkbox" value="" id="categories_2_2">
+                                        <label id="lbl_categories_2_2" class="form-check-label" for="categories_2_2">
+                                            20 mile
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check" style="padding: 0.3rem;" onclick="changeDistace(2,50)">
+                                        <input class="form-check-input" type="checkbox" value="" id="categories_2_3">
+                                        <label id="lbl_categories_2_3" class="form-check-label" for="categories_2_3">
+                                            50 mile
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check" style="padding: 0.3rem;" onclick="changeDistace(3,100)">
+                                        <input class="form-check-input" type="checkbox" value="" id="categories_2_4">
+                                        <label id="lbl_categories_2_4" class="form-check-label" for="categories_2_4">
+                                            100 mile
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button font-medium" type="button">
+                                    Salary / Price
+                                </button>
+                            </h2>
+                            <div class="accordion-collapse">
+                                <div class="accordion-body" style="padding-left: 1rem;">
+
+                                    <div class="form-check" style="padding: 0.3rem;" onclick="changeSalary(0)">
+                                        <input class="form-check-input" type="checkbox" value="" id="categories_3_1"
+                                            checked>
+                                        <label id="lbl_categories_3_1" class="form-check-label font-medium"
+                                            for="categories_3_1">
+                                            Any
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check" style="padding: 0.3rem;" onclick="changeSalary(1)">
+                                        <input class="form-check-input" type="checkbox" value="" id="categories_3_2">
+                                        <label id="lbl_categories_3_2" class="form-check-label" for="categories_3_2">
+                                            $0 - 500
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check" style="padding: 0.3rem;" onclick="changeSalary(2)">
+                                        <input class="form-check-input" type="checkbox" value="" id="categories_3_3">
+                                        <label id="lbl_categories_3_3" class="form-check-label" for="categories_3_3">
+                                            $500 - 1000
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check" style="padding: 0.3rem;" onclick="changeSalary(3)">
+                                        <input class="form-check-input" type="checkbox" value="" id="categories_3_4">
+                                        <label id="lbl_categories_3_4" class="form-check-label" for="categories_3_4">
+                                            $1000 - 2000
+                                        </label>
+                                    </div>
+                                    <div class="form-check" style="padding: 0.3rem;" onclick="changeSalary(4)">
+                                        <input class="form-check-input" type="checkbox" value="" id="categories_3_5">
+                                        <label id="lbl_categories_3_5" class="form-check-label" for="categories_3_5">
+                                            $2000+
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-span-12 xl:col-span-9">
+                    <h2 class="font-medium container-hidden-mobile -intro-x" style="font-size: 1.3rem;">
+                        Featured
+                    </h2>
+
+                    <div class="container mt-5 container-hidden-mobile">
+                        <div id="slick_2" style="display: flex;">
+                        </div>
+                    </div>
+
+                    <h2 class="font-medium -intro-x" style="font-size: 1.3rem;">
+                        Newest
+                    </h2>
+
+                    <div id="containe_newest" class="grid grid-cols-12 gap-6 mt-5">
+
+                    </div>
+
+                    <div id="pagePatigation" class="float-right">
+                        <nav aria-label="Page navigation example">
+                        </nav>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../views/client/dist/js/search.js"></script>
+
+    <%- include("footer"); %>

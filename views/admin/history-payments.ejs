@@ -1,0 +1,438 @@
+<%- include("header", {tab: "home" , title: "Trang chủ" }); %>
+    <!-- BEGIN: Content -->
+
+    <div id="add-item-modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        OPTIONS POST INFORMATION
+                    </h5>
+
+                    <button style="position: absolute;right: 10px;top: 10px; height: auto !important;"
+                        onclick="toggleModalAddProduct()" type="button" class="close btn btn-danger"
+                        data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mt-2">
+                        <b>Name:</b>
+                        <input id="EdtTitleProduct" disabled class="form-control">
+                    </div>
+
+                </div>
+                <div class="mt-5 modal-footer border-top-0 d-flex justify-content-between">
+                    <button onclick="toggleModalAddProduct()" type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="intro-y flex flex-col sm:flex-row items-center">
+        <h2 class="text-lg font-medium mr-auto">
+            Payments
+        </h2>
+        <!-- <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+            <button class="btn btn-primary shadow-md mr-2">Add New Osptions</button>
+        </div> -->
+    </div>
+
+    <div class="intro-y box p-5 mt-5">
+        <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+            <div id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
+                <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
+                    <input id="edt_search" type="text" class="form-control sm:w-40 xxl:w-full mt-2 sm:mt-0"
+                        placeholder="Search...">
+                </div>
+                <div class="mt-2 xl:mt-0">
+                    <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16"
+                        onclick="searchProduct()">Go</button>
+                </div>
+            </div>
+
+            <div class="flex mt-5 sm:mt-0">
+                <div class="w-full sm:w-auto flex items-center sm:ml-auto float-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-filter block mx-auto mr-2">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                    <label for="show-example-1">Filter</label>
+                    <input data-target="#basic-table" class="show-code form-check-switch mr-0 ml-3" type="checkbox"
+                        id="show-example-1" onchange="onShowFilter()">
+                </div>
+            </div>
+        </div>
+
+        <div id="basic-table" class="mt-5 clear-both">
+
+            <div class="source-code grid grid-cols-12 gap-6" style="display: none; opacity: 1;">
+                <div class="col-span-12 xl:col-span-3 intro-y">
+                    <b>Cost</b>
+                    <div class="form-control">
+                        <select class="w-20 form-select box mt-3 sm:mt-0" id="select_filter_cost">
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="1">Increase</option>
+                            <option value="-1">Decrease</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-span-12 xl:col-span-3 intro-y">
+                    <b>Package</b>
+                    <div class="form-control">
+                        <select class="w-20 form-select box mt-3 sm:mt-0" id="select_filter_package">
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="Free">Free</option>
+                            <option value="Sliver">Sliver</option>
+                            <option value="Gold">Gold</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-span-12 xl:col-span-3 intro-y">
+                    <b>Type</b>
+                    <div class="form-control">
+                        <select class="w-20 form-select box mt-3 sm:mt-0" id="select_filter_type">
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="0">Jobs</option>
+                            <option value="1">Sell salons</option>
+                            <option value="2">Nail supplies</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-span-12 xl:col-span-3 intro-y">
+                    <b>Date range</b>
+                    <div>
+                        <input id="dtp_query" data-daterange="true" class="datepicker form-control block p-3">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-y box p-5 mt-12 sm:mt-5" style="overflow-x: scroll;">
+            <table id="TblProduct" class="w-full table" cellspacing="0">
+                <thead class="tabulator-header">
+                    <tr>
+                        <td>Type</td>
+                        <td>Cost</td>
+                        <td>Package</td>
+                        <td>Time</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="SpnLoading" class="text-center">
+            <div class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
+
+                <svg width="25" viewBox="-2 -2 42 42" xmlns="http://www.w3.org/2000/svg" stroke="rgb(45, 55, 72)"
+                    class="w-8 h-8">
+                    <g fill="none" fill-rule="evenodd">
+                        <g transform="translate(1 1)" stroke-width="4">
+                            <circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle>
+                            <path d="M36 18c0-9.94-8.06-18-18-18">
+                                <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18"
+                                    dur="1s" repeatCount="indefinite"></animateTransform>
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+
+                <div class="text-center text-xs mt-2">Đang tải</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="pagePatigation" class="float-right">
+        <nav aria-label="Page navigation example">
+        </nav>
+    </div>
+    <!-- END: Content -->
+
+    </div>
+    <!-- BEGIN: SCRIPT -->
+
+    <script>
+
+        var limit = 10;
+        var offset = 0;
+        var isShow = 3;
+        var count = 0;
+        var products = [];
+        var index_edit;
+
+        function onShowFilter() {
+            if ($("#basic-table > div").hasClass("d-grid")) {
+                $('#basic-table > div').removeClass('d-grid')
+            } else {
+                $('#basic-table > div').addClass('d-grid')
+            }
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        indexRow = tryParseInt(urlParams.get('row'));
+        indexPage = tryParseInt(urlParams.get('page'));
+        var isSort = urlParams.get('sort') || 0;
+
+
+        socket.emit('total-money-history-payments', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+            if (response != null) {
+                $("#lbl_total_money").html(escapeHtml(formatMoney(response) + '$'));
+            }
+        });
+
+        function canvasTableProduct(data) {
+            $('#TblProduct tbody').empty();
+            $("#TblProduct tbody > tr").remove();
+            let myTable = document.getElementById('TblProduct').getElementsByTagName('tbody')[0];
+
+            for (let i = 0; i < data.length; i++) {
+                let row = myTable.insertRow();
+                if (i % 2 != 0) {
+                    row.style.backgroundColor = '#e2e8f0';
+                }
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                let cell5 = row.insertCell(4);
+
+                cell2.innerHTML = '<div>' + escapeHtml(formatMoney(products[i].cost)) + '$</div>';
+                cell3.innerHTML = '<div>' + escapeHtml(products[i].package) + '</div>';
+                if (products[i].type == 0) {
+                    cell1.innerHTML = '<div>Jobs</div>';
+                } else if (products[i].type == 1) {
+                    cell1.innerHTML = '<div>Sell salons</div>';
+                } else if (products[i].type == 2) {
+                    cell1.innerHTML = '<div>Nail supplies</div>';
+                }
+                cell4.innerHTML = '<div>' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[0]) + ' ' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[1]) + ' ' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[2]) + ' ' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[3]) + ' ' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[4]) + '</div>';
+                cell5.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
+
+            }
+        }
+
+        function canvasTableDecriptions(decriptions) {
+            $('#TblDecriptions > tbody').empty();
+            let pageTableDecriptions = '';
+            for (let i = 0; i < decriptions != undefined && decriptions != null && i < decriptions.length; i++) {
+                pageTableDecriptions += '<tr> <td colspan="2"> <div class="input-group"> <input disabled type="text" class="form-control number" value="' + decriptions[i].month + '""> </div> </td> <td colspan="2"> <div class="input-group"> <input type="text" class="form-control number" value="' + formatMoney(decriptions[i].cost) + '$""> </div> </td> <td colspan="2"> <div class="input-group"> <input type="text" class="form-control" value="' + decriptions[i].content + '""> </div> </td> </tr>';
+            }
+            pageTableDecriptions += '';
+            $('#TblDecriptions > tbody').html(pageTableDecriptions);
+            $('.number').maskNumber({ integer: true });
+        }
+
+        $("#TblDecriptions").on("click", ".delete-button", function () {
+            $(this).closest("tr").remove();
+        });
+
+
+        function searchProduct() {
+            $('#TblProduct tbody').empty();
+            $("#SpnLoading").show();
+
+            let minDate = $('#dtp_query').val().split('-')[0].replaceAll(',', '').trim().split(' ')
+            let maxDate = $('#dtp_query').val().split('-')[1].replaceAll(',', '').trim().split(' ')
+
+            minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
+            maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
+
+            socket.emit('history-payments', { _id: getCookie('_id'), password: getCookie('password'), limit: limit, offset: offset, input: $('#edt_search').val(), type: isSort - 1, minDate: minDate, maxDate: maxDate, cost: $('#select_filter_cost').val(), package: $('#select_filter_package').val(), type: $('#select_filter_type').val() }, (response) => {
+                $("#SpnLoading").hide();
+                products = response;
+
+                if (products != null) {
+                    canvasTableProduct(products);
+                } else {
+                    $("#title").show();
+                }
+            });
+            countProduct();
+        }
+
+        function countProduct() {
+
+            let minDate = $('#dtp_query').val().split('-')[0].replaceAll(',', '').trim().split(' ')
+            let maxDate = $('#dtp_query').val().split('-')[1].replaceAll(',', '').trim().split(' ')
+
+            minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
+            maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
+
+            socket.emit('count-history-payments', { _id: getCookie('_id'), password: getCookie('password'), limit: limit, offset: offset, input: $('#edt_search').val(), minDate: minDate, maxDate: maxDate, cost: $('#select_filter_cost').val(), package: $('#select_filter_package').val(), type: $('#select_filter_type').val() }, (response) => {
+                if (response != null) {
+                    $('#container_sort').html('<a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 0) ? 'active-drop' : '') + '" onclick="onSort_0()" id="sort_0" data-custom-value="/admin/history-payments?sort=0' + '">All: ' + escapeHtml(response[0]) + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 1) ? 'active-drop' : '') + '" onclick="onSort_1()" id="sort_1" data-custom-value="/admin/history-payments?sort=1' + '">Posts find jobs: ' + escapeHtml(response[1]) + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 2) ? 'active-drop' : '') + '" onclick="onSort_2()" id="sort_2" data-custom-value="/admin/history-payments?sort=2' + '">Posts sell salons: ' + escapeHtml(response[2]) + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 3) ? 'active-drop' : '') + '" onclick="onSort_3()" id="sort_3" data-custom-value="/admin/history-payments?sort=3' + '">Posts nail supply: ' + escapeHtml(response[3]) + '</a> ');
+
+                    count = response[isSort];
+                    if ((count / limit) - parseInt(count / limit) > 0) {
+                        count = parseInt(count / limit) + 1;
+                    }
+                    else {
+                        count = count / limit;
+                    }
+                    paginator();
+                }
+            });
+        }
+
+        function onSort_0() {
+            isSort = 0;
+            history.pushState({}, null, $('#sort_0').attr('data-custom-value'));
+            countProduct();
+            loadmoreProduct(0);
+        }
+
+        function onSort_1() {
+            isSort = 1;
+            history.pushState({}, null, $('#sort_1').attr('data-custom-value'));
+            countProduct();
+            loadmoreProduct(0);
+        }
+
+        function onSort_2() {
+            isSort = 2;
+            history.pushState({}, null, $('#sort_2').attr('data-custom-value'));
+            countProduct();
+            loadmoreProduct(0);
+        }
+
+        function onSort_3() {
+            isSort = 3;
+            history.pushState({}, null, $('#sort_3').attr('data-custom-value'));
+            countProduct();
+            loadmoreProduct(0);
+        }
+
+        function loadmoreProduct(page) {
+            if (offset > limit * page) {
+                offset = parseInt(offset) - parseInt(limit);
+                stt = offset + 1;
+                isShow = isShow - 1;
+            } else if (offset < limit * page) {
+                isShow = isShow + 1;
+                offset = parseInt(offset) + parseInt(limit);
+                stt = offset + 1;
+            } else {
+                isShow = (limit * page);
+                offset = parseInt(limit) * (limit * page);
+                stt = parseInt(offset) + 1;
+            }
+
+            offset = limit * page;
+            searchProduct();
+            paginator();
+        }
+
+        function toggleModalAddProduct() {
+            $('#add-item-modal').css('display', 'block');
+            $('#add-item-modal').css('margin-top', '0px');
+            $('#add-item-modal').css('margin-left', '0px');
+            $('#add-item-modal').css('z-index', '1000');
+            if ($("#add-item-modal").hasClass("show")) {
+                $('#add-item-modal').removeClass('show');
+            } else {
+                $('#add-item-modal').addClass('show');
+                $('#add-item-modal').addClass('overflow-y-auto');
+            }
+        }
+
+        function deleteProduct() {
+            toggleModalAddProduct();
+
+            showLoading();
+            socket.emit('delete-options-posts', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id }, (response) => {
+                hideLoading();
+                if (response != null) {
+                    products = removeIndexOfArray(products, index_edit);
+                    canvasTableProduct(products);
+                } else {
+                    toggleModalAddProduct();
+                }
+            })
+        }
+
+        function editProduct(i) {
+            index_edit = i;
+            $('#EdtTitleProduct').val(products[i].name);
+
+            toggleModalAddProduct();
+
+            canvasTableDecriptions(products[i].options);
+        }
+
+        function saveProduct() {
+            let tempDecriptions = [];
+            let decriptions = [];
+
+            var tb = $('#TblDecriptions tbody');
+
+            tb.find("tr").each(function (index, element) {
+                var colSize = $(element).find('td').length;
+                $(element).find('td').each(function (index, element) {
+                    $(element).find('div').each(function (index, element) {
+                        $(element).find('input').each(function (index, element) {
+                            var colVal = $(element).val();
+                            tempDecriptions.push(colVal.trim());
+                        });
+                    });
+                });
+            });
+
+            for (let i = 0; i < tempDecriptions.length; i += 3) {
+                if (tempDecriptions[i].length == 0 || tempDecriptions.length == 0) {
+                    continue;
+                }
+                decriptions.push({ month: tryParseInt(tempDecriptions[i]), cost: tryParseInt(tempDecriptions[i + 1]), content: tempDecriptions[i + 2] });
+            }
+
+            toggleModalAddProduct();
+
+            showLoading();
+            socket.emit('update-options-posts', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, options_posts: decriptions }, (response) => {
+                hideLoading();
+                if (response != null) {
+                    products[index_edit] = response;
+                    canvasTableProduct(products);
+                } else {
+                    toggleModalAddProduct();
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            const dateObj = new Date();
+            const month = monthNames[dateObj.getMonth()];
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const year = dateObj.getFullYear();
+            const output = month + '\n' + day + ',' + year;
+            let strDate = 1 + ' ' + month.substring(0, 3) + ', ' + year + ' - ' + day + ' ' + month.substring(0, 3) + ', ' + year
+            $('#dtp_query').val(strDate)
+
+            var input = document.getElementById("edt_search");
+            input.addEventListener("keyup", function (event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("tabulator-html-filter-go").click();
+                }
+            });
+
+            $('#draw_4').addClass('side-menu--active');
+
+            countProduct();
+            loadmoreProduct(0);
+        });
+    </script>
+    <!-- END: SCRIPT -->
+    <%- include("footer"); %>

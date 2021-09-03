@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="en" class="light">
+<!-- BEGIN: Head -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Infinity technology | Login</title>
+    <link rel="shortcut icon" href="../views/admin/src/images/icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Infinity technology | Login">
+    <meta name="keywords" content="24 Gruop">
+
+    <!-- BEGIN: CSS Assets-->
+    <link rel="stylesheet" href="../views/admin/dist/css/app.css" />
+    <!-- END: CSS Assets-->
+
+    <!-- BEGIN: JS Assets-->
+    <script src="../node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script src="../views/admin/dist/js/jquery.min.js"></script>
+    <script src="../views/admin/dist/js/sha512.min.js"></script>
+    <!-- END: JS Assets-->
+
+    <script>
+        const socket = io.connect('/', { secure: true });
+
+        function getCookie(name) {
+            function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
+            var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
+            return match ? match[1] : null;
+        }
+
+        function removeCookie(name) {
+            document.cookie = name + "=removed; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+        }
+
+        if (getCookie('_id')) {
+            let _id = getCookie('_id');
+            let password = getCookie('password');
+            $('#DialogLoading').show();
+            socket.emit('recent-login', { _id: _id, password: password }, (response) => {
+                if (response != null) {
+                    window.location.replace("/admin");
+                } else {
+                    $('#DialogLoading').hide();
+                    removeCookie('_id');
+                    removeCookie('password');
+                }
+            });
+        }
+    </script>
+
+</head>
+<!-- END: Head -->
+
+<body class="login">
+
+    <div id="DialogLoading" class="text-center" style="height: 100%; width: 100%; position: fixed; z-index: 1000; ">
+        <div style="position: fixed; left: 0;right: 0;top: 0;bottom: 0;opacity: 0.5;background-color: rgb(61, 73, 73);">
+        </div>
+        <div style="color: white; position: absolute;width: 100%;top: 0;bottom: 0;right: 0;left: 0;margin: auto;height: 100px;"
+            class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
+
+            <svg width="20" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8">
+                <defs>
+                    <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
+                        <stop stop-color="rgb(45, 55, 72)" stop-opacity="0" offset="0%"></stop>
+                        <stop stop-color="rgb(45, 55, 72)" stop-opacity=".631" offset="63.146%"></stop>
+                        <stop stop-color="rgb(45, 55, 72)" offset="100%"></stop>
+                    </linearGradient>
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <g transform="translate(1 1)">
+                        <path d="M36 18c0-9.94-8.06-18-18-18" id="Oval-2" stroke="url(#a)" stroke-width="3">
+                            <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18"
+                                dur="0.9s" repeatCount="indefinite"></animateTransform>
+                        </path>
+                        <circle fill="rgb(45, 55, 72)" cx="36" cy="18" r="1">
+                            <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18"
+                                dur="0.9s" repeatCount="indefinite"></animateTransform>
+                        </circle>
+                    </g>
+                </g>
+            </svg>
+
+            <div class="text-center text-xs mt-2">Đang tải dữ liệu</div>
+        </div>
+    </div>
+
+    <div class="container sm:px-10">
+        <div class="block xl:grid grid-cols-2 gap-4">
+            <!-- BEGIN: Login Info -->
+            <div class="hidden xl:flex flex-col min-h-screen">
+                <a href="" class="intro-x flex items-center pl-5 pt-4">
+                    <img class="w-10 p-2" src="../views/admin/src/images/icon.png" style="background: white;
+                        border-radius: 50%;">
+                    <span class="hidden xl:block text-white text-lg ml-3">Infinity technology</span>
+                </a>
+                <div class="my-auto">
+                    <img class="-intro-x w-1/2 -mt-16" src="../views/admin/dist/images/illustration.svg">
+                    <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
+                        Infinity Group
+                        <br>
+                        Trust is the first!
+                    </div>
+                </div>
+            </div>
+            <!-- END: Login Info -->
+            <!-- BEGIN: Login Form -->
+            <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
+                <div
+                    class="my-auto mx-auto xl:ml-20 bg-white dark:bg-dark-1 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
+                    <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
+                        Sign in
+                    </h2>
+                    <div class="intro-x mt-8">
+                        <input id="username" type="text"
+                            class="intro-x login__input form-control py-3 px-4 border-gray-300 block"
+                            placeholder="User name">
+                        <input id="password" type="password"
+                            class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4"
+                            placeholder="Password">
+                    </div>
+                    <div class="form-group mt-2">
+                        <span id="title" class="text-danger" style="color: red;display: none;">Invalid password</span>
+                    </div>
+                    <div class="intro-x flex text-gray-700 dark:text-gray-600 text-xs sm:text-sm mt-4">
+                        <div class="flex items-center mr-auto">
+                            <input id="remember-me" type="checkbox" class="form-check-input border mr-2">
+                            <label class="cursor-pointer select-none" for="remember-me">Remember</label>
+                        </div>
+                    </div>
+                    <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+                        <button id="BtnLogin" onclick="login()"
+                            class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Sign in</button>
+                    </div>
+                    <div class="intro-x mt-10 xl:mt-24 text-gray-700 dark:text-gray-600 text-center xl:text-left">
+                        By continuing, you agree to
+                        <br>
+                        <a class="text-theme-1 dark:text-theme-10" href="">Terms of use</a> & <a
+                            class="text-theme-1 dark:text-theme-10" href="">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Login Form -->
+        </div>
+    </div>
+    <!-- BEGIN: JS Assets-->
+    <script src="../views/admin/dist/js/app.js"></script>
+    <!-- END: JS Assets-->
+
+    <script type="text/javascript" charset="utf-8">
+
+
+        function setCookie(c_name, value, exdays) {
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + exdays);
+            var c_value = escape(value) + ((exdays == null)
+                ? "" : "; expires=" + exdate.toUTCString())
+                + "; path=/";
+            document.cookie = c_name + "=" + c_value;
+        }
+
+        if (!getCookie('_id')) {
+            $('#DialogLoading').hide();
+        }
+
+        function login() {
+            if ($("#username").val().length == 0) {
+                $("#username").focus();
+                return;
+            }
+
+            if ($("#password").val().length == 0) {
+                $("#password").focus();
+                return;
+            }
+            $('#DialogLoading').show();
+            let phone = $("#username").val();
+
+            let password = sha512($("#password").val())
+
+            $("#BtnLogin").prop('disabled', true);
+            $("#title").hide();
+            socket.emit('login', { phone: phone, password: password }, (response) => {
+                $('#DialogLoading').hide()
+                let data = response;
+                if (data != null) {
+                    document.cookie = "_id = " + data._id;
+                    // document.cookie = "phone = " + data.phone;
+                    // document.cookie = "name = " + data.name;
+                    document.cookie = "password = " + data.password;
+                    //document.cookie = "address = " + data.address;
+                    // document.cookie = "image = " + data.image;
+                    // document.cookie = "point = " + data.point;
+
+                    // setCookie('_id' , data._id , 7);
+                    // setCookie('password' , data.password , 7);
+                    window.location.replace("/admin");
+                } else {
+                    $("#title").show();
+                    $("#BtnLogin").prop('disabled', false);
+                }
+            });
+        }
+
+        function signUp() {
+            window.location = ("/ui-sign-up");
+        }
+
+        $(document).keypress(function (e) {
+            if (e.which == 13) {
+                login();
+            }
+        });
+    </script>
+</body>
+
+</html>

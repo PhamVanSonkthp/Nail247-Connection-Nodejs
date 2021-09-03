@@ -1,0 +1,3 @@
+show dbs
+use nail247
+db.welcomes.insert({welcome:"hello",name:"a",title:"a",contents:[]})

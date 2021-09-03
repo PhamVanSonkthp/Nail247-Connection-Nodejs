@@ -1,0 +1,217 @@
+<%- include("header", {tab: "home" , title: "Trang chủ" }); %>
+    <!-- BEGIN: Content -->
+
+
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            Settings > wellcome nail
+        </h2>
+        <!-- <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+            <button class="btn btn-primary shadow-md mr-2">Add New Osptions</button>
+        </div> -->
+    </div>
+
+    <div class="intro-y box p-5 mt-5">
+
+        <div class="grid grid-cols-12 gap-6">
+            <div class="col-span-12 xl:col-span-6 bg-primary">
+                <div>
+                    <h2 class="font-medium my-5 text-center" style="font-size: 1.5rem;">
+                        Show with client
+                    </h2>
+                </div>
+                <div style="background-color: #eb1b6c !important; padding: 2rem;border-radius: 0.5rem;">
+                    <h2 id="lbl_welcome" class="text-white font-medium my-5" style="font-size: 1.5rem;">
+
+                    </h2>
+
+                    <h1 id="lbl_name" class="text-white font-medium" style="font-size: 2rem;padding-bottom: 3rem;
+                    padding-top: 0rem;">
+
+                    </h1>
+
+                    <h2 id="lbl_title" class="text-white font-medium" style="font-size: 1rem;">
+
+                    </h2>
+
+                    <ul id="lbl_contents" style="list-style-type: circle;padding-left: 2rem;">
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-span-12 xl:col-span-6 bg-primary">
+                <div>
+                    <h2 class="font-medium my-5 text-center" style="font-size: 1.5rem;">
+                        Config
+                    </h2>
+                </div>
+                <div style="background-color: #eb1b6c !important; padding: 2rem;border-radius: 0.5rem;">
+                    <input id="edt_welcome" class="font-medium my-5" style="font-size: 1.5rem;" placeholder="Enter"
+                        oninput="onChangeEdtWelcome(this.value)">
+
+                    <input id="edt_name" class="font-medium" style="font-size: 2rem;margin-bottom: 2rem;
+                    padding-top: 0rem;" placeholder="Enter" oninput="onChangeEdtName(this.value)">
+
+                    <input id="edt_title" class="font-medium" style="font-size: 1rem;" placeholder="Enter"
+                        oninput="onChangeEdtTitle(this.value)">
+
+                    <table id="edt_decriptions" class="w-full mt-2">
+
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <button id="btn_save_product" onclick="saveWelcome()" class="btn btn-rounded-success w-24 mr-1 mb-2 mt-5"
+            style="background-color: #6bab44; display: none;">Save</button>
+    </div>
+
+    <!-- END: Content -->
+
+    </div>
+    <!-- BEGIN: SCRIPT -->
+
+    <script>
+        $(document).ready(function () {
+            $('#draw_5').addClass('side-menu--active')
+            $('#draw_5').addClass('side-menu--open')
+            $('#draw_5_3').addClass('side-menu--active')
+            $('#draw_5_wrap').addClass('side-menu__sub-open')
+
+            socket.emit('welcomes', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                if (response != null) {
+                    $('#lbl_welcome').html(response.welcome)
+                    $('#edt_welcome').val(response.welcome)
+                    $('#lbl_name').html(response.name)
+                    $('#edt_name').val(response.name)
+                    $('#lbl_title').html(response.title)
+                    $('#edt_title').val(response.title)
+
+                    canvasEdtTableDecriptions(response.contents)
+                    canvasTableDecriptions(response.contents)
+                }
+            });
+        });
+
+        function saveWelcome() {
+            let decriptions = [];
+
+            var tb = $('#edt_decriptions tbody');
+
+            tb.find("tr").each(function (index, element) {
+                var colSize = $(element).find('td').length;
+                $(element).find('td').each(function (index, element) {
+                    $(element).find('div').each(function (index, element) {
+                        $(element).find('input').each(function (index, element) {
+                            var colVal = $(element).val();
+                            decriptions.push(colVal.trim())
+                        })
+                    })
+                })
+            })
+            let decriptionsTrimed = []
+            for(let i = 0 ; i < decriptions.length - 1 ; i++){
+                decriptionsTrimed.push(decriptions[i])
+            }
+            socket.emit('save-welcome', { _id: getCookie('_id'), password: getCookie('password'), welcome: $('#lbl_welcome').html(), name: $('#lbl_name').html(), title: $('#lbl_title').html(), contents: decriptionsTrimed }, (response) => {
+                if (response) {
+                    $('#btn_save_product').hide()
+                }
+            })
+        }
+
+        function onChangeEdtWelcome(val) {
+            $('#lbl_welcome').html(val)
+            showSaveButton()
+        }
+
+        function onChangeEdtName(val) {
+            $('#lbl_name').html(val)
+            showSaveButton()
+        }
+
+        function onChangeEdtTitle(val) {
+            $('#lbl_title').html(val)
+            showSaveButton()
+        }
+
+        function addRowDecriptions() {
+            showSaveButton()
+            let decriptions = [];
+
+            var tb = $('#edt_decriptions tbody');
+
+            tb.find("tr").each(function (index, element) {
+                var colSize = $(element).find('td').length;
+                $(element).find('td').each(function (index, element) {
+                    $(element).find('div').each(function (index, element) {
+                        $(element).find('input').each(function (index, element) {
+                            var colVal = $(element).val();
+                            decriptions.push(colVal.trim());
+                        })
+                    })
+                })
+            })
+
+            $('#edt_decriptions').find('*').attr('disabled', false);
+            $('#edt_decriptions tr:last').after('<tr> <td colspan="2"> <div class="input-group"> <input type="text" class="form-control" onchange="addRowDecriptions()"> </div> </td> <td colspan="1" class="text-right"><button class="btn btn-warning delete-button" disabled type="button">x</button> </td> </tr>');
+            canvasEdtTableDecriptions(decriptions)
+        }
+
+        $("#edt_decriptions").on("click", ".delete-button", function () {
+            $(this).closest("tr").remove();
+            let decriptions = [];
+
+            var tb = $('#edt_decriptions tbody');
+
+            tb.find("tr").each(function (index, element) {
+                var colSize = $(element).find('td').length;
+                $(element).find('td').each(function (index, element) {
+                    $(element).find('div').each(function (index, element) {
+                        $(element).find('input').each(function (index, element) {
+                            var colVal = $(element).val();
+                            decriptions.push(colVal.trim());
+                        })
+                    })
+                })
+            })
+            canvasEdtTableDecriptions(decriptions)
+            showSaveButton()
+        });
+
+        function showSaveButton() {
+            $('#btn_save_product').show();
+        }
+
+
+        function canvasEdtTableDecriptions(decriptions) {
+            let page = ''
+            if (isDefine(decriptions)) {
+                for (let i = 0; i < decriptions.length; i++) {
+                    page += '<li class="text-white">' + decriptions[i] + '</li>'
+                }
+            }
+
+            $('#lbl_contents').html(page)
+        }
+
+        function canvasTableDecriptions(decriptions) {
+            let pageTableDecriptions = '<tbody>'
+            if (isDefine(decriptions)) {
+                for (let i = 0; i < decriptions.length; i++) {
+                    pageTableDecriptions += '<tr> <td colspan="2"> <div class="input-group"> <input type="text" class="form-control" value="' + decriptions[i] + '" onchange="addRowDecriptions()"> </div> </td> <td colspan="1" class="text-right"><button class="btn btn-warning delete-button" type="button">x</button> </td> </tr>';
+                }
+            }
+
+
+            pageTableDecriptions += '<tr> <td colspan="2"> <div class="input-group"> <input type="text" class="form-control" onchange="addRowDecriptions()"> </div> </td> <td colspan="1" class="text-right"><button class="btn btn-warning delete-button" disabled type="button">x</button> </td> </tr>';
+            pageTableDecriptions += '</tbody>';
+            $('#edt_decriptions').html(pageTableDecriptions);
+        }
+    </script>
+    <!-- END: SCRIPT -->
+    <%- include("footer"); %>

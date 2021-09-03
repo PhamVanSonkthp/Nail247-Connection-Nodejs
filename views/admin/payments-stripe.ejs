@@ -1,0 +1,86 @@
+<%- include("header", {tab: "home" , title: "Trang chủ" }); %>
+    <!-- BEGIN: Content -->
+
+
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            Settings > payments stripes
+        </h2>
+        <!-- <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+            <button class="btn btn-primary shadow-md mr-2">Add New Osptions</button>
+        </div> -->
+    </div>
+
+    <div class="intro-y box p-5 mt-5">
+
+        <div class="form-group col-span-2">
+            <p>Public key:</p>
+            <input oninput="showSaveButton()" id="edt_public_key" class="form-control" autocomplete="off">
+        </div>
+
+        <div class="form-group col-span-2 mt-5">
+            <p>Secret key:</p>
+            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+                <div class=" relative text-gray-700 dark:text-gray-300">
+                    <input disabled oninput="showSaveButton()" id="edt_secret_key" type="password" class="form-control">
+                    <svg id="icon_show" style="cursor: pointer;" onclick="enableSecret()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye-off w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg> 
+                </div>
+            </div>
+            
+        </div>
+
+        <button id="btn_save" style="display: none;" onclick="saveKey()" type="button" class="btn btn-success mt-5">Save</button>
+    </div>
+
+    <!-- END: Content -->
+
+    </div>
+    <!-- BEGIN: SCRIPT -->
+
+    <script>
+
+        function saveKey(){
+            socket.emit('update-payments-stripe', { _id: getCookie('_id'), password: getCookie('password') , public_key: $('#edt_public_key').val() , secret_key : $('#edt_secret_key').val() }, (response) => {
+                if(response){
+                    hideSaveButton()
+                }
+            });
+        }
+
+        function enableSecret(){
+            if($('#edt_secret_key').get(0).type == 'text'){
+                $('#edt_secret_key').prop('disabled' , true)
+                $('#edt_secret_key').get(0).type = 'password'
+                $('#icon_show').html('<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>')
+            }else{
+                $('#edt_secret_key').prop('disabled' , false)
+                $('#edt_secret_key').get(0).type = 'text'
+                $('#icon_show').html('<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>')
+            }
+        }
+
+        function showSaveButton(){
+            $('#btn_save').show()
+        }
+
+        function hideSaveButton(){
+            $('#btn_save').hide()
+        }
+
+        $(document).ready(function () {
+            $('#draw_5').addClass('side-menu--active')
+            $('#draw_5').addClass('side-menu--open')
+            $('#draw_5_2').addClass('side-menu--active')
+            $('#draw_5_wrap').addClass('side-menu__sub-open')
+
+            socket.emit('payments-stripe', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                if (response != null) {
+                    $('#edt_public_key').val(response.public_key)
+                    $('#edt_secret_key').val(response.secret_key)
+                }
+            });
+        });
+
+    </script>
+    <!-- END: SCRIPT -->
+    <%- include("footer"); %>

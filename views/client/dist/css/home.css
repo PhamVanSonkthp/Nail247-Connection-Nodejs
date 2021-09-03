@@ -1,0 +1,303 @@
+html,
+        body {
+            height: 100%;
+            background-color: #fafbfe;
+            padding: 0 !important;
+            line-height: normal !important;
+        }
+
+        .no-border {
+            border: 0 !important;
+            box-shadow: none !important;
+            /* You may want to include this as bootstrap applies these styles too */
+        }
+
+        .header {
+            background-image: url("../images/bg.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .logo>a>img {
+            width: 80%;
+            max-width: 20rem;
+        }
+
+        .wrap-download-app {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrap-download-app>a>img {
+            max-width: 10rem;
+            margin: 0.5rem;
+        }
+
+        .search-box {
+            max-width: 50rem;
+            margin: auto;
+        }
+
+        .color-primary {
+            color: #ef4c8c !important;
+        }
+
+        .bg-primary {
+            background-color: #eb1b6c !important;
+        }
+
+        .active {
+            border-color: #eb1b6c !important;
+        }
+
+        #container_drop_result {
+            position: relative;
+
+        }
+
+        #container_drop_result>div {
+            position: absolute;
+            z-index: 100;
+        }
+
+        #container_drop_result>div>div:hover {
+            background-color: #ef4c8c;
+            color: white;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            z-index: 1000;
+        }
+
+        ul {
+            list-style-type: circle;
+            padding-left: 2rem;
+        }
+
+        .divider {
+            position: relative;
+            margin-top: 3rem;
+            height: 0.1rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e6e6e6;
+        }
+
+        .div-transparent:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 5%;
+            right: 5%;
+            width: 90%;
+            height: 1px;
+            background-image: linear-gradient(to right, transparent, rgb(48, 49, 51), transparent);
+        }
+
+        .color-placeholder::-webkit-input-placeholder {
+            color: #eb1b6c
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width:640px) {
+
+
+            h1 {
+                padding: 2rem;
+            }
+
+            .header>div {
+                padding: 0;
+            }
+
+            .logo {
+                position: static;
+            }
+
+            .logo>a>img {
+                position: relative;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+
+            .search-box {
+                margin-left: 2rem;
+                margin-right: 2rem;
+            }
+
+            .menu-right {
+                position: static;
+                text-align: center;
+            }
+
+            .menu-right>button {
+                padding: 0.7rem;
+            }
+
+            .wrap-download-app>a>img {
+                max-width: 5rem;
+            }
+
+            .wrap-download-app {
+                margin-top: 3rem;
+                padding-bottom: 2rem;
+            }
+
+            .footer {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+
+            .modal {
+                overflow-y: auto;
+            }
+
+            .modal-lg {
+                max-width: 80% !important;
+            }
+
+            .modal-dialog {
+                width: 80% !important;
+            }
+
+            .modal-content {
+                /* height: auto !important; */
+                border-radius: 0.5rem;
+                height: 100% !important;
+                overflow-y: auto;
+            }
+
+            .modal-dialog {
+                /* height: 80%; */
+                display: flex;
+                align-items: center;
+            }
+
+            .modal-content {
+                margin: 0 auto;
+            }
+        }
+
+        @media (min-width:641px) {
+
+            .modal {
+                overflow-y: auto;
+            }
+
+            .modal-lg {
+                max-width: 50% !important;
+            }
+
+            .modal-dialog {
+                width: 50% !important;
+            }
+
+            .modal-content {
+                height: auto !important;
+                border-radius: 0.5rem;
+            }
+
+            .modal-dialog {
+                /* height: 80%; */
+                display: flex;
+                align-items: center;
+            }
+
+            .modal-content {
+                margin: 0 auto;
+            }
+
+            h1 {
+                padding-bottom: 3rem;
+                padding-top: 3rem;
+            }
+
+            .footer {
+                padding-left: 5rem;
+                padding-right: 5rem;
+            }
+
+            /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+            .header>div {
+                padding-left: 5rem;
+                padding-right: 5rem;
+            }
+
+            .logo {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .menu-right {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+            .wrap-download-app {
+                margin-top: 5rem;
+                padding-bottom: 2rem;
+            }
+        }
+
+        @media (min-width:961px) {
+            /* tablet, landscape iPad, lo-res laptops ands desktops */
+        }
+
+        @media (min-width:1025px) {
+            /* big landscape tablets, laptops, and desktops */
+        }
+
+        @media (min-width:1281px) {
+            /* hi-res laptops and desktops */
+        }
+        .modal-content{
+            margin-bottom: 4rem;
+        }

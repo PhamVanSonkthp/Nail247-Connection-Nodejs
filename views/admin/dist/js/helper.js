@@ -65,7 +65,7 @@ var entityMap = {
 
 function escapeHtml(string) {
 	if(!isDefine(string)) return ''
-	if(string.includes('<script>')){
+	if(string.toString().includes('<script>')){
 		return String(string).replace(/[&<>"'`=\/]/g, function (s) {
 			return entityMap[s];
 		})

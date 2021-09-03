@@ -252,16 +252,30 @@ app.use('/nail-supplies', nailSuppliesRoute);
 server.listen(process.env.PORT || 8000)
 console.log('nail 247 listening port: ' + (process.env.PORT || 8000))
 
-function trafficsSocket() {
+var banderIP = []
+var accessIP = []
+
+// banderIP.push('::ffff:103.90.234.25')
+
+function trafficsSocket(socket) {
   helper.saveTraffics('', 1)
+
+  //var socketId = socket.id;
+  //var clientIp = ;
+
+  //console.log(clientIp);
+  // accessIP.push(socket.request.connection.remoteAddress)
+
+  // socket.clients[socketId].connection.end();
+
 }
 
-io.on('connection', (socket) => {
+io.sockets.on('connection', (socket) => {
 
   //----------Start Admin Area---------//
 
   socket.on('welcomes', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       const UserModel = require('./models/Welcome');
       const result = await UserModel.findOne()
@@ -273,7 +287,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('save-welcome', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
         const UserModel = require('./models/Welcome')
@@ -298,7 +312,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('login', async (obj, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (obj != undefined && obj != null) {
         const UserModel = require('./models/Admin');
@@ -319,7 +333,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('recent-login', async (obj, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     if (obj != undefined && obj != null) {
       try {
         const UserModel = require('./models/Admin');
@@ -340,7 +354,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('recent-login-agency', async (obj, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     if (helper.isDefine(obj)) {
       try {
         const UserModel = require('./models/Agency');
@@ -361,7 +375,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('post-jobs', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Job');
@@ -409,7 +423,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('post-sell-salons', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/SellSalon');
@@ -457,7 +471,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('post-nail-supplies', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/NailSupply');
@@ -505,7 +519,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('options-posts', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
         const UserModel = require('./models/OptionsPosts');
@@ -525,7 +539,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('history-payments', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
         const UserModel = require('./models/HistoryPayments');
@@ -574,7 +588,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('agencies', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Agency');
@@ -608,7 +622,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('count-post-jobs', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
 
@@ -648,7 +662,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('post-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
 
@@ -705,7 +719,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('count-post-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
 
@@ -751,7 +765,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('count-post-sell-salons', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
 
@@ -790,7 +804,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('count-post-nail-supplies', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
 
@@ -829,7 +843,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('count-options-posts', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
 
@@ -854,7 +868,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('count-history-payments', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
 
@@ -902,7 +916,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('count-agencies', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
 
@@ -935,7 +949,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('total-money-history-payments', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
 
@@ -959,7 +973,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update-posts-jobs', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Job');
@@ -982,7 +996,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update-posts-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
         let UserModel
@@ -1013,7 +1027,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update-posts-sell-salons', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/SellSalon');
@@ -1036,7 +1050,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update-posts-nail-supplies', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/NailSupply');
@@ -1059,7 +1073,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update-agencies', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Agency');
@@ -1092,7 +1106,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('delete-agencies', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Agency');
@@ -1112,7 +1126,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('delete-posts-jobs', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Job');
@@ -1132,7 +1146,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('delete-posts-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
         let UserModel
@@ -1159,7 +1173,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('delete-posts-sell-salons', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/SellSalon');
@@ -1179,7 +1193,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('delete-posts-nail-supplies', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/NailSupply');
@@ -1199,7 +1213,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('counter-dashboard', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const postJobModel = require('./models/Job');
@@ -1223,7 +1237,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('change-password-admin', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Admin');
@@ -1256,7 +1270,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update-options-posts', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
         const UserModel = require('./models/OptionsPosts');
@@ -1280,7 +1294,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('delete-options-posts', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
         const UserModel = require('./models/OptionsPosts');
@@ -1300,7 +1314,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('enable-options-posts', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
         const UserModel = require('./models/OptionsPosts');
@@ -1325,7 +1339,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update-payments-stripe', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
         const UserModel = require('./models/PaymentStripe');
@@ -1350,7 +1364,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('payments-stripe', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
         const UserModel = require('./models/PaymentStripe');
@@ -1368,7 +1382,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('chart-sales', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/HistoryPayments');
@@ -1395,7 +1409,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('traffics', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Traffic');
@@ -1484,7 +1498,7 @@ io.on('connection', (socket) => {
   //----------Start Clients Area---------//
 
   socket.on('check-exist-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null) {
         const UserModel = require('./models/Agency');
@@ -1503,7 +1517,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sign-up-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null) {
         const UserModel = require('./models/Agency');
@@ -1526,7 +1540,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sign-in-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null) {
         const UserModel = require('./models/Agency');
@@ -1546,7 +1560,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('reset-password-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null) {
         const UserModel = require('./models/Agency')
@@ -1573,7 +1587,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('search', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
 
@@ -1692,7 +1706,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('count-search', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
 
@@ -1795,7 +1809,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('search-country', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
         let counter = 0
@@ -1857,7 +1871,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('search-nail-supply', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
         let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" } }
@@ -1874,7 +1888,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('name-country-by-code', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
         let indexSearch = 50
@@ -1905,7 +1919,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('featured', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       const jobModel = require('./models/Job')
       const sellSalonModel = require('./models/SellSalon')
@@ -1946,7 +1960,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('detail-posts-jobs', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/Job')
@@ -2029,7 +2043,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('detail-posts-sell-salons', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/SellSalon')
@@ -2112,7 +2126,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('detail-posts-nail-supplies', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/NailSupply')
@@ -2195,7 +2209,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('update-changed-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
         const UserModel = require('./models/Agency');
@@ -2220,7 +2234,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('options-posts-jobs-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
         const UserModel = require('./models/OptionsPosts')
@@ -2240,7 +2254,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('options-posts-sell-salon-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
         const UserModel = require('./models/OptionsPosts')
@@ -2260,7 +2274,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('options-posts-nail-supply-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
         const UserModel = require('./models/OptionsPosts')
@@ -2280,7 +2294,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('payments-stripes', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
         const UserModel = require('./models/PaymentStripe')
@@ -2299,7 +2313,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('change-password-agency', async (data, callback) => {
-    trafficsSocket()
+    trafficsSocket(socket)
     try {
       if (data != null) {
 

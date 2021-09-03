@@ -612,7 +612,7 @@
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                     </svg>
-                                    <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)"
+                                    <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)" style="padding-right: 4.5rem;"
                                         class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
                                         placeholder="Search a Job by City or zipcode">
                                     <span>
@@ -690,6 +690,10 @@
         let code = urlParams.get('code') || 0
         let title = urlParams.get('title')
 
+        if(isDefine(title)){
+            $('#keyword').val(title)
+        }
+        //console.log(title)
 
         if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'find-job') {
             $('#select_categories').val("find-job").change()

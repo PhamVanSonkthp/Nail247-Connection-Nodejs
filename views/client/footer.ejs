@@ -52,14 +52,14 @@
                         <div class="grid grid-cols-12">
                             <div class="col-span-12 xl:col-span-6 bg-primary"
                                 style="border-radius: 0.5rem; padding: 2rem;">
-                                <h2 id="lbl_welcome" class="text-white font-medium my-5" style="font-size: 1.5rem;">
+                                <h2 id="lbl_welcome_content" class="text-white font-medium my-5" style="font-size: 1.5rem;">
                                 </h2>
 
-                                <h1 id="lbl_name" class="text-white font-medium" style="font-size: 2rem;padding-bottom: 3rem;
+                                <h1 id="lbl_name_content" class="text-white font-medium" style="font-size: 2rem;padding-bottom: 3rem;
                                 padding-top: 0rem;">
                                 </h1>
 
-                                <h2 id="lbl_title" class="text-white font-medium" style="font-size: 1rem;">
+                                <h2 id="lbl_title_content" class="text-white font-medium" style="font-size: 1rem;">
                                 </h2>
 
                                 <ul class="mt-2" id="lbl_contents">
@@ -750,9 +750,9 @@
 
                 socket.emit('welcomes', null, (response) => {
                     if (response) {
-                        $('#lbl_welcome').html(escapeHtml(response.welcome))
-                        $('#lbl_title').html(escapeHtml(response.title))
-                        $('#lbl_name').html(escapeHtml(response.name))
+                        $('#lbl_welcome_content').html(escapeHtml(response.welcome))
+                        $('#lbl_title_content').html(escapeHtml(response.title))
+                        $('#lbl_name_content').html(escapeHtml(response.name))
 
                         let page = ''
                         for (let i = 0; i < response.contents.length; i++) {

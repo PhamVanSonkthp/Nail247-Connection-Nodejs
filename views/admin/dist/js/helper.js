@@ -64,9 +64,15 @@ var entityMap = {
 };
 
 function escapeHtml(string) {
-	return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-		return entityMap[s];
-	});
+	if(!isDefine(string)) return ''
+	if(string.includes('<script>')){
+		return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+			return entityMap[s];
+		})
+	}else{
+		return string
+	}
+	
 }
 
 function reloadScriptApp() {

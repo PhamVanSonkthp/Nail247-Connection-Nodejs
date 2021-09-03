@@ -20,6 +20,10 @@ function removeCookie(name) {
 	document.cookie = name + "=removed; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=../";
 }
 
+String.prototype.replaceAllTxt = function replaceAll(search, replace) {
+	return this.split(search).join(replace);
+}
+
 var entityMap = {
 	'&': '&amp;',
 	'<': '&lt;',
@@ -29,7 +33,7 @@ var entityMap = {
 	'/': '&#x2F;',
 	'`': '&#x60;',
 	'=': '&#x3D;'
-};
+}
 
 function escapeHtml(string) {
 	if(!isDefine(string)) return ''

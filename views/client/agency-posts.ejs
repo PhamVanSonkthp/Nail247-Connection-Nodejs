@@ -338,8 +338,10 @@
 
                     <div class="mt-2">
                         <b>Content:</b>
-                        <textarea id="EdtContentProduct" style="height: 100px;" class="form-control"
-                            disabled></textarea>
+                        <!-- <textarea id="EdtContentProduct" style="height: 100px;" class="form-control"
+                            disabled></textarea> -->
+                        <div id="EdtContentProduct" style="height: 100px;" class="form-control"
+                            disabled></div>
                     </div>
 
                     <div class="mt-2">
@@ -750,8 +752,8 @@
             $('#TblProduct tbody').empty();
             $("#SpnLoading").show();
 
-            let minDate = $('#dtp_query').val().split('-')[0].replaceAll(',', '').trim().split(' ')
-            let maxDate = $('#dtp_query').val().split('-')[1].replaceAll(',', '').trim().split(' ')
+            let minDate = $('#dtp_query').val().split('-')[0].replaceAllTxt(',', '').trim().split(' ')
+            let maxDate = $('#dtp_query').val().split('-')[1].replaceAllTxt(',', '').trim().split(' ')
 
             minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
             maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
@@ -770,8 +772,8 @@
 
         function countProduct() {
 
-            let minDate = $('#dtp_query').val().split('-')[0].replaceAll(',', '').trim().split(' ')
-            let maxDate = $('#dtp_query').val().split('-')[1].replaceAll(',', '').trim().split(' ')
+            let minDate = $('#dtp_query').val().split('-')[0].replaceAllTxt(',', '').trim().split(' ')
+            let maxDate = $('#dtp_query').val().split('-')[1].replaceAllTxt(',', '').trim().split(' ')
 
             minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
             maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
@@ -937,9 +939,10 @@
             $('#add-item-modal').css('z-index', '1000');
             if ($("#add-item-modal").hasClass("show")) {
                 $('#add-item-modal').removeClass('show');
+                $('body').removeClass('overflow-y-hidden');
             } else {
                 $('#add-item-modal').addClass('show');
-                $('#add-item-modal').addClass('overflow-y-auto');
+                $('body').addClass('overflow-y-hidden');
             }
         }
 
@@ -951,7 +954,7 @@
             $('#EdtAddressProduct').val(products[i].address_salon);
             $('#EdtCodeProduct').val(products[i].code);
             $('#EdtTitleProduct').val(products[i].title);
-            $('#EdtContentProduct').val(products[i].content);
+            $('#EdtContentProduct').html(products[i].content);
             $('#lbl_cost_product').html(formatMoney(products[i].cost || products[i].price) + ' $ / Week');
 
             $('#container_images_products').empty();

@@ -41,7 +41,7 @@ function onSign() {
             return
         }
 
-        socket.emit('check-exist-agency', { phone: phone.replaceAll('+', '') }, (response) => {
+        socket.emit('check-exist-agency', { phone: phone.replaceAllTxt('+', '') }, (response) => {
             if (response == null) {
                 $('#container_phone_code').show(200)
                 $('#edt_email').prop('disabled', true)
@@ -58,7 +58,7 @@ function onSign() {
         })
     } else {
         $('#btn_sign').prop('disabled', true)
-        socket.emit('sign-in-agency', { phone: phone.replaceAll('+', ''), password: password }, (response) => {
+        socket.emit('sign-in-agency', { phone: phone.replaceAllTxt('+', ''), password: password }, (response) => {
             if (response) {
                 setCookie('city', response.city)
                 setCookie('country', response.country)
@@ -115,7 +115,7 @@ function phoneAuth(number) {
 function codeverify(code) {
     //var code = document.getElementById('verificationCode').value;
     confirmationCodePhone.confirm(code).then(function (result) {
-        socket.emit('sign-up-agency', { phone: phone.replaceAll('+', ''), email: email, password: password }, (response) => {
+        socket.emit('sign-up-agency', { phone: phone.replaceAllTxt('+', ''), email: email, password: password }, (response) => {
             if (response) {
                 alert('Sign up is successful! please login again')
                 location.reload()

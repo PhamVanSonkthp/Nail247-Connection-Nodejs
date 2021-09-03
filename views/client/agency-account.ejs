@@ -699,7 +699,7 @@
 
         $('#select_package_post_job').on('change', function () {
             let i = tryParseInt(this.value)
-            $('#content_options_post').html(optionsPostJob[i].content.replaceAll("\n", '<br>'))
+            $('#content_options_post').html(optionsPostJob[i].content)
             packagePostJob = optionsPostJob[i].name
             indexPostJob = i
             $("#select_price_post_job").empty()

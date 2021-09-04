@@ -52,8 +52,8 @@
 
                     <div class="mt-2">
                         <b>Content:</b>
-                        <textarea id="EdtContentProduct" style="height: 100px;" class="form-control"
-                            disabled></textarea>
+                        <div id="EdtContentProduct" class="form-control"
+                            disabled></div>
                     </div>
 
                     <div class="mt-2">
@@ -408,7 +408,7 @@
             $('#EdtAddressProduct').val(products[i].address_salon);
             $('#EdtCodeProduct').val(products[i].code);
             $('#EdtTitleProduct').val(products[i].title);
-            $('#EdtContentProduct').val(products[i].content);
+            $('#EdtContentProduct').html(products[i].content);
             $('#lbl_price_product').html(formatMoney(products[i].price) + ' $');
 
             $('#container_images_products').empty();

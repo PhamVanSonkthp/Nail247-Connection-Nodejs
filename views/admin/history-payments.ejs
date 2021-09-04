@@ -228,7 +228,7 @@
             $('#TblDecriptions > tbody').empty();
             let pageTableDecriptions = '';
             for (let i = 0; i < decriptions != undefined && decriptions != null && i < decriptions.length; i++) {
-                pageTableDecriptions += '<tr> <td colspan="2"> <div class="input-group"> <input disabled type="text" class="form-control number" value="' + decriptions[i].month + '""> </div> </td> <td colspan="2"> <div class="input-group"> <input type="text" class="form-control number" value="' + formatMoney(decriptions[i].cost) + '$""> </div> </td> <td colspan="2"> <div class="input-group"> <input type="text" class="form-control" value="' + decriptions[i].content + '""> </div> </td> </tr>';
+                pageTableDecriptions += '<tr> <td colspan="2"> <div class="input-group"> <input disabled type="text" class="form-control number" value="' + escapeHtml(decriptions[i].month) + '""> </div> </td> <td colspan="2"> <div class="input-group"> <input type="text" class="form-control number" value="' + escapeHtml(formatMoney(decriptions[i].cost)) + '$""> </div> </td> <td colspan="2"> <div class="input-group"> <input type="text" class="form-control" value="' + escapeHtml(decriptions[i].content) + '""> </div> </td> </tr>';
             }
             pageTableDecriptions += '';
             $('#TblDecriptions > tbody').html(pageTableDecriptions);

@@ -249,9 +249,9 @@
 
                         <div class="col-span-12 xl:col-span-6">
                             <div class="grid grid-cols-12 gap-6">
-                                <div class="col-span-12 xl:col-span-9">
-                                    <a id="btn_call" class="btn btn-success w-24 mr-1 mb-2 mt-5"
-                                        style="width: 100% !important;background-color: #6bab44;">
+                                <div class="col-span-12 xl:col-span-9 text-right">
+                                    <a id="btn_call" class="btn btn-success w-24 mr-1 mb-2 mt-5 pl-10 pr-10"
+                                        style="background-color: #6bab44;">
                                         <i class="fas fa-phone-alt mr-2"></i><span id="lbl_phone"></span>
                                     </a>
                                 </div>
@@ -484,7 +484,7 @@
                     } else if (response[i].type == 3) {
                         prefix = '../posts-nail-supplies/'
                     }
-                    $('#slick_2').append('<a href="' + (prefix + escapeHtml(response[i].link_slug)) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="font-medium ellipsis">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <p class="ellipsis" style="font-size: 0.8rem;">' + escapeHtml(response[i].content || 'Unknown') + '</p> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].country || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ('$' + (response[i].cost != 0 ? formatMoney(response[i].cost) : 'contact')) : ('$' + (response[i].price != 0 ? formatMoney(response[i].price) : 'contact'))) + '</span> </div> </div> </div> </a>')
+                    $('#slick_2').append('<a href="' + (prefix + escapeHtml(response[i].link_slug)) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="font-medium ellipsis">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis" style="font-size: 0.8rem;">' + escapeHtml(response[i].content || 'Unknown') + '</div> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].country || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ('$' + (response[i].cost != 0 ? formatMoney(response[i].cost) : 'contact')) : ('$' + (response[i].price != 0 ? formatMoney(response[i].price) : 'contact'))) + '</span> </div> </div> </div> </a>')
                 }
                 reloadSlick_2()
             }

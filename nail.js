@@ -196,27 +196,34 @@ const dbFirebase = admin.firestore();
 (async () => {
   const doc = await dbFirebase.collection('ruler').doc('ruler').get();
   token = doc._fieldsProto.key.stringValue
+
+  console.log('token: ' + token)
+  connectDatabase()
 })()
 
 
-// connect db
-mongoose.connect(process.env.DB_CONNECTION + process.env.DB_NAME, options).then(() => {
-  console.log('nail 247 connected database!')
+function connectDatabase() {
+  // connect db
+  mongoose.connect(process.env.DB_CONNECTION + process.env.DB_NAME, options).then(() => {
+    console.log('nail 247 connected database!')
 
-  app.use(function (req, res, next) {
-    // if (!req.headers.token || req.headers.token != token) {
-    //   res.status(403).json({ error: 'authorization' });
-    // }else{
-    //   fetchAPI(req , res)
-    //   next()
-    // }
+    app.use(function (req, res, next) {
+      if (!req.headers.token || req.headers.token != token) {
+        res.status(403).json({ error: 'authorization' });
+      } else {
+        fetchAPI(req, res)
+        next()
+      }
 
-    fetchAPI(req, res)
-    next()
+      // fetchAPI(req, res)
+      // next()
 
-  });
+    });
 
-}).catch(err => console.log(err));
+  }).catch(err => console.log(err))
+}
+
+
 
 function fetchAPI(req, res) {
   helper.saveTraffics(req, 0)
@@ -592,7 +599,14 @@ io.sockets.on('connection', (socket) => {
     try {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Agency');
-        let query = { name: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } };
+        let query = {}
+
+        if (helper.isDefine(data.input) && data.input.length > 0) {
+          query = {
+            ...query,
+            name: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" }
+          }
+        }
 
         // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
         //   query = {
@@ -848,7 +862,14 @@ io.sockets.on('connection', (socket) => {
       if (data != null && await helper.checkLogin(data._id, data.password, true)) {
 
         const UserModel = require('./models/OptionsPosts');
-        let query = { name: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } };
+        let query = {}
+
+        if (helper.isDefine(data.input) && data.input.length > 0) {
+          query = {
+            ...query,
+            name: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" }
+          }
+        }
         let results = [0, 0, 0]
 
         const object = await UserModel.find(query);
@@ -921,7 +942,14 @@ io.sockets.on('connection', (socket) => {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
 
         const UserModel = require('./models/Agency');
-        let query = { name: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } };
+        let query = {}
+
+        if (helper.isDefine(data.input) && data.input.length > 0) {
+          query = {
+            ...query,
+            name: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" }
+          }
+        }
 
         // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
         //   query = {
@@ -1610,7 +1638,7 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.title)) {
+        if (helper.isDefine(data.title) && data.title.length) {
           query = {
             ...query,
             title: sanitize(data.title)
@@ -1729,7 +1757,7 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.title)) {
+        if (helper.isDefine(data.title) && data.title.length) {
           query = {
             ...query,
             title: sanitize(data.title)

@@ -340,7 +340,7 @@
                         <b>Content:</b>
                         <!-- <textarea id="EdtContentProduct" style="height: 100px;" class="form-control"
                             disabled></textarea> -->
-                        <div id="EdtContentProduct" style="height: 100px;" class="form-control"
+                        <div id="EdtContentProduct" class="form-control"
                             disabled></div>
                     </div>
 
@@ -466,6 +466,34 @@
             <div class="col-span-12 xl:col-span-3 p-5" style="border-right: 2px dotted antiquewhite;">
 
                 <ul class="mt-4" style="list-style-type: none;">
+                    <li class="mt-5">
+                        <div class="dropdown"> <button style="background-color: #6bab44;"
+                                class="dropdown-toggle btn text-white" aria-expanded="false"><i
+                                    class="fas fa-cloud-upload-alt mr-2"></i>Post New Ad</button>
+                            <div class="dropdown-menu w-40">
+                                <div class="dropdown-menu__content box dark:bg-dark-1">
+                                    <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium">
+                                        Options post
+                                    </div>
+                                    <div class="p-2"> <a onclick="onPost(0)" style="cursor: pointer;"
+                                            class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                            <i data-feather="briefcase"
+                                                class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i>
+                                            Post a job</a> <a onclick="onPost(1)" style="cursor: pointer;"
+                                            class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                            <i data-feather="shopping-cart"
+                                                class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a sell
+                                            salon
+                                        </a> <a onclick="onPost(2)" style="cursor: pointer;"
+                                            class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                            <i data-feather="shopping-bag"
+                                                class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a nail
+                                            supply
+                                        </a> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <li class="mt-5">
                         <a href="account">
                             <i class="far fa-user fa-lg	mr-2"></i><span>My Account</span>
@@ -627,6 +655,7 @@
     </div>
 
     <%- include("nav-menu"); %>
+    <%- include("modal-post"); %>
 
     <script src="../views/client/dist/js/app.js"></script>
     <script src="../views/client/dist/js/home.js"></script>
@@ -686,7 +715,7 @@
         var prefixLinkSlug
         var prefixUrlImage
 
-        const urlParams = new URLSearchParams(window.location.search);
+        //const urlParams = new URLSearchParams(window.location.search);
         indexRow = tryParseInt(urlParams.get('row'));
         indexPage = tryParseInt(urlParams.get('page'));
         var isSort = urlParams.get('sort') || 1;

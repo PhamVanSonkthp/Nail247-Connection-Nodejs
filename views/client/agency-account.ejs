@@ -19,8 +19,6 @@
     <script src="./../../node_modules/socket.io/client-dist/socket.io.js"></script>
     <script src="../views/client/dist/js/helper.js"></script>
     <script src="../views/client/dist/js/sha512.min.js"></script>
-    <script src="../views/client/dist/js/ckeditor/ckeditor.js"></script>
-    <script src="../views/client/dist/js/ckeditor/samples/js/sample.js"></script>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
@@ -57,8 +55,8 @@
 
     <style>
         .contenter {
-            padding-left: 15rem;
-            padding-right: 15rem;
+            padding-left: 5rem;
+            padding-right: 5rem;
         }
 
         @media (max-width:1200px) {
@@ -167,10 +165,38 @@
     </div>
 
     <div class="contenter">
-        <div class="box grid grid-cols-3" style="background-color: #f8fafb;">
-            <div class="col-span-3 xl:col-span-1 p-5" style="border-right: 2px dotted antiquewhite;">
+        <div class="box grid grid-cols-12" style="background-color: #f8fafb;">
+            <div class="col-span-12 xl:col-span-3 p-5" style="border-right: 2px dotted antiquewhite;">
 
                 <ul class="mt-4" style="list-style-type: none;">
+                    <li class="mt-5">
+                        <div class="dropdown"> <button style="background-color: #6bab44;"
+                                class="dropdown-toggle btn text-white" aria-expanded="false"><i
+                                    class="fas fa-cloud-upload-alt mr-2"></i>Post New Ad</button>
+                            <div class="dropdown-menu w-40">
+                                <div class="dropdown-menu__content box dark:bg-dark-1">
+                                    <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium">
+                                        Options post
+                                    </div>
+                                    <div class="p-2"> <a onclick="onPost(0)" style="cursor: pointer;"
+                                            class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                            <i data-feather="briefcase"
+                                                class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i>
+                                            Post a job</a> <a onclick="onPost(1)" style="cursor: pointer;"
+                                            class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                            <i data-feather="shopping-cart"
+                                                class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a sell
+                                            salon
+                                        </a> <a onclick="onPost(2)" style="cursor: pointer;"
+                                            class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                            <i data-feather="shopping-bag"
+                                                class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a nail
+                                            supply
+                                        </a> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <li class="mt-5" style="color: #eb1b6c;">
                         <a href="account">
                             <i class="far fa-user fa-lg	mr-2"></i><span>My Account</span>
@@ -193,7 +219,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-span-3 xl:col-span-2 p-5">
+            <div class="col-span-12 xl:col-span-9 p-5">
                 <div class="dropdown" style="float: right;"> <button style="background-color: #6bab44;"
                         class="dropdown-toggle btn text-white" aria-expanded="false"><i
                             class="fas fa-cloud-upload-alt mr-2"></i>Post New Ad</button>
@@ -203,7 +229,8 @@
                             </div>
                             <div class="p-2"> <a onclick="onPost(0)" style="cursor: pointer;"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                    <i data-feather="briefcase" class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i>
+                                    <i data-feather="briefcase"
+                                        class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i>
                                     Post a job</a> <a onclick="onPost(1)" style="cursor: pointer;"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
                                     <i data-feather="shopping-cart"
@@ -306,655 +333,19 @@
     </div>
 
     <%- include("nav-menu"); %>
-
-    <div id="modal_post_job" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <button style="position: absolute;right: 0.7rem;top: 0.3rem;" onclick="toggleModalSignInSignUp()"
-                    type="button" class="close no-border" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="no-border" style="font-size: 1.3rem;">&times;</span>
-                </button>
-                <form id="form_upload_job" enctype="multipart/form-data" method="post">
-                    <div class="p-5">
-                        <div id="lbl_title_post" class="font-medium mt-3 text-center"
-                            style="font-size: 1.3rem; color: #eb1b6c;">Post a job
-                        </div>
-
-                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Upload images</div>
-
-                        <div>
-                            <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage"
-                                accept="image/*" multiple>
-                        </div>
-
-                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Name salon</div>
-
-                        <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
-                            style="box-shadow: 0px 4px 6px #bdbdbd;">
-                            <input id="modal_post_job_edt_name_salon" name="name_salon" autocomplete="off" type="text"
-                                class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                placeholder="Name salon (option)">
-                        </div>
-
-                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Title</div>
-
-                        <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
-                            style="box-shadow: 0px 4px 6px #bdbdbd;">
-                            <input id="modal_post_job_edt_title" autocomplete="off" type="text" name="title"
-                                class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                placeholder="Title">
-                        </div>
-
-                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Content</div>
-
-                        <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
-                            style="box-shadow: 0px 4px 6px #bdbdbd;height: 10rem;">
-                            <textarea id="editor" autocomplete="off" type="text"
-                                class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                placeholder="Content"></textarea>
-                        </div>
-
-                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Details</div>
-
-                        <div class="grid grid-cols-12 gap-6 mt-3">
-                            <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
-                                <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_phone" autocomplete="off" type="text" name="phone"
-                                        class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                        placeholder="Phone contact (require)"
-                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                        onpaste="return false">
-                                    <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
-                                        <path
-                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
-                                <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_email" autocomplete="off" type="text" name="email"
-                                        class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                        placeholder="Email contact (require)">
-                                    <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
-                                        <path
-                                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                        </path>
-                                        <polyline points="22,6 12,13 2,6"></polyline>
-                                    </svg>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <input name="code" id="edt_code" style="display: none;" />
-                        <input name="country" id="edt_country_hide" style="display: none;" />
-                        <input name="months_provider" id="edt_months_provider" style="display: none;" />
-                        <input name="package" id="edt_package" style="display: none;" />
-                        <input name="id_agency" id="edt_id_agency" style="display: none;" />
-                        <input name="cost_package" id="edt_cost_package" style="display: none;" />
-                        <input name="content" id="edt_content" style="display: none;" />
-                        <input name="location" id="edt_location" style="display: none;" />
-
-                        <div class="grid grid-cols-12 gap-6 mt-3">
-                            <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
-                                <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_salary" autocomplete="off" type="text" name="cost"
-                                        class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                        onpaste="return false">
-                                    <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
-                                        <line x1="12" y1="1" x2="12" y2="23"></line>
-                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
-                                <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_filter_country" autocomplete="off" type="text"
-                                        class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                        placeholder="City of your salon" oninput="onFilterCountryPostJob()">
-                                    <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                        <circle cx="12" cy="10" r="3"></circle>
-                                    </svg>
-
-                                    <div id="container_filter_country"
-                                        style="position: absolute;background: white;left: 0;right: 0;padding: 1rem;display: none;z-index: 100;">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Location on map</div>
-
-                        <div class="mt-2" style="height: 20rem;">
-                            <div id="map"></div>
-                        </div>
-
-                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Select option</div>
-
-                        <div id="content_options_post" class="text-center p-3 font-medium">
-
-                        </div>
-
-                        <div class="grid grid-cols-12 gap-6 mt-3">
-                            <div class="col-span-12 xl:col-span-4" style="box-shadow: 0px 4px 6px #bdbdbd;">
-                                <div class="font-medium">Package</div>
-                                <select id="select_package_post_job" class="form-select p-3 no-border"
-                                    aria-label="Default select example">
-
-                                </select>
-                            </div>
-
-                            <div class="col-span-12 xl:col-span-4" style="box-shadow: 0px 4px 6px #bdbdbd;">
-                                <div class="font-medium">Price</div>
-                                <select id="select_price_post_job" class="form-select p-3 no-border"
-                                    aria-label="Default select example">
-                                </select>
-                            </div>
-
-                            <div class="col-span-12 xl:col-span-4" style="box-shadow: 0px 4px 6px #bdbdbd;">
-                                <div class="font-medium">Content</div>
-                                <div class="p-3" id="content_post_job"></div>
-                            </div>
-
-                        </div>
-
-                        <button type="button" onclick="uploadPostJob()" style="background-color: #6bab44;"
-                            class="btn text-white w-full mt-5" aria-expanded="false"><i
-                                class="fas fa-cloud-upload-alt mr-2"></i><span id="btn_post_job"></span></button>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJtXzl0cHyIitaEJ5lOTYoLsosPIft7JY&callback=initMap&libraries=&v=weekly"></script>
-
-    <script>
-        let map;
-        let markers = [];
-        var posPostJob;
-        function initMap() {
-            canvasMap({ lat: 40.906659, lng: -101.361232 });
-        }
-
-        function canvasMap(position) {
-            map = new google.maps.Map(document.getElementById("map"), {
-                center: position,
-                zoom: 5,
-            });
-            const locationButton = document.createElement("button");
-            locationButton.type = 'button';
-            locationButton.textContent = "Take my location";
-            locationButton.classList.add("custom-map-control-button");
-
-            map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-            addMarker(position);
-            locationButton.addEventListener("click", () => {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            const pos = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude,
-                            };
-                            map.setCenter(pos);
-                            addMarker(pos);
-                            $('#btn_save_position').show();
-                        },
-                        () => {
-                            //handleLocationError(true, infoWindow, map.getCenter());
-                        }
-                    );
-                } else {
-                    //handleLocationError(false, infoWindow, map.getCenter());
-                }
-            });
-            map.addListener("click", (event) => {
-                addMarker(event.latLng);
-                $('#btn_save_position').show();
-            });
-
-        }
-
-        function addMarker(position) {
-            deleteMarkers();
-            const marker = new google.maps.Marker({
-                position,
-                map,
-            });
-            markers.push(marker);
-            posPostJob = position;
-        }
-
-        function setMapOnAll(map) {
-            for (let i = 0; i < markers.length; i++) {
-                markers[i].setMap(map);
-            }
-        }
-        function deleteMarkers() {
-            setMapOnAll(null);
-            markers = [];
-        }
-
-    </script>
-
-
-    <script>
-        var stripeHandlerPostJob
-
-        socket.emit('payments-stripes', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-            if (isDefine(response)) {
-                stripeHandlerPostJob = StripeCheckout.configure({
-                    key: response,
-                    locale: 'en',
-                    token: function (token) {
-                        fetch('/purchase', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                stripeTokenId: token.id,
-                                amount: costPostJob * 100
-                            })
-                        }).then(function (res) {
-                            if (res.status == 200) {
-                                showDialog()
-                                toggleModalPostJob()
-
-                                if (type_post == 0) {
-                                    $('#form_upload_job').attr('action', '../job/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password'))
-                                    $('#form_upload_job').submit()
-                                } else if (type_post == 1) {
-                                    $('#form_upload_job').attr('action', '../sell-salon/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password'))
-                                    $('#form_upload_job').submit()
-                                } else if (type_post == 2) {
-                                    $('#form_upload_job').attr('action', '../nail-supplies/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password'))
-                                    $('#form_upload_job').submit()
-                                }
-                            } else {
-                                alert('error')
-                                toggleModalPostJob()
-                            }
-                        }).catch(function (data) {
-                            alert(data.message)
-                        })
-                    }
-                })
-            }
-        })
-    </script>
-
-    <script>
-        var type_post
-        var codePostJob
-        var optionsPostJob, indexPostJob = 0, packagePostJob, monthsProviderPostJob, costPostJob
-        var titlePostJob, salonNamePostJob, contentPostJob, phonePostJob, salaryPostJob, emailPostJob, countryPostJob
-
-        const urlParams = new URLSearchParams(window.location.search)
-
-        function uploadPostJob() {
-
-            try {
-                posPostJob = JSON.parse(JSON.stringify(pos.toJSON(), null, 2))
-            } catch (e) {
-
-            }
-            console.log(posPostJob)
-
-            if (!$('#modal_post_job_edt_title').val().length) {
-                $('#modal_post_job_edt_title').focus();
-                return
-            }
-            if (!CKEDITOR.instances.editor.getData().length) {
-                $('#editor').focus()
-                return
-            }
-            if (!$('#modal_post_job_edt_phone').val().length) {
-                $('#modal_post_job_edt_phone').focus();
-                return
-            }
-            if (!validateEmail($('#modal_post_job_edt_email').val())) {
-                $('#modal_post_job_edt_email').focus();
-                return
-            }
-
-            if (!$('#modal_post_job_edt_filter_country').val().length || !codePostJob) {
-                $('#modal_post_job_edt_filter_country').focus();
-                return
-            }
-
-
-
-            titlePostJob = ($('#modal_post_job_edt_title').val())
-            salonNamePostJob = ($('#modal_post_job_edt_name_salon').val())
-            contentPostJob = CKEDITOR.instances.editor.getData()
-            phonePostJob = ($('#modal_post_job_edt_phone').val())
-            salaryPostJob = ($('#modal_post_job_edt_salary').val())
-            emailPostJob = ($('#modal_post_job_edt_email').val())
-            countryPostJob = ($('#modal_post_job_edt_filter_country').val())
-
-            try {
-                posPostJob = JSON.parse(JSON.stringify(pos.toJSON(), null, 2))
-            } catch (e) {
-
-            }
-
-            $('#edt_code').val(codePostJob)
-            $('#edt_country_hide').val(countryPostJob)
-            $('#edt_months_provider').val(monthsProviderPostJob)
-            $('#edt_package').val(packagePostJob)
-            $('#edt_id_agency').val(getCookie('_id'))
-            $('#edt_cost_package').val(costPostJob)
-            $('#edt_content').val(contentPostJob)
-            $('#edt_location').val('{' + posPostJob.lng + ',' + posPostJob.lat + ' }')
-
-            if (costPostJob == 0) {
-                showDialog()
-                toggleModalPostJob()
-                if (type_post == 0) {
-                    $('#form_upload_job').attr('action', '../job/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password'))
-                    $('#form_upload_job').submit()
-                } else if (type_post == 1) {
-                    $('#form_upload_job').attr('action', '../sell-salon/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password'))
-                    $('#form_upload_job').submit()
-                } else if (type_post == 2) {
-                    $('#form_upload_job').attr('action', '../nail-supplies/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password'))
-                    $('#form_upload_job').submit()
-                }
-
-            } else {
-                checkoutPostJob()
-            }
-        }
-
-        function checkoutPostJob() {
-            stripeHandlerPostJob.open({
-                amount: costPostJob * 100
-            })
-        }
-
-        $('#select_package_post_job').on('change', function () {
-            let i = tryParseInt(this.value)
-            $('#content_options_post').html(optionsPostJob[i].content)
-            packagePostJob = optionsPostJob[i].name
-            indexPostJob = i
-            $("#select_price_post_job").empty()
-            for (let j = 0; j < optionsPostJob[i].options.length; j++) {
-                let p = new Option(optionsPostJob[i].options[j].cost + '$, ' + optionsPostJob[i].options[j].month + ' month', j)
-                $(p).html(optionsPostJob[i].options[j].cost + '$, ' + optionsPostJob[i].options[j].month + ' month')
-                $("#select_price_post_job").append(p)
-            }
-            $("#content_post_job").html(optionsPostJob[indexPostJob].options[0].content)
-            monthsProviderPostJob = optionsPostJob[indexPostJob].options[0].month
-            costPostJob = optionsPostJob[indexPostJob].options[0].cost
-            if (costPostJob == 0) {
-                $('#btn_post_job').html('Post For Free')
-            } else {
-                $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
-            }
-        })
-
-        $('#select_price_post_job').on('change', function () {
-            let i = tryParseInt(this.value)
-            $("#content_post_job").html(optionsPostJob[indexPostJob].options[i].content)
-            monthsProviderPostJob = optionsPostJob[indexPostJob].options[i].month
-            costPostJob = optionsPostJob[indexPostJob].options[i].cost
-            if (costPostJob == 0) {
-                $('#btn_post_job').html('Post For Free')
-            } else {
-                $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
-            }
-        })
-
-        function fillCountryPostJob(val) {
-            $('#modal_post_job_edt_filter_country').val(val.split(',')[0])
-            codePostJob = val.split(',')[1]
-            $('#container_filter_country').hide(200)
-        }
-        function onFilterCountryPostJob() {
-            if ($('#modal_post_job_edt_filter_country').val().length) {
-                $('#container_filter_country').show(200)
-
-                socket.emit('search-country', { val: $('#modal_post_job_edt_filter_country').val() }, (response) => {
-                    $('#container_filter_country').empty()
-                    if (response && $('#modal_post_job_edt_filter_country').val().length) {
-                        for (let i = 0; i < response.length; i++) {
-                            $('#container_filter_country').append('<div onclick="fillCountryPostJob(\'' + escapeHtml(response[i][3]) + ',' + escapeHtml(response[i][0]) + '\')" ><span class="font-medium">' + escapeHtml(response[i][3]) + ', ' + escapeHtml(response[i][4]) + '</span> <span class="ml-2" style="font-size: 0.8rem;">' + escapeHtml(response[i][0]) + '</span></div>')
-                        }
-                    }
-                })
-            } else {
-                $('#container_filter_country').hide(200)
-            }
-        }
-    </script>
-
-    <script src="../views/client/dist/js/app.js"></script>
-    <script src="../views/client/dist/js/home.js"></script>
-
-    <script>
-
-        function onPost(val) {
-            $("#select_package_post_job").empty()
-            $("#select_price_post_job").empty()
-            $("#content_post_job").empty()
-
-            type_post = val
-            if (type_post == 0) {
-                $('#lbl_title_post').html('Post a job')
-                $('#modal_post_job_edt_salary').attr("placeholder", "Salary / week (option)")
-                socket.emit('options-posts-jobs-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                    if (isDefine(response) && response.length > 0) {
-                        $('#content_options_post').html(escapeHtml(response[0].content))
-                        optionsPostJob = response
-                        packagePostJob = response[0].name
-                        for (let i = 0; i < response.length; i++) {
-                            var o = new Option(response[i].name, i)
-                            $(o).html(escapeHtml(response[i].name))
-                            $("#select_package_post_job").append(o)
-
-                            if (i == 0) {
-                                for (let j = 0; j < response[i].options.length; j++) {
-                                    let p = new Option(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month', j)
-                                    $(p).html(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month')
-                                    $("#select_price_post_job").append(p)
-                                }
-                                $("#content_post_job").html(response[i].options[0].content)
-                                monthsProviderPostJob = response[i].options[0].month
-                                costPostJob = response[i].options[0].cost
-                                if (costPostJob == 0) {
-                                    $('#btn_post_job').html('Post For Free')
-                                } else {
-                                    $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
-                                }
-                            }
-                        }
-                    }
-                })
-            } else if (type_post == 1) {
-                $('#lbl_title_post').html('Post a salon for sale')
-                $('#modal_post_job_edt_salary').attr("placeholder", "Price (option)")
-                socket.emit('options-posts-sell-salon-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                    if (isDefine(response) && response.length > 0) {
-                        optionsPostJob = response
-                        packagePostJob = response[0].name
-                        $('#content_options_post').html(response[0].content)
-                        for (let i = 0; i < response.length; i++) {
-                            var o = new Option(response[i].name, i)
-                            $(o).html(response[i].name)
-                            $("#select_package_post_job").append(o)
-
-                            if (i == 0) {
-                                for (let j = 0; j < response[i].options.length; j++) {
-                                    let p = new Option(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month', j)
-                                    $(p).html(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month')
-                                    $("#select_price_post_job").append(p)
-                                }
-                                $("#content_post_job").html(response[i].options[0].content)
-                                monthsProviderPostJob = response[i].options[0].month
-                                costPostJob = response[i].options[0].cost
-                                if (costPostJob == 0) {
-                                    $('#btn_post_job').html('Post For Free')
-                                } else {
-                                    $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
-                                }
-                            }
-                        }
-                    }
-                })
-            } else if (type_post == 2) {
-                $('#lbl_title_post').html('Post a nail supply')
-                $('#modal_post_job_edt_salary').attr("placeholder", "Price (option)")
-                socket.emit('options-posts-nail-supply-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                    if (isDefine(response) && response.length > 0) {
-                        optionsPostJob = response
-                        packagePostJob = response[0].name
-                        $('#content_options_post').html(response[0].content)
-                        for (let i = 0; i < response.length; i++) {
-                            var o = new Option(response[i].name, i)
-                            $(o).html(response[i].name)
-                            $("#select_package_post_job").append(o)
-
-                            if (i == 0) {
-                                for (let j = 0; j < response[i].options.length; j++) {
-                                    let p = new Option(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month', j)
-                                    $(p).html(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month')
-                                    $("#select_price_post_job").append(p)
-                                }
-                                $("#content_post_job").html(response[i].options[0].content)
-                                monthsProviderPostJob = response[i].options[0].month
-                                costPostJob = response[i].options[0].cost
-                                if (costPostJob == 0) {
-                                    $('#btn_post_job').html('Post For Free')
-                                } else {
-                                    $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
-                                }
-                            }
-                        }
-                    }
-                })
-            }
-            toggleModalPostJob()
-        }
-
-        function showDialog() {
-            $('#dialog-loading').show(200)
-        }
-
-        function hideDialog() {
-            $('#dialog-loading').hide(200)
-        }
-
-        if (isDefine(getCookie('name')) && getCookie('name') != 'null') {
-            $('#edt_name').val(getCookie('name'))
-        }
-
-        if (isDefine(getCookie('phone')) && getCookie('phone') != 'null') {
-            $('#edt_phone').val(getCookie('phone'))
-        }
-
-        if (isDefine(getCookie('email')) && getCookie('email') != 'null') {
-            $('#edt_email').val(getCookie('email'))
-        }
-
-        if (isDefine(getCookie('country')) && getCookie('country') != 'null') {
-            $('#edt_country').val(getCookie('country'))
-        }
-
-        if (isDefine(getCookie('password')) && getCookie('password') != 'null') {
-            $('#edt_password').val(getCookie('password'))
-        }
-
-        function saveChanged() {
-            socket.emit('update-changed-agency', { _id: getCookie('_id'), password: getCookie('password'), name: $('#edt_name').val(), email: $('#edt_email').val(), country: $('#edt_country').val() }, (response) => {
-                if (isDefine(response)) {
-                    setCookie('country', $('#edt_country').val())
-                    setCookie('name', $('#edt_name').val())
-                    setCookie('email', $('#edt_email').val())
-                    $('#btn_save_change').hide(200)
-                }
-            })
-        }
-
-        function showSave() {
-            $('#btn_save_change').show(200)
-        }
-
-        function toggleModalPostJob() {
-            $('#modal_post_job').css('display', 'block');
-            $('#modal_post_job').css('margin-top', '0px');
-            $('#modal_post_job').css('margin-left', '0px');
-            $('#modal_post_job').css('z-index', '1000');
-            if ($("#modal_post_job").hasClass("show")) {
-                $('#modal_post_job').removeClass('show');
-                $('body').removeClass('overflow-y-hidden');
-            } else {
-                $('#modal_post_job').addClass('show');
-                $('body').addClass('overflow-y-hidden');
-            }
-        }
-
-        function logout() {
-            deleteAllCookies()
-            window.location.replace('../')
-        }
-
-        function checkLogin() {
-            if (getCookie('_id') && getCookie('password')) {
-                socket.emit('recent-login-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                    if (!response) {
-                        logout()
-                    }
-                })
-            } else {
-                logout()
-            }
-        }
-
-        checkLogin()
-
-        function deleteAllCookies() {
-            document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
-        }
-
-        if(isDefine(urlParams.get('post'))){
-            onPost(0)
-        }
-    </script>
-
-    <link href="../views/client/dist/css/imageuploadify.min.css" rel="stylesheet">
-    <script src="../views/client/dist/js/imageuploadify.min.js"></script>
-    <script src="../views/client/dist/js/imageuploadify.js"></script>
-
-    <script>
-        $('input[name="avatar"]').imageuploadify();
-        $("input").attr("autocomplete", "off");
-        initSample()
-    </script>
+        <%- include("modal-post"); %>
+
+
+            <script src="../views/client/dist/js/app.js"></script>
+            <script src="../views/client/dist/js/home.js"></script>
+            <link href="../views/client/dist/css/imageuploadify.min.css" rel="stylesheet">
+            <script src="../views/client/dist/js/imageuploadify.min.js"></script>
+            <script src="../views/client/dist/js/imageuploadify.js"></script>
+
+            <script>
+                $('input[name="avatar"]').imageuploadify();
+                $("input").attr("autocomplete", "off");
+            </script>
 </body>
 
 </html>

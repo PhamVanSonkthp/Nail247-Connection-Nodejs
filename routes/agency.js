@@ -154,15 +154,15 @@ router.get('/nail-supply/:objectId', async (req, res) => {
     }
 });
 
-// router.get('/', async (req, res) => {
-//     try {
-//         const limit = parseInt(req.query.limit, 10) || 25;
-//         const page = parseInt(req.query.page, 10) || 0;
-//         const object = await ObjectModel.find().skip(page).limit(limit);
-//         res.json(object);
-//     } catch (err) {
-//         res.status(400).json(err);
-//     }
-// });
+router.get('/exist', async (req, res) => {
+    try {
+        const phone = req.query.phone
+        const query = { phone: phone }
+        const object = await ObjectModel.findOne(query)
+        res.json(object != null)
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
 
 module.exports = router;

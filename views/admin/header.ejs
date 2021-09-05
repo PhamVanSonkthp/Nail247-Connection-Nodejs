@@ -1040,7 +1040,7 @@
             <div class="top-bar">
                 <!-- BEGIN: Breadcrumb -->
                 <div class="-intro-x breadcrumb mr-auto hidden sm:flex"> <a href="">Application</a> <i
-                        data-feather="chevron-right" class="breadcrumb__icon"></i> <a href=""
+                        data-feather="chevron-right" class="breadcrumb__icon"></i> <a id="lbl_role"
                         class="breadcrumb--active">Override</a> </div>
                 <!-- END: Breadcrumb -->
                 <!-- BEGIN: Account Menu -->
@@ -1072,3 +1072,15 @@
                 </div>
                 <!-- END: Account Menu -->
             </div>
+
+            <script>
+                if(getCookie('permission') == 1){
+                    $('#draw_1').hide()
+                    $('#draw_4').hide()
+                    $('#draw_5').hide()
+                    $('#lbl_role').html('Manager')
+                }else{
+                    $('#lbl_role').html('Admin')
+                }
+
+            </script>

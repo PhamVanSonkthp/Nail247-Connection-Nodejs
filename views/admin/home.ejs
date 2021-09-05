@@ -116,7 +116,8 @@
                                     <div class="report-box zoom-in h-full">
                                         <div class="box p-5 h-full">
                                             <div class="flex">
-                                                <i data-feather="shopping-bag" class="report-box__icon text-theme-10"></i>
+                                                <i data-feather="shopping-bag"
+                                                    class="report-box__icon text-theme-10"></i>
                                             </div>
                                             <div id="counter_nail_supplies" class="text-3xl font-medium leading-8 mt-6">
                                                 <div
@@ -195,7 +196,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                
+
                             </div>
                         </div>
                         <!-- END: General Report -->
@@ -406,10 +407,10 @@
                     let image;
                     if (!empty(response[i].images)) {
                         image = urlImagePostJobsIcon + response[i].images[0];
-                    }else{
+                    } else {
                         image = '../views/admin/dist/images/no-image.png'
                     }
-                    $('#container_posts_jobs').append('<a href="../posts-jobs/'+escapeHtml(response[i].link_slug)+'"><div class="intro-x"> <div class="box px-5 py-3 mb-3 flex items-center zoom-in"> <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"> <img src="' + escapeHtml(image) + '"> </div> <div class="ml-4 mr-auto"> <div class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</div> <div class="text-gray-600 text-xs mt-0.5 ellipsis">' + escapeHtml(response[i].content) + '</div> </div> <div class="' + flag + '">' + escapeHtml(formatMoney(response[i].cost)) + '$</div> </div> </div></a>');
+                    $('#container_posts_jobs').append('<a href="../posts-jobs/' + escapeHtml(response[i].link_slug) + '"><div class="intro-x"> <div class="box px-5 py-3 mb-3 flex items-center zoom-in"> <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"> <img src="' + escapeHtml(image) + '"> </div> <div class="ml-4 mr-auto"> <div class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</div> <div class="text-gray-600 text-xs mt-0.5 ellipsis">' + escapeHtml(response[i].content) + '</div> </div> <div class="' + flag + '">' + escapeHtml(formatMoney(response[i].cost)) + '$</div> </div> </div></a>');
                 }
                 $('#container_posts_jobs').append('<a href="posts-jobs" class="intro-x w-full block text-center rounded-md py-3 border border-dotted border-theme-15 dark:border-dark-5 text-theme-16 dark:text-gray-600">View More</a>');
             }
@@ -420,13 +421,13 @@
                 for (let i = 0; i < response.length; i++) {
                     let flag = response[i].status ? 'text-theme-9' : 'text-theme-6';
                     let image;
-                    
+
                     if (!empty(response[i].images)) {
                         image = urlImagePostSellsSalonsIcon + response[i].images[0];
-                    }else{
+                    } else {
                         image = '../views/admin/dist/images/no-image.png'
                     }
-                    $('#container_posts_sells_salons').append('<a href="../posts-sell-salons/'+escapeHtml(response[i].link_slug)+'"><div class="intro-x"> <div class="box px-5 py-3 mb-3 flex items-center zoom-in"> <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"> <img src="' + escapeHtml(image) + '"> </div> <div class="ml-4 mr-auto"> <div class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</div> <div class="text-gray-600 text-xs mt-0.5 ellipsis">' + escapeHtml(response[i].content) + '</div> </div> <div class="' + flag + '">' + escapeHtml(formatMoney(response[i].price)) + '$</div> </div> </div></a>');
+                    $('#container_posts_sells_salons').append('<a href="../posts-sell-salons/' + escapeHtml(response[i].link_slug) + '"><div class="intro-x"> <div class="box px-5 py-3 mb-3 flex items-center zoom-in"> <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"> <img src="' + escapeHtml(image) + '"> </div> <div class="ml-4 mr-auto"> <div class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</div> <div class="text-gray-600 text-xs mt-0.5 ellipsis">' + escapeHtml(response[i].content) + '</div> </div> <div class="' + flag + '">' + escapeHtml(formatMoney(response[i].price)) + '$</div> </div> </div></a>');
                 }
                 $('#container_posts_sells_salons').append('<a href="posts-sell-salons" class="intro-x w-full block text-center rounded-md py-3 border border-dotted border-theme-15 dark:border-dark-5 text-theme-16 dark:text-gray-600">View More</a>');
             }
@@ -439,10 +440,10 @@
                     let image;
                     if (!empty(response[i].images)) {
                         image = urlImagePostNailSuppliesIcon + response[i].images[0];
-                    }else{
+                    } else {
                         image = '../views/admin/dist/images/no-image.png'
                     }
-                    $('#container_posts_nail_supplies').append('<a href="../posts-nail-supplies/'+escapeHtml(response[i].link_slug)+'"><div class="intro-x"> <div class="box px-5 py-3 mb-3 flex items-center zoom-in"> <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"> <img src="' + escapeHtml(image) + '"> </div> <div class="ml-4 mr-auto"> <div class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</div> <div class="text-gray-600 text-xs mt-0.5 ellipsis">' + escapeHtml(response[i].content) + '</div> </div> <div class="' + flag + '">' + escapeHtml(formatMoney(response[i].price)) + '$</div> </div> </div></a>');
+                    $('#container_posts_nail_supplies').append('<a href="../posts-nail-supplies/' + escapeHtml(response[i].link_slug) + '"><div class="intro-x"> <div class="box px-5 py-3 mb-3 flex items-center zoom-in"> <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"> <img src="' + escapeHtml(image) + '"> </div> <div class="ml-4 mr-auto"> <div class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</div> <div class="text-gray-600 text-xs mt-0.5 ellipsis">' + escapeHtml(response[i].content) + '</div> </div> <div class="' + flag + '">' + escapeHtml(formatMoney(response[i].price)) + '$</div> </div> </div></a>');
                 }
                 $('#container_posts_nail_supplies').append('<a href="posts-nail-supplies" class="intro-x w-full block text-center rounded-md py-3 border border-dotted border-theme-15 dark:border-dark-5 text-theme-16 dark:text-gray-600">View More</a>');
             }
@@ -542,6 +543,12 @@
                 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
                 chart.draw(data, options);
             }
+        }
+    </script>
+
+    <script>
+        if (getCookie('permission') == 1) {
+            window.location.replace('../admin/posts-jobs')
         }
     </script>
 

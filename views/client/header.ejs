@@ -57,7 +57,27 @@
             line-height: normal !important;
         }
 
-        .slick-slide , .slick-track{
+        .ellipsis-1 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1 !important;
+            /* number of lines to show */
+            -webkit-box-orient: vertical;
+        }
+
+        .ellipsis-2 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2 !important;
+            /* number of lines to show */
+            -webkit-box-orient: vertical;
+            height: 1.9rem;
+        }
+
+        .slick-slide,
+        .slick-track {
             min-width: 10rem;
         }
 
@@ -612,7 +632,8 @@
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                     </svg>
-                                    <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)" style="padding-right: 4.5rem;"
+                                    <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)"
+                                        style="padding-right: 4.5rem;"
                                         class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
                                         placeholder="Search a Job by City or zipcode">
                                     <span>
@@ -655,8 +676,8 @@
                                         <img class="mt-2"
                                             style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
                                             src="../views/client/dist/images/salary.png">
-                                        <select class="form-select p-3 no-border pl-5" id="select_range_salary" style="background-color: white;"
-                                            aria-label="Default select example"
+                                        <select class="form-select p-3 no-border pl-5" id="select_range_salary"
+                                            style="background-color: white;" aria-label="Default select example"
                                             onchange="if (typeof changeSalary != 'undefined') changeSalary(tryParseInt(this.value))">
                                             <option value="0" selected="">Salary</option>
                                             <option value="1">0$ - 500$</option>
@@ -690,7 +711,7 @@
         let code = urlParams.get('code') || 0
         let title = urlParams.get('title')
 
-        if(isDefine(title)){
+        if (isDefine(title)) {
             $('#keyword').val(title)
         }
         //console.log(title)

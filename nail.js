@@ -326,7 +326,7 @@ io.sockets.on('connection', (socket) => {
         let query = { phone: sanitize(obj.phone), password: sanitize(obj.password) };
         const object = await UserModel.findOne(query);
         if (object != null) {
-          callback({ _id: object._id, name: object.name, password: helper.encrypt(object.password), phone: object.phone });
+          callback({ _id: object._id, name: object.name, password: helper.encrypt(object.password), phone: object.phone, permission: object.permission });
         } else {
           callback(null);
         }

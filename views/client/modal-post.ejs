@@ -398,8 +398,8 @@
         indexPostJob = i
         $("#select_price_post_job").empty()
         for (let j = 0; j < optionsPostJob[i].options.length; j++) {
-            let p = new Option(optionsPostJob[i].options[j].cost + '$, ' + optionsPostJob[i].options[j].month + ' month', j)
-            $(p).html(optionsPostJob[i].options[j].cost + '$, ' + optionsPostJob[i].options[j].month + ' month')
+            let p = new Option('$'+optionsPostJob[i].options[j].cost + ', ' + optionsPostJob[i].options[j].month + ' month', j)
+            $(p).html('$'+optionsPostJob[i].options[j].cost + ', ' + optionsPostJob[i].options[j].month + ' month')
             $("#select_price_post_job").append(p)
         }
         $("#content_post_job").html(optionsPostJob[indexPostJob].options[0].content)
@@ -470,8 +470,8 @@
 
                         if (i == 0) {
                             for (let j = 0; j < response[i].options.length; j++) {
-                                let p = new Option(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month', j)
-                                $(p).html(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month')
+                                let p = new Option('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month', j)
+                                $(p).html('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month')
                                 $("#select_price_post_job").append(p)
                             }
                             $("#content_post_job").html(response[i].options[0].content)
@@ -501,8 +501,8 @@
 
                         if (i == 0) {
                             for (let j = 0; j < response[i].options.length; j++) {
-                                let p = new Option(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month', j)
-                                $(p).html(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month')
+                                let p = new Option('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month', j)
+                                $(p).html('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month')
                                 $("#select_price_post_job").append(p)
                             }
                             $("#content_post_job").html(response[i].options[0].content)
@@ -532,8 +532,8 @@
 
                         if (i == 0) {
                             for (let j = 0; j < response[i].options.length; j++) {
-                                let p = new Option(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month', j)
-                                $(p).html(response[i].options[j].cost + '$, ' + response[i].options[j].month + ' month')
+                                let p = new Option('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month', j)
+                                $(p).html('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month')
                                 $("#select_price_post_job").append(p)
                             }
                             $("#content_post_job").html(response[i].options[0].content)

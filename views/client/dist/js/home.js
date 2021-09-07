@@ -16,12 +16,23 @@ function showPassword() {
 
 function onSign() {
     $('#lbl_error_phone').hide(200)
-    if ($('#edt_phone').val().length == 0) {
+    if ($('#edt_phone').val().length < 9) {
         $('#edt_phone').addClass('color-placeholder')
+        $('#edt_phone').focus()
         return
     }
+
+    if ($('#btn_sign').html() == 'Sign Up') {
+        if (!$('#edt_email').val().length || !validateEmail($('#edt_email').val())) {
+            $('#edt_email').addClass('color-placeholder')
+            $('#edt_email').focus()
+            return
+        }
+    }
+    
     if ($('#edt_password').val().length == 0) {
         $('#edt_password').addClass('color-placeholder')
+        $('#edt_password').focus()
         return
     }
 
@@ -36,10 +47,6 @@ function onSign() {
     }
 
     if ($('#btn_sign').html() == 'Sign Up') {
-        if ($('#edt_email').val().length == 0) {
-            $('#edt_email').addClass('color-placeholder')
-            return
-        }
 
         socket.emit('check-exist-agency', { phone: phone.replaceAllTxt('+', '') }, (response) => {
             if (response == null) {
@@ -52,6 +59,7 @@ function onSign() {
                 render()
 
             } else {
+                $('#lbl_error_phone').html('This phone number is already registered, please use other one')
                 $('#lbl_error_phone').show(200)
 
             }
@@ -77,6 +85,7 @@ function onSign() {
                 $('#btn_toggle_dialog').html('<i class="far fa-user mr-2"></i>Hello, ' + (response.name != null ? response.name : '') + ' !')
                 window.location.href = '../agency/account'
             } else {
+                $('#lbl_error_phone').html('Invalid phone or password')
                 $('#lbl_error_phone').show(200)
                 $('#btn_sign').prop('disabled', false)
             }
@@ -209,9 +218,9 @@ function onSearch(val) {
 function search(val) {
     if ($('#select_categories').val() == 'nail-supply') {
         window.location.href = '/search?categories=' + $('#select_categories').val() + '&title=' + val + '&distance=' + ($('#container_filter_ranger').hasClass('color-primary') ? 1 : 0) + '&salary=' + $('#select_range_salary').val()
-    }else{
+    } else {
         window.location.href = '/search?categories=' + $('#select_categories').val() + '&code=' + val + '&distance=' + ($('#container_filter_ranger').hasClass('color-primary') ? 1 : 0) + '&salary=' + $('#select_range_salary').val()
-    }    
+    }
 }
 
 function filterRanger() {
@@ -313,17 +322,17 @@ socket.emit('welcomes', null, (response) => {
     }
 })
 
-function onMyAcount(){
-    if( isDefine(getCookie('_id')) && getCookie('_id') != 'null'){
+function onMyAcount() {
+    if (isDefine(getCookie('_id')) && getCookie('_id') != 'null') {
         window.location.href = '../agency/account'
-    }else{
+    } else {
         toggleModalSignInSignUp()
     }
 }
-function onPostAd(){
-    if( isDefine(getCookie('_id')) && getCookie('_id') != 'null'){
+function onPostAd() {
+    if (isDefine(getCookie('_id')) && getCookie('_id') != 'null') {
         window.location.href = '../agency/account?post=show'
-    }else{
+    } else {
         toggleModalSignInSignUp()
     }
 }

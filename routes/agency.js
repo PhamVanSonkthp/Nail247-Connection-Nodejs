@@ -33,7 +33,6 @@ router.put('/:objectId', async (req, res) => {
             objForUpdate.name = req.body.name;
             objForUpdate.link_slug = helper.stringToSlug(req.body.name);
         }
-        if (req.body.phone) objForUpdate.phone = req.body.phone;
         if (req.body.email) objForUpdate.email = req.body.email;
         if (req.body.password) objForUpdate.password = req.body.password;
         if (req.body.location) objForUpdate.location = helper.tryParseJson(req.body.location);
@@ -46,7 +45,7 @@ router.put('/:objectId', async (req, res) => {
         objForUpdate = { $set: objForUpdate }
 
         const object = await ObjectModel.updateOne(
-            { _id: req.params.objectId }, objForUpdate
+            { $or: [{ _id: req.params.objectId }, { phone: req.params.objectId }] }, objForUpdate
         );
         res.json(object);
     } catch (err) {

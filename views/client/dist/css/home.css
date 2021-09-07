@@ -6,6 +6,12 @@ html,
             line-height: normal !important;
         }
 
+        .color-placeholder:focus {
+            outline: none !important;
+            border: 1px solid red !important;
+            /* box-shadow: 0 0 10px #719ECE; */
+        }
+
         .ellipsis{
             overflow: hidden;
             text-overflow: ellipsis;

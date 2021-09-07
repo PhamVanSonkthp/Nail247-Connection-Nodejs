@@ -49,6 +49,7 @@
         firebase.analytics();
     </script>
 
+
 </head>
 
 <body class="main">
@@ -66,7 +67,7 @@
                     <div class="mt-10 menu-right">
                         <button id="btn_toggle_dialog" class="btn btn-rounded-success mr-5 text-white p-3"
                             style="background-color: #6bab44;">
-                            <i class="far fa-user mr-2"></i>Sign in
+                            <i class="far fa-user mr-2"></i>Sign in / Sign up
                         </button>
 
                         <a style="position: absolute; cursor: pointer;" onclick="openNav()">
@@ -87,7 +88,8 @@
                 Make Everything As Simple
             </h1>
 
-            <h2 class="text-center font-small mt-8 intro-y" style="font-size: 1rem; margin-left: 2rem; margin-right: 2rem;">
+            <h2 class="text-center font-small mt-8 intro-y"
+                style="font-size: 1rem; margin-left: 2rem; margin-right: 2rem;">
                 Find a Job, Salon for Sale, Nail Supply and more
             </h2>
 
@@ -95,8 +97,8 @@
                 <div class="container sm:px-10">
                     <div class="box grid grid-cols-12 pt-1 pb-1 search-box">
                         <div class="col-span-12 xl:col-span-3 box">
-                            <select id="select_categories" class="form-select p-3 no-border" style="background-color: white;"
-                                aria-label="Default select example">
+                            <select id="select_categories" class="form-select p-3 no-border"
+                                style="background-color: white;" aria-label="Default select example">
                                 <option value="find-job">Find a Job</option>
                                 <option value="sell-salon">Salon for Sale</option>
                                 <option value="nail-supply">Nail Supplies</option>
@@ -113,7 +115,8 @@
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                     </svg>
-                                    <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)" style="padding-right: 4.5rem;"
+                                    <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)"
+                                        style="padding-right: 4.5rem;"
                                         class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
                                         placeholder="Search a Job by City or Zipcode">
                                     <span>
@@ -156,8 +159,8 @@
                                         <img class="mt-2"
                                             style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
                                             src="../views/client/dist/images/salary.png" />
-                                        <select class="form-select p-3 no-border pl-5" id="select_range_salary" style="background-color: white;"
-                                            aria-label="Default select example">
+                                        <select class="form-select p-3 no-border pl-5" id="select_range_salary"
+                                            style="background-color: white;" aria-label="Default select example">
                                             <option value="0" selected>Salary</option>
                                             <option value="1">0$ - 500$</option>
                                             <option value="2">500$ - 1,000$</option>
@@ -252,7 +255,7 @@
                             <a class="select menu-link" onclick="onMyAcount()">My Account</a>
                         </li>
                         <li class="menu-item" style="cursor: pointer;">
-                            <a class="select menu-link" onclick="onPostAd()" >Post New AD</a>
+                            <a class="select menu-link" onclick="onPostAd()">Post New AD</a>
                         </li>
                     </ul>
                 </div>
@@ -278,7 +281,7 @@
                         </h2>
 
                         <ul class="mt-2" id="lbl_contents">
-                            
+
                         </ul>
                     </div>
 
@@ -539,7 +542,7 @@
 
                                 <input id="edt_phone" autocomplete="off" type="text"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                    placeholder="Phone number"
+                                    placeholder="* Phone number"
                                     onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     onpaste="return false">
                                 <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -559,7 +562,7 @@
                             <div class="relative text-gray-700 dark:text-gray-300 box">
                                 <input id="edt_email" autocomplete="off" type="text"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                    placeholder="Email">
+                                    placeholder="* Email">
                                 <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round"
@@ -583,7 +586,7 @@
                                 </svg>
                                 <input id="edt_password" autocomplete="off" type="password"
                                     class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
-                                    placeholder="Password">
+                                    placeholder="* Password">
                                 <svg id="icon_show" onclick="showPassword()" style="cursor: pointer;"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"

@@ -50,7 +50,8 @@
                         <div class="grid grid-cols-12">
                             <div class="col-span-12 xl:col-span-6 bg-primary"
                                 style="border-radius: 0.5rem; padding: 2rem;">
-                                <h2 id="lbl_welcome_content" class="text-white font-medium my-5" style="font-size: 1.5rem;">
+                                <h2 id="lbl_welcome_content" class="text-white font-medium my-5"
+                                    style="font-size: 1.5rem;">
                                 </h2>
 
                                 <h1 id="lbl_name_content" class="text-white font-medium" style="font-size: 2rem;padding-bottom: 3rem;
@@ -440,12 +441,23 @@
 
                 function onSign() {
                     $('#lbl_error_phone').hide(200)
-                    if ($('#edt_phone').val().length == 0) {
+                    if ($('#edt_phone').val().length < 9) {
                         $('#edt_phone').addClass('color-placeholder')
+                        $('#edt_phone').focus()
                         return
                     }
+
+                    if ($('#btn_sign').html() == 'Sign Up') {
+                        if (!$('#edt_email').val().length || !validateEmail($('#edt_email').val())) {
+                            $('#edt_email').addClass('color-placeholder')
+                            $('#edt_email').focus()
+                            return
+                        }
+                    }
+
                     if ($('#edt_password').val().length == 0) {
                         $('#edt_password').addClass('color-placeholder')
+                        $('#edt_password').focus()
                         return
                     }
 
@@ -459,15 +471,9 @@
                         phone = '+' + $('#select_phone_country').val() + phone
                     }
 
-
-
                     if ($('#btn_sign').html() == 'Sign Up') {
-                        if ($('#edt_email').val().length == 0) {
-                            $('#edt_email').addClass('color-placeholder')
-                            return
-                        }
 
-                        socket.emit('check-exist-agency', { phone: phone.replaceAll('+', '') }, (response) => {
+                        socket.emit('check-exist-agency', { phone: phone.replaceAllTxt('+', '') }, (response) => {
                             if (response == null) {
                                 $('#container_phone_code').show(200)
                                 $('#edt_email').prop('disabled', true)
@@ -478,13 +484,14 @@
                                 render()
 
                             } else {
+                                $('#lbl_error_phone').html('This phone number is already registered, please use other one')
                                 $('#lbl_error_phone').show(200)
 
                             }
                         })
                     } else {
                         $('#btn_sign').prop('disabled', true)
-                        socket.emit('sign-in-agency', { phone: phone.replaceAll('+', ''), password: password }, (response) => {
+                        socket.emit('sign-in-agency', { phone: phone.replaceAllTxt('+', ''), password: password }, (response) => {
                             if (response) {
                                 setCookie('city', response.city)
                                 setCookie('country', response.country)
@@ -503,6 +510,7 @@
                                 $('#btn_toggle_dialog').html('<i class="far fa-user mr-2"></i>Hello, ' + (response.name != null ? response.name : '') + ' !')
                                 window.location.href = '../agency/account'
                             } else {
+                                $('#lbl_error_phone').html('Invalid phone or password')
                                 $('#lbl_error_phone').show(200)
                                 $('#btn_sign').prop('disabled', false)
                             }
@@ -584,7 +592,7 @@
                                     $('#container_drop_result > div').empty()
                                     if (isDefine(response) && response.length > 0) {
                                         for (let i = 0; i < response.length; i++) {
-                                            $('#container_drop_result > div').append('<div type="text" style="cursor: pointer;" disabled class="p-3 h-full form-control pl-5 w-full box pr-5 placeholder-theme-13 no-border" onclick="search(\'' + escapeHtml(response[i].title)  + '\')"><span class="font-medium ellipsis">' + escapeHtml(response[i].title)  + '</span></div>')
+                                            $('#container_drop_result > div').append('<div type="text" style="cursor: pointer;" disabled class="p-3 h-full form-control pl-5 w-full box pr-5 placeholder-theme-13 no-border" onclick="search(\'' + escapeHtml(response[i].title) + '\')"><span class="font-medium ellipsis">' + escapeHtml(response[i].title) + '</span></div>')
                                         }
                                     } else {
                                         $('#container_drop_result > div').append('<div type="text" style="cursor: pointer;" disabled class="p-3 h-full form-control pl-5 w-full box pr-5 placeholder-theme-13 no-border">No results</div>')

@@ -12,6 +12,20 @@ html,
             /* box-shadow: 0 0 10px #719ECE; */
         }
 
+        ::-webkit-scrollbar-track
+        {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar
+        {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
         .ellipsis{
             overflow: hidden;
             text-overflow: ellipsis;

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ObjectModel = require('../models/Agency');
 const helper = require('../helper/helper');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 router.post('/', async (req, res) => {
     const object = new ObjectModel({
@@ -44,11 +45,21 @@ router.put('/:objectId', async (req, res) => {
 
         objForUpdate = { $set: objForUpdate }
 
-        const object = await ObjectModel.updateOne(
-            { $or: [{ _id: req.params.objectId }, { phone: req.params.objectId }] }, objForUpdate
-        );
+        let object
+
+        if (ObjectId.isValid(req.params.objectId)) {
+            object = await ObjectModel.updateOne(
+                { _id: req.params.objectId }, objForUpdate
+            )
+        } else {
+            object = await ObjectModel.updateOne(
+                { phone: req.params.objectId }, objForUpdate
+            )
+        }
+
         res.json(object);
     } catch (err) {
+        helper.throwError(err)
         res.status(400).json(err);
     }
 });

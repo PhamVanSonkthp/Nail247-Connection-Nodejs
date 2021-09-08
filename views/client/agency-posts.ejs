@@ -809,14 +809,6 @@
 
             socket.emit('count-post-agency', { _id: getCookie('_id'), password: getCookie('password'), limit: limit, offset: offset, input: $('#edt_search').val(), minDate: minDate, maxDate: maxDate }, (response) => {
                 if (response != null) {
-                    // count = response;
-                    // if ((count / limit) - parseInt(count / limit) > 0) {
-                    //     count = parseInt(count / limit) + 1;
-                    // }
-                    // else {
-                    //     count = count / limit;
-                    // }
-                    // paginator();
                     $('#container_sort').html('<a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 1) ? 'active-drop' : '') + '" onclick="onSort_1()" id="sort_1" data-custom-value="/agency/posts?sort=1' + '">Options posts find jobs: ' + response[0] + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 2) ? 'active-drop' : '') + '" onclick="onSort_2()" id="sort_2" data-custom-value="/agency/posts?sort=2' + '">Options posts sell salons: ' + response[1] + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 3) ? 'active-drop' : '') + '" onclick="onSort_3()" id="sort_3" data-custom-value="/agency/posts?sort=3' + '">Options posts nail supply: ' + response[2] + '</a> ');
 
                     count = response[isSort - 1];

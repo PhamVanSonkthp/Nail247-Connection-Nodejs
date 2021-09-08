@@ -141,11 +141,11 @@ function isNumber(val) {
 
 
 function showLoading() {
-	$('#DialogLoading').show();
+	$('#dialog-loading').show();
 }
 
 function hideLoading() {
-	$('#DialogLoading').hide();
+	$('#dialog-loading').hide();
 }
 
 function removeIndexOfArray(arr, index) {

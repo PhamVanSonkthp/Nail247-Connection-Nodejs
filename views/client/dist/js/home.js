@@ -82,7 +82,7 @@ function onSign() {
 
                 toggleModalSignInSignUp()
 
-                $('#btn_toggle_dialog').html('<i class="far fa-user mr-2"></i>Hello, ' + (response.name != null ? response.name : '') + ' !')
+                $('#btn_toggle_dialog').html('<i class="far fa-user mr-2"></i>Hello ' + (response.name != null ? response.name : '') + ' !')
                 window.location.href = '../agency/account'
             } else {
                 $('#lbl_error_phone').html('Invalid phone or password')
@@ -267,7 +267,7 @@ $(document).ready(function () {
     });
 
     if (getCookie('name') && getCookie('_id')) {
-        $('#btn_toggle_dialog').html('<i class="far fa-user mr-2"></i>Hello, ' + (getCookie('name') != 'null' ? getCookie('name') : '') + ' !')
+        $('#btn_toggle_dialog').html('<i class="far fa-user mr-2"></i>Hello ' + (getCookie('name') != 'null' ? getCookie('name') : '') + ' !')
     }
 
     $('#btn_toggle_dialog').click(function () {
@@ -336,3 +336,9 @@ function onPostAd() {
         toggleModalSignInSignUp()
     }
 }
+
+$('.modal-content').keypress(function (e) {
+    if (e.which == 13) {
+        onSign()
+    }
+});

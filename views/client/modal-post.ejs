@@ -117,7 +117,7 @@
                             <div class="relative text-gray-700 dark:text-gray-300 box">
                                 <input id="modal_post_job_edt_filter_country" autocomplete="off" type="text"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                    placeholder="City of your salon" oninput="onFilterCountryPostJob()">
+                                    placeholder="City or Zipcode of your salon" oninput="onFilterCountryPostJob()">
                                 <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c"
                                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -317,27 +317,33 @@
         } catch (e) {
 
         }
-        console.log(posPostJob)
+
+        $('.removed').remove()
 
         if (!$('#modal_post_job_edt_title').val().length) {
-            $('#modal_post_job_edt_title').focus();
+            $('#modal_post_job_edt_title').focus()
+            $('#modal_post_job_edt_title').before('<p class="removed" style="color:red">Title is require</p>')
             return
         }
         if (!CKEDITOR.instances.editor.getData().length) {
             $('#editor').focus()
+            $('#editor').before('<p class="removed" style="color:red">Content is require</p>')
             return
         }
-        if (!$('#modal_post_job_edt_phone').val().length) {
-            $('#modal_post_job_edt_phone').focus();
+        if ($('#modal_post_job_edt_phone').val().length < 9) {
+            $('#modal_post_job_edt_phone').focus()
+            $('#modal_post_job_edt_phone').before('<p class="removed" style="color:red">Phone is require</p>')
             return
         }
         if (!validateEmail($('#modal_post_job_edt_email').val())) {
-            $('#modal_post_job_edt_email').focus();
+            $('#modal_post_job_edt_email').focus()
+            $('#modal_post_job_edt_email').before('<p class="removed" style="color:red">Please enter correct email</p>')
             return
         }
 
         if (!$('#modal_post_job_edt_filter_country').val().length || !codePostJob) {
-            $('#modal_post_job_edt_filter_country').focus();
+            $('#modal_post_job_edt_filter_country').focus()
+            $('#modal_post_job_edt_filter_country').before('<p class="removed" style="color:red">City is require</p>')
             return
         }
 
@@ -398,8 +404,8 @@
         indexPostJob = i
         $("#select_price_post_job").empty()
         for (let j = 0; j < optionsPostJob[i].options.length; j++) {
-            let p = new Option('$'+optionsPostJob[i].options[j].cost + ', ' + optionsPostJob[i].options[j].month + ' month', j)
-            $(p).html('$'+optionsPostJob[i].options[j].cost + ', ' + optionsPostJob[i].options[j].month + ' month')
+            let p = new Option('$'+optionsPostJob[i].options[j].cost + ' / ' + optionsPostJob[i].options[j].month + ' month', j)
+            $(p).html('$'+optionsPostJob[i].options[j].cost + ' / ' + optionsPostJob[i].options[j].month + ' month')
             $("#select_price_post_job").append(p)
         }
         $("#content_post_job").html(optionsPostJob[indexPostJob].options[0].content)
@@ -470,8 +476,8 @@
 
                         if (i == 0) {
                             for (let j = 0; j < response[i].options.length; j++) {
-                                let p = new Option('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month', j)
-                                $(p).html('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month')
+                                let p = new Option('$'+response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                $(p).html('$'+response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
                                 $("#select_price_post_job").append(p)
                             }
                             $("#content_post_job").html(response[i].options[0].content)
@@ -501,8 +507,8 @@
 
                         if (i == 0) {
                             for (let j = 0; j < response[i].options.length; j++) {
-                                let p = new Option('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month', j)
-                                $(p).html('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month')
+                                let p = new Option('$'+response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                $(p).html('$'+response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
                                 $("#select_price_post_job").append(p)
                             }
                             $("#content_post_job").html(response[i].options[0].content)
@@ -532,8 +538,8 @@
 
                         if (i == 0) {
                             for (let j = 0; j < response[i].options.length; j++) {
-                                let p = new Option('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month', j)
-                                $(p).html('$'+response[i].options[j].cost + ', ' + response[i].options[j].month + ' month')
+                                let p = new Option('$'+response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                $(p).html('$'+response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
                                 $("#select_price_post_job").append(p)
                             }
                             $("#content_post_job").html(response[i].options[0].content)
@@ -580,20 +586,7 @@
         $('#edt_password').val(getCookie('password'))
     }
 
-    function saveChanged() {
-        socket.emit('update-changed-agency', { _id: getCookie('_id'), password: getCookie('password'), name: $('#edt_name').val(), email: $('#edt_email').val(), country: $('#edt_country').val() }, (response) => {
-            if (isDefine(response)) {
-                setCookie('country', $('#edt_country').val())
-                setCookie('name', $('#edt_name').val())
-                setCookie('email', $('#edt_email').val())
-                $('#btn_save_change').hide(200)
-            }
-        })
-    }
-
-    function showSave() {
-        $('#btn_save_change').show(200)
-    }
+    
 
     function toggleModalPostJob() {
         $('#modal_post_job').css('display', 'block');

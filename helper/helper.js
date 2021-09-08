@@ -40,17 +40,17 @@ exports.isNumber = function (val) {
 }
 
 exports.contains = function (input, val) {
-	if (exports.isDefine(input) && exports.isDefine(val)) {
-		for (let i = 0; i < val.length; i++) {
-			if(!input.toUpperCase().includes(val[i].toUpperCase())) return false
-		}
-		return true
-	} else {
-		return false
-	}
+    if (exports.isDefine(input) && exports.isDefine(val)) {
+        for (let i = 0; i < val.length; i++) {
+            if (!input.toUpperCase().includes(val[i].toUpperCase())) return false
+        }
+        return true
+    } else {
+        return false
+    }
 }
 
-exports.saveTraffics = function (name , status) {
+exports.saveTraffics = function (name, status) {
     const trafficsModel = require('../models/Traffic');
     const object = new trafficsModel({
         name: 'name',
@@ -169,10 +169,10 @@ exports.checkLogin = async function (_id, password, permission) {
 
     const ObjectModel = require('../models/Admin')
     try {
-        let query = { _id: sanitize(_id), password: sanitize(exports.decrypt(password))};
+        let query = { _id: sanitize(_id), password: sanitize(exports.decrypt(password)) };
 
         const object = await ObjectModel.findOne(query)
-        if(exports.isDefine(permission)){
+        if (exports.isDefine(permission)) {
             return object.permission == 0
         }
 
@@ -203,20 +203,28 @@ exports.throwError = function (error) {
 
 fm = new FormatMoney({
     amount: 2
-});
+})
 
 function setNumber(num) {
     return exports.tryParseInt(num);
 }
 
-function isArray(val){
+function capitalizeFirstLetter(string) {
+    if (exports.isDefine(string)) {
+        return string.charAt(0).toUpperCase() + string.slice(1)
+    } else {
+        return null
+    }
+}
+
+function isArray(val) {
     try {
         return Array.isArray(val)
     } catch (e) {
         exports.throwError(e)
         return false;
     }
-    
+
 }
 
 function isJsonString(str) {
@@ -229,11 +237,11 @@ function isJsonString(str) {
 }
 
 function setJson(json) {
-    if(isArray(json)) return json
+    if (isArray(json)) return json
 
-    if(isJsonString(json)){
+    if (isJsonString(json)) {
         return exports.tryParseJson(json)
-    }else{
+    } else {
         return null
     }
 }
@@ -258,6 +266,10 @@ exports.schemaString = {
     trim: true,
     default: null,
     maxLength: maxLength,
+}
+
+exports.schemaCapitalizeFirstLetter = {
+    set: capitalizeFirstLetter,
 }
 
 exports.schemaDatetime = {

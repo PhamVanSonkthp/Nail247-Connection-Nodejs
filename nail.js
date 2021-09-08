@@ -188,6 +188,7 @@ const optsValidator = {
 //Firebase
 const admin = require("firebase-admin")
 const serviceAccount = require("./sms-schedule-infinity-720fd-firebase-adminsdk-zllw3-83b5b6f682.json")
+const { type } = require('os')
 var token
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -237,7 +238,14 @@ function fetchAPI(req, res) {
   const agencyRoute = require('./routes/agency');
   app.use('/agency', agencyRoute);
 
+  const jobRoute = require('./routes/job');
+  app.use('/job', jobRoute);
 
+  const sellSalonRoute = require('./routes/sell-salon');
+  app.use('/sell-salon', sellSalonRoute);
+
+  const nailSuppliesRoute = require('./routes/nail-supplies');
+  app.use('/nail-supplies', nailSuppliesRoute);
 
   const historyPaymentsRoute = require('./routes/history-payments');
   app.use('/history-payments', historyPaymentsRoute);
@@ -246,15 +254,6 @@ function fetchAPI(req, res) {
   app.use('/payments-stripes', paymentsStripesRoute);
 
 }
-
-const jobRoute = require('./routes/job');
-app.use('/job', jobRoute);
-
-const sellSalonRoute = require('./routes/sell-salon');
-app.use('/sell-salon', sellSalonRoute);
-
-const nailSuppliesRoute = require('./routes/nail-supplies');
-app.use('/nail-supplies', nailSuppliesRoute);
 
 server.listen(process.env.PORT || 8000)
 console.log('nail 247 listening port: ' + (process.env.PORT || 8000))
@@ -1840,11 +1839,12 @@ io.sockets.on('connection', (socket) => {
     trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
+        data.val = data.val.trim().toUpperCase()
         let counter = 0
         let result = []
 
         for (let i = 0; i < codeCountrys.length; i++) {
-          if ((helper.isDefine(codeCountrys[i][3]) && codeCountrys[i][3].toUpperCase().includes(data.val.toUpperCase())) || (helper.isDefine(codeCountrys[i][0]) && codeCountrys[i][0].includes(data.val))) {
+          if ((helper.isDefine(codeCountrys[i][3]) && codeCountrys[i][3].toUpperCase().includes(data.val)) || (helper.isDefine(codeCountrys[i][0]) && codeCountrys[i][0].includes(data.val))) {
             if (counter > 100) {
               break
             } else {
@@ -2344,25 +2344,51 @@ io.sockets.on('connection', (socket) => {
     trafficsSocket(socket)
     try {
       if (data != null) {
-
         const UserModel = require('./models/Agency')
-
-        const result = UserModel.findOne({ _id: data._id, password: data.password })
+        const result = await UserModel.findOne({ _id: data._id, password: data.password })
         if (!helper.isDefine(result)) {
-          return callback(null)
+          callback(null)
+        } else {
+          let query = { _id: sanitize(data._id) }
+
+          let objForUpdate = {}
+          if (helper.isDefine(data.password)) objForUpdate.password = data.new_password
+
+          objForUpdate = { $set: objForUpdate }
+          UserModel.updateOne(query, objForUpdate, optsValidator, (err, result) => {
+            if (err) helper.throwError(err)
+            callback(result);
+          })
+        }
+      } else {
+        callback(null);
+      }
+    } catch (e) {
+      helper.throwError(e);
+      callback(null);
+    }
+  })
+
+  socket.on('on-update-images-post', async (data, callback) => {
+    trafficsSocket(socket)
+    try {
+      if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
+
+        let UserModel
+        if (data.type == 1) {
+          UserModel = require('./models/Job')
+        } else if (data.type == 2) {
+          UserModel = require('./models/SellSalon')
+        } else if (data.type == 3) {
+          UserModel = require('./models/NailSupply')
         }
 
-        let query = { _id: sanitize(data._id) }
-
+        let query = { _id: sanitize(data.id_post) }
         let objForUpdate = {}
-        if (helper.isDefine(data.password)) objForUpdate.password = data.new_password
-
+        objForUpdate.images = sanitize(data.images)
         objForUpdate = { $set: objForUpdate }
-        UserModel.updateOne(query, objForUpdate, optsValidator, (err, result) => {
-          if (err) helper.throwError(err)
-          callback(result);
-        })
 
+        await UserModel.updateOne(query, objForUpdate, optsValidator)
       } else {
         callback(null);
       }

@@ -37,7 +37,7 @@ var entityMap = {
 
 function escapeHtml(string) {
 	if(!isDefine(string)) return ''
-	if(string.includes('<script>')){
+	if(string.includes('<script>') || true){
 		return String(string).replace(/[&<>"'`=\/]/g, function (s) {
 			return entityMap[s];
 		})
@@ -99,7 +99,6 @@ function tryParseInt(val) {
 		val = val.toString()
 		return parseInt(val.replace(',', '').replace('$', ''));
 	} catch (e) {
-		console.log(e)
 		return 0;
 	}
 }

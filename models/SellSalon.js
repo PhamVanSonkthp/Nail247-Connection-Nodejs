@@ -4,9 +4,11 @@ const helper = require('../helper/helper');
 const object = mongoose.Schema({
     name_salon: {
         ...helper.schemaString,
+        ...helper.schemaCapitalizeFirstLetter,
     },
     address_salon: {
         ...helper.schemaString,
+        ...helper.schemaCapitalizeFirstLetter,
     },
     phone: {
         ...helper.schemaString,
@@ -15,12 +17,15 @@ const object = mongoose.Schema({
     country: {
         ...helper.schemaString,
         ...helper.schemaRequired,
+        ...helper.schemaCapitalizeFirstLetter,
     },
     city: {
         ...helper.schemaString,
+        ...helper.schemaCapitalizeFirstLetter,
     },
     state: {
         ...helper.schemaString,
+        ...helper.schemaCapitalizeFirstLetter,
     },
     code: {
         ...helper.schemaNumber,
@@ -41,6 +46,7 @@ const object = mongoose.Schema({
     title: {
         ...helper.schemaString,
         ...helper.schemaRequired,
+        ...helper.schemaCapitalizeFirstLetter,
     },
     content: {
         ...helper.schemaString,

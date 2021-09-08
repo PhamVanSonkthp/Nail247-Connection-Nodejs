@@ -33,6 +33,92 @@
             height: 100%;
         }
 
+        #map_update {
+            height: 100%;
+        }
+
+        .tab-wrapper {
+            text-align: center;
+            display: block;
+            margin: aut;
+            max-width: 500p;
+        }
+
+        .tabs {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .form-check-switch:checked {
+            background-color: #eb1b6c !important;
+            border-color: #eb1b6c !important;
+        }
+
+        .page-item.active .page-link {
+            z-index: 3;
+            color: #fff;
+            background-color: #eb1b6c !important;
+            border-color: #eb1b6c !important;
+        }
+
+        .tab-link {
+            margin: 0 1%;
+            list-style: none;
+            padding: 10px 40px;
+            color: #aaa;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all ease 0.5s;
+            border-bottom: solid 3px rgba(255, 255, 255, 0.0);
+            letter-spacing: 1px;
+        }
+
+        .tab-link:hover {
+            color: #999;
+            border-color: #999;
+        }
+
+        .tab-link.active {
+            color: #333;
+            border-color: #333;
+        }
+
+        .tab-link:nth-of-type(1).active {
+            color: #EE6534;
+            border-color: #EE6534;
+        }
+
+        .tab-link:nth-of-type(2).active {
+            color: #1790D2;
+            border-color: #1790D2;
+        }
+
+        .tab-link:nth-of-type(3).active {
+            color: #EEC63B;
+            border-color: #EEC63B;
+        }
+
+        .content-wrapper {
+            padding: 40px 80px;
+        }
+
+        .tab-content {
+            display: none;
+            text-align: center;
+            color: #888;
+            font-weight: 300;
+            font-size: 15px;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeIn 0.5s ease 1 forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+
         .zoom-img-wrap {
             z-index: 1000;
         }
@@ -287,110 +373,158 @@
 
 <body class="main">
 
-    <div id="add-item-modal" class="modal" tabindex="-1" aria-hidden="true">
+    <div id="add-item-modal" class="modal" tabindex="-1" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        POST STATUS INFORMATION
-                    </h5>
 
-                    <button style="position: absolute;right: 10px;top: 10px; height: auto !important;"
-                        onclick="toggleModalAddProduct()" type="button" class="close btn btn-danger"
-                        data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                <button style="position: absolute;right: 0.7rem;top: 0.3rem;" onclick="toggleModalAddProduct()"
+                    type="button" class="close no-border" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="no-border" style="font-size: 1.3rem;">&times;</span>
+                </button>
 
-                <div class="modal-body">
-
-                    <div class="grid grid-cols-12 gap-6">
-                        <div class="form-group col-span-12 lg:col-span-4">
-                            <p>Name salon:</p>
-                            <input id="EdtNameProduct" class="form-control" disabled>
+                <form id="form_update_job" enctype="multipart/form-data" method="post">
+                    <div class="p-5">
+                        <div id="lbl_title_post_update" class="font-medium mt-3 text-center"
+                            style="font-size: 1.3rem; color: #eb1b6c;">Change Post
                         </div>
-                        <div class="form-group col-span-12 lg:col-span-4">
-                            <p>Telephone:</p>
-                            <input id="EdtPhoneProduct" class="form-control" disabled>
+
+                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Upload Images</div>
+
+                        <div>
+                            <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage_update"
+                                accept="image/*" multiple>
                         </div>
-                        <div class="form-group col-span-12 lg:col-span-4">
-                            <p>Email:</p>
-                            <input id="EdtEmailProduct" class="form-control" disabled>
+
+                        <ul class="p-0" style="overflow: auto" id="ContainerImages">
+                        </ul>
+
+                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Name Salon</div>
+
+                        <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
+                            style="box-shadow: 0px 4px 6px #bdbdbd;">
+                            <input id="modal_post_job_edt_name_salon_update" name="name_salon" autocomplete="off"
+                                type="text"
+                                class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                                placeholder="Name salon (option)">
                         </div>
-                    </div>
 
-                    <div class="grid grid-cols-3 gap-6">
-                        <div class="form-group col-span-2">
-                            <p>Address:</p>
-                            <input id="EdtAddressProduct" class="form-control" disabled>
+                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Title</div>
+
+                        <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
+                            style="box-shadow: 0px 4px 6px #bdbdbd;">
+                            <input id="modal_post_job_edt_title_update" autocomplete="off" type="text" name="title"
+                                class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                                placeholder="Title">
                         </div>
-                        <div class="form-group col-span-1">
-                            <p>Zip Code:</p>
-                            <input id="EdtCodeProduct" class="form-control" disabled>
+
+                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Content</div>
+
+                        <textarea id="editor_update" autocomplete="off" type="text"
+                            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                            placeholder="Content"></textarea>
+
+                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Details</div>
+
+                        <div class="grid grid-cols-12 gap-6 mt-3">
+                            <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
+                                <div class="relative text-gray-700 dark:text-gray-300 box">
+                                    <input id="modal_post_job_edt_phone_update" autocomplete="off" type="text"
+                                        name="phone"
+                                        class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                                        placeholder="Phone contact (require)"
+                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                        onpaste="return false">
+                                    <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                        <path
+                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
+                                <div class="relative text-gray-700 dark:text-gray-300 box">
+                                    <input id="modal_post_job_edt_email_update" autocomplete="off" type="text"
+                                        name="email"
+                                        class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                                        placeholder="Email contact (require)">
+                                    <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                        <path
+                                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                        </path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
 
+                        <input name="code" id="edt_code_update" style="display: none;" />
+                        <input name="content" id="edt_content_update" style="display: none;" />
+                        <input name="location" id="edt_location_update" style="display: none;" />
+                        <input name="id_post" id="edt_id_post_update" style="display: none;" />
+                        <input name="country" id="edt_country_update" style="display: none;" />
 
-                    <div class="mt-2">
-                        <b>Title:</b>
-                        <input id="EdtTitleProduct" class="form-control" disabled>
-                    </div>
+                        <div class="grid grid-cols-12 gap-6 mt-3">
+                            <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
+                                <div class="relative text-gray-700 dark:text-gray-300 box">
+                                    <input id="modal_post_job_edt_salary_update" autocomplete="off" type="text"
+                                        name="cost" placeholder="salary / cost / price"
+                                        class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border number"
+                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                        onpaste="return false">
+                                    <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                    </svg>
+                                </div>
+                            </div>
 
-                    <div class="mt-2">
-                        <b>Content:</b>
-                        <!-- <textarea id="EdtContentProduct" style="height: 100px;" class="form-control"
-                            disabled></textarea> -->
-                        <div id="EdtContentProduct" class="form-control"
-                            disabled></div>
-                    </div>
+                            <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
+                                <div class="relative text-gray-700 dark:text-gray-300 box">
+                                    <input id="modal_post_job_edt_filter_country_update" autocomplete="off" type="text"
+                                        class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                                        placeholder="City or Zipcode of your salon" oninput="onFilterCountryPostJobUpdate()">
+                                    <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
 
-                    <div class="mt-2">
-                        <b>Images:</b>
-                        <div class="mx-6 pb-8 mt-2">
-                            <div class="responsive-mode" id="container_images_products">
+                                    <div id="container_filter_country_update"
+                                        style="position: absolute;background: white;left: 0;right: 0;padding: 1rem;display: none;z-index: 100;">
 
-                                <div class="h-45 px-2">
-                                    <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md">
-                                        <h3 class="h-full font-medium flex items-center justify-center text-2xl">Image
-                                        </h3>
                                     </div>
                                 </div>
-
-                                <div class="h-45 px-2">
-                                    <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md">
-                                        <h3 class="h-full font-medium flex items-center justify-center text-2xl">Image
-                                        </h3>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group float-right mt-2">
-                        <b>COST</b>
-                        <b id="lbl_cost_product" class="form-control number text-danger"></b>
-                    </div>
+                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Location on map</div>
 
-                    <div class="form-group mt-2">
-                        <b>Status:</b>
-                        <button id="btn_active" type="button" onclick="changeStatusProduct()"
-                            class="btn btn-sm btn-success ml-2"></button>
-                        <span class="ml-2">click to change status</span>
-                    </div>
+                        <div class="mt-2" style="height: 20rem;">
+                            <div id="map_update"></div>
+                        </div>
 
-                    <div class="form-group mt-2">
-                        <b>Delete:</b>
-                        <button type="button" onclick="deleteProduct()"
-                            class="btn btn-sm btn-danger ml-2">Delete</button>
-                        <span class="ml-2">click to delete this post</span>
-                    </div>
+                        <button type="button" onclick="deleteProduct()" class="btn text-white btn-danger mt-5"
+                            aria-expanded="false"><span>Delete post</span></button>
 
-                </div>
-                <div class="mt-5 modal-footer border-top-0 d-flex justify-content-between">
-                    <button onclick="toggleModalAddProduct()" type="button" class="btn btn-secondary"
-                        data-dismiss="modal">Close</button>
-                </div>
+                        <button type="button" onclick="savePost()" style="background-color: #6bab44;"
+                            class="btn text-white w-full mt-5" aria-expanded="false"><i
+                                class="fas fa-cloud-upload-alt mr-2"></i><span>Save post</span></button>
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -519,14 +653,14 @@
             <div class="col-span-12 xl:col-span-9 p-5">
                 <p class="font-medium" style="font-size:1.5rem;">Posts</p>
 
-                <div id="container_sort" class="scroll-hozizontal pb-1">
-                    <!-- <a
-                        class="nav-item nav-link alert-success no_select active-drop" onclick="onSort_1()" id="sort_1"
-                        data-custom-value="/agency/posts?sort=1">Options posts find jobs: 3</a> <a
-                        class="nav-item nav-link alert-success no_select " onclick="onSort_2()" id="sort_2"
-                        data-custom-value="/agency/posts?sort=2">Options posts sell salons: 3</a> <a
-                        class="nav-item nav-link alert-success no_select " onclick="onSort_3()" id="sort_3"
-                        data-custom-value="/agency/posts?sort=3">Options posts nail supply: 3</a> -->
+                <!-- <div id="container_sort" class="scroll-hozizontal pb-1">
+                   
+                </div> -->
+
+                <div class="tab-wrapper">
+                    <ul class="tabs" id="container_sort">
+
+                    </ul>
                 </div>
 
                 <div class="intro-y box p-5 mt-5">
@@ -534,11 +668,12 @@
                         <div id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
                             <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
                                 <input id="edt_search" type="text" class="form-control sm:w-40 xxl:w-full mt-2 sm:mt-0"
-                                    placeholder="Search...">
+                                    placeholder="Type here">
                             </div>
                             <div class="mt-2 xl:mt-0">
-                                <button id="tabulator-html-filter-go" type="button"
-                                    class="btn btn-primary w-full sm:w-16" onclick="searchProduct()">Go</button>
+                                <button id="tabulator-html-filter-go" style="background-color: #eb1b6c ;" type="button"
+                                    class="btn btn-primary w-full sm:w-16 no-border"
+                                    onclick="searchProduct()">Search</button>
                             </div>
                         </div>
 
@@ -655,367 +790,542 @@
     </div>
 
     <%- include("nav-menu"); %>
-    <%- include("modal-post"); %>
+        <%- include("modal-post"); %>
 
-    <script src="../views/client/dist/js/app.js"></script>
-    <script src="../views/client/dist/js/home.js"></script>
+            <script src="../views/client/dist/js/app.js"></script>
+            <script src="../views/client/dist/js/home.js"></script>
 
-    <script>
-        function showDialog() {
-            $('#dialog-loading').show(200)
-        }
+            <script>
+                function showDialog() {
+                    $('#dialog-loading').show(200)
+                }
 
-        function hideDialog() {
-            $('#dialog-loading').hide(200)
-        }
+                function hideDialog() {
+                    $('#dialog-loading').hide(200)
+                }
 
-        function logout() {
-            deleteAllCookies()
-            window.location.replace('../')
-        }
+                function logout() {
+                    deleteAllCookies()
+                    window.location.replace('../')
+                }
 
-        function checkLogin() {
-            if (getCookie('_id') && getCookie('password')) {
-                socket.emit('recent-login-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                    if (!response) {
+                function checkLogin() {
+                    if (getCookie('_id') && getCookie('password')) {
+                        socket.emit('recent-login-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                            if (!response) {
+                                logout()
+                            }
+                        })
+                    } else {
                         logout()
                     }
-                })
-            } else {
-                logout()
-            }
-        }
-
-        checkLogin()
-
-        function deleteAllCookies() {
-            document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
-        }
-
-    </script>
-
-    <link href="../views/client/dist/css/imageuploadify.min.css" rel="stylesheet">
-    <script src="../views/client/dist/js/imageuploadify.min.js"></script>
-    <script src="../views/client/dist/js/imageuploadify.js"></script>
-
-    <script>
-        $('input[name="avatar"]').imageuploadify();
-        $("input").attr("autocomplete", "off");
-
-    </script>
-
-    <script>
-
-        var limit = 10
-        var offset = 0
-        var isShow = 3
-        var count = 0
-        var products = []
-        var index_edit
-        var prefixLinkSlug
-        var prefixUrlImage
-
-        //const urlParams = new URLSearchParams(window.location.search);
-        indexRow = tryParseInt(urlParams.get('row'));
-        indexPage = tryParseInt(urlParams.get('page'));
-        var isSort = urlParams.get('sort') || 1;
-
-        function onShowFilter() {
-            if ($("#basic-table > div").hasClass("d-grid")) {
-                $('#basic-table > div').removeClass('d-grid')
-            } else {
-                $('#basic-table > div').addClass('d-grid')
-            }
-        }
-
-        function canvasTableProduct(data) {
-            $('#TblProduct tbody').empty();
-            $("#TblProduct tbody > tr").remove();
-            let myTable = document.getElementById('TblProduct').getElementsByTagName('tbody')[0];
-            let num = document.getElementById("TblProduct").rows.length;
-
-
-            if (isSort == 1) {
-                prefixLinkSlug = 'posts-jobs'
-                prefixUrlImage = urlImagePostJobs
-            } else if (isSort == 2) {
-                prefixLinkSlug = 'posts-sell-salons'
-                prefixUrlImage = urlImagePostSellsSalons
-            } else if (isSort == 3) {
-                prefixLinkSlug = 'posts-nail-supplies'
-                prefixUrlImage = urlImagePostNailSupplies
-            }
-            for (let i = 0; i < data.length; i++) {
-                let row = myTable.insertRow();
-                if (i % 2 != 0) {
-                    row.style.backgroundColor = '#e2e8f0';
-
-                }
-                let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
-                let cell3 = row.insertCell(2);
-                let cell4 = row.insertCell(3);
-                let cell5 = row.insertCell(4);
-                let cell6 = row.insertCell(5);
-                let cell7 = row.insertCell(6);
-                let cell8 = row.insertCell(7);
-
-                if (data[i].status == 1) {
-                    cell7.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"><div class="flex items-center lg:justify-center text-theme-9"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg> Active </div><div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>';
-                } else {
-                    cell7.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex items-center lg:justify-center text-theme-6"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Inactive </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
                 }
 
-                cell1.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="name" title="" style=" display: inline-flex; "> <div> <div class="font-medium whitespace-nowrap">' + products[i].name_salon + '</div> <div class="text-gray-600 text-xs whitespace-nowrap">' + products[i].phone + '</div> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
-                cell2.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].country) + '</div>';
-                cell3.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].title) + '</div>';
-                cell4.innerHTML = '<div class="ellipsis">' + (products[i].content) + '</div>';
-                cell5.innerHTML = '<div class="ellipsis">' + escapeHtml(isNumber(products[i].cost) ? ('$' + escapeHtml(products[i].cost != 0 ? formatMoney(products[i].cost) : 'contact')) : ('$' + (products[i].price != 0 ? formatMoney(products[i].price) : 'contact'))) + '</div>';
-                cell6.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].package) + '</div>';
-                cell8.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a> <a target="_blank" class="edit flex items-center mr-3" href="../' + prefixLinkSlug + '/' + escapeHtml(products[i].link_slug) + '"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
+                checkLogin()
 
-            }
-        }
-
-        function searchProduct() {
-            $('#TblProduct tbody').empty();
-            $("#SpnLoading").show();
-
-            let minDate = $('#dtp_query').val().split('-')[0].replaceAllTxt(',', '').trim().split(' ')
-            let maxDate = $('#dtp_query').val().split('-')[1].replaceAllTxt(',', '').trim().split(' ')
-
-            minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
-            maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
-
-            socket.emit('post-agency', { _id: getCookie('_id'), password: getCookie('password'), limit: limit, offset: offset, input: $('#edt_search').val(), minDate: minDate, maxDate: maxDate, cost: $('#select_filter_cost').val(), package: $('#select_filter_package').val(), status: $('#select_filter_status').val(), type: isSort - 1 }, (response) => {
-                $("#SpnLoading").hide();
-                products = response;
-                if (products != null) {
-                    canvasTableProduct(products);
-                } else {
-                    $("#title").show();
+                function deleteAllCookies() {
+                    document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
                 }
-            });
-            countProduct();
-        }
 
-        function countProduct() {
+            </script>
 
-            let minDate = $('#dtp_query').val().split('-')[0].replaceAllTxt(',', '').trim().split(' ')
-            let maxDate = $('#dtp_query').val().split('-')[1].replaceAllTxt(',', '').trim().split(' ')
+            <link href="../views/client/dist/css/imageuploadify.min.css" rel="stylesheet">
+            <script src="../views/client/dist/js/imageuploadify.min.js"></script>
+            <script src="../views/client/dist/js/imageuploadify.js"></script>
 
-            minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
-            maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
+            <script>
+                $('input[name="avatar"]').imageuploadify();
+                $("input").attr("autocomplete", "off");
 
-            socket.emit('count-post-agency', { _id: getCookie('_id'), password: getCookie('password'), limit: limit, offset: offset, input: $('#edt_search').val(), minDate: minDate, maxDate: maxDate }, (response) => {
-                if (response != null) {
-                    $('#container_sort').html('<a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 1) ? 'active-drop' : '') + '" onclick="onSort_1()" id="sort_1" data-custom-value="/agency/posts?sort=1' + '">Options posts find jobs: ' + response[0] + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 2) ? 'active-drop' : '') + '" onclick="onSort_2()" id="sort_2" data-custom-value="/agency/posts?sort=2' + '">Options posts sell salons: ' + response[1] + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 3) ? 'active-drop' : '') + '" onclick="onSort_3()" id="sort_3" data-custom-value="/agency/posts?sort=3' + '">Options posts nail supply: ' + response[2] + '</a> ');
+            </script>
 
-                    count = response[isSort - 1];
-                    if ((count / limit) - parseInt(count / limit) > 0) {
-                        count = parseInt(count / limit) + 1;
+            <script>
+
+                var limit = 10
+                var offset = 0
+                var isShow = 3
+                var count = 0
+                var products = []
+                var index_edit
+                var prefixLinkSlug
+                var prefixUrlImage
+
+                //const urlParams = new URLSearchParams(window.location.search);
+                indexRow = tryParseInt(urlParams.get('row'));
+                indexPage = tryParseInt(urlParams.get('page'));
+                var isSort = urlParams.get('sort') || 1;
+
+                function onShowFilter() {
+                    if ($("#basic-table > div").hasClass("d-grid")) {
+                        $('#basic-table > div').removeClass('d-grid')
+                    } else {
+                        $('#basic-table > div').addClass('d-grid')
                     }
-                    else {
-                        count = count / limit;
+                }
+
+                function canvasTableProduct(data) {
+                    $('#TblProduct tbody').empty();
+                    $("#TblProduct tbody > tr").remove();
+                    let myTable = document.getElementById('TblProduct').getElementsByTagName('tbody')[0];
+                    let num = document.getElementById("TblProduct").rows.length;
+
+
+                    if (isSort == 1) {
+                        prefixLinkSlug = 'posts-jobs'
+                        prefixUrlImage = urlImagePostJobs
+                    } else if (isSort == 2) {
+                        prefixLinkSlug = 'posts-sell-salons'
+                        prefixUrlImage = urlImagePostSellsSalons
+                    } else if (isSort == 3) {
+                        prefixLinkSlug = 'posts-nail-supplies'
+                        prefixUrlImage = urlImagePostNailSupplies
                     }
+                    for (let i = 0; i < data.length; i++) {
+                        let row = myTable.insertRow();
+                        if (i % 2 != 0) {
+                            row.style.backgroundColor = '#e2e8f0';
+
+                        }
+                        let cell1 = row.insertCell(0);
+                        let cell2 = row.insertCell(1);
+                        let cell3 = row.insertCell(2);
+                        let cell4 = row.insertCell(3);
+                        let cell5 = row.insertCell(4);
+                        let cell6 = row.insertCell(5);
+                        let cell7 = row.insertCell(6);
+                        let cell8 = row.insertCell(7);
+
+                        if (data[i].status == 1) {
+                            cell7.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"><div class="flex items-center lg:justify-center text-theme-9"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg> Active </div><div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>';
+                        } else {
+                            cell7.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex items-center lg:justify-center text-theme-6"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Inactive </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
+                        }
+
+                        cell1.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="name" title="" style=" display: inline-flex; "> <div> <div class="font-medium whitespace-nowrap">' + products[i].name_salon + '</div> <div class="text-gray-600 text-xs whitespace-nowrap">' + products[i].phone + '</div> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
+                        cell2.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].country) + '</div>';
+                        cell3.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].title) + '</div>';
+                        cell4.innerHTML = '<div class="ellipsis">' + (products[i].content) + '</div>';
+                        cell5.innerHTML = '<div class="ellipsis">' + escapeHtml(isNumber(products[i].cost) ? ('$' + escapeHtml(products[i].cost != 0 ? formatMoney(products[i].cost) : 'contact')) : ('$' + (products[i].price != 0 ? formatMoney(products[i].price) : 'contact'))) + '</div>';
+                        cell6.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].package) + '</div>';
+                        cell8.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a> <a target="_blank" class="edit flex items-center mr-3" href="../' + prefixLinkSlug + '/' + escapeHtml(products[i].link_slug) + '"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
+
+                    }
+                }
+
+                function searchProduct() {
+                    $('#TblProduct tbody').empty();
+                    $("#SpnLoading").show();
+
+                    let minDate = $('#dtp_query').val().split('-')[0].replaceAllTxt(',', '').trim().split(' ')
+                    let maxDate = $('#dtp_query').val().split('-')[1].replaceAllTxt(',', '').trim().split(' ')
+
+                    minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
+                    maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
+
+                    socket.emit('post-agency', { _id: getCookie('_id'), password: getCookie('password'), limit: limit, offset: offset, input: $('#edt_search').val(), minDate: minDate, maxDate: maxDate, cost: $('#select_filter_cost').val(), package: $('#select_filter_package').val(), status: $('#select_filter_status').val(), type: isSort - 1 }, (response) => {
+                        $("#SpnLoading").hide();
+                        products = response
+                        if (products != null) {
+                            canvasTableProduct(products);
+                        } else {
+                            $("#title").show();
+                        }
+                    });
+                    countProduct();
+                }
+
+                function countProduct() {
+
+                    let minDate = $('#dtp_query').val().split('-')[0].replaceAllTxt(',', '').trim().split(' ')
+                    let maxDate = $('#dtp_query').val().split('-')[1].replaceAllTxt(',', '').trim().split(' ')
+
+                    minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
+                    maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
+
+                    socket.emit('count-post-agency', { _id: getCookie('_id'), password: getCookie('password'), limit: limit, offset: offset, input: $('#edt_search').val(), minDate: minDate, maxDate: maxDate }, (response) => {
+                        if (response != null) {
+                            $('#container_sort').html('<li class="tab-link ' + ((isSort != undefined && isSort == 1) ? 'active' : '') + '" data-tab="1" onclick="onSort_1()" id="sort_1" data-custom-value="/agency/posts?sort=1">Posts Jobs: ' + response[0] + '</li><li class="tab-link ' + ((isSort != undefined && isSort == 2) ? 'active' : '') + '" data-tab="2" onclick="onSort_2()" id="sort_2" data-custom-value="/agency/posts?sort=2">Posts Sell Salons: ' + response[1] + '</li><li class="tab-link ' + ((isSort != undefined && isSort == 3) ? 'active' : '') + '" data-tab="3" onclick="onSort_3()" id="sort_3" data-custom-value="/agency/posts?sort=3">Posts Nail Supplies: ' + response[2] + '</li>')
+
+                            count = response[isSort - 1];
+                            if ((count / limit) - parseInt(count / limit) > 0) {
+                                count = parseInt(count / limit) + 1;
+                            }
+                            else {
+                                count = count / limit;
+                            }
+                            paginator();
+                        }
+                    });
+                }
+
+                function canvasHeadTable(val) {
+                    $('#TblProduct thead').empty()
+                    $("#TblProduct thead > tr").remove()
+
+                    let myTable = document.getElementById('TblProduct').getElementsByTagName('thead')[0];
+                    let row = myTable.insertRow();
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    let cell3 = row.insertCell(2);
+                    let cell4 = row.insertCell(3);
+                    let cell5 = row.insertCell(4);
+                    let cell6 = row.insertCell(5);
+                    let cell7 = row.insertCell(6);
+                    let cell8 = row.insertCell(7);
+
+                    cell1.innerHTML = 'Name <br> <small>phone</small>';
+                    cell2.innerHTML = 'Location';
+                    cell3.innerHTML = 'Title';
+                    cell4.innerHTML = 'Content';
+                    cell5.innerHTML = val;
+                    cell6.innerHTML = 'Package';
+                    cell7.innerHTML = 'Status';
+                    cell8.innerHTML = 'Action';
+                }
+
+                function onSort_1() {
+                    canvasHeadTable('Cost /Week')
+                    isSort = 1;
+                    history.pushState({}, null, $('#sort_1').attr('data-custom-value'));
+                    countProduct();
+                    loadmoreProduct(0);
+                }
+
+                function onSort_2() {
+                    canvasHeadTable('Price')
+
+                    isSort = 2;
+                    history.pushState({}, null, $('#sort_2').attr('data-custom-value'));
+                    countProduct();
+                    loadmoreProduct(0);
+                }
+
+                function onSort_3() {
+                    canvasHeadTable('Price')
+                    isSort = 3;
+                    history.pushState({}, null, $('#sort_3').attr('data-custom-value'));
+                    countProduct();
+                    loadmoreProduct(0);
+                }
+
+
+                function loadmoreProduct(page) {
+                    if (offset > limit * page) {
+                        offset = parseInt(offset) - parseInt(limit);
+                        stt = offset + 1;
+                        isShow = isShow - 1;
+                    } else if (offset < limit * page) {
+                        isShow = isShow + 1;
+                        offset = parseInt(offset) + parseInt(limit);
+                        stt = offset + 1;
+                    } else {
+                        isShow = (limit * page);
+                        offset = parseInt(limit) * (limit * page);
+                        stt = parseInt(offset) + 1;
+                    }
+
+                    offset = limit * page;
+                    searchProduct();
                     paginator();
                 }
-            });
-        }
 
-        function canvasHeadTable(val) {
-            $('#TblProduct thead').empty()
-            $("#TblProduct thead > tr").remove()
-
-            let myTable = document.getElementById('TblProduct').getElementsByTagName('thead')[0];
-            let row = myTable.insertRow();
-            let cell1 = row.insertCell(0);
-            let cell2 = row.insertCell(1);
-            let cell3 = row.insertCell(2);
-            let cell4 = row.insertCell(3);
-            let cell5 = row.insertCell(4);
-            let cell6 = row.insertCell(5);
-            let cell7 = row.insertCell(6);
-            let cell8 = row.insertCell(7);
-
-            cell1.innerHTML = 'Name <br> <small>phone</small>';
-            cell2.innerHTML = 'Location';
-            cell3.innerHTML = 'Title';
-            cell4.innerHTML = 'Content';
-            cell5.innerHTML = val;
-            cell6.innerHTML = 'Package';
-            cell7.innerHTML = 'Status';
-            cell8.innerHTML = 'Action';
-        }
-
-        function onSort_1() {
-            canvasHeadTable('Cost /Week')
-            isSort = 1;
-            history.pushState({}, null, $('#sort_1').attr('data-custom-value'));
-            countProduct();
-            loadmoreProduct(0);
-        }
-
-        function onSort_2() {
-            canvasHeadTable('Price')
-
-            isSort = 2;
-            history.pushState({}, null, $('#sort_2').attr('data-custom-value'));
-            countProduct();
-            loadmoreProduct(0);
-        }
-
-        function onSort_3() {
-            canvasHeadTable('Price')
-            isSort = 3;
-            history.pushState({}, null, $('#sort_3').attr('data-custom-value'));
-            countProduct();
-            loadmoreProduct(0);
-        }
-
-
-        function loadmoreProduct(page) {
-            if (offset > limit * page) {
-                offset = parseInt(offset) - parseInt(limit);
-                stt = offset + 1;
-                isShow = isShow - 1;
-            } else if (offset < limit * page) {
-                isShow = isShow + 1;
-                offset = parseInt(offset) + parseInt(limit);
-                stt = offset + 1;
-            } else {
-                isShow = (limit * page);
-                offset = parseInt(limit) * (limit * page);
-                stt = parseInt(offset) + 1;
-            }
-
-            offset = limit * page;
-            searchProduct();
-            paginator();
-        }
-
-        function changeStatusProduct() {
-            toggleModalAddProduct();
-            if (products[index_edit].status == 1) {
-                products[index_edit].status = 0;
-            } else {
-                products[index_edit].status = 1;
-            }
-            showLoading();
-            socket.emit('update-posts-agency', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, status: products[index_edit].status, type: isSort - 1 }, (response) => {
-                hideLoading();
-                if (response != null) {
-                    canvasTableProduct(products);
-                } else {
+                function changeStatusProduct() {
                     toggleModalAddProduct();
+                    if (products[index_edit].status == 1) {
+                        products[index_edit].status = 0;
+                    } else {
+                        products[index_edit].status = 1;
+                    }
+                    showLoading();
+                    socket.emit('update-posts-agency', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, status: products[index_edit].status, type: isSort - 1 }, (response) => {
+                        hideLoading();
+                        if (response != null) {
+                            canvasTableProduct(products);
+                        } else {
+                            toggleModalAddProduct();
+                        }
+                    })
                 }
-            })
-        }
 
-        function deleteProduct() {
-            toggleModalAddProduct();
-
-            showLoading();
-            socket.emit('delete-posts-agency', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, type: isSort - 1 }, (response) => {
-                hideLoading();
-                if (response != null) {
-                    products = removeIndexOfArray(products, index_edit);
-                    canvasTableProduct(products);
-                } else {
+                function deleteProduct() {
                     toggleModalAddProduct();
-                }
-            })
-        }
 
-        $(document).ready(function () {
-            const dateObj = new Date();
-            const month = monthNames[dateObj.getMonth()];
-            const day = String(dateObj.getDate()).padStart(2, '0');
-            const year = dateObj.getFullYear();
-            const output = month + '\n' + day + ',' + year;
-            let strDate = 1 + ' ' + month.substring(0, 3) + ', ' + year + ' - ' + day + ' ' + month.substring(0, 3) + ', ' + year
-            $('#dtp_query').val(strDate)
-
-            var input = document.getElementById("edt_search");
-            input.addEventListener("keyup", function (event) {
-                if (event.keyCode === 13) {
-                    event.preventDefault();
-                    document.getElementById("tabulator-html-filter-go").click();
-                }
-            });
-
-            $('#draw_2').addClass('side-menu--active');
-            $('#draw_2').addClass('side-menu--open');
-            $('#draw_2_1').addClass('side-menu--active');
-            $('#draw_2_wrap').addClass('side-menu__sub-open')
-
-            countProduct();
-            loadmoreProduct(0);
-        });
-
-        function toggleModalAddProduct() {
-            $('#add-item-modal').css('display', 'block');
-            $('#add-item-modal').css('margin-top', '0px');
-            $('#add-item-modal').css('margin-left', '0px');
-            $('#add-item-modal').css('z-index', '1000');
-            if ($("#add-item-modal").hasClass("show")) {
-                $('#add-item-modal').removeClass('show');
-                $('body').removeClass('overflow-y-hidden');
-            } else {
-                $('#add-item-modal').addClass('show');
-                $('body').addClass('overflow-y-hidden');
-            }
-        }
-
-        function editProduct(i) {
-            index_edit = i;
-            $('#EdtNameProduct').val(products[i].name_salon);
-            $('#EdtPhoneProduct').val(products[i].phone);
-            $('#EdtEmailProduct').val(products[i].email);
-            $('#EdtAddressProduct').val(products[i].address_salon);
-            $('#EdtCodeProduct').val(products[i].code);
-            $('#EdtTitleProduct').val(products[i].title);
-            $('#EdtContentProduct').html(products[i].content);
-            $('#lbl_cost_product').html(formatMoney(products[i].cost || products[i].price) + ' $ / Week');
-
-            $('#container_images_products').empty();
-            if (!empty(products[i].images)) {
-                $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-
-                for (let j = 0; j < products[i].images.length; j++) {
-                    $('#container_images_products').append(' <div class="h-45 px-2 tns-item" id="tns4-item3" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <img src="' + prefixUrlImage + products[i].images[j] + '" data-action="zoom" class="w-full rounded-md"> </div> </div>');
+                    showLoading();
+                    socket.emit('delete-posts-agency', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, type: isSort - 1 }, (response) => {
+                        hideLoading();
+                        if (response != null) {
+                            products = removeIndexOfArray(products, index_edit);
+                            canvasTableProduct(products);
+                        } else {
+                            toggleModalAddProduct();
+                        }
+                    })
                 }
 
-                $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-            }
+                $(document).ready(function () {
+                    const dateObj = new Date();
+                    const month = monthNames[dateObj.getMonth()];
+                    const day = String(dateObj.getDate()).padStart(2, '0');
+                    const year = dateObj.getFullYear();
+                    const output = month + '\n' + day + ',' + year;
+                    let strDate = 1 + ' ' + month.substring(0, 3) + ', ' + year + ' - ' + day + ' ' + month.substring(0, 3) + ', ' + year
+                    $('#dtp_query').val(strDate)
 
-            toggleModalAddProduct();
+                    var input = document.getElementById("edt_search");
+                    input.addEventListener("keyup", function (event) {
+                        if (event.keyCode === 13) {
+                            event.preventDefault();
+                            document.getElementById("tabulator-html-filter-go").click();
+                        }
+                    });
 
-            if (products[i].status == 1) {
-                $('#btn_active').html('Active');
-                $('#btn_active').addClass('btn-success');
-                $('#btn_active').removeClass('btn-danger');
-            } else {
-                $('#btn_active').html('Not Active');
-                $('#btn_active').addClass('btn-danger');
-                $('#btn_active').removeClass('btn-success');
-            }
-        }
+                    $('#draw_2').addClass('side-menu--active');
+                    $('#draw_2').addClass('side-menu--open');
+                    $('#draw_2_1').addClass('side-menu--active');
+                    $('#draw_2_wrap').addClass('side-menu__sub-open')
 
-    </script>
+                    countProduct();
+                    loadmoreProduct(0);
+                });
 
-    <link href="../public/vendor/select2/css/select2.css" rel="stylesheet">
-    <script src="../public/vendor/select2/js/select2.js">
+                function toggleModalAddProduct() {
+                    $('#add-item-modal').css('display', 'block');
+                    $('#add-item-modal').css('margin-top', '0px');
+                    $('#add-item-modal').css('margin-left', '0px');
+                    $('#add-item-modal').css('z-index', '1000');
+                    if ($("#add-item-modal").hasClass("show")) {
+                        $('#add-item-modal').removeClass('show');
+                        $('body').removeClass('overflow-y-hidden');
+                    } else {
+                        $('#add-item-modal').addClass('show');
+                        $('body').addClass('overflow-y-hidden');
+                    }
+                }
+
+                function editProduct(i) {
+                    index_edit = i;
+                    $('#modal_post_job_edt_name_salon_update').val(products[i].name_salon);
+                    $('#modal_post_job_edt_phone_update').val(products[i].phone);
+                    $('#modal_post_job_edt_email_update').val(products[i].email);
+                    $('#modal_post_job_edt_title_update').val(products[i].title);
+                    $('#modal_post_job_edt_salary_update').val(formatMoney(products[i].cost || products[i].price));
+
+                    CKEDITOR.instances['editor_update'].setData(products[i].content)
+
+                    $('#modal_post_job_edt_filter_country_update').val(products[i].country)
+
+                    codePostJob = products[i].code
+
+                    if (isDefine(products[i].location)) {
+                        canvasMapUpdate({ lat: products[i].location.coordinates[1], lng: products[i].location.coordinates[0] })
+                    } else {
+                        canvasMapUpdate({ lat: -1, lng: -1 })
+                    }
 
 
-    </script>
+                    $('#container_images_products').empty();
+                    if (!empty(products[i].images)) {
+                        $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
+                        $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
 
-    <script>
-        $('select').select2({ width: '100%', placeholder: "Empty", allowClear: true });
-        $('.select2-selection').css('border', 'none');
-    </script>
+                        for (let j = 0; j < products[i].images.length; j++) {
+                            $('#container_images_products').append(' <div class="h-45 px-2 tns-item" id="tns4-item3" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <img src="' + prefixUrlImage + products[i].images[j] + '" data-action="zoom" class="w-full rounded-md"> </div> </div>');
+                        }
+
+                        $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
+                        $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
+                    }
+
+                    $('#ContainerImages').empty()
+                    let prefixImage
+                    if (isSort == 1) {
+                        prefixImage = urlImagePostJobsIcon
+                    } else if (isSort == 2) {
+                        prefixImage = urlImagePostSellsSalonsIcon
+                    } else if (isSort == 3) {
+                        prefixImage = urlImagePostNailSuppliesIcon
+                    }
+
+                    if (products[i].images != null && products[i].images != undefined && products[i].images.length > 0) {
+                        for (let j = 0; j < products[i].images.length; j++) {
+                            $("#ContainerImages").append('<li style="position: relative;width: 100px;display: block;height: 100% !important;float: left;margin-bottom: 0 !important;" class="mr-2"><img style="width: 100px !important; height: 100px; object-fit: cover;" class="mb-2 border border-primary rounded" src="' + prefixImage + products[i].images[j] + '"><button onclick="deleteImage(\'' + j + '\', \'' + i + '\')" style="height: auto !important;padding: 5px 10px 5px 10px;position: absolute;top: 5px;right: 5px;border-radius: 50%;" class="btn-danger" type="button"><i class="fas fa-times"></i></button></li>');
+                        }
+                    }
+
+                    $('#edt_id_post_update').val(products[i]._id)
+
+                    toggleModalAddProduct()
+                }
+
+            </script>
+
+            <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+
+            <script>
+
+                function fillCountryPostJobUpdate(val) {
+                    $('#modal_post_job_edt_filter_country_update').val(val.split(',')[0])
+                    codePostJob = val.split(',')[1]
+                    $('#container_filter_country_update').hide(200)
+                }
+                function onFilterCountryPostJobUpdate() {
+                    if ($('#modal_post_job_edt_filter_country_update').val().length) {
+                        $('#container_filter_country_update').show(200)
+
+                        socket.emit('search-country', { val: $('#modal_post_job_edt_filter_country_update').val() }, (response) => {
+                            $('#container_filter_country_update').empty()
+                            if (response && $('#modal_post_job_edt_filter_country_update').val().length) {
+                                for (let i = 0; i < response.length; i++) {
+                                    $('#container_filter_country_update').append('<div onclick="fillCountryPostJobUpdate(\'' + escapeHtml(response[i][3]) + ',' + escapeHtml(response[i][0]) + '\')" ><span class="font-medium">' + escapeHtml(response[i][3]) + ', ' + escapeHtml(response[i][4]) + '</span> <span class="ml-2" style="font-size: 0.8rem;">' + escapeHtml(response[i][0]) + '</span></div>')
+                                }
+                            }
+                        })
+                    } else {
+                        $('#container_filter_country_update').hide(200)
+                    }
+                }
+
+                function savePost() {
+
+                    if (!$('#modal_post_job_edt_title_update').val().length) {
+                        $('#modal_post_job_edt_title_update').focus()
+                        $('#modal_post_job_edt_title_update').before('<p class="removed" style="color:red">Title is require</p>')
+                        return
+                    }
+                    if (!CKEDITOR.instances.editor_update.getData().length) {
+                        $('#editor_update').focus()
+                        $('#editor_update').before('<p class="removed" style="color:red">Content is require</p>')
+                        return
+                    }
+                    if ($('#modal_post_job_edt_phone_update').val().length < 9) {
+                        $('#modal_post_job_edt_phone_update').focus()
+                        $('#modal_post_job_edt_phone_update').before('<p class="removed" style="color:red">Phone is require</p>')
+                        return
+                    }
+                    if (!validateEmail($('#modal_post_job_edt_email_update').val())) {
+                        $('#modal_post_job_edt_email_update').focus()
+                        $('#modal_post_job_edt_email_update').before('<p class="removed" style="color:red">Please enter correct email</p>')
+                        return
+                    }
+
+                    if (!$('#modal_post_job_edt_filter_country_update').val().length || !codePostJob) {
+                        $('#modal_post_job_edt_filter_country_update').focus()
+                        $('#modal_post_job_edt_filter_country_update').before('<p class="removed" style="color:red">City is require</p>')
+                        return
+                    }
+
+                    let actionUpdatePost
+                    if (isSort == 1) {
+                        actionUpdatePost = '../job/update-post'
+                    } else if (isSort == 2) {
+                        actionUpdatePost = '../sell-salon/update-post'
+                    } else if (isSort == 3) {
+                        actionUpdatePost = '../nail-supplies/update-post'
+                    }
+
+                    try {
+                        posPostJob = JSON.parse(JSON.stringify(pos.toJSON(), null, 2))
+                    } catch (e) {
+
+                    }
+
+                    $('#edt_code_update').val(codePostJob)
+                    $('#edt_content_update').val(CKEDITOR.instances.editor_update.getData())
+                    $('#edt_location_update').val(posPostJob)
+                    $('#form_update_job').attr('action', actionUpdatePost + '/?_id=' + getCookie('_id') + '&password=' + getCookie('password'))
+
+                    showLoading()
+                    $('#form_update_job').on('submit', (function (e) {
+                        e.preventDefault();
+                        var formData = new FormData(this);
+
+                        $.ajax({
+                            type: 'POST',
+                            url: actionUpdatePost,
+                            headers: {
+                                token: 'infinifyltd'
+                            },
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                window.location.reload()
+                            },
+                            error: function (data) {
+                                alert('error')
+                                toggleModalAddProduct()
+                                hideLoading()
+                            }
+                        })
+                    }))
+
+                    $('#form_update_job').submit()
+
+                    // showLoading()
+                    // var frm = $('#form_update_job');
+                    // var formData = new FormData(frm[0]);
+                    // formData.append('file', $('input[type=file]')[0].files[0]);
+                    // $.ajax({
+                    //     type: 'POST',
+                    //     url: actionUpdatePost + '/?_id=' + getCookie('_id') + '&password=' + getCookie('password'),
+                    //     headers: {
+                    //         token: 'infinifyltd'
+                    //     },
+                    //     data: formData,
+                    //     processData: false,
+                    //     contentType: false,
+                    //     success: function (data) {
+                    //         window.location.reload()
+                    //     },
+                    //     error: function (data) {
+                    //         if (data.status == 200) {
+                    //             window.location.reload()
+                    //         } else {
+                    //             alert('error')
+                    //             toggleModalAddProduct()
+                    //             hideLoading()
+                    //         }
+                    //     }
+                    // })
+                }
+
+                function deleteImage(index, iEdit) {
+                    index = tryParseInt(index)
+                    iEdit = tryParseInt(iEdit)
+                    if (products[iEdit] != undefined && products[iEdit].images != undefined && products[iEdit].images != null && products[iEdit].images.length > 0) {
+                        products[iEdit].images = removeIndexOfArray(products[iEdit].images, index);
+                    }
+
+                    socket.emit('on-update-images-post', { _id: getCookie('_id'), password: getCookie('password'), id_post: products[iEdit]._id, type: isSort, images: products[iEdit].images }, (response) => {
+
+                    })
+
+                    editProduct(iEdit)
+                    editProduct(iEdit)
+                }
+
+                $('.tab-link').click(function () {
+
+                    var tabID = $(this).attr('data-tab');
+
+                    $(this).addClass('active').siblings().removeClass('active');
+
+                    $('#tab-' + tabID).addClass('active').siblings().removeClass('active');
+                });
+            </script>
+
+            <link href="../public/vendor/select2/css/select2.css" rel="stylesheet">
+            <script src="../public/vendor/select2/js/select2.js">
+
+
+            </script>
+
+            <script>
+                $('select').select2({ width: '100%', placeholder: "Empty", allowClear: true });
+                $('.select2-selection').css('border', 'none');
+            </script>
 </body>
 
 </html>

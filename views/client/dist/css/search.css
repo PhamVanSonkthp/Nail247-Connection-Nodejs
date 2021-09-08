@@ -14,7 +14,7 @@ ul {
 
 .slick-track {
     float: left;
-    width: 100% !important;
+    /* width: 100% !important; */
 }
 
 .slick-list{

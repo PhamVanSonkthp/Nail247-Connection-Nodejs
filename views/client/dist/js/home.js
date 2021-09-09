@@ -290,8 +290,11 @@ $(document).ready(function () {
             $('#select_range_salary').html('<option value="0" selected>Salary</option><option value="1">0$ - 500$</option><option value="2">500$ - 1,000$</option><option value="3">1,000$ - 2,000$</option><option value="4">2,000$ up</option>')
         }
     })
+    if($('#keyword').val()){
+        onSearch($('#keyword').val())
+    }
+})
 
-});
 function clearFilter() {
     $('#keyword').val('')
     $("#keyword").focus();

@@ -2,8 +2,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <button style="position: absolute;right: 0.7rem;top: 0.3rem;" onclick="toggleModalSignInSignUp()"
-                type="button" class="close no-border" data-dismiss="modal" aria-label="Close">
+            <button style="position: absolute;right: 0.7rem;top: 0.3rem;" onclick="hideOptions()" type="button"
+                class="close no-border" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" class="no-border" style="font-size: 1.3rem;">&times;</span>
             </button>
             <form id="form_upload_job" enctype="multipart/form-data" method="post">
@@ -19,13 +19,13 @@
                             multiple>
                     </div>
 
-                    <div class="font-medium mt-3" style="font-size: 1.3rem;">Name salon</div>
+                    <div id="lbl_name_salon" class="font-medium mt-3" style="font-size: 1.3rem;"></div>
 
                     <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
                         style="box-shadow: 0px 4px 6px #bdbdbd;">
                         <input id="modal_post_job_edt_name_salon" name="name_salon" autocomplete="off" type="text"
                             class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                            placeholder="Name salon">
+                            placeholder="">
                     </div>
 
                     <div class="font-medium mt-3" style="font-size: 1.3rem;">Title</div>
@@ -87,7 +87,8 @@
                     </div>
 
                     <input name="code" id="edt_code" style="display: none;" />
-                    <input name="country" id="edt_country_hide" style="display: none;" />
+                    <input name="city" id="edt_city" style="display: none;" />
+                    <input name="state" id="edt_state" style="display: none;" />
                     <input name="months_provider" id="edt_months_provider" style="display: none;" />
                     <input name="package" id="edt_package" style="display: none;" />
                     <input name="id_agency" id="edt_id_agency" style="display: none;" />
@@ -341,7 +342,7 @@
                                     contentType: false,
                                     processData: false,
                                     success: function (data) {
-                                        window.location.reload()
+                                        window.location.href = '../agency/posts?sort=' + (type_post + 1)
                                     },
                                     error: function (data) {
                                         alert('error')
@@ -385,7 +386,8 @@
             $('#editor').before('<p class="removed" style="color:red">Content is require</p>')
             return
         }
-        if ($('#modal_post_job_edt_phone').val().length < 9) {
+
+        if (getOnlyNumber($('#modal_post_job_edt_phone').val()).length < 10) {
             $('#modal_post_job_edt_phone').focus()
             $('#modal_post_job_edt_phone').before('<p class="removed" style="color:red">Phone is require</p>')
             return
@@ -396,7 +398,7 @@
             return
         }
 
-        if (!$('#edt_country_hide').val().length || !codePostJob) {
+        if (!$('#edt_city').val().length || !codePostJob) {
             $('#modal_post_job_edt_filter_country').focus()
             $('#modal_post_job_edt_filter_country').before('<p class="removed" style="color:red">City is require</p>')
             return
@@ -453,7 +455,7 @@
                     contentType: false,
                     processData: false,
                     success: function (data) {
-                        window.location.reload()
+                        window.location.href = '../agency/posts?sort=' + (type_post + 1)
                     },
                     error: function (data) {
                         alert('error')
@@ -510,9 +512,12 @@
 
     function fillCountryPostJob(val) {
         $('#modal_post_job_edt_filter_country').val(val)
-        $('#edt_country_hide').val(val.split(',')[0])
+        $('#edt_city').val(val.split(',')[0])
+        $('#edt_state').val(val.split(',')[1].trim().split(' ')[0])
         codePostJob = val.split(',')[1].trim().split(' ')[1]
         $('#container_filter_country').hide(200)
+
+        console.log($('#edt_city').val())
     }
     function onFilterCountryPostJob() {
         if ($('#modal_post_job_edt_filter_country').val().length) {
@@ -540,6 +545,14 @@
     })
 
     function onPost(val) {
+        if (val == 2) {
+            $('#lbl_name_salon').html('Company name')
+            $('#modal_post_job_edt_name_salon').attr("placeholder", "Company name")
+        } else {
+            $('#lbl_name_salon').html('Name salon')
+            $('#modal_post_job_edt_name_salon').attr("placeholder", "Name salon")
+        }
+        $('.dropdown-menu').hide()
         $("#select_package_post_job").empty()
         $("#select_price_post_job").empty()
         $("#content_post_job").empty()
@@ -650,28 +663,6 @@
         $('#dialog-loading').hide(200)
     }
 
-    if (isDefine(getCookie('name')) && getCookie('name') != 'null') {
-        $('#edt_name').val(getCookie('name'))
-    }
-
-    if (isDefine(getCookie('phone')) && getCookie('phone') != 'null') {
-        $('#edt_phone').val(getCookie('phone'))
-    }
-
-    if (isDefine(getCookie('email')) && getCookie('email') != 'null') {
-        $('#edt_email').val(getCookie('email'))
-    }
-
-    if (isDefine(getCookie('country')) && getCookie('country') != 'null') {
-        $('#edt_country').val(getCookie('country'))
-    }
-
-    if (isDefine(getCookie('password')) && getCookie('password') != 'null') {
-        $('#edt_password').val(getCookie('password'))
-    }
-
-
-
     function toggleModalPostJob() {
         $('#modal_post_job').css('display', 'block');
         $('#modal_post_job').css('margin-top', '0px');
@@ -704,6 +695,10 @@
         }
     }
 
+    function hideOptions() {
+        $('.dropdown-menu').show()
+    }
+
     checkLogin()
 
     function deleteAllCookies() {
@@ -715,7 +710,6 @@
     // }
 
     initSample()
-    initSampleUpdate()
 </script>
 
 <script src="../views/admin/dist/js/jquery.masknumber.js"></script>

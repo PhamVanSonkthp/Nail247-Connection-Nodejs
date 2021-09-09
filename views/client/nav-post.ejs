@@ -1,0 +1,33 @@
+<style>
+    .dropdown-menu{
+        width: 15rem;
+        left: 0 !important;
+    }
+</style>
+
+<div class="dropdown" data-placement="bottom-start"> <button style="background-color: #6bab44;"
+    class="dropdown-toggle btn text-white" aria-expanded="false"><i
+        class="fas fa-cloud-upload-alt mr-2"></i>Post New Ad</button>
+<div class="dropdown-menu w-40">
+    <div class="dropdown-menu__content box dark:bg-dark-1">
+        <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium">
+            Options Post
+        </div>
+        <div class="p-2"> <a onclick="onPost(0)" style="cursor: pointer;"
+                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                <i data-feather="briefcase"
+                    class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i>
+                Post a Job</a> <a onclick="onPost(1)" style="cursor: pointer;"
+                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                <i data-feather="shopping-cart"
+                    class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a Sell
+                salon
+            </a> <a onclick="onPost(2)" style="cursor: pointer;"
+                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                <i data-feather="shopping-bag"
+                    class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a Nail
+                Supply
+            </a> </div>
+    </div>
+</div>
+</div>

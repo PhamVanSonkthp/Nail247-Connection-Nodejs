@@ -1627,13 +1627,6 @@ io.sockets.on('connection', (socket) => {
 
         let query = { expiration_date: { $gte: new Date() }, status: 1 }
 
-        if (helper.isDefine(data.code) && data.code) {
-          query = {
-            ...query,
-            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 5) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 5) } }],
-          }
-        }
-
         if (helper.isDefine(data.title) && data.title.length) {
           query = {
             ...query,
@@ -1669,7 +1662,7 @@ io.sockets.on('connection', (socket) => {
 
 
 
-        if (helper.isDefine(data.salary)) {
+        if (helper.isDefine(data.salary) && data.salary) {
           let salary
           if (data.categories == 'sell-salon') {
             salary = 'price'
@@ -1702,29 +1695,34 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        const object = await UserModel.find(query).limit(data.limit).skip(data.offset)
-
-        if (helper.isDefine(data.distance) && helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-          for (let i = 0; i < object.length; i++) {
-            object[i] = {
-              ...object[i]._doc,
-              distance: helper.getDistanceFromLatLonInKm(object[i].location.coordinates[0], object[i].location.coordinates[1], data.longitude, data.latitude).replaceAll('km', 'mile')
-            }
-          }
-        } else {
-          for (let i = 0; i < object.length; i++) {
-            object[i] = {
-              ...object[i]._doc,
-              distance: 'Unknown'
-            }
+        if (helper.isDefine(data.code) && data.code) {
+          query = {
+            ...query,
+            code: { $gte: helper.tryParseInt(data.code) - 100 },
+            code: { $lte: helper.tryParseInt(data.code) + 100 }
           }
         }
 
-        object.sort(function (a, b) {
-          return parseFloat(a.code) - parseFloat(b.code);
-        })
+        const object = await UserModel.find(query).sort({ code: 1 }).limit(data.limit).skip(data.offset)
 
         callback(object)
+
+
+        // if (helper.isDefine(data.distance) && helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
+        //   for (let i = 0; i < object.length; i++) {
+        //     object[i] = {
+        //       ...object[i]._doc,
+        //       distance: helper.getDistanceFromLatLonInKm(object[i].location.coordinates[0], object[i].location.coordinates[1], data.longitude, data.latitude).replaceAll('km', 'mile')
+        //     }
+        //   }
+        // } else {
+        //   for (let i = 0; i < object.length; i++) {
+        //     object[i] = {
+        //       ...object[i]._doc,
+        //       distance: 'Unknown'
+        //     }
+        //   }
+        // }
 
       } else {
         callback(null);
@@ -1766,31 +1764,6 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        // if (helper.isDefine(data.distance) && helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-        //   let maxDistance = 100000000
-        //   if (data.distance == 1) {
-        //     maxDistance = 2000
-        //   } else if (data.distance == 2) {
-        //     maxDistance = 5000
-        //   } else if (data.distance == 3) {
-        //     maxDistance = 100000
-        //   }
-
-        //   query = {
-        //     ...query,
-        //     location: {
-        //       $near: {
-        //         $geometry: {
-        //           type: "Point",
-        //           coordinates: [data.longitude, data.latitude],
-        //         },
-        //         $minDistance: 0,
-        //         $maxDistance: maxDistance,
-        //       }
-        //     }
-        //   }
-        // }
-
         if (helper.isDefine(data.salary)) {
 
           let salary
@@ -1825,10 +1798,17 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        const object = await UserModel.countDocuments(query)
-        //const object = await UserModel.find(query)
+        if (helper.isDefine(data.code) && data.code) {
+          query = {
+            ...query,
+            code: { $gte: helper.tryParseInt(data.code) - 100 },
+            code: { $lte: helper.tryParseInt(data.code) + 100 }
+          }
+        }
 
-        callback(object || 0);
+        const object = await UserModel.countDocuments(query)
+
+        callback(object)
       } else {
         callback(null);
       }
@@ -1876,7 +1856,7 @@ io.sockets.on('connection', (socket) => {
         let result = []
 
         for (let i = 0; i < codeCountrys.length; i++) {
-          if ((helper.isDefine(codeCountrys[i][3]) && codeCountrys[i][3].toUpperCase().includes(data.val)) || (helper.isDefine(codeCountrys[i][0]) && codeCountrys[i][0].includes(data.val))) {
+          if ( (helper.isDefine(codeCountrys[i][4]) && codeCountrys[i][4].toUpperCase().includes(data.val.split(' ')[data.val.split(' ').length-1])) || (helper.isDefine(codeCountrys[i][3]) && codeCountrys[i][3].toUpperCase().includes(data.val)) || (helper.isDefine(codeCountrys[i][0]) && helper.getOnlyNumber(data.val) && codeCountrys[i][0].includes(helper.getOnlyNumber(data.val))) ) {
             if (counter > 100) {
               break
             } else {
@@ -1959,7 +1939,7 @@ io.sockets.on('connection', (socket) => {
         for (let i = 0; i < codeCountrys.length; i++) {
           if (helper.tryParseInt(codeCountrys[i][0]) == helper.tryParseInt(data.code)) {
             indexSearch = i
-            nameCity = codeCountrys[i][3] + ',' + codeCountrys[i][4]
+            nameCity = codeCountrys[i][3] + ', ' + codeCountrys[i][4] + ' ' + codeCountrys[i][0]
             break
           }
         }

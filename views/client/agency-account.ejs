@@ -185,32 +185,7 @@
 
                 <ul class="mt-4" style="list-style-type: none;">
                     <li class="mt-5">
-                        <div class="dropdown"> <button style="background-color: #6bab44;"
-                                class="dropdown-toggle btn text-white" aria-expanded="false"><i
-                                    class="fas fa-cloud-upload-alt mr-2"></i>Post New Ad</button>
-                            <div class="dropdown-menu w-40">
-                                <div class="dropdown-menu__content box dark:bg-dark-1">
-                                    <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium">
-                                        Options post
-                                    </div>
-                                    <div class="p-2"> <a onclick="onPost(0)" style="cursor: pointer;"
-                                            class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                            <i data-feather="briefcase"
-                                                class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i>
-                                            Post a job</a> <a onclick="onPost(1)" style="cursor: pointer;"
-                                            class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                            <i data-feather="shopping-cart"
-                                                class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a sell
-                                            salon
-                                        </a> <a onclick="onPost(2)" style="cursor: pointer;"
-                                            class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                            <i data-feather="shopping-bag"
-                                                class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a nail
-                                            supply
-                                        </a> </div>
-                                </div>
-                            </div>
-                        </div>
+                        <%- include("nav-post"); %>
                     </li>
                     <li class="mt-5" style="color: #eb1b6c;">
                         <a href="account">
@@ -240,20 +215,20 @@
                             class="fas fa-cloud-upload-alt mr-2"></i>Post New Ad</button>
                     <div class="dropdown-menu w-40">
                         <div class="dropdown-menu__content box dark:bg-dark-1">
-                            <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium">Options post
+                            <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium">Options Post
                             </div>
                             <div class="p-2"> <a onclick="onPost(0)" style="cursor: pointer;"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
                                     <i data-feather="briefcase"
                                         class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i>
-                                    Post a job</a> <a onclick="onPost(1)" style="cursor: pointer;"
+                                    Post a Job</a> <a onclick="onPost(1)" style="cursor: pointer;"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
                                     <i data-feather="shopping-cart"
-                                        class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a sell salon
+                                        class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a Sell Salon
                                 </a> <a onclick="onPost(2)" style="cursor: pointer;"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
                                     <i data-feather="shopping-bag"
-                                        class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a nail supply
+                                        class="w-4 h-4 text-gray-700 dark:text-gray-300 mr-2"></i> Post a Nail Supply
                                 </a> </div>
                         </div>
                     </div>
@@ -281,9 +256,9 @@
                             <input id="edt_phone" autocomplete="off" type="text" disabled
                                 class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                 placeholder="Phone" oninput="showSave()">
-                            <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
                                 class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                 <path
                                     d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
@@ -313,9 +288,9 @@
                             <input id="edt_country" autocomplete="off" type="text"
                                 class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                 placeholder="Address" oninput="showSave()">
-                            <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
                                 class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                 <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
                             </svg>
@@ -348,6 +323,27 @@
             </script>
 
             <script>
+
+                if (isDefine(getCookie('name')) && getCookie('name') != 'null') {
+                    $('#edt_name').val(getCookie('name'))
+                }
+
+                if (isDefine(getCookie('phone')) && getCookie('phone') != 'null') {
+                    $('#edt_phone').val(getCookie('phone'))
+
+                    var x = $('#edt_phone').val().replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)
+                    $('#edt_phone').val(!x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : ''))
+
+                }
+
+                if (isDefine(getCookie('email')) && getCookie('email') != 'null') {
+                    $('#edt_email').val(getCookie('email'))
+                }
+
+                if (isDefine(getCookie('country')) && getCookie('country') != 'null') {
+                    $('#edt_country').val(getCookie('country'))
+                }
+
                 function saveChanged() {
                     showLoading()
                     socket.emit('update-changed-agency', { _id: getCookie('_id'), password: getCookie('password'), name: $('#edt_name').val(), email: $('#edt_email').val(), country: $('#edt_country').val() }, (response) => {

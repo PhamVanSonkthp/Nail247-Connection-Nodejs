@@ -12,7 +12,7 @@
 
     <div class="text-center p-4"
         style="font-size: 9pt;color: #999;text-align: center;clear: both;font-family: Arial;margin-bottom: 10px;">
-        Copyright © Infinity Technology. All rights reserved
+        Copyright © 247 Nail Salons. All rights reserved
     </div>
 
     <div>
@@ -334,7 +334,7 @@
                                             placeholder="Phone number"
                                             onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                             onpaste="return false">
-                                        <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                                             class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
@@ -353,7 +353,7 @@
                                         <input id="edt_email" autocomplete="off" type="text"
                                             class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                             placeholder="Email">
-                                        <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                                             class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
@@ -464,7 +464,7 @@
                         return
                     }
 
-                    phone = $('#edt_phone').val()
+                    phone = getOnlyNumber($('#edt_phone').val())
                     email = $('#edt_email').val()
                     password = sha512($('#edt_password').val())
 
@@ -786,6 +786,11 @@
                         toggleModalSignInSignUp()
                     }
                 }
+
+                document.getElementById('edt_phone').addEventListener('input', function (e) {
+                    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+                })
             </script>
             </body>
 

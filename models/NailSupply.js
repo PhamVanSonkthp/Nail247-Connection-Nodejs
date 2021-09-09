@@ -16,15 +16,16 @@ const object = mongoose.Schema({
     },
     country: {
         ...helper.schemaString,
-        ...helper.schemaRequired,
         ...helper.schemaCapitalizeFirstLetter,
     },
     city: {
         ...helper.schemaString,
+        ...helper.schemaRequired,
         ...helper.schemaCapitalizeFirstLetter,
     },
     state: {
         ...helper.schemaString,
+        ...helper.schemaRequired,
         ...helper.schemaCapitalizeFirstLetter,
     },
     code: {

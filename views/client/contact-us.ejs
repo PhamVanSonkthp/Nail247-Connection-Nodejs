@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="../views/client/dist/images/icon.png" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Infinity ltd">
+    <title>247 Nail Salons - Contact us</title>
+    <!-- BEGIN: CSS Assets-->
+    <link rel="stylesheet" href="../views/client/dist/css/app.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <!-- END: CSS Assets-->
+
+    <script src="../views/client/dist/js/jquery.min.js"></script>
+    <script src="./../../node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script src="../views/client/dist/js/helper.js"></script>
+
+    <script src="../views/client/dist/js/sha512.min.js"></script>
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <!-- <script src="https://checkout.stripe.com/checkout.js" defer></script> -->
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+</head>
+
+<body>
+
+    <div id="content">
+
+    </div>
+
+    <script>
+        socket.emit('contact-us', null, (response) => {
+
+        })
+    </script>
+</body>
+
+</html>

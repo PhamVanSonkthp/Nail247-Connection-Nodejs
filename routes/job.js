@@ -132,7 +132,8 @@ async function uploadImage(req, res, isWeb) {
                                 {
                                     $push: { images: arr[i] },
                                 }
-                            );
+                            )
+                            
                             savedObject.images.push(arr[i])
                         }
 
@@ -175,9 +176,9 @@ router.put('/:objectId', async (req, res) => {
         if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon
         if (helper.isDefine(req.body.address_salon)) objForUpdate.address_salon = req.body.address_salon;
         if (helper.isDefine(req.body.phone)) objForUpdate.phone = req.body.phone;
-        if (helper.isDefine(req.body.country)) objForUpdate.country = req.body.country;
-        if (helper.isDefine(req.body.city)) objForUpdate.city = req.body.city;
-        if (helper.isDefine(req.body.state)) objForUpdate.state = req.body.state;
+        if (helper.isDefine(req.body.country) && req.body.country) objForUpdate.country = req.body.country;
+        if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city;
+        if (helper.isDefine(req.body.state) && req.body.state) objForUpdate.state = req.body.state;
         if (helper.isDefine(req.body.code)) objForUpdate.code = req.body.code;
         if (helper.isDefine(location)) objForUpdate.location = req.body.location
         if (helper.isDefine(req.body.title)) objForUpdate.title = req.body.title;
@@ -380,6 +381,8 @@ async function updateImage(req, res, isWeb) {
                 if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon
                 if (helper.isDefine(req.body.phone)) objForUpdate.phone = req.body.phone;
                 if (helper.isDefine(req.body.country) && req.body.country) objForUpdate.country = req.body.country;
+                if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city;
+                if (helper.isDefine(req.body.state) && req.body.state) objForUpdate.state = req.body.state;
                 if (helper.isDefine(req.body.code)) objForUpdate.code = req.body.code;
                 if (helper.isDefine(location)) objForUpdate.location = location
                 if (helper.isDefine(req.body.title)) objForUpdate.title = req.body.title;
@@ -387,13 +390,13 @@ async function updateImage(req, res, isWeb) {
                 if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email;
                 if (helper.isDefine(req.body.cost)) objForUpdate.cost = req.body.cost;
                 if (helper.isDefine(req.body.options)) objForUpdate.options = helper.tryParseJson(helper.isDefine(req.body.options));
-                if (helper.isDefine(req.body.images)) objForUpdate.images = helper.tryParseJson(helper.isDefine(req.body.images));
+                //if (helper.isDefine(req.body.images)) objForUpdate.images = helper.tryParseJson(helper.isDefine(req.body.images));
                 if (helper.isDefine(req.body.status)) objForUpdate.status = req.body.status;
 
                 objForUpdate = { $set: objForUpdate }
 
-                const savedObject = await ObjectModel.updateOne(
-                    { _id: req.body.id_post }, objForUpdate
+                const savedObject = await ObjectModel.findOneAndUpdate(
+                    { _id: req.body.id_post }, objForUpdate, helper.optsValidator
                 )
 
                 if (req.fileValidationError) {
@@ -413,12 +416,13 @@ async function updateImage(req, res, isWeb) {
                         }
                     }
                     // start upload images
-                    let arr = [];
+                    let arr = []
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
                         sharp(files[index].path).resize(250, 250).toFile(pathStorage + 'icon-' + files[index].filename);
                         arr.push(files[index].filename);
                     }
                     // end upload images
+
                     try {
                         for (let i = 0; i < arr.length; i++) {
                             await ObjectModel.updateOne(
@@ -426,7 +430,8 @@ async function updateImage(req, res, isWeb) {
                                 {
                                     $push: { images: arr[i] },
                                 }
-                            );
+                            )
+                            
                             savedObject.images.push(arr[i])
                         }
 
@@ -436,6 +441,7 @@ async function updateImage(req, res, isWeb) {
                             res.json(savedObject);
                         }
                     } catch (err) {
+                        helper.throwError(err)
                         if (isWeb) {
                             return res.redirect("/agency/posts?sort=1")
                         } else {

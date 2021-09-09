@@ -251,6 +251,16 @@ function getNumber(num) {
     return num;
 }
 
+exports.optsValidator = {
+    runValidators: true,
+    new: true,
+}
+
+exports.getOnlyNumber = function (str) {
+    var num = str.replace(/[^0-9]/g, '');
+    return num
+}
+
 exports.schemaNumber = {
     type: Number,
     default: 0,

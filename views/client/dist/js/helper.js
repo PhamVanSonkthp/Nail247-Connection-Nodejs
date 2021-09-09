@@ -60,6 +60,12 @@ function removeHTMLTags(html) {
 
 }
 
+function getOnlyNumber(str) {
+	var num = str.replace(/[^0-9]/g, ''); 
+    return num
+}
+
+
 function nameMonthToNumber(val) {
 	for (let i = 0; i < monthNames.length; i++) {
 		if (monthNames[i].includes(val)) {

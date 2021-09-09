@@ -217,7 +217,7 @@
                     <div class="text-dark divider -intro-x" style="font-size: 0.8rem;margin-top: 1rem;">
 
                     </div>
-                    <div class="grid grid-cols-12 gap-6 mt-5 -intro-x">
+                    <div class="grid grid-cols-12 mt-5 -intro-x">
                         <div class="col-span-12 xl:col-span-3">
                             <div>
                                 Price:
@@ -229,32 +229,25 @@
                             </div>
                         </div>
 
-                        <div class="col-span-12 xl:col-span-3">
+                        <div id="container_nearby_city" class="col-span-12 xl:col-span-3">
                             <div>
-                                Radius:
+                                Nearby City
                             </div>
-                            <div>
-                                <div class="mt-2" style="display: flex;">
-                                    <img src="../views/client/dist/images/distance.png" style="height: 100%;">
-                                    <span id="lbl_distance" class="font-medium ml-2 color-primary"
-                                        style="align-self: flex-end;font-size: 2rem;">
-                                    </span>
-                                    <span class="mb-1 ml-1" style="align-self: flex-end;">Mile</span>
-                                </div>
+                            <div id="slick_country" style="max-height: 1rem;" class="mt-2">
 
                             </div>
                         </div>
 
                         <div class="col-span-12 xl:col-span-6">
                             <div class="grid grid-cols-12 gap-6">
-                                <div class="col-span-12 xl:col-span-9 text-right">
+                                <div class="col-span-6 xl:col-span-9 text-right">
                                     <a id="btn_call" class="btn btn-success mr-1 mb-2 mt-5 pl-10 pr-10"
                                         style="background-color: #6bab44;">
                                         <i class="fas fa-phone-alt mr-2"></i><span id="lbl_phone"></span>
                                     </a>
                                 </div>
 
-                                <div class="col-span-12 xl:col-span-3">
+                                <div class="col-span-6 xl:col-span-3">
                                     <div class="col-span-12 xl:col-span-9">
                                         <button onclick="toggleModalSubmitEmail()"
                                             class="btn btn-success w-24 mr-1 mb-2 mt-5 bg-primary"
@@ -388,9 +381,62 @@
             })
         }
 
+        function reloadSlickCountry() {
+            $('#slick_country').slick({
+                autoplay: true,
+                autoplaySpeed: 10000,
+                draggable: true,
+                pauseOnHover: false,
+                infinite: true,
+                dots: false,
+                arrows: false,
+                speed: 1000,
+
+                mobileFirst: true,
+
+                slidesToShow: 1,
+                slidesToScroll: 1,
+
+                responsive: [{
+                    breakpoint: breakpoint.xs,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: breakpoint.sm,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: breakpoint.md,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: breakpoint.lg,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+                ]
+            });
+
+        }
+
         function detailPost(latitude, longitude) {
             socket.emit('detail-posts-nail-supplies', { link_slug: slug, latitude: latitude, longitude: longitude }, (response) => {
                 if (isDefine(response)) {
+                    for (let i = 0; i < response.nearCountry.length; i++) {
+                        $('#slick_country').append('<div onclick="search(' + tryParseInt(response.nearCountry[i][0]) + ')" class="slide"> <div class="panel panel-default" style="background: #737172;opacity: 0.9; cursor: pointer; position: relative;"> <img src="../views/client/dist/images/bg-relate-city.png" class="img-responsive" style="opacity: 0.1;max-height: 2rem;object-fit: cover;width: 100%;" /> <p class="text-white" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;height: 1rem;text-align: center;"> ' + response.nearCountry[i][3] + ',' + response.nearCountry[i][4] + '</p> </div> </div>')
+                    }
+                    reloadSlickCountry()
                     $('#keyword').val(response.post.country)
                     if (isDefine(response.post.images) && response.post.images.length > 0) {
                         for (let i = 0; i < response.post.images.length; i++) {

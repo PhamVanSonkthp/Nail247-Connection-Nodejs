@@ -188,7 +188,6 @@ const optsValidator = {
 //Firebase
 const admin = require("firebase-admin")
 const serviceAccount = require("./sms-schedule-infinity-720fd-firebase-adminsdk-zllw3-83b5b6f682.json")
-const { type } = require('os')
 var token
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -223,8 +222,6 @@ function connectDatabase() {
 
   }).catch(err => console.log(err))
 }
-
-
 
 function fetchAPI(req, res) {
   helper.saveTraffics(req, 0)
@@ -1841,6 +1838,35 @@ io.sockets.on('connection', (socket) => {
     }
   })
 
+  function nearCountryByCode(code) {
+    code = helper.tryParseInt(code)
+    let counter = 0
+    let result = []
+
+    for (let i = 0; i < codeCountrys.length; i++) {
+      if ((helper.isDefine(codeCountrys[i][0]) && Math.abs(helper.tryParseInt(codeCountrys[i][0]) - code) < 10)) {
+        if (counter > 5) {
+          break
+        } else {
+          ++counter
+        }
+        result.push(codeCountrys[i])
+      }
+    }
+
+    for (let i = 0; i < result.length - 1; i++) {
+      for (let j = i; j < result.length; j++) {
+        if (Math.abs(helper.tryParseInt(result[i].code) - helper.tryParseInt(code)) < Math.abs(helper.tryParseInt(result[j].code) - helper.tryParseInt(code))) {
+          let temp = result[i]
+          result[i] = result[j]
+          result[j] = temp
+        }
+      }
+    }
+
+    return result
+  }
+
   socket.on('search-country', async (data, callback) => {
     trafficsSocket(socket)
     try {
@@ -2062,9 +2088,11 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
+        const nearCountry = nearCountryByCode(object.code)
         object = {
           post: object,
-          related: resultRelated
+          related: resultRelated,
+          nearCountry: nearCountry
         }
         callback(object)
       } else {
@@ -2145,9 +2173,11 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
+        const nearCountry = nearCountryByCode(object.code)
         object = {
           post: object,
-          related: resultRelated
+          related: resultRelated,
+          nearCountry: nearCountry
         }
         callback(object)
       } else {
@@ -2228,9 +2258,11 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
+        const nearCountry = nearCountryByCode(object.code)
         object = {
           post: object,
-          related: resultRelated
+          related: resultRelated,
+          nearCountry: nearCountry
         }
         callback(object)
       } else {

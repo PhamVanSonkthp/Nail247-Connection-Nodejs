@@ -293,6 +293,7 @@ $(document).ready(function () {
     if($('#keyword').val()){
         onSearch($('#keyword').val())
     }
+    $("#keyword").focus();
 })
 
 function clearFilter() {

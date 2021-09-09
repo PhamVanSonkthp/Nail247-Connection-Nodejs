@@ -36,15 +36,24 @@ var entityMap = {
 }
 
 function escapeHtml(string) {
-	if(!isDefine(string)) return ''
-	if(string.includes('<script>') || true){
-		return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-			return entityMap[s];
-		})
+	if (!isDefine(string)) return ''
+	// if(string.includes('<script>') || true){
+	// 	return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+	// 		return entityMap[s];
+	// 	})
+	// }else{
+	// 	return string
+	// }
+
+	if (string.includes('<script>') && string.includes('</script>')) {
+		return $('<div />').text(string).html()
+		
 	}else{
 		return string
 	}
+	//ENCODED FOR MAXIMUM SAFETY
 	
+
 }
 
 function nameMonthToNumber(val) {
@@ -165,17 +174,17 @@ function removeIndexOfArray(arr, index) {
 
 function copyToClipboard(containerid) {
 	if (document.selection) {
-	  var range = document.body.createTextRange();
-	  range.moveToElementText(document.getElementById(containerid));
-	  range.select().createTextRange();
-	  document.execCommand("copy");
+		var range = document.body.createTextRange();
+		range.moveToElementText(document.getElementById(containerid));
+		range.select().createTextRange();
+		document.execCommand("copy");
 	} else if (window.getSelection) {
-	  var range = document.createRange();
-	  range.selectNode(document.getElementById(containerid));
-	  window.getSelection().addRange(range);
-	  document.execCommand("copy");
+		var range = document.createRange();
+		range.selectNode(document.getElementById(containerid));
+		window.getSelection().addRange(range);
+		document.execCommand("copy");
 	}
-  }
+}
 
 function empty(val) {
 

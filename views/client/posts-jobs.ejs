@@ -183,7 +183,7 @@
 
             <div class="grid grid-cols-12 gap-6">
                 <div class="col-span-12 xl:col-span-9">
-                    <div id="slick_images" style="display: flex;">
+                    <div id="slick_images" style="display: block;">
 
                     </div>
 
@@ -344,116 +344,7 @@
 
     </div>
 
-    <script>
-        // bootstrap 3 breakpoints 
-        const breakpoint = {
-            // extra small screen / phone
-            xs: 480,
-            // small screen / tablet
-            sm: 768,
-            // medium screen / desktop
-            md: 992,
-            // large screen / large desktop
-            lg: 1200
-        };
-
-        function reloadSlickImages() {
-            $('#slick_images').slick({
-                autoplay: true,
-                autoplaySpeed: 5000,
-                draggable: true,
-                pauseOnHover: false,
-                ariableWidth: true,
-                infinite: true,
-                dots: false,
-                arrows: false,
-                speed: 1000,
-
-                mobileFirst: true,
-
-                slidesToShow: 1,
-                slidesToScroll: 1,
-
-                responsive: [{
-                    breakpoint: breakpoint.xs,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                },
-                {
-                    breakpoint: breakpoint.sm,
-                    settings: {
-                        slidesToShow: Math.min(2, (post.images.length || 0)),
-                        slidesToScroll: Math.min(2, (post.images.length || 0))
-                    }
-                },
-                {
-                    breakpoint: breakpoint.md,
-                    settings: {
-                        slidesToShow: Math.min(3, (post.images.length || 0)),
-                        slidesToScroll: Math.min(3, (post.images.length || 0)),
-                    }
-                },
-                {
-                    breakpoint: breakpoint.lg,
-                    settings: {
-                        slidesToShow: Math.min(4, (post.images.length || 0)),
-                        slidesToScroll: Math.min(4, (post.images.length || 0)),
-                    }
-                }
-                ]
-            });
-
-            // $('#slick_images').slick('refresh')
-            // $('.slick-prev').html('<i class="fas fa-chevron-left fa-lg"></i>')
-            // $('.slick-next').html('<i class="fas fa-chevron-right fa-lg"></i>')
-        }
-
-        function reloadSlick_2() {
-            $('#slick_2').slick({
-                autoplay: true,
-                autoplaySpeed: 500000,
-                draggable: true,
-                pauseOnHover: false,
-                ariableWidth: true,
-                infinite: true,
-                dots: false,
-                arrows: false,
-                speed: 1000,
-
-                mobileFirst: true,
-
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                responsive: [{
-                    breakpoint: breakpoint.xs,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                },
-                {
-                    breakpoint: breakpoint.sm,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3
-                    }
-                },
-                {
-                    breakpoint: breakpoint.md,
-                    settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4
-                    }
-                },
-                ]
-            });
-            // $('#slick_2').slick('refresh')
-            // $('.slick-prev').html('<i class="fas fa-chevron-left fa-lg"></i>')
-            // $('.slick-next').html('<i class="fas fa-chevron-right fa-lg"></i>')
-        }
-    </script>
+    <script src="../views/client/dist/js/slick-post.js"></script>
 
     <script>
         let slug = document.location.toString().split('/')[document.location.toString().split('/').length - 1]
@@ -482,7 +373,7 @@
                     } else if (response[i].type == 3) {
                         prefix = '../posts-nail-supplies/'
                     }
-                    $('#slick_2').append('<a href="' + (prefix + escapeHtml(response[i].link_slug)) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="font-medium ellipsis-1">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis-2" style="font-size: 0.8rem;">' + escapeHtml(response[i].content || 'Unknown') + '</div> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].country || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ('$' + (response[i].cost != 0 ? formatMoney(response[i].cost) : 'contact')) : ('$' + (response[i].price != 0 ? formatMoney(response[i].price) : 'contact'))) + '</span> </div> </div> </div> </a>')
+                    $('#slick_2').append('<a href="' + (prefix + escapeHtml(response[i].link_slug)) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="font-medium ellipsis-1">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis-2" style="font-size: 0.8rem;">' + escapeHtml(response[i].content || 'Unknown') + '</div> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis" style="display:flex;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis" > <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].country || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ('$' + (response[i].cost != 0 ? formatMoney(response[i].cost) : 'contact')) : ('$' + (response[i].price != 0 ? formatMoney(response[i].price) : 'contact'))) + '</span> </div> </div> </div> </a>')
                 }
                 reloadSlick_2()
             }
@@ -514,7 +405,7 @@
                     $('#lbl_address').html(escapeHtml(response.post.country))
                     $('#lbl_salary').html(escapeHtml('$' + (response.post.cost != 0 ? formatMoney(response.post.cost) : 'contact')))
 
-                    $('#lbl_content').html((response.post.content))
+                    $('#lbl_content').html(escapeHtml(response.post.content))
                     $('#lbl_phone').html(escapeHtml(response.post.phone))
                     $('#lbl_distance').html(escapeHtml(response.post.distance.replace('km', '').trim()))
                     $('#lbl_email').html(escapeHtml(response.post.email))

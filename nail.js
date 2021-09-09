@@ -1633,7 +1633,7 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.code) && data.code) {
           query = {
             ...query,
-            code: sanitize(data.code)
+            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 5) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 5) } }],
           }
         }
 
@@ -1669,6 +1669,8 @@ io.sockets.on('connection', (socket) => {
         //     }
         //   }
         // }
+
+
 
         if (helper.isDefine(data.salary)) {
           let salary
@@ -1721,6 +1723,10 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
+        object.sort(function (a, b) {
+          return parseFloat(a.code) - parseFloat(b.code);
+        })
+
         callback(object)
 
       } else {
@@ -1752,7 +1758,7 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.code) && data.code) {
           query = {
             ...query,
-            code: sanitize(data.code)
+            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 5) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 5) } }],
           }
         }
 
@@ -1822,10 +1828,10 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        //const object = await UserModel.find(query).countDocuments()
-        const object = await UserModel.find(query)
+        const object = await UserModel.countDocuments(query)
+        //const object = await UserModel.find(query)
 
-        callback(object.length || 0);
+        callback(object || 0);
       } else {
         callback(null);
       }

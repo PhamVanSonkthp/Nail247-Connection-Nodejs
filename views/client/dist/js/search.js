@@ -227,7 +227,7 @@ function searchProduct() {
         $('#select_categories').val("find-job").change()
     } else if (categories == 'sell-salon') {
         $('#select_categories').val("sell-salon").change()
-    } else if (categories == 'nail-supply') {
+    } else if (categories.includes('nail-supply')) {
         $('#select_categories').val("nail-supply").change()
         title = $('#keyword').val()
     }
@@ -294,7 +294,7 @@ function countProduct() {
             $('#result_counter').html((response || 0) + ' results for "Find a job"')
         } else if (isDefine(categories) && categories == 'sell-salon') {
             $('#result_counter').html((response || 0) + ' results for "Sell salons"')
-        } else if (isDefine(categories) && categories == 'nail-supply') {
+        } else if (isDefine(categories) && categories.includes('nail-supply')) {
             $('#result_counter').html((response || 0) + ' results for "Nail supply"')
         }
 

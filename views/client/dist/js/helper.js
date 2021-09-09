@@ -47,12 +47,16 @@ function escapeHtml(string) {
 
 	if (string.includes('<script>') && string.includes('</script>')) {
 		return $('<div />').text(string).html()
-		
-	}else{
+
+	} else {
 		return string
 	}
 	//ENCODED FOR MAXIMUM SAFETY
-	
+}
+
+function removeHTMLTags(html) {
+	var regX = /(<([^>]+)>)/ig;
+	return html.replace(regX, "")
 
 }
 

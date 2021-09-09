@@ -58,20 +58,18 @@
             line-height: normal !important;
         }
 
-        ::-webkit-scrollbar-track
-        {
+        ::-webkit-scrollbar-track {
             background: #f1f1f1;
         }
 
-        ::-webkit-scrollbar
-        {
+        ::-webkit-scrollbar {
             width: 5px;
         }
 
         ::-webkit-scrollbar-thumb {
             background: #888;
         }
-        
+
         .color-placeholder:focus {
             outline: none !important;
             border: 1px solid red !important;
@@ -396,14 +394,15 @@
                 margin-top: 1rem;
             }
 
-            .menu-right{
+            .menu-right {
                 display: none;
             }
+
             h1 {
                 padding: 2rem;
             }
 
-            .header{
+            .header {
                 min-height: 8rem !important;
             }
 
@@ -595,19 +594,23 @@
         }
 
         @media (min-width:1601px) {
-            #container_search{
-                top:3rem;
+            #container_search {
+                top: 3rem;
             }
         }
 
         @media (max-width:1279px) {
-            #container_nearby_city{
+            #container_nearby_city {
                 display: none;
             }
-            #btn_call{
+
+            #btn_call {
                 width: 100%;
+                padding-left: 0;
+                padding-right: 0;
             }
-            #lbl_title{
+
+            #lbl_title {
                 margin: 0;
             }
         }
@@ -648,7 +651,7 @@
             <div>
                 <div style="position: relative;">
                     <div class="logo pt-5">
-                        <a href="/" >
+                        <a href="/">
                             <img src="../views/client/dist/images/logo.png" />
                         </a>
 
@@ -679,8 +682,8 @@
         <div class="container sm:px-10">
             <div class="box grid grid-cols-12 pt-1 pb-1 search-box">
                 <div class="col-span-12 xl:col-span-3 box">
-                    <select id="select_categories" class="form-select p-3 no-border"
-                        style="background-color: white;" aria-label="Default select example">
+                    <select id="select_categories" class="form-select p-3 no-border" style="background-color: white;"
+                        aria-label="Default select example">
                         <option value="find-job">Find a Job</option>
                         <option value="sell-salon">Salon for Sale</option>
                         <option value="nail-supply">Nail Supplies</option>
@@ -702,19 +705,18 @@
                                 class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
                                 placeholder="Search a Job by City or zipcode">
                             <span>
-                                <svg style="cursor: pointer;" onclick="showFilter()"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="#ef4c8c" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round"
+                                <svg style="cursor: pointer;" onclick="showFilter()" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4c8c"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                                     class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                     <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                                 </svg>
                             </span>
                             <span id="container_clear_filter" style="display: none;">
                                 <svg style="cursor: pointer;position: absolute;right: 2rem !important;"
-                                    onclick="clearFilter()" xmlns="http://www.w3.org/2000/svg" width="24"
-                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                    onclick="clearFilter()" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"
                                     class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                     <line x1="18" y1="6" x2="6" y2="18"></line>
                                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -725,8 +727,8 @@
 
                     <div class="grid grid-cols-12" id="container_fillter" style=" display: none;">
                         <div class="col-span-6">
-                            <div class="relative text-gray-700 dark:text-gray-300 ml-4"
-                                id="container_filter_ranger" onclick="filterRanger()">
+                            <div class="relative text-gray-700 dark:text-gray-300 ml-4" id="container_filter_ranger"
+                                onclick="filterRanger()">
                                 <img class="mt-2"
                                     style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
                                     src="../views/client/dist/images/distance.png">

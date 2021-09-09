@@ -133,9 +133,9 @@
                         </div>
                     </div>
 
-                    <div class="font-medium mt-3" style="font-size: 1.3rem;">Location on map</div>
+                    <div class="font-medium mt-3" style="font-size: 1.3rem;display: none;">Location on map</div>
 
-                    <div class="mt-2" style="height: 20rem;">
+                    <div class="mt-2" style="height: 20rem;display: none;">
                         <div id="map"></div>
                     </div>
 
@@ -511,7 +511,7 @@
     function fillCountryPostJob(val) {
         $('#modal_post_job_edt_filter_country').val(val)
         $('#edt_country_hide').val(val.split(',')[0])
-        codePostJob = val.split(',')[1].split(' ')[1]
+        codePostJob = val.split(',')[1].trim().split(' ')[1]
         $('#container_filter_country').hide(200)
     }
     function onFilterCountryPostJob() {

@@ -1644,31 +1644,31 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.distance) && helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
+        // if (helper.isDefine(data.distance) && helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
 
-          let maxDistance = 100000000
-          if (data.distance == 1) {
-            maxDistance = 2000
-          } else if (data.distance == 2) {
-            maxDistance = 5000
-          } else if (data.distance == 3) {
-            maxDistance = 100000
-          }
+        //   let maxDistance = 100000000
+        //   if (data.distance == 1) {
+        //     maxDistance = 2000
+        //   } else if (data.distance == 2) {
+        //     maxDistance = 5000
+        //   } else if (data.distance == 3) {
+        //     maxDistance = 100000
+        //   }
 
-          query = {
-            ...query,
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: [data.longitude, data.latitude],
-                },
-                $minDistance: 0,
-                $maxDistance: maxDistance,
-              }
-            }
-          }
-        }
+        //   query = {
+        //     ...query,
+        //     location: {
+        //       $near: {
+        //         $geometry: {
+        //           type: "Point",
+        //           coordinates: [data.longitude, data.latitude],
+        //         },
+        //         $minDistance: 0,
+        //         $maxDistance: maxDistance,
+        //       }
+        //     }
+        //   }
+        // }
 
         if (helper.isDefine(data.salary)) {
           let salary
@@ -1763,30 +1763,30 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.distance) && helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-          let maxDistance = 100000000
-          if (data.distance == 1) {
-            maxDistance = 2000
-          } else if (data.distance == 2) {
-            maxDistance = 5000
-          } else if (data.distance == 3) {
-            maxDistance = 100000
-          }
+        // if (helper.isDefine(data.distance) && helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
+        //   let maxDistance = 100000000
+        //   if (data.distance == 1) {
+        //     maxDistance = 2000
+        //   } else if (data.distance == 2) {
+        //     maxDistance = 5000
+        //   } else if (data.distance == 3) {
+        //     maxDistance = 100000
+        //   }
 
-          query = {
-            ...query,
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: [data.longitude, data.latitude],
-                },
-                $minDistance: 0,
-                $maxDistance: maxDistance,
-              }
-            }
-          }
-        }
+        //   query = {
+        //     ...query,
+        //     location: {
+        //       $near: {
+        //         $geometry: {
+        //           type: "Point",
+        //           coordinates: [data.longitude, data.latitude],
+        //         },
+        //         $minDistance: 0,
+        //         $maxDistance: maxDistance,
+        //       }
+        //     }
+        //   }
+        // }
 
         if (helper.isDefine(data.salary)) {
 
@@ -1882,7 +1882,7 @@ io.sockets.on('connection', (socket) => {
 
         counter = 0
         for (let i = 0; i < bestResult.length; i++) {
-          if (++counter > 10) {
+          if (++counter > 100) {
             break
           }
           bestFinalResult.push(bestResult[i])

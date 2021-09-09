@@ -365,6 +365,16 @@
             padding: 0.5rem;
         }
 
+        #container_filter_country_update>div:hover {
+            background-color: #eb1b6c;
+            cursor: pointer;
+            color: white;
+        }
+
+        #container_filter_country_update>div {
+            padding: 0.5rem;
+        }
+
         .dropdown-menu.show {
             z-index: 100;
         }
@@ -405,7 +415,7 @@
                             <input id="modal_post_job_edt_name_salon_update" name="name_salon" autocomplete="off"
                                 type="text"
                                 class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                placeholder="Name salon (option)">
+                                placeholder="Name salon">
                         </div>
 
                         <div class="font-medium mt-3" style="font-size: 1.3rem;">Title</div>
@@ -414,7 +424,7 @@
                             style="box-shadow: 0px 4px 6px #bdbdbd;">
                             <input id="modal_post_job_edt_title_update" autocomplete="off" type="text" name="title"
                                 class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                placeholder="Title">
+                                placeholder="* Title">
                         </div>
 
                         <div class="font-medium mt-3" style="font-size: 1.3rem;">Content</div>
@@ -431,7 +441,7 @@
                                     <input id="modal_post_job_edt_phone_update" autocomplete="off" type="text"
                                         name="phone"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                        placeholder="Phone contact (require)"
+                                        placeholder="* Phone contact"
                                         onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                         onpaste="return false">
                                     <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -450,7 +460,7 @@
                                     <input id="modal_post_job_edt_email_update" autocomplete="off" type="text"
                                         name="email"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                        placeholder="Email contact (require)">
+                                        placeholder="* Email contact">
                                     <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
                                         stroke-linecap="round" stroke-linejoin="round"
@@ -493,7 +503,8 @@
                                 <div class="relative text-gray-700 dark:text-gray-300 box">
                                     <input id="modal_post_job_edt_filter_country_update" autocomplete="off" type="text"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                        placeholder="City or Zipcode of your salon" oninput="onFilterCountryPostJobUpdate()">
+                                        placeholder="City or Zipcode of your salon"
+                                        oninput="onFilterCountryPostJobUpdate()">
                                     <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
                                         stroke-linecap="round" stroke-linejoin="round"
@@ -510,9 +521,9 @@
                             </div>
                         </div>
 
-                        <div class="font-medium mt-3" style="font-size: 1.3rem;">Location on map</div>
+                        <div class="font-medium mt-3" style="font-size: 1.3rem;display: none;">Location on map</div>
 
-                        <div class="mt-2" style="height: 20rem;">
+                        <div class="mt-2" style="height: 20rem;display: none;">
                             <div id="map_update"></div>
                         </div>
 
@@ -1112,7 +1123,7 @@
 
                     CKEDITOR.instances['editor_update'].setData(products[i].content)
 
-                    $('#modal_post_job_edt_filter_country_update').val(products[i].country)
+                    $('#modal_post_job_edt_filter_country_update').val(products[i].country + ' ' + products[i].code)
 
                     codePostJob = products[i].code
 
@@ -1165,9 +1176,11 @@
             <script>
 
                 function fillCountryPostJobUpdate(val) {
-                    $('#modal_post_job_edt_filter_country_update').val(val.split(',')[0])
-                    codePostJob = val.split(',')[1]
+                    $('#modal_post_job_edt_filter_country_update').val(val)
+                    $('#edt_country_update').val(val.split(',')[0])
+                    codePostJob = val.split(',')[1].trim().split(' ')[1]
                     $('#container_filter_country_update').hide(200)
+
                 }
                 function onFilterCountryPostJobUpdate() {
                     if ($('#modal_post_job_edt_filter_country_update').val().length) {
@@ -1177,7 +1190,7 @@
                             $('#container_filter_country_update').empty()
                             if (response && $('#modal_post_job_edt_filter_country_update').val().length) {
                                 for (let i = 0; i < response.length; i++) {
-                                    $('#container_filter_country_update').append('<div onclick="fillCountryPostJobUpdate(\'' + escapeHtml(response[i][3]) + ',' + escapeHtml(response[i][0]) + '\')" ><span class="font-medium">' + escapeHtml(response[i][3]) + ', ' + escapeHtml(response[i][4]) + '</span> <span class="ml-2" style="font-size: 0.8rem;">' + escapeHtml(response[i][0]) + '</span></div>')
+                                    $('#container_filter_country_update').append('<div onclick="fillCountryPostJobUpdate(\'' + escapeHtml(response[i][3]) + ', ' + escapeHtml(response[i][4]) + ' ' + escapeHtml(response[i][0]) + '\')" ><span class="font-medium">' + escapeHtml(response[i][3]) + ', ' + escapeHtml(response[i][4]) + '</span> <span class="ml-2" style="font-size: 0.8rem;">' + escapeHtml(response[i][0]) + '</span></div>')
                                 }
                             }
                         })
@@ -1313,7 +1326,12 @@
                     $(this).addClass('active').siblings().removeClass('active');
 
                     $('#tab-' + tabID).addClass('active').siblings().removeClass('active');
-                });
+                })
+
+                document.getElementById('modal_post_job_edt_phone_update').addEventListener('input', function (e) {
+                    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+                })
             </script>
 
             <link href="../public/vendor/select2/css/select2.css" rel="stylesheet">

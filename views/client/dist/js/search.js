@@ -231,7 +231,7 @@ function searchProduct() {
         $('#select_categories').val("nail-supply").change()
         title = $('#keyword').val()
     }
-    
+
     $('#containe_newest').html('<div class="col-span-12 text-center intro-y"><svg style="cursor: pointer;width:2.5rem;height: 2.5rem;position: static;" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 135 135" fill="none" stroke="#ef4c8c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search absolute my-auto inset-y-0 mr-3 right-0"> <!-- <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon> --> <path d="M67.447 58c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zm9.448 9.447c0 5.523 4.477 10 10 10 5.522 0 10-4.477 10-10s-4.478-10-10-10c-5.523 0-10 4.477-10 10zm-9.448 9.448c-5.523 0-10 4.477-10 10 0 5.522 4.477 10 10 10s10-4.478 10-10c0-5.523-4.477-10-10-10zM58 67.447c0-5.523-4.477-10-10-10s-10 4.477-10 10 4.477 10 10 10 10-4.477 10-10z"> <animateTransform attributeName="transform" type="rotate" from="0 67 67" to="-360 67 67" dur="2.5s" repeatCount="indefinite"> </animateTransform> </path> <path d="M28.19 40.31c6.627 0 12-5.374 12-12 0-6.628-5.373-12-12-12-6.628 0-12 5.372-12 12 0 6.626 5.372 12 12 12zm30.72-19.825c4.686 4.687 12.284 4.687 16.97 0 4.686-4.686 4.686-12.284 0-16.97-4.686-4.687-12.284-4.687-16.97 0-4.687 4.686-4.687 12.284 0 16.97zm35.74 7.705c0 6.627 5.37 12 12 12 6.626 0 12-5.373 12-12 0-6.628-5.374-12-12-12-6.63 0-12 5.372-12 12zm19.822 30.72c-4.686 4.686-4.686 12.284 0 16.97 4.687 4.686 12.285 4.686 16.97 0 4.687-4.686 4.687-12.284 0-16.97-4.685-4.687-12.283-4.687-16.97 0zm-7.704 35.74c-6.627 0-12 5.37-12 12 0 6.626 5.373 12 12 12s12-5.374 12-12c0-6.63-5.373-12-12-12zm-30.72 19.822c-4.686-4.686-12.284-4.686-16.97 0-4.686 4.687-4.686 12.285 0 16.97 4.686 4.687 12.284 4.687 16.97 0 4.687-4.685 4.687-12.283 0-16.97zm-35.74-7.704c0-6.627-5.372-12-12-12-6.626 0-12 5.373-12 12s5.374 12 12 12c6.628 0 12-5.373 12-12zm-19.823-30.72c4.687-4.686 4.687-12.284 0-16.97-4.686-4.686-12.284-4.686-16.97 0-4.687 4.686-4.687 12.284 0 16.97 4.686 4.687 12.284 4.687 16.97 0z"> <animateTransform attributeName="transform" type="rotate" from="0 67 67" to="360 67 67" dur="8s" repeatCount="indefinite"></animateTransform> </path> </svg>Loading...<div>')
     querySearch = { code: code, categories: categories, distance: distance, latitude: latitude, longitude: longitude, salary: salary, limit: limit, offset: offset, title: title }
     socket.emit('search', querySearch, (response) => {
@@ -254,7 +254,7 @@ function searchProduct() {
                 if (response[i].images != null && response[i].images.length > 0) {
                     bg = escapeHtml(urlImage + response[i].images[0])
                 }
-                $('#containe_newest').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '" class="zoom-in col-span-12 xl:col-span-6 box" style="border-radius: 1rem;box-shadow: 0px 4px 6px #bdbdbd;"> <div class="grid grid-cols-3 intro-y h-full"> <div class="col-span-1"> <div  style="background-image: url(' + bg + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response[i].title) + ' </div> <div class="ellipsis mt-2"> ' + escapeHtml(response[i].content) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium ellipsis" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(isNumber(response[i].cost) ? ('$' + (response[i].cost != 0 ? formatMoney(response[i].cost) : 'contact')) : ('$' + (response[i].price != 0 ? formatMoney(response[i].price) : 'contact'))) + ' </span><div class="ml-4" style="display: flex;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response[i].distance) + '</span> </div> </div> <div class="p-2 grid grid-cols-12"> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].country) + ' </div> </div> </div></div> </a>')
+                $('#containe_newest').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '" class="zoom-in col-span-12 xl:col-span-6 box" style="border-radius: 1rem;box-shadow: 0px 4px 6px #bdbdbd;"> <div class="grid grid-cols-3 intro-y h-full"> <div class="col-span-1"> <div  style="background-image: url(' + bg + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response[i].title) + ' </div> <div class="ellipsis mt-2"> ' + escapeHtml(response[i].content) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium ellipsis" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(isNumber(response[i].cost) ? ('$' + (response[i].cost != 0 ? formatMoney(response[i].cost) : 'contact')) : ('$' + (response[i].price != 0 ? formatMoney(response[i].price) : 'contact'))) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response[i].distance) + '</span> </div> </div> <div class="p-2 grid grid-cols-12"> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].country) + ' </div> </div> </div></div> </a>')
             }
         } else {
             $('#containe_newest').html('<div class="intro-y col-span-12 text-center font-medium" style="font-size: 2rem;">No result!</div>')
@@ -313,22 +313,25 @@ function countProduct() {
     })
 }
 
-function position(position) {
-    latitude = position.coords.latitude
-    longitude = position.coords.longitude
+// function position(position) {
+//     latitude = position.coords.latitude
+//     longitude = position.coords.longitude
 
-    countProduct()
-    loadmoreProduct(0)
-}
+//     countProduct()
+//     loadmoreProduct(0)
+// }
 
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position)
-    countProduct()
-    loadmoreProduct(0)
-} else {
-    countProduct()
-    loadmoreProduct(0)
-}
+// if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(position)
+//     countProduct()
+//     loadmoreProduct(0)
+// } else {
+//     countProduct()
+//     loadmoreProduct(0)
+// }
+
+countProduct()
+loadmoreProduct(0)
 
 if (distance == 1) {
     changeDistace(1, 20)

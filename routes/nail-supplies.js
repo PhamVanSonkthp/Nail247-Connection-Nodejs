@@ -38,15 +38,15 @@ async function uploadImage(req, res, isWeb) {
                 ]
             }
 
-            if (helper.isDefine(req.body.location) && req.body.location.length) {
-                location = {
-                    "type": "Point",
-                    "coordinates": [
-                        helper.tryParseJson(req.body.location).lng || 0,
-                        helper.tryParseJson(req.body.location).lat || 0,
-                    ]
-                }
-            }
+            // if (helper.isDefine(req.body.location) && req.body.location.length) {
+            //     location = {
+            //         "type": "Point",
+            //         "coordinates": [
+            //             helper.tryParseJson(req.body.location).lng || 0,
+            //             helper.tryParseJson(req.body.location).lat || 0,
+            //         ]
+            //     }
+            // }
 
             const index = await ObjectModel.countDocuments()
             result.name_salon = req.body.name_salon
@@ -174,19 +174,15 @@ async function uploadImage(req, res, isWeb) {
 
 router.put('/:objectId', async (req, res) => {
     try {
-        let location
-
-        if (helper.isDefine(req.body.location) && req.body.location.length) {
-            location = {
-                "type": "Point",
-                "coordinates": [
-                    helper.tryParseJson(req.body.location).lng || 0,
-                    helper.tryParseJson(req.body.location).lat || 0,
-                ]
-            }
+        let location = {
+            "type": "Point",
+            "coordinates": [
+                0,
+                0,
+            ]
         }
 
-        let objForUpdate = {};
+        let objForUpdate = {}
         if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon
         if (helper.isDefine(req.body.address_salon)) objForUpdate.address_salon = req.body.address_salon;
         if (helper.isDefine(req.body.phone)) objForUpdate.phone = req.body.phone;
@@ -389,16 +385,12 @@ async function updateImage(req, res, isWeb) {
     upload(req, res, function (err) {
         (async () => {
             try {
-                let location
-
-                if (helper.isDefine(req.body.location) && req.body.location.length) {
-                    location = {
-                        "type": "Point",
-                        "coordinates": [
-                            helper.tryParseJson(req.body.location).lng || 0,
-                            helper.tryParseJson(req.body.location).lat || 0,
-                        ]
-                    }
+                let location = {
+                    "type": "Point",
+                    "coordinates": [
+                        0,
+                        0,
+                    ]
                 }
 
                 let objForUpdate = {}

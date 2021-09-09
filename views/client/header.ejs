@@ -156,6 +156,8 @@
         #container_drop_result>div {
             position: absolute;
             z-index: 100;
+            max-height: 28rem;
+            overflow-y: auto;
         }
 
         #container_drop_result>div>div:hover {
@@ -613,6 +615,22 @@
 </head>
 
 <body class="main">
+
+    <div class="toastify on  toastify-right toastify-top"
+        style="transform: translate(0px, 0px); top: 15px;display: none;">
+        <div id="success-notification-content" class="toastify-content flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-check-circle text-theme-9">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <div class="ml-4 mr-4">
+                <div class="font-medium">Copied email</div>
+            </div>
+        </div>
+    </div>
+
     <div class="header" style="min-height: 10rem;">
         <div>
             <div>

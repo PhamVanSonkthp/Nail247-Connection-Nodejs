@@ -88,6 +88,8 @@ html,
         #container_drop_result>div {
             position: absolute;
             z-index: 100;
+            max-height: 28rem;
+            overflow-y: auto;
         }
 
         #container_drop_result>div>div:hover {

@@ -1767,7 +1767,7 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.code) && data.code) {
           query = {
             ...query,
-            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 100) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 100) } }],
+            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 1000) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 1000) } }],
           }
         }
 
@@ -1862,7 +1862,7 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.code) && data.code) {
           query = {
             ...query,
-            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 100) } }, { code: { $lt: sanitize(helper.tryParseInt(data.code) + 100) } }],
+            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 1000) } }, { code: { $lt: sanitize(helper.tryParseInt(data.code) + 1000) } }],
           }
         }
 

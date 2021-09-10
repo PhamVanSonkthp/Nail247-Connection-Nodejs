@@ -65,8 +65,20 @@ app.get('/admin/history-payments', function (req, res) {
 });
 
 app.get('/admin/wellcome-nail', function (req, res) {
-  res.render('./admin/wellcome-nail');
-});
+  res.render('./admin/wellcome-nail')
+})
+
+app.get('/admin/contact-us', function (req, res) {
+  res.render('./admin/contact-us')
+})
+
+app.get('/admin/terms-of-use', function (req, res) {
+  res.render('./admin/terms-of-use')
+})
+
+app.get('/admin/privacy-policy', function (req, res) {
+  res.render('./admin/privacy-policy')
+})
 
 //----------Start Clients Area---------//
 
@@ -115,9 +127,20 @@ app.get('/agency/change-password', function (req, res) {
 });
 
 app.get('/agency/posts', function (req, res) {
-  res.render('./client/agency-posts');
-});
+  res.render('./client/agency-posts')
+})
 
+app.get('/contact-us', function (req, res) {
+  res.render('./client/contact-us')
+})
+
+app.get('/terms-of-use', function (req, res) {
+  res.render('./client/terms-of-use')
+})
+
+app.get('/privacy-policy', function (req, res) {
+  res.render('./client/privacy-policy')
+})
 
 app.post('/purchase', async (req, res) => {
 
@@ -130,7 +153,6 @@ app.post('/purchase', async (req, res) => {
     source: req.body.stripeTokenId,
     currency: 'usd'
   }).then(function () {
-    console.log('charge successful')
     res.json({ message: 'Successfully purchased items' })
 
   }).catch(function () {
@@ -183,6 +205,8 @@ const options = {
 const optsValidator = {
   runValidators: true,
   new: true,
+  upsert: true,
+  setDefaultsOnInsert: true,
 };
 
 //Firebase
@@ -301,7 +325,7 @@ io.sockets.on('connection', (socket) => {
         objForUpdate.contents = sanitize(data.contents)
         objForUpdate = { $set: objForUpdate }
 
-        UserModel.updateOne({}, objForUpdate, optsValidator, (err, result) => {
+        UserModel.findOneAndUpdate({}, objForUpdate, optsValidator, (err, result) => {
           if (err) helper.throwError(err);
           callback(result);
         });
@@ -1373,7 +1397,7 @@ io.sockets.on('connection', (socket) => {
         objForUpdate.secret_key = sanitize(data.secret_key)
         objForUpdate = { $set: objForUpdate }
 
-        UserModel.updateOne({}, objForUpdate, optsValidator, (err, result) => {
+        UserModel.findOneAndUpdate({}, objForUpdate, optsValidator, (err, result) => {
           if (err) helper.throwError(err);
           callback(result);
         });
@@ -1385,7 +1409,7 @@ io.sockets.on('connection', (socket) => {
       helper.throwError(e);
       callback(null);
     }
-  });
+  })
 
   socket.on('payments-stripe', async (data, callback) => {
     trafficsSocket(socket)
@@ -1403,7 +1427,46 @@ io.sockets.on('connection', (socket) => {
       helper.throwError(e);
       callback(null);
     }
-  });
+  })
+
+  socket.on('contact-us', async (data, callback) => {
+    trafficsSocket(socket)
+    try {
+      const UserModel = require('./models/ContactUs');
+
+      const result = await UserModel.findOne()
+      callback(result)
+    } catch (e) {
+      helper.throwError(e);
+      callback(null);
+    }
+  })
+
+  socket.on('update-contact-us', async (data, callback) => {
+    trafficsSocket(socket)
+    try {
+      if (data != null && await helper.checkLogin(data._id, data.password, true)) {
+        const UserModel = require('./models/ContactUs');
+
+        let objForUpdate = {}
+        if(helper.isDefine(data.contact_us)) objForUpdate.contact_us = sanitize(data.contact_us)
+        if(helper.isDefine(data.terms_of_use)) objForUpdate.terms_of_use = sanitize(data.terms_of_use)
+        if(helper.isDefine(data.privacy_policy)) objForUpdate.privacy_policy = sanitize(data.privacy_policy)
+        objForUpdate = { $set: objForUpdate }
+
+        UserModel.findOneAndUpdate({}, objForUpdate, optsValidator, (err, result) => {
+          helper.throwError(err)
+          callback(result);
+        });
+
+      } else {
+        callback(null);
+      }
+    } catch (e) {
+      helper.throwError(e);
+      callback(null);
+    }
+  })
 
   socket.on('chart-sales', async (data, callback) => {
     trafficsSocket(socket)
@@ -1856,7 +1919,7 @@ io.sockets.on('connection', (socket) => {
         let result = []
 
         for (let i = 0; i < codeCountrys.length; i++) {
-          if ( (helper.isDefine(codeCountrys[i][4]) && codeCountrys[i][4].toUpperCase().includes(data.val.split(' ')[data.val.split(' ').length-1])) || (helper.isDefine(codeCountrys[i][3]) && codeCountrys[i][3].toUpperCase().includes(data.val)) || (helper.isDefine(codeCountrys[i][0]) && helper.getOnlyNumber(data.val) && codeCountrys[i][0].includes(helper.getOnlyNumber(data.val))) ) {
+          if ((helper.isDefine(codeCountrys[i][4]) && codeCountrys[i][4].toUpperCase().includes(data.val.split(' ')[data.val.split(' ').length - 1])) || (helper.isDefine(codeCountrys[i][3]) && codeCountrys[i][3].toUpperCase().includes(data.val)) || (helper.isDefine(codeCountrys[i][0]) && helper.getOnlyNumber(data.val) && codeCountrys[i][0].includes(helper.getOnlyNumber(data.val)))) {
             if (counter > 100) {
               break
             } else {

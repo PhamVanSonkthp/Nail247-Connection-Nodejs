@@ -349,7 +349,7 @@ socket.emit('name-country-by-code', { code: code }, (response) => {
 
         $('#slick').empty()
         for (let i = 0; i < response.relateCities.length; i++) {
-            $('#slick').append('<div onclick="search(' + tryParseInt(response.relateCities[i][0]) + ')" class="slide"> <div class="panel panel-default" style="background: #737172;opacity: 0.9; cursor: pointer; position: relative;"> <img src="../views/client/dist/images/bg-relate-city.png" class="img-responsive" style="opacity: 0.1;max-height: 3rem;object-fit: cover;width: 100%;" /> <p class="text-white" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;height: 1rem;text-align: center;"> ' + response.relateCities[i][3] + ', ' + response.relateCities[i][4] + '</p> </div> </div>')
+            $('#slick').append('<div onclick="search(' + tryParseInt(response.relateCities[i][0]) + ')" class="slide"> <div class="panel panel-default" style="background: #737172;opacity: 0.9; cursor: pointer; position: relative;"> <img src="../views/client/dist/images/bg-relate-city.png" class="img-responsive" style="opacity: 0.1;max-height: 3rem;object-fit: cover;width: 100%;" /> <p class="text-white" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;height: 1rem;text-align: center;"> ' + response.relateCities[i][3] + ', ' + response.relateCities[i][4] + ' ' + response.relateCities[i][0] + '</p> </div> </div>')
         }
         if ($('#keyword').val().length > 0) {
             $('#container_clear_filter').show()

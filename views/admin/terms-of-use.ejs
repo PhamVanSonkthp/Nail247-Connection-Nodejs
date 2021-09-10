@@ -1,0 +1,54 @@
+<%- include("header", {tab: "home" , title: "Trang chủ" }); %>
+    <script src="../views/client/dist/js/ckeditor/ckeditor.js"></script>
+    <script src="../views/client/dist/js/ckeditor/samples/js/sample.js"></script>
+    <!-- BEGIN: Content -->
+
+
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            Settings > terms of use
+        </h2>
+    </div>
+
+
+    <div class="intro-y box p-5 mt-5">
+        <a href="../terms-of-use" target="_blank">Link to terms of use page</a>
+
+        <textarea id="editor" autocomplete="off" type="text"
+            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+            placeholder="Content"></textarea>
+
+        <button id="btn_save" onclick="saveContent()" type="button" class="btn btn-success mt-5">Save</button>
+    </div>
+
+    <!-- END: Content -->
+
+    </div>
+    <!-- BEGIN: SCRIPT -->
+
+    <script>
+
+        showLoading()
+        function saveContent() {
+            showLoading()
+            socket.emit('update-contact-us', { _id: getCookie('_id'), password: getCookie('password'), terms_of_use: CKEDITOR.instances.editor.getData() }, (response) => {
+                hideLoading()
+            })
+        }
+
+        $(document).ready(function () {
+            $('#draw_5').addClass('side-menu--active')
+            $('#draw_5').addClass('side-menu--open')
+            $('#draw_5_5').addClass('side-menu--active')
+            $('#draw_5_wrap').addClass('side-menu__sub-open')
+        })
+        socket.emit('contact-us', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+            if (isDefine(response)) {
+                CKEDITOR.instances['editor'].setData(response.terms_of_use)
+            }
+            hideLoading()
+        })
+        initSample()
+    </script>
+    <!-- END: SCRIPT -->
+    <%- include("footer"); %>

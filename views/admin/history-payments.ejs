@@ -125,7 +125,7 @@
                         <td>Cost</td>
                         <td>Package</td>
                         <td>Time</td>
-                        <td>Action</td>
+                        <!-- <td>Action</td> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -207,7 +207,7 @@
                 let cell2 = row.insertCell(1);
                 let cell3 = row.insertCell(2);
                 let cell4 = row.insertCell(3);
-                let cell5 = row.insertCell(4);
+                //let cell5 = row.insertCell(4);
 
                 cell2.innerHTML = '<div>' + escapeHtml(formatMoney(products[i].cost)) + '$</div>';
                 cell3.innerHTML = '<div>' + escapeHtml(products[i].package) + '</div>';
@@ -219,7 +219,7 @@
                     cell1.innerHTML = '<div>Nail supplies</div>';
                 }
                 cell4.innerHTML = '<div>' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[0]) + ' ' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[1]) + ' ' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[2]) + ' ' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[3]) + ' ' + escapeHtml(new Date(products[i].createdAt).toString().split(' ')[4]) + '</div>';
-                cell5.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
+                //cell5.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
 
             }
         }

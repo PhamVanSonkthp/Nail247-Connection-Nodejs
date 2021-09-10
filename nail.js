@@ -205,9 +205,14 @@ const options = {
 const optsValidator = {
   runValidators: true,
   new: true,
+}
+
+const optsValidatorFindAndUpdate = {
+  runValidators: true,
+  new: true,
   upsert: true,
   setDefaultsOnInsert: true,
-};
+}
 
 //Firebase
 const admin = require("firebase-admin")
@@ -325,7 +330,7 @@ io.sockets.on('connection', (socket) => {
         objForUpdate.contents = sanitize(data.contents)
         objForUpdate = { $set: objForUpdate }
 
-        UserModel.findOneAndUpdate({}, objForUpdate, optsValidator, (err, result) => {
+        UserModel.findOneAndUpdate({}, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
           if (err) helper.throwError(err);
           callback(result);
         });
@@ -1327,7 +1332,7 @@ io.sockets.on('connection', (socket) => {
         objForUpdate.options = sanitize(data.options_posts)
         objForUpdate.content = sanitize(data.content)
         objForUpdate = { $set: objForUpdate };
-        result = await UserModel.findOneAndUpdate(query, objForUpdate, optsValidator, (err, result) => {
+        result = await UserModel.findOneAndUpdate(query, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
           if (err) helper.throwError(err);
           callback(result);
         });
@@ -1372,7 +1377,7 @@ io.sockets.on('connection', (socket) => {
         objForUpdate.status = sanitize(data.status)
         objForUpdate = { $set: objForUpdate }
 
-        UserModel.findOneAndUpdate(query, objForUpdate, optsValidator, (err, result) => {
+        UserModel.findOneAndUpdate(query, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
           if (err) helper.throwError(err);
           callback(result);
         });
@@ -1397,7 +1402,7 @@ io.sockets.on('connection', (socket) => {
         objForUpdate.secret_key = sanitize(data.secret_key)
         objForUpdate = { $set: objForUpdate }
 
-        UserModel.findOneAndUpdate({}, objForUpdate, optsValidator, (err, result) => {
+        UserModel.findOneAndUpdate({}, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
           if (err) helper.throwError(err);
           callback(result);
         });
@@ -1449,12 +1454,12 @@ io.sockets.on('connection', (socket) => {
         const UserModel = require('./models/ContactUs');
 
         let objForUpdate = {}
-        if(helper.isDefine(data.contact_us)) objForUpdate.contact_us = sanitize(data.contact_us)
-        if(helper.isDefine(data.terms_of_use)) objForUpdate.terms_of_use = sanitize(data.terms_of_use)
-        if(helper.isDefine(data.privacy_policy)) objForUpdate.privacy_policy = sanitize(data.privacy_policy)
+        if (helper.isDefine(data.contact_us)) objForUpdate.contact_us = sanitize(data.contact_us)
+        if (helper.isDefine(data.terms_of_use)) objForUpdate.terms_of_use = sanitize(data.terms_of_use)
+        if (helper.isDefine(data.privacy_policy)) objForUpdate.privacy_policy = sanitize(data.privacy_policy)
         objForUpdate = { $set: objForUpdate }
 
-        UserModel.findOneAndUpdate({}, objForUpdate, optsValidator, (err, result) => {
+        UserModel.findOneAndUpdate({}, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
           helper.throwError(err)
           callback(result);
         });

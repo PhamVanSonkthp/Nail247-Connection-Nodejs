@@ -59,7 +59,7 @@ exports.saveTraffics = function (name, status) {
     try {
         object.save();
     } catch (err) {
-        helper.throwError(err)
+        exports.throwError(err)
     }
 }
 
@@ -330,3 +330,149 @@ exports.schemaNumberSale = {
     min: 0,
     max: 100,
 }
+
+exports.paymentPostJob = async function (req, res) {
+    const helpers = require('helpers')
+    const multer = require('multer')
+    const path = require('path')
+    const sharp = require('sharp')
+
+    let pathStorage
+
+    if (exports.tryParseJson(req.headers.stripe).type_post == '0') {
+        pathStorage = 'public/images-jobs/'
+    } else if (exports.tryParseJson(req.headers.stripe).type_post == '1') {
+        pathStorage = 'public/images-sells-salons/'
+    } else if (exports.tryParseJson(req.headers.stripe).type_post == '2') {
+        pathStorage = 'public/images-nail-supplies/'
+    }
+
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, pathStorage);
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        }
+    });
+
+    let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).array('avatar', 100);
+    upload(req, res, function (err) {
+        (async () => {
+
+            let ObjectModel;
+
+            if (exports.tryParseJson(req.headers.stripe).type_post == '0') {
+                ObjectModel = require('../models/Job')
+            } else if (exports.tryParseJson(req.headers.stripe).type_post == '1') {
+                ObjectModel = require('../models/SellSalon')
+            } else if (exports.tryParseJson(req.headers.stripe).type_post == '2') {
+                ObjectModel = require('../models/NailSupply')
+            }
+
+            const index = await ObjectModel.countDocuments()
+
+            let location = {
+                "type": "Point",
+                "coordinates": [
+                    0,
+                    0,
+                ]
+            }
+
+            let modelSave = {
+                name_salon: req.body.name_salon,
+                address_salon: req.body.address_salon,
+                phone: req.body.phone,
+                country: req.body.country,
+                city: req.body.city,
+                state: req.body.state,
+                code: req.body.code,
+                location: location,
+                title: req.body.title,
+                content: req.body.content,
+                email: req.body.email,
+                link_slug: exports.stringToSlug(req.body.title) + '-' + index,
+                cost: req.body.cost,
+                options: exports.tryParseJson(req.body.options),
+                status: req.body.status,
+                months_provider: req.body.months_provider,
+                images: [],
+                package: req.body.package,
+                id_agency: req.body.id_agency,
+                expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+            }
+
+            if (exports.tryParseJson(req.headers.stripe).type_post == '0') {
+                modelSave = {
+                    ...modelSave,
+                    cost: req.body.cost
+                }
+            } else if (exports.tryParseJson(req.headers.stripe).type_post == '1') {
+                modelSave = {
+                    ...modelSave,
+                    price: req.body.cost
+                }
+            } else if (exports.tryParseJson(req.headers.stripe).type_post == '2') {
+                modelSave = {
+                    ...modelSave,
+                    price: req.body.cost
+                }
+            }
+
+            const object = new ObjectModel(modelSave)
+
+            try {
+                const savedObject = await object.save()
+
+                try {
+                    if (exports.isDefine(req.body.cost_package) && req.body.cost_package > 0) {
+                        const HistoryPaymentObject = require('../models/HistoryPayments')
+                        const objectHistoryPayment = new HistoryPaymentObject({
+                            cost: req.body.cost_package,
+                            id_post: savedObject._id,
+                            type: exports.tryParseJson(req.headers.stripe).type_post,
+                            package: req.body.package,
+                            id_agency: req.body.id_agency,
+                        })
+                        await objectHistoryPayment.save()
+                    }
+
+                } catch (err) {
+                    exports.throwError(err)
+                }
+
+                if (req.fileValidationError) {
+                    return res.json({ message: 'Successfully purchased items' })
+                } else {
+                    const files = req.files;
+
+                    if (!exports.isDefine(files) || files.length <= 0) {
+                        return res.json({ message: 'Successfully purchased items' })
+                    }
+                    // start upload images
+                    let arr = [];
+                    for (let index = 0; exports.isDefine(files) && index < files.length; index++) {
+                        sharp(files[index].path).resize(250, 250).toFile(pathStorage + 'icon-' + files[index].filename);
+                        arr.push(files[index].filename);
+                    }
+                    // end upload images
+                    for (let i = 0; i < arr.length; i++) {
+                        await ObjectModel.updateOne(
+                            { _id: savedObject._id },
+                            {
+                                $push: { images: arr[i] },
+                            }
+                        )
+
+                        savedObject.images.push(arr[i])
+                    }
+                    return res.json({ message: 'Successfully purchased items' })
+                }
+            } catch (e) {
+                exports.throwError(e)
+                res.status(500).end()
+            }
+        })();
+    });
+};

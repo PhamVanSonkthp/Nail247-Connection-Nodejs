@@ -24,6 +24,7 @@
                     <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
                         style="box-shadow: 0px 4px 6px #bdbdbd;">
                         <input id="modal_post_job_edt_name_salon" name="name_salon" autocomplete="off" type="text"
+                            maxlength="10000"
                             class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                             placeholder="">
                     </div>
@@ -33,6 +34,7 @@
                     <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
                         style="box-shadow: 0px 4px 6px #bdbdbd;">
                         <input id="modal_post_job_edt_title" autocomplete="off" type="text" name="title"
+                            maxlength="10000"
                             class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                             placeholder="* Title">
                     </div>
@@ -41,7 +43,7 @@
 
                     <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
                         style="box-shadow: 0px 4px 6px #bdbdbd;height: 10rem;">
-                        <textarea id="editor" autocomplete="off" type="text"
+                        <textarea id="editor" autocomplete="off" type="text" maxlength="10000"
                             class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                             placeholder="Content"></textarea>
                     </div>
@@ -70,6 +72,7 @@
                         <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
                             <div class="relative text-gray-700 dark:text-gray-300 box">
                                 <input id="modal_post_job_edt_email" autocomplete="off" type="text" name="email"
+                                    maxlength="200"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                     placeholder="* Email contact">
                                 <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -100,6 +103,7 @@
                         <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
                             <div class="relative text-gray-700 dark:text-gray-300 box">
                                 <input id="modal_post_job_edt_salary" autocomplete="off" type="text" name="cost"
+                                    maxlength="10"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border number"
                                     onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     onpaste="return false">
@@ -116,6 +120,7 @@
                         <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
                             <div class="relative text-gray-700 dark:text-gray-300 box">
                                 <input id="modal_post_job_edt_filter_country" autocomplete="off" type="text"
+                                    maxlength="10000"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                     placeholder="* City or Zipcode of your salon" oninput="onFilterCountryPostJob()">
                                 <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -182,19 +187,14 @@
 <script src="../views/client/dist/js/ckeditor/ckeditor.js"></script>
 <script src="../views/client/dist/js/ckeditor/samples/js/sample.js"></script>
 
-<script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJtXzl0cHyIitaEJ5lOTYoLsosPIft7JY&callback=initMap&libraries=&v=weekly"></script>
+<!-- <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJtXzl0cHyIitaEJ5lOTYoLsosPIft7JY&callback=initMap&libraries=&v=weekly"></script> -->
 
 
-<script>
+<!-- <script>
     let map;
     let markers = [];
     var posPostJob;
-    function initMap() {
-        // canvasMap({ lat: 40.906659, lng: -101.361232 });
-        // canvasMapUpdate({ lat: 40.906659, lng: -101.361232 });
-
-    }
 
     function canvasMap(position) {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -293,7 +293,7 @@
         markers = [];
     }
 
-</script>
+</script> -->
 
 <script>
     var stripeHandlerPostJob
@@ -304,60 +304,30 @@
                 key: response,
                 locale: 'en',
                 token: function (token) {
+                    showLoading()
+                    toggleModalPostJob()
                     fetch('/purchase', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
+                            token: 'infinifyltd',
+                            stripe: JSON.stringify({
+                                stripeTokenId: token.id,
+                                amount: costPostJob * 100,
+                                type_post: type_post,
+                            }),
                         },
-                        body: JSON.stringify({
-                            stripeTokenId: token.id,
-                            amount: costPostJob * 100
-                        })
+                        body: formData
                     }).then(function (res) {
                         if (res.status == 200) {
-                            showLoading()
-                            toggleModalPostJob()
-                            let actionUpdatePost
-                            if (type_post == 0) {
-                                actionUpdatePost = '../job/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
-                            } else if (type_post == 1) {
-                                actionUpdatePost = '../sell-salon/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
-                            } else if (type_post == 2) {
-                                actionUpdatePost = '../nail-supplies/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
-                            }
-
-                            $('#form_upload_job').on('submit', (function (e) {
-                                e.preventDefault();
-                                var formData = new FormData(this);
-
-                                $.ajax({
-                                    type: 'POST',
-                                    url: actionUpdatePost,
-                                    headers: {
-                                        token: 'infinifyltd'
-                                    },
-                                    data: formData,
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    success: function (data) {
-                                        window.location.href = '../agency/posts?sort=' + (type_post + 1)
-                                    },
-                                    error: function (data) {
-                                        alert('error')
-                                        toggleModalAddProduct()
-                                        hideLoading()
-                                    }
-                                })
-                            }))
-                            $('#form_upload_job').submit()
+                            window.location.href = '../agency/posts?sort=' + (type_post + 1)
                         } else {
                             alert('error')
+                            hideLoading()
                             toggleModalPostJob()
                         }
                     }).catch(function (data) {
                         alert(data.message)
+                        hideLoading()
                     })
                 }
             })
@@ -370,6 +340,7 @@
     var codePostJob
     var optionsPostJob, indexPostJob = 0, packagePostJob, monthsProviderPostJob, costPostJob
     var titlePostJob, salonNamePostJob, contentPostJob, phonePostJob, salaryPostJob, emailPostJob, countryPostJob
+    var formData
 
     const urlParams = new URLSearchParams(window.location.search)
 
@@ -414,11 +385,11 @@
         emailPostJob = ($('#modal_post_job_edt_email').val())
         countryPostJob = ($('#modal_post_job_edt_filter_country').val())
 
-        try {
-            posPostJob = JSON.parse(JSON.stringify(pos.toJSON(), null, 2))
-        } catch (e) {
+        // try {
+        //     posPostJob = JSON.parse(JSON.stringify(pos.toJSON(), null, 2))
+        // } catch (e) {
 
-        }
+        // }
 
         $('#edt_code').val(codePostJob)
         $('#edt_months_provider').val(monthsProviderPostJob)
@@ -426,23 +397,23 @@
         $('#edt_id_agency').val(getCookie('_id'))
         $('#edt_cost_package').val(costPostJob)
         $('#edt_content').val(contentPostJob)
-        $('#edt_location').val(posPostJob)
+        //$('#edt_location').val(posPostJob)
 
-        if (costPostJob == 0) {
-            showLoading()
-            toggleModalPostJob()
-            let actionUpdatePost
-            if (type_post == 0) {
-                actionUpdatePost = '../job/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
-            } else if (type_post == 1) {
-                actionUpdatePost = '../sell-salon/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
-            } else if (type_post == 2) {
-                actionUpdatePost = '../nail-supplies/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
-            }
+        $('#form_upload_job').on('submit', (function (e) {
+            e.preventDefault();
+            formData = new FormData(this)
 
-            $('#form_upload_job').on('submit', (function (e) {
-                e.preventDefault();
-                var formData = new FormData(this);
+            if (costPostJob == 0) {
+                showLoading()
+                toggleModalPostJob()
+                let actionUpdatePost
+                if (type_post == 0) {
+                    actionUpdatePost = '../job/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
+                } else if (type_post == 1) {
+                    actionUpdatePost = '../sell-salon/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
+                } else if (type_post == 2) {
+                    actionUpdatePost = '../nail-supplies/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
+                }
 
                 $.ajax({
                     type: 'POST',
@@ -459,16 +430,16 @@
                     },
                     error: function (data) {
                         alert('error')
-                        toggleModalAddProduct()
+                        toggleModalPostJob()
                         hideLoading()
                     }
                 })
-            }))
-            $('#form_upload_job').submit()
 
-        } else {
-            checkoutPostJob()
-        }
+            } else {
+                checkoutPostJob()
+            }
+        }))
+        $('#form_upload_job').submit()
     }
 
     function checkoutPostJob() {
@@ -516,8 +487,6 @@
         $('#edt_state').val(val.split(',')[1].trim().split(' ')[0])
         codePostJob = val.split(',')[1].trim().split(' ')[1]
         $('#container_filter_country').hide(200)
-
-        console.log($('#edt_city').val())
     }
     function onFilterCountryPostJob() {
         if ($('#modal_post_job_edt_filter_country').val().length) {
@@ -557,7 +526,9 @@
         $("#select_price_post_job").empty()
         $("#content_post_job").empty()
 
+
         type_post = val
+
         if (type_post == 0) {
             $('#lbl_title_post').html('Post a Job')
             $('#modal_post_job_edt_salary').attr("placeholder", "Salary / week")
@@ -675,7 +646,7 @@
             $('#modal_post_job').addClass('show');
             $('body').addClass('overflow-y-hidden');
         }
-        canvasMap({ lat: 40.906659, lng: -101.361232 })
+        //canvasMap({ lat: 40.906659, lng: -101.361232 })
     }
 
     function logout() {
@@ -704,10 +675,6 @@
     function deleteAllCookies() {
         document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
     }
-
-    // if (isDefine(urlParams.get('post'))) {
-    //     onPost(0)
-    // }
 
     initSample()
 </script>

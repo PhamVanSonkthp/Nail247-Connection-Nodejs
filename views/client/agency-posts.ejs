@@ -416,7 +416,7 @@
 
                         <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
                             style="box-shadow: 0px 4px 6px #bdbdbd;">
-                            <input id="modal_post_job_edt_name_salon_update" name="name_salon" autocomplete="off"
+                            <input id="modal_post_job_edt_name_salon_update" name="name_salon" autocomplete="off" maxlength="10000"
                                 type="text"
                                 class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                 placeholder="Name salon">
@@ -426,14 +426,14 @@
 
                         <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
                             style="box-shadow: 0px 4px 6px #bdbdbd;">
-                            <input id="modal_post_job_edt_title_update" autocomplete="off" type="text" name="title"
+                            <input id="modal_post_job_edt_title_update" autocomplete="off" type="text" name="title" maxlength="10000"
                                 class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                 placeholder="* Title">
                         </div>
 
                         <div class="font-medium mt-3" style="font-size: 1.3rem;">Content</div>
 
-                        <textarea id="editor_update" autocomplete="off" type="text"
+                        <textarea id="editor_update" autocomplete="off" type="text" maxlength="10000"
                             class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                             placeholder="Content"></textarea>
 
@@ -461,7 +461,7 @@
 
                             <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
                                 <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_email_update" autocomplete="off" type="text"
+                                    <input id="modal_post_job_edt_email_update" autocomplete="off" type="text" maxlength="200"
                                         name="email"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                         placeholder="* Email contact">
@@ -489,7 +489,7 @@
                         <div class="grid grid-cols-12 gap-6 mt-3">
                             <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
                                 <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_salary_update" autocomplete="off" type="text"
+                                    <input id="modal_post_job_edt_salary_update" autocomplete="off" type="text" maxlength="10"
                                         name="cost" placeholder="salary / cost / price"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border number"
                                         onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -506,7 +506,7 @@
 
                             <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
                                 <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_filter_country_update" autocomplete="off" type="text"
+                                    <input id="modal_post_job_edt_filter_country_update" autocomplete="off" type="text" maxlength="10000"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                         placeholder="City or Zipcode of your salon"
                                         oninput="onFilterCountryPostJobUpdate()">
@@ -1107,11 +1107,11 @@
 
                     codePostJob = products[i].code
 
-                    if (isDefine(products[i].location)) {
-                        canvasMapUpdate({ lat: products[i].location.coordinates[1], lng: products[i].location.coordinates[0] })
-                    } else {
-                        canvasMapUpdate({ lat: -1, lng: -1 })
-                    }
+                    // if (isDefine(products[i].location)) {
+                    //     canvasMapUpdate({ lat: products[i].location.coordinates[1], lng: products[i].location.coordinates[0] })
+                    // } else {
+                    //     canvasMapUpdate({ lat: -1, lng: -1 })
+                    // }
 
 
                     $('#container_images_products').empty();
@@ -1224,15 +1224,15 @@
                         actionUpdatePost = '../nail-supplies/update-post'
                     }
 
-                    try {
-                        posPostJob = JSON.parse(JSON.stringify(pos.toJSON(), null, 2))
-                    } catch (e) {
+                    // try {
+                    //     posPostJob = JSON.parse(JSON.stringify(pos.toJSON(), null, 2))
+                    // } catch (e) {
 
-                    }
+                    // }
 
                     $('#edt_code_update').val(codePostJob)
                     $('#edt_content_update').val(CKEDITOR.instances.editor_update.getData())
-                    $('#edt_location_update').val(posPostJob)
+                    //$('#edt_location_update').val(posPostJob)
                     $('#form_update_job').attr('action', actionUpdatePost + '/?_id=' + getCookie('_id') + '&password=' + getCookie('password'))
 
                     showLoading()

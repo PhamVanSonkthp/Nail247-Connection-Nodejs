@@ -142,25 +142,6 @@ app.get('/privacy-policy', function (req, res) {
   res.render('./client/privacy-policy')
 })
 
-app.post('/purchase', async (req, res) => {
-
-  const UserModel = require('./models/PaymentStripe')
-  const result = await UserModel.findOne()
-  const stripe = require('stripe')(result.secret_key)
-
-  stripe.charges.create({
-    amount: req.body.amount,
-    source: req.body.stripeTokenId,
-    currency: 'usd'
-  }).then(function () {
-    res.json({ message: 'Successfully purchased items' })
-
-  }).catch(function () {
-    console.log('charge fail')
-    res.status(500).end()
-  })
-})
-
 //----------End Clients Area---------//
 
 // start get files country
@@ -217,6 +198,7 @@ const optsValidatorFindAndUpdate = {
 //Firebase
 const admin = require("firebase-admin")
 const serviceAccount = require("./sms-schedule-infinity-720fd-firebase-adminsdk-zllw3-83b5b6f682.json")
+const { type } = require('os')
 var token
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -278,6 +260,25 @@ function fetchAPI(req, res) {
 
   const paymentsStripesRoute = require('./routes/payments-stripes');
   app.use('/payments-stripes', paymentsStripesRoute);
+
+  app.post('/purchase', async (req, res) => {
+
+    const UserModel = require('./models/PaymentStripe')
+    const result = await UserModel.findOne()
+    const stripe = require('stripe')(result.secret_key)
+
+    stripe.charges.create({
+      amount: helper.tryParseJson(req.headers.stripe).amount,
+      source: helper.tryParseJson(req.headers.stripe).stripeTokenId,
+      currency: 'usd'
+    }).then(function () {
+      return helper.paymentPostJob(req, res)
+    }).catch(function (e) {
+      console.log('charge fail')
+      console.log(e)
+      res.status(500).end()
+    })
+  })
 
 }
 

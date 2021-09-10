@@ -1767,8 +1767,7 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.code) && data.code) {
           query = {
             ...query,
-            code: { $gte: helper.tryParseInt(data.code) - 100 },
-            code: { $lte: helper.tryParseInt(data.code) + 100 }
+            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 100) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 100) } }],
           }
         }
 
@@ -1819,13 +1818,6 @@ io.sockets.on('connection', (socket) => {
 
         let query = { expiration_date: { $gte: new Date() }, status: 1 }
 
-        if (helper.isDefine(data.code) && data.code) {
-          query = {
-            ...query,
-            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 5) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 5) } }],
-          }
-        }
-
         if (helper.isDefine(data.title) && data.title.length) {
           query = {
             ...query,
@@ -1870,8 +1862,7 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.code) && data.code) {
           query = {
             ...query,
-            code: { $gte: helper.tryParseInt(data.code) - 100 },
-            code: { $lte: helper.tryParseInt(data.code) + 100 }
+            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 100) } }, { code: { $lt: sanitize(helper.tryParseInt(data.code) + 100) } }],
           }
         }
 

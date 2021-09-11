@@ -224,8 +224,8 @@ router.delete('/:objectId', async (req, res) => {
 
 router.get('/featured', async (req, res) => {
     try {
-        const limit = 10;
-        const page = 0;
+        const limit = helper.tryParseInt(req.query.limit) || 10
+        const page = helper.tryParseInt(req.query.page) || 0
         const latitude = req.query.latitude;
         const longitude = req.query.longitude;
 

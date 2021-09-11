@@ -293,7 +293,8 @@ $(document).ready(function () {
     if($('#keyword').val()){
         onSearch($('#keyword').val())
     }
-    $("#keyword").focus();
+    $("#keyword").focus()
+    //$('#edt_password').get(0).type = 'password';
 })
 
 function clearFilter() {

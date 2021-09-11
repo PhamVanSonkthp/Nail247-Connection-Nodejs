@@ -101,7 +101,7 @@ async function uploadImage(req, res, isWeb) {
                 } catch (err) {
                     helper.throwError(err)
                 }
-                
+
                 if (req.fileValidationError) {
                     if (isWeb) {
                         return res.redirect("/agency/posts")
@@ -133,7 +133,7 @@ async function uploadImage(req, res, isWeb) {
                                     $push: { images: arr[i] },
                                 }
                             )
-                            
+
                             savedObject.images.push(arr[i])
                         }
 
@@ -214,10 +214,10 @@ router.delete('/:objectId', async (req, res) => {
 
 router.get('/featured', async (req, res) => {
     try {
-        const limit = 10;
-        const page = 0;
-        const latitude = req.query.latitude;
-        const longitude = req.query.longitude;
+        const limit = helper.tryParseInt(req.query.limit) || 10
+        const page = helper.tryParseInt(req.query.page) || 0
+        const latitude = req.query.latitude
+        const longitude = req.query.longitude
 
         let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
 
@@ -431,7 +431,7 @@ async function updateImage(req, res, isWeb) {
                                     $push: { images: arr[i] },
                                 }
                             )
-                            
+
                             savedObject.images.push(arr[i])
                         }
 

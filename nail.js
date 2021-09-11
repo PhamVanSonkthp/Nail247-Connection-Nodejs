@@ -147,7 +147,7 @@ app.get('/privacy-policy', function (req, res) {
 // start get files country
 
 var codeCountrys = []
-var fs = require('fs')
+const fs = require('fs')
 
 fs.readFile('./helper/country.csv', function (err, data) {
   if (err) {
@@ -2452,14 +2452,20 @@ io.sockets.on('connection', (socket) => {
     try {
       if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
 
+        let pathImage
         let UserModel
         if (data.type == 1) {
           UserModel = require('./models/Job')
+          pathImage = 'public/images-jobs/'
         } else if (data.type == 2) {
           UserModel = require('./models/SellSalon')
+          pathImage = 'public/images-sells-salons/'
         } else if (data.type == 3) {
           UserModel = require('./models/NailSupply')
+          pathImage = 'public/images-nail-supplies/'
         }
+
+        const result = await UserModel.findById(sanitize(data.id_post))
 
         let query = { _id: sanitize(data.id_post) }
         let objForUpdate = {}
@@ -2467,6 +2473,25 @@ io.sockets.on('connection', (socket) => {
         objForUpdate = { $set: objForUpdate }
 
         await UserModel.updateOne(query, objForUpdate, optsValidator)
+
+        let resultNeedDelete = []
+        for (let i = 0; i < result.images.length; i++) {
+          for (let j = 0; j < data.images.length; j++) {
+            if (result.images[i] == data.images[j]) {
+              break
+            }
+            if (j == data.images.length - 1) {
+              resultNeedDelete.push(result.images[i])
+            }
+          }
+        }
+
+        for (let i = 0; i < resultNeedDelete.length; i++) {
+          fs.unlinkSync(pathImage + resultNeedDelete[i])
+          fs.unlinkSync(pathImage + 'icon-' + resultNeedDelete[i])
+        }
+
+
       } else {
         callback(null);
       }

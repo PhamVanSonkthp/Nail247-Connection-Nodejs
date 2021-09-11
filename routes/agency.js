@@ -79,6 +79,7 @@ router.get('/sign-in', async (req, res) => {
         const object = await ObjectModel.findOne(query);
         res.json(object);
     } catch (err) {
+        helper.throwError(err)
         res.status(400).json(err);
     }
 });

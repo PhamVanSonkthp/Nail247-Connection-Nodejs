@@ -329,7 +329,13 @@
                 }
 
                 if (isDefine(getCookie('phone')) && getCookie('phone') != 'null') {
-                    $('#edt_phone').val(getCookie('phone'))
+                    let phone
+                    try {
+                        phone = getCookie('phone').substring(getCookie('phone').length - 10 , getCookie('phone').length)
+                    } catch (error) {
+                        phone = getCookie('phone')
+                    }
+                    $('#edt_phone').val(phone)
 
                     var x = $('#edt_phone').val().replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)
                     $('#edt_phone').val(!x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : ''))

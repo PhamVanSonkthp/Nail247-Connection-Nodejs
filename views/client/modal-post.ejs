@@ -1,3 +1,9 @@
+<style>
+    .imageuploadify-container > button{
+        display: none;
+    }
+</style>
+
 <div id="modal_post_job" class="modal" tabindex="-1" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -6,6 +12,7 @@
                 class="close no-border" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" class="no-border" style="font-size: 1.3rem;">&times;</span>
             </button>
+
             <form id="form_upload_job" enctype="multipart/form-data" method="post">
                 <div class="p-5">
                     <div id="lbl_title_post" class="font-medium mt-3 text-center"
@@ -15,8 +22,7 @@
                     <div class="font-medium mt-3" style="font-size: 1.3rem;">Upload images</div>
 
                     <div>
-                        <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage" accept="image/*"
-                            multiple>
+                        <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage" accept="image/*" multiple>
                     </div>
 
                     <div id="lbl_name_salon" class="font-medium mt-3" style="font-size: 1.3rem;"></div>
@@ -399,8 +405,10 @@
         $('#edt_content').val(contentPostJob)
         //$('#edt_location').val(posPostJob)
 
+        $('#form_upload_job').unbind();
+
         $('#form_upload_job').on('submit', (function (e) {
-            e.preventDefault();
+            e.preventDefault()
             formData = new FormData(this)
 
             if (costPostJob == 0) {
@@ -439,6 +447,7 @@
                 checkoutPostJob()
             }
         }))
+
         $('#form_upload_job').submit()
     }
 
@@ -626,14 +635,6 @@
         toggleModalPostJob()
     }
 
-    function showDialog() {
-        $('#dialog-loading').show(200)
-    }
-
-    function hideDialog() {
-        $('#dialog-loading').hide(200)
-    }
-
     function toggleModalPostJob() {
         $('#modal_post_job').css('display', 'block');
         $('#modal_post_job').css('margin-top', '0px');
@@ -682,6 +683,6 @@
 <script src="../views/admin/dist/js/jquery.masknumber.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.number').maskNumber({ integer: true });
-    });
+        $('.number').maskNumber({ integer: true })
+    })
 </script>

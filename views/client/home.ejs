@@ -519,7 +519,7 @@
 
                                 <input id="edt_phone" autocomplete="off" type="text"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                    placeholder="* Phone number"
+                                    placeholder="* Phone number" name="phone"
                                     onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     onpaste="return false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -537,7 +537,7 @@
 
                         <div id="container_email" class="w-full sm:w-auto mt-3 box mt-2" style="display: none;">
                             <div class="relative text-gray-700 dark:text-gray-300 box">
-                                <input id="edt_email" autocomplete="off" type="text"
+                                <input id="edt_email" autocomplete="off" type="text" name="email"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                     placeholder="* Email">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -561,7 +561,7 @@
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                 </svg>
-                                <input id="edt_password" autocomplete="off" type="password"
+                                <input id="edt_password" autocomplete="off" type="password" name="password"
                                     class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
                                     placeholder="* Password">
                                 <svg id="icon_show" onclick="showPassword()" style="cursor: pointer;"

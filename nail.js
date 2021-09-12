@@ -1686,9 +1686,9 @@ io.sockets.on('connection', (socket) => {
 
         let UserModel
 
-        if (data.categories == 'sell-salon') {
+        if (data.categories.includes('sell-salon')) {
           UserModel = require('./models/SellSalon')
-        } else if (data.categories == 'nail-supply') {
+        } else if (data.categories.includes('nail-supply')) {
           UserModel = require('./models/NailSupply')
         } else {
           UserModel = require('./models/Job')
@@ -1696,7 +1696,7 @@ io.sockets.on('connection', (socket) => {
 
         let query = { expiration_date: { $gte: new Date() }, status: 1 }
 
-        if (helper.isDefine(data.title) && data.title.length) {
+        if (helper.isDefine(data.title) && data.title.length > 0) {
           query = {
             ...query,
             title: sanitize(data.title)
@@ -1731,11 +1731,9 @@ io.sockets.on('connection', (socket) => {
 
 
 
-        if (helper.isDefine(data.salary) && data.salary) {
+        if (helper.isDefine(data.salary) && helper.tryParseInt(data.salary) != 0) {
           let salary
-          if (data.categories == 'sell-salon') {
-            salary = 'price'
-          } else if (data.categories == 'nail-supply') {
+          if (data.categories.includes('sell-salon') || data.categories.includes('nail-supply')) {
             salary = 'price'
           } else {
             salary = 'cost'
@@ -1764,7 +1762,7 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.code) && data.code) {
+        if (helper.isDefine(data.code) && data.code != 0 && data.code != '0') {
           query = {
             ...query,
             $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 1000) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 1000) } }],
@@ -1772,7 +1770,6 @@ io.sockets.on('connection', (socket) => {
         }
 
         const object = await UserModel.find(query).sort({ code: 1 }).limit(data.limit).skip(data.offset)
-
         callback(object)
 
 
@@ -1808,9 +1805,9 @@ io.sockets.on('connection', (socket) => {
 
         let UserModel
 
-        if (data.categories == 'sell-salon') {
+        if (data.categories.includes('sell-salon')) {
           UserModel = require('./models/SellSalon')
-        } else if (data.categories == 'nail-supply') {
+        } else if (data.categories.includes('nail-supply')) {
           UserModel = require('./models/NailSupply')
         } else {
           UserModel = require('./models/Job')
@@ -1818,19 +1815,16 @@ io.sockets.on('connection', (socket) => {
 
         let query = { expiration_date: { $gte: new Date() }, status: 1 }
 
-        if (helper.isDefine(data.title) && data.title.length) {
+        if (helper.isDefine(data.title) && data.title.length > 0) {
           query = {
             ...query,
             title: sanitize(data.title)
           }
         }
 
-        if (helper.isDefine(data.salary)) {
-
+        if (helper.isDefine(data.salary) && helper.tryParseInt(data.salary) != 0) {
           let salary
-          if (data.categories == 'sell-salon') {
-            salary = 'price'
-          } else if (data.categories == 'nail-supply') {
+          if (data.categories.includes('sell-salon') || data.categories.includes('nail-supply')) {
             salary = 'price'
           } else {
             salary = 'cost'
@@ -1859,7 +1853,7 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.code) && data.code) {
+        if (helper.isDefine(data.code) && data.code != 0 && data.code != '0') {
           query = {
             ...query,
             $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 1000) } }, { code: { $lt: sanitize(helper.tryParseInt(data.code) + 1000) } }],

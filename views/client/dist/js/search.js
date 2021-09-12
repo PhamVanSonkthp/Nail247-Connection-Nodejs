@@ -235,13 +235,13 @@ function searchProduct() {
     socket.emit('search', querySearch, (response) => {
         let urlImage
         let prefix
-        if (categories == 'find-job') {
+        if (categories.includes('find-job')) {
             urlImage = urlImagePostJobsIcon
             prefix = '../posts-jobs/'
-        } else if (categories == 'sell-salon') {
+        } else if (categories.includes('sell-salon')) {
             urlImage = urlImagePostSellsSalonsIcon
             prefix = '../posts-sell-salons/'
-        } else if (categories == 'nail-supply') {
+        } else if (categories.includes('nail-supply')) {
             urlImage = urlImagePostNailSuppliesIcon
             prefix = '../posts-nail-supplies/'
         }
@@ -343,8 +343,6 @@ changeSalary(tryParseInt(salary))
 socket.emit('name-country-by-code', { code: code }, (response) => {
     if (isDefine(response)) {
         if (!response.name_city.includes('undefined')) $('#keyword').val(response.name_city)
-
-        console.log(response)
         $('#lbl_country').html('" ' + $('#keyword').val() + ' "')
 
         $('#slick').empty()

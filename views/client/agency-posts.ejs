@@ -405,7 +405,7 @@
                         <div class="font-medium mt-3" style="font-size: 1.3rem;">Upload Images</div>
 
                         <div>
-                            <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage_update"
+                            <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage_update" onchange="onChangeImage()"
                                 accept="image/*" multiple>
                         </div>
 
@@ -416,8 +416,8 @@
 
                         <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
                             style="box-shadow: 0px 4px 6px #bdbdbd;">
-                            <input id="modal_post_job_edt_name_salon_update" name="name_salon" autocomplete="off" maxlength="10000"
-                                type="text"
+                            <input id="modal_post_job_edt_name_salon_update" name="name_salon" autocomplete="off"
+                                maxlength="10000" type="text"
                                 class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                 placeholder="Name salon">
                         </div>
@@ -426,7 +426,8 @@
 
                         <div class="relative text-gray-700 dark:text-gray-300 box mt-3"
                             style="box-shadow: 0px 4px 6px #bdbdbd;">
-                            <input id="modal_post_job_edt_title_update" autocomplete="off" type="text" name="title" maxlength="10000"
+                            <input id="modal_post_job_edt_title_update" autocomplete="off" type="text" name="title"
+                                maxlength="10000"
                                 class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                 placeholder="* Title">
                         </div>
@@ -448,9 +449,9 @@
                                         placeholder="* Phone contact"
                                         onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                         onpaste="return false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                         <path
                                             d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
@@ -461,13 +462,13 @@
 
                             <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
                                 <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_email_update" autocomplete="off" type="text" maxlength="200"
-                                        name="email"
+                                    <input id="modal_post_job_edt_email_update" autocomplete="off" type="text"
+                                        maxlength="200" name="email"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                         placeholder="* Email contact">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                         <path
                                             d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
@@ -489,14 +490,14 @@
                         <div class="grid grid-cols-12 gap-6 mt-3">
                             <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
                                 <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_salary_update" autocomplete="off" type="text" maxlength="10"
-                                        name="cost" placeholder="salary / cost / price"
+                                    <input id="modal_post_job_edt_salary_update" autocomplete="off" type="text"
+                                        maxlength="10" name="cost" placeholder="salary / cost / price"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border number"
                                         onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                         onpaste="return false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                         <line x1="12" y1="1" x2="12" y2="23"></line>
                                         <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
@@ -506,13 +507,14 @@
 
                             <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
                                 <div class="relative text-gray-700 dark:text-gray-300 box">
-                                    <input id="modal_post_job_edt_filter_country_update" autocomplete="off" type="text" maxlength="10000"
+                                    <input id="modal_post_job_edt_filter_country_update" autocomplete="off" type="text"
+                                        maxlength="10000"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
                                         placeholder="City or Zipcode of your salon"
                                         oninput="onFilterCountryPostJobUpdate()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#eb1b6c" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                         <circle cx="12" cy="10" r="3"></circle>
@@ -663,8 +665,8 @@
                             </div>
                             <div class="mt-2 xl:mt-0">
                                 <button id="tabulator-html-filter-go" style="background-color: #eb1b6c ;" type="button"
-                                    class="btn btn-primary no-border pl-2 pr-2"
-                                    onclick="searchProduct()"><i class="fas fa-search mr-2"></i>Search</button>
+                                    class="btn btn-primary no-border pl-2 pr-2" onclick="searchProduct()"><i
+                                        class="fas fa-search mr-2"></i>Search</button>
                             </div>
                         </div>
 
@@ -740,6 +742,7 @@
                                     <th>Cost (Week)</td>
                                     <th>Package</td>
                                     <th>Status</td>
+                                    <th>Last update</td>
                                     <th>Action</td>
                                 </tr>
                             </thead>
@@ -884,6 +887,7 @@
                         let cell5 = row.insertCell(4);
                         let cell6 = row.insertCell(5);
                         let cell7 = row.insertCell(6);
+                        let cell8 = row.insertCell(7);
 
                         if (data[i].status == 1) {
                             cell6.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"><div class="flex items-center lg:justify-center text-theme-9"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg> Active </div><div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>';
@@ -894,9 +898,14 @@
                         cell1.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="name" title="" style=" display: inline-flex; "> <div> <div class="font-medium whitespace-nowrap">' + products[i].name_salon + '</div> <div class="text-gray-600 text-xs whitespace-nowrap">' + products[i].phone + '</div> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
                         cell2.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].city) + '</div>';
                         cell3.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].title) + '</div>';
-                        cell4.innerHTML = '<div class="ellipsis">' + escapeHtml(isNumber(products[i].cost) ? ( escapeHtml(products[i].cost != 0 ? ('$' + formatMoney(products[i].cost)) : 'Contact owner') ) : ( (products[i].price != 0 ? ('$' + formatMoney(products[i].price)) : 'Contact owner'))) + '</div>';
+                        cell4.innerHTML = '<div class="ellipsis">' + escapeHtml(isNumber(products[i].cost) ? (escapeHtml(products[i].cost != 0 ? ('$' + formatMoney(products[i].cost)) : 'Contact owner')) : ((products[i].price != 0 ? ('$' + formatMoney(products[i].price)) : 'Contact owner'))) + '</div>';
                         cell5.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].package) + '</div>';
-                        cell7.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a> <a target="_blank" class="edit flex items-center mr-3" href="../' + prefixLinkSlug + '/' + escapeHtml(products[i].link_slug) + '"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
+
+                        let datetime = (new Date(products[i].updatedAt).getFullYear() + '-' + ('0' + (new Date(products[i].updatedAt).getMonth() + 1)).substring(('0' + (new Date(products[i].updatedAt).getMonth() + 1)).length-2 , ('0' + (new Date(products[i].updatedAt).getMonth() + 1)).length) + '-' + new Date(products[i].updatedAt).getDate())
+
+
+                        cell7.innerHTML = '<div class="ellipsis">' + datetime + '</div>';
+                        cell8.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a> <a target="_blank" class="edit flex items-center mr-3" href="../' + prefixLinkSlug + '/' + escapeHtml(products[i].link_slug) + '"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
 
                     }
                 }
@@ -961,6 +970,7 @@
                     let cell5 = row.insertCell(4);
                     let cell6 = row.insertCell(5);
                     let cell7 = row.insertCell(6);
+                    let cell8 = row.insertCell(7);
 
                     cell1.innerHTML = 'Name <br> <small>phone</small>';
                     cell2.innerHTML = 'Location';
@@ -968,7 +978,8 @@
                     cell4.innerHTML = val;
                     cell5.innerHTML = 'Package';
                     cell6.innerHTML = 'Status';
-                    cell7.innerHTML = 'Action';
+                    cell7.innerHTML = 'Last update';
+                    cell8.innerHTML = 'Action';
                 }
 
                 function onSort_1() {
@@ -1097,7 +1108,7 @@
                     $('#modal_post_job_edt_email_update').val(products[i].email);
                     $('#modal_post_job_edt_title_update').val(products[i].title);
                     $('#modal_post_job_edt_salary_update').val(formatMoney(products[i].cost || products[i].price))
-                    if($('#modal_post_job_edt_salary_update').val() == 'undefined'){
+                    if ($('#modal_post_job_edt_salary_update').val() == 'undefined') {
                         $('#modal_post_job_edt_salary_update').val('')
                     }
 
@@ -1156,7 +1167,7 @@
 
             </script>
 
-            <!-- <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> -->
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
 
             <script>
@@ -1230,6 +1241,7 @@
 
                     // }
 
+
                     $('#edt_code_update').val(codePostJob)
                     $('#edt_content_update').val(CKEDITOR.instances.editor_update.getData())
                     //$('#edt_location_update').val(posPostJob)
@@ -1238,11 +1250,11 @@
                     showLoading()
                     $('#form_update_job').on('submit', (function (e) {
                         e.preventDefault();
-                        var formData = new FormData(this);
+                        var formData = new FormData(this)
 
                         $.ajax({
                             type: 'POST',
-                            url: actionUpdatePost,
+                            url: $(this).attr('action'),
                             headers: {
                                 token: 'infinifyltd'
                             },

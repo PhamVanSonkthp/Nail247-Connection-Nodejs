@@ -400,7 +400,8 @@ exports.paymentPostJob = async function (req, res) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                //expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 60 * 1000,
             }
 
             if (exports.tryParseJson(req.headers.stripe).type_post == '0') {

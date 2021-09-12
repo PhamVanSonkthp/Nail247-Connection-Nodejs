@@ -23,14 +23,14 @@
 
                     <div class="mt-2">
                         <b>Name:</b>
-                        <input id="EdtTitleProduct" disabled class="form-control">
+                        <input id="EdtTitleProduct" class="form-control">
                     </div>
 
                     <div class="mt-2">
                         <b>Content:</b>
                         <textarea id="editor" autocomplete="off" type="text"
-                                class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                placeholder="Content"></textarea>
+                            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                            placeholder="Content"></textarea>
                     </div>
 
                     <div class="mt-2">
@@ -38,7 +38,7 @@
                         <table id="TblDecriptions" class="w-full">
                             <thead>
                                 <tr>
-                                    <th colspan="2">Month</th>
+                                    <th colspan="2">Minute</th>
                                     <th colspan="2">Cost</th>
                                     <th colspan="2">Content</th>
                                 </tr>
@@ -458,7 +458,7 @@
             toggleModalAddProduct();
 
             showLoading();
-            socket.emit('update-options-posts', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, options_posts: decriptions, content: CKEDITOR.instances.editor.getData() }, (response) => {
+            socket.emit('update-options-posts', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, options_posts: decriptions, content: CKEDITOR.instances.editor.getData(), name: $('#EdtTitleProduct').val() }, (response) => {
                 hideLoading();
                 if (response != null) {
                     products[index_edit] = response;

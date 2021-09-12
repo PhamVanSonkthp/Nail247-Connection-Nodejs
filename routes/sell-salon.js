@@ -28,8 +28,6 @@ async function uploadImage(req, res, isWeb) {
     upload(req, res, function (err) {
         (async () => {
 
-            let result = {}
-
             let location = {
                 "type": "Point",
                 "coordinates": [
@@ -39,25 +37,6 @@ async function uploadImage(req, res, isWeb) {
             }
 
             const index = await ObjectModel.countDocuments()
-            result.name_salon = req.body.name_salon
-            result.address_salon = req.body.address_salon
-            result.phone = req.body.phone
-            result.country = req.body.country
-            result.city = req.body.city
-            result.state = req.body.state
-            result.code = req.body.code
-            result.location = req.body.location
-            result.title = req.body.title
-            result.content = req.body.content
-            result.email = req.body.email
-            result.link_slug = helper.stringToSlug(req.body.title) + '-' + index
-            result.price = helper.isDefine(req.body.cost) ? req.body.cost : req.body.price
-            result.options = req.body.options
-            result.status = req.body.status
-            result.months_provider = req.body.months_provider
-            result.package = req.body.package
-            result.id_agency = req.body.id_agency
-            result.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
 
             const object = new ObjectModel({
                 name_salon: req.body.name_salon,
@@ -79,7 +58,8 @@ async function uploadImage(req, res, isWeb) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
             })
 
             try {

@@ -746,8 +746,15 @@ io.sockets.on('connection', (socket) => {
         }
 
         UserModel.find(query, (err, result) => {
-          helper.throwError(err);
-          callback(result);
+          helper.throwError(err)
+
+          for(let i = 0 ; i < result.length ; i++){
+            if(new Date(result[i].expiration_date) < new Date(Date.now())){
+              result[i].status = 0
+            }
+          }
+
+          callback(result)
         }).limit((data.limit)).skip((data.offset)).sort(filter);;
       } else {
         callback(null);
@@ -1332,7 +1339,8 @@ io.sockets.on('connection', (socket) => {
         let objForUpdate = {}
         objForUpdate.options = sanitize(data.options_posts)
         objForUpdate.content = sanitize(data.content)
-        objForUpdate = { $set: objForUpdate };
+        objForUpdate.name = sanitize(data.name)
+        objForUpdate = { $set: objForUpdate }
         result = await UserModel.findOneAndUpdate(query, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
           if (err) helper.throwError(err);
           callback(result);
@@ -1378,7 +1386,7 @@ io.sockets.on('connection', (socket) => {
         objForUpdate.status = sanitize(data.status)
         objForUpdate = { $set: objForUpdate }
 
-        UserModel.findOneAndUpdate(query, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
+        UserModel.updateOne(query, objForUpdate, optsValidator, (err, result) => {
           if (err) helper.throwError(err);
           callback(result);
         });
@@ -1694,7 +1702,8 @@ io.sockets.on('connection', (socket) => {
           UserModel = require('./models/Job')
         }
 
-        let query = { expiration_date: { $gte: new Date() }, status: 1 }
+        let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
+
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           query = {
@@ -1813,7 +1822,7 @@ io.sockets.on('connection', (socket) => {
           UserModel = require('./models/Job')
         }
 
-        let query = { expiration_date: { $gte: new Date() }, status: 1 }
+        let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           query = {

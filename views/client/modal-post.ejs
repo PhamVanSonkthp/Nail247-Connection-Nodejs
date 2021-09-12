@@ -22,7 +22,8 @@
                     <div class="font-medium mt-3" style="font-size: 1.3rem;">Upload images</div>
 
                     <div>
-                        <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage" accept="image/*" multiple>
+                        <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage" accept="image/*" onchange="onChangeImage()"
+                            multiple>
                     </div>
 
                     <div id="lbl_name_salon" class="font-medium mt-3" style="font-size: 1.3rem;"></div>
@@ -672,6 +673,10 @@
     }
 
     checkLogin()
+
+    function onChangeImage() {
+        $('.imageuploadify-container').remove()
+    }
 
     function deleteAllCookies() {
         document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });

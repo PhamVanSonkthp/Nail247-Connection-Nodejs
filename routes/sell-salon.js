@@ -4,7 +4,7 @@ const ObjectModel = require('../models/SellSalon');
 const helper = require('../helper/helper');
 
 router.post('/', async (req, res) => {
-    return await uploadImage(req , res)
+    return await uploadImage(req, res)
 })
 
 async function uploadImage(req, res, isWeb) {
@@ -58,8 +58,8 @@ async function uploadImage(req, res, isWeb) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
-                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
+                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
             })
 
             try {
@@ -242,24 +242,17 @@ router.get('/', async (req, res) => {
 
         let query = { expiration_date: { $gte: new Date() }, status: 1 }
 
-        if (helper.isDefine(code) && helper.isNumber(code)) {
-            query = {
-                ...query,
-                code: code
-            }
-        }
-
-        if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
-            query = {
-                ...query,
-                location: {
-                    $near: {
-                        $geometry: {
-                            type: "Point",
-                            coordinates: [latitude, longitude],
-                        },
-                        $minDistance: 0,
-                    }
+        if (helper.isDefine(code) && code != 'null' && code != 0 && code != '0') {
+            let state = helper.getStateByCode(code)
+            if (state != null) {
+                query = {
+                    ...query,
+                    state: (state),
+                }
+            } else {
+                query = {
+                    ...query,
+                    $and: [{ code: { $gte: (helper.tryParseInt(code) - 1000) } }, { code: { $lte: (helper.tryParseInt(code) + 1000) } }],
                 }
             }
         }
@@ -314,7 +307,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/form-web/', async (req, res) => {
-    return await uploadImage(req , res , true)
+    return await uploadImage(req, res, true)
 })
 
 async function updateImage(req, res, isWeb) {

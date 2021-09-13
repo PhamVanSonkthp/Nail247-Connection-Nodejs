@@ -405,8 +405,8 @@
                         <div class="font-medium mt-3" style="font-size: 1.3rem;">Upload Images</div>
 
                         <div>
-                            <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage_update" onchange="onChangeImage()"
-                                accept="image/*" multiple>
+                            <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImage_update"
+                                onchange="onChangeImageUpdate()" accept="image/*" multiple>
                         </div>
 
                         <ul class="p-0" style="overflow: auto" id="ContainerImages">
@@ -732,8 +732,8 @@
                         </div>
                     </div>
 
-                    <div class="intro-y box p-5 mt-12 sm:mt-5 clear-both" style="overflow-x: scroll;">
-                        <table id="TblProduct" class="w-full table" cellspacing="0">
+                    <div class="intro-y box p-5 mt-12 sm:mt-5 clear-both" style="overflow-x: auto;overflow-y: hidden;">
+                        <table id="TblProduct" class="w-full table" cellspacing="0" style="overflow-y: hidden;">
                             <thead class="tabulator-header font-medium">
                                 <tr>
                                     <th>Name <br> <small>phone</small></td>
@@ -742,7 +742,7 @@
                                     <th>Cost (Week)</td>
                                     <th>Package</td>
                                     <th>Status</td>
-                                    <th>Last update</td>
+                                    <th>Last updated</td>
                                     <th>Action</td>
                                 </tr>
                             </thead>
@@ -847,7 +847,7 @@
                 indexRow = tryParseInt(urlParams.get('row'));
                 indexPage = tryParseInt(urlParams.get('page'));
                 var isSort = urlParams.get('sort') || 1;
-
+                
                 function onShowFilter() {
                     if ($("#basic-table > div").hasClass("d-grid")) {
                         $('#basic-table > div').removeClass('d-grid')
@@ -901,8 +901,8 @@
                         cell4.innerHTML = '<div class="ellipsis">' + escapeHtml(isNumber(products[i].cost) ? (escapeHtml(products[i].cost != 0 ? ('$' + formatMoney(products[i].cost)) : 'Contact owner')) : ((products[i].price != 0 ? ('$' + formatMoney(products[i].price)) : 'Contact owner'))) + '</div>';
                         cell5.innerHTML = '<div class="ellipsis">' + escapeHtml(products[i].package) + '</div>';
 
-                        let datetime = (new Date(products[i].updatedAt).getFullYear() + '-' + ('0' + (new Date(products[i].updatedAt).getMonth() + 1)).substring(('0' + (new Date(products[i].updatedAt).getMonth() + 1)).length-2 , ('0' + (new Date(products[i].updatedAt).getMonth() + 1)).length) + '-' + new Date(products[i].updatedAt).getDate())
-
+                        //let datetime = (new Date(products[i].updatedAt).getFullYear() + '-' + ('0' + (new Date(products[i].updatedAt).getMonth() + 1)).substring(('0' + (new Date(products[i].updatedAt).getMonth() + 1)).length-2 , ('0' + (new Date(products[i].updatedAt).getMonth() + 1)).length) + '-' + new Date(products[i].updatedAt).getDate())
+                        let datetime = (('0' + (new Date(products[i].updatedAt).getMonth() + 1)).substring(('0' + (new Date(products[i].updatedAt).getMonth() + 1)).length - 2, ('0' + (new Date(products[i].updatedAt).getMonth() + 1)).length) + '/' + new Date(products[i].updatedAt).getDate() + '/' + new Date(products[i].updatedAt).getFullYear())
 
                         cell7.innerHTML = '<div class="ellipsis">' + datetime + '</div>';
                         cell8.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a> <a target="_blank" class="edit flex items-center mr-3" href="../' + prefixLinkSlug + '/' + escapeHtml(products[i].link_slug) + '"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
@@ -978,7 +978,7 @@
                     cell4.innerHTML = val;
                     cell5.innerHTML = 'Package';
                     cell6.innerHTML = 'Status';
-                    cell7.innerHTML = 'Last update';
+                    cell7.innerHTML = 'Last updated';
                     cell8.innerHTML = 'Action';
                 }
 
@@ -1197,7 +1197,38 @@
                     }
                 }
 
+                function onChangeImageUpdate() {
+                    $('.imageuploadify-container').remove()
+                    checkFileBigUpdate()
+                }
+
+                function checkFileBigUpdate() {
+                    let files = $('#inputSelectMoreImage_update').prop('files')
+
+                    for (let x in files) {
+                        let filesize = ((files[x].size / 1024) / 1024).toFixed(4);
+                        if (filesize > 4) {
+                            alert('Photo size too big, please reduce photo below 4mb')
+                            $('.imageuploadify-container').remove()
+                            return false
+                        }
+                    }
+
+                    return true
+                }
+
                 function savePost() {
+
+                    if ($("#inputSelectMoreImage_update")[0].files.length + products[index_edit].images.length > 10) {
+                        $('.imageuploadify-container').remove()
+                        $('#inputSelectMoreImage_update').focus()
+                        alert("Posts are limited to ten photos")
+                        return
+                    }
+                    if (!checkFileBigUpdate()) {
+                        $('#inputSelectMoreImage_update').focus()
+                        return
+                    }
 
                     if (!$('#modal_post_job_edt_title_update').val().length) {
                         $('#modal_post_job_edt_title_update').focus()
@@ -1306,6 +1337,12 @@
                 function deleteImage(index, iEdit) {
                     index = tryParseInt(index)
                     iEdit = tryParseInt(iEdit)
+
+                    if (products[iEdit].images.length <= 1) {
+                        alert('Posts need at least one photo')
+                        return
+                    }
+
                     if (products[iEdit] != undefined && products[iEdit].images != undefined && products[iEdit].images != null && products[iEdit].images.length > 0) {
                         products[iEdit].images = removeIndexOfArray(products[iEdit].images, index);
                     }

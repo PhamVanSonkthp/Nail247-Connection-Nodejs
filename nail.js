@@ -144,30 +144,7 @@ app.get('/privacy-policy', function (req, res) {
 
 //----------End Clients Area---------//
 
-// start get files country
 
-var codeCountrys = []
-const fs = require('fs')
-
-fs.readFile('./helper/country.csv', function (err, data) {
-  if (err) {
-    throw err;
-  }
-  successFunction(data.toString())
-});
-
-function successFunction(data) {
-  var allRows = data.split(/\r?\n|\r/);
-  for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
-    if (singleRow === 0) {
-      continue
-    }
-    var rowCells = allRows[singleRow].replaceAll('\"', '').replaceAll('}', '').replaceAll('{', '').split(',')
-    codeCountrys.push(rowCells)
-  }
-}
-
-// end get files country
 
 const options = {
   useNewUrlParser: true,
@@ -198,7 +175,6 @@ const optsValidatorFindAndUpdate = {
 //Firebase
 const admin = require("firebase-admin")
 const serviceAccount = require("./sms-schedule-infinity-720fd-firebase-adminsdk-zllw3-83b5b6f682.json")
-const { type } = require('os')
 var token
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -442,10 +418,15 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        UserModel.find(query, (err, result) => {
-          helper.throwError(err);
-          callback(result);
-        }).limit(data.limit).skip(data.offset).sort(filter);;
+        let result = await UserModel.find(query).limit(data.limit).skip(data.offset).sort(filter)
+
+        for (let i = 0; i < result.length; i++) {
+          if (new Date(result[i].expiration_date) < new Date(Date.now())) {
+            result[i].status = 0
+          }
+        }
+
+        callback(result)
       } else {
         callback(null);
       }
@@ -491,8 +472,15 @@ io.sockets.on('connection', (socket) => {
         }
 
         UserModel.find(query, (err, result) => {
-          helper.throwError(err);
-          callback(result);
+          helper.throwError(err)
+          for (let i = 0; i < result.length; i++) {
+            if (new Date(result[i].expiration_date) < new Date(Date.now())) {
+              result[i].status = 0
+            }
+            result[i].code = helper.formatZipCode(result[i].code)
+          }
+          
+          callback(result)
         }).limit((data.limit)).skip((data.offset)).sort(filter);;
       } else {
         callback(null);
@@ -539,8 +527,14 @@ io.sockets.on('connection', (socket) => {
         }
 
         UserModel.find(query, (err, result) => {
-          helper.throwError(err);
-          callback(result);
+          helper.throwError(err)
+          for (let i = 0; i < result.length; i++) {
+            if (new Date(result[i].expiration_date) < new Date(Date.now())) {
+              result[i].status = 0
+            }
+            result[i].code = helper.formatZipCode(result[i].code)
+          }
+          callback(result)
         }).limit((data.limit)).skip((data.offset)).sort(filter);;
       } else {
         callback(null);
@@ -748,8 +742,8 @@ io.sockets.on('connection', (socket) => {
         UserModel.find(query, (err, result) => {
           helper.throwError(err)
 
-          for(let i = 0 ; i < result.length ; i++){
-            if(new Date(result[i].expiration_date) < new Date(Date.now())){
+          for (let i = 0; i < result.length; i++) {
+            if (new Date(result[i].expiration_date) < new Date(Date.now())) {
               result[i].status = 0
             }
           }
@@ -1771,14 +1765,22 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.code) && data.code != 0 && data.code != '0') {
-          query = {
-            ...query,
-            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 1000) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 1000) } }],
+        if (helper.isDefine(data.code) && data.code != 'null' && data.code != 0 && data.code != '0') {
+          let state = helper.getStateByCode(data.code)
+          if (state != null) {
+            query = {
+              ...query,
+              state: sanitize(state),
+            }
+          } else {
+            query = {
+              ...query,
+              $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 1000) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 1000) } }],
+            }
           }
         }
 
-        const object = await UserModel.find(query).sort({ code: 1 }).limit(data.limit).skip(data.offset)
+        const object = await UserModel.find(query).limit(data.limit).skip(data.offset)
         callback(object)
 
 
@@ -1862,10 +1864,18 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.code) && data.code != 0 && data.code != '0') {
-          query = {
-            ...query,
-            $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 1000) } }, { code: { $lt: sanitize(helper.tryParseInt(data.code) + 1000) } }],
+        if (helper.isDefine(data.code) && data.code != 'null' && data.code != 0 && data.code != '0') {
+          let state = helper.getStateByCode(data.code)
+          if (state != null) {
+            query = {
+              ...query,
+              state: sanitize(state),
+            }
+          } else {
+            query = {
+              ...query,
+              $and: [{ code: { $gte: sanitize(helper.tryParseInt(data.code) - 1000) } }, { code: { $lte: sanitize(helper.tryParseInt(data.code) + 1000) } }],
+            }
           }
         }
 
@@ -1886,14 +1896,14 @@ io.sockets.on('connection', (socket) => {
     let counter = 0
     let result = []
 
-    for (let i = 0; i < codeCountrys.length; i++) {
-      if ((helper.isDefine(codeCountrys[i][0]) && Math.abs(helper.tryParseInt(codeCountrys[i][0]) - code) < 10)) {
+    for (let i = 0; i < helper.codeCountrys.length; i++) {
+      if ((helper.isDefine(helper.codeCountrys[i][0]) && Math.abs(helper.tryParseInt(helper.codeCountrys[i][0]) - code) < 10)) {
         if (counter > 5) {
           break
         } else {
           ++counter
         }
-        result.push(codeCountrys[i])
+        result.push(helper.codeCountrys[i])
       }
     }
 
@@ -1918,26 +1928,26 @@ io.sockets.on('connection', (socket) => {
         let counter = 0
         let result = []
 
-        for (let i = 0; i < codeCountrys.length; i++) {
-          if ((helper.isDefine(codeCountrys[i][4]) && codeCountrys[i][4].toUpperCase().includes(data.val.split(' ')[data.val.split(' ').length - 1])) || (helper.isDefine(codeCountrys[i][3]) && codeCountrys[i][3].toUpperCase().includes(data.val)) || (helper.isDefine(codeCountrys[i][0]) && helper.getOnlyNumber(data.val) && codeCountrys[i][0].includes(helper.getOnlyNumber(data.val)))) {
+        for (let i = 0; i < helper.codeCountrys.length; i++) {
+          if ((helper.isDefine(helper.codeCountrys[i][4]) && helper.codeCountrys[i][4].toUpperCase().includes(data.val.split(' ')[data.val.split(' ').length - 1])) || (helper.isDefine(helper.codeCountrys[i][3]) && helper.codeCountrys[i][3].toUpperCase().includes(data.val)) || (helper.isDefine(helper.codeCountrys[i][0]) && helper.getOnlyNumber(data.val) && helper.codeCountrys[i][0].includes(helper.getOnlyNumber(data.val)))) {
             if (counter > 100) {
               break
             } else {
               ++counter
             }
-            result.push(codeCountrys[i])
+            result.push(helper.codeCountrys[i])
           }
         }
 
         if (counter < 100) {
-          for (let i = 0; i < codeCountrys.length; i++) {
-            if (helper.contains(codeCountrys[i][3], data.val) || helper.contains(codeCountrys[i][0], data.val)) {
+          for (let i = 0; i < helper.codeCountrys.length; i++) {
+            if (helper.contains(helper.codeCountrys[i][3], data.val) || helper.contains(helper.codeCountrys[i][0], data.val)) {
               if (counter > 100) {
                 break
               } else {
                 ++counter
               }
-              result.push(codeCountrys[i])
+              result.push(helper.codeCountrys[i])
             }
           }
         }
@@ -1977,7 +1987,7 @@ io.sockets.on('connection', (socket) => {
     trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
-        let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" } }
+        let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
         const nailSupplyModel = require('./models/NailSupply')
         const results = await nailSupplyModel.find(query).limit(10)
         callback(results)
@@ -1999,15 +2009,15 @@ io.sockets.on('connection', (socket) => {
         let relateCities = []
         let nameCity
 
-        for (let i = 0; i < codeCountrys.length; i++) {
-          if (helper.tryParseInt(codeCountrys[i][0]) == helper.tryParseInt(data.code)) {
+        for (let i = 0; i < helper.codeCountrys.length; i++) {
+          if (helper.tryParseInt(helper.codeCountrys[i][0]) == helper.tryParseInt(data.code)) {
             indexSearch = i
-            nameCity = codeCountrys[i][3] + ', ' + codeCountrys[i][4] + ' ' + codeCountrys[i][0]
+            nameCity = helper.codeCountrys[i][3] + ', ' + helper.codeCountrys[i][4] + ' ' + helper.codeCountrys[i][0]
             break
           }
         }
         for (let j = indexSearch - 10; j < indexSearch + 10; j++) {
-          if (helper.isDefine(codeCountrys[j]) && indexSearch != j) relateCities.push(codeCountrys[j])
+          if (helper.isDefine(helper.codeCountrys[j]) && indexSearch != j) relateCities.push(helper.codeCountrys[j])
         }
 
         callback({ name_city: nameCity, relateCities: relateCities })
@@ -2098,7 +2108,7 @@ io.sockets.on('connection', (socket) => {
             distance: 'Unknown'
           }
         }
-
+        object.code = helper.formatZipCode(object.code)
         let queryRelated = { expiration_date: { $gte: new Date() } }
         let resultRelated
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
@@ -2183,7 +2193,7 @@ io.sockets.on('connection', (socket) => {
             distance: 'Unknown'
           }
         }
-
+        object.code = helper.formatZipCode(object.code)
         let queryRelated = { expiration_date: { $gte: new Date() } }
         let resultRelated
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
@@ -2268,6 +2278,8 @@ io.sockets.on('connection', (socket) => {
             distance: 'Unknown'
           }
         }
+
+        object.code = helper.formatZipCode(object.code)
 
         let queryRelated = { expiration_date: { $gte: new Date() } }
         let resultRelated
@@ -2490,8 +2502,8 @@ io.sockets.on('connection', (socket) => {
         }
 
         for (let i = 0; i < resultNeedDelete.length; i++) {
-          fs.unlinkSync(pathImage + resultNeedDelete[i])
-          fs.unlinkSync(pathImage + 'icon-' + resultNeedDelete[i])
+          helper.fs.unlinkSync(pathImage + resultNeedDelete[i])
+          helper.fs.unlinkSync(pathImage + 'icon-' + resultNeedDelete[i])
         }
 
 

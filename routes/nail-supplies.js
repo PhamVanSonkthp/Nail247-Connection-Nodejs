@@ -58,8 +58,8 @@ async function uploadImage(req, res, isWeb) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
-                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
+                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
             })
 
             try {
@@ -247,35 +247,15 @@ router.get('/', async (req, res) => {
         const page = parseInt(req.query.page, 10) || 0;
         const latitude = req.query.latitude;
         const longitude = req.query.longitude;
-        const code = req.query.code;
         const title = req.query.title;
         const price = req.query.price;
 
         let query = { expiration_date: { $gte: new Date() }, status: 1 }
 
-        if (helper.isDefine(code) && helper.isNumber(code)) {
-            query = { code: code }
-        }
-
         if (helper.isDefine(title)) {
             query = {
                 ...query,
                 title: { $regex: ".*" + title + ".*", $options: "$i" }
-            }
-        }
-
-        if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
-            query = {
-                ...query,
-                location: {
-                    $near: {
-                        $geometry: {
-                            type: "Point",
-                            coordinates: [latitude, longitude],
-                        },
-                        $minDistance: 0,
-                    }
-                }
             }
         }
 

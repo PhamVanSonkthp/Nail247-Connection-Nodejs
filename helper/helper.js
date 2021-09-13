@@ -251,6 +251,14 @@ function getNumber(num) {
     return num;
 }
 
+exports.formatZipCode = function (code) {
+    code = code.toString()
+    if (code.length < 5) {
+        return exports.formatZipCode('0' + code)
+    }
+    return code
+}
+
 exports.optsValidator = {
     runValidators: true,
     new: true,
@@ -331,6 +339,40 @@ exports.schemaNumberSale = {
     max: 100,
 }
 
+// start get files country
+
+exports.codeCountrys = []
+exports.fs = require('fs')
+
+exports.fs.readFile('./helper/country.csv', function (err, data) {
+    if (err) {
+        throw err;
+    }
+    exports.successFunction(data.toString())
+});
+
+exports.successFunction = function (data) {
+    var allRows = data.split(/\r?\n|\r/);
+    for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
+        if (singleRow === 0) {
+            continue
+        }
+        var rowCells = allRows[singleRow].replaceAll('\"', '').replaceAll('}', '').replaceAll('{', '').split(',')
+        exports.codeCountrys.push(rowCells)
+    }
+}
+
+exports.getStateByCode = function (code) {
+    for (let i = 0; i < exports.codeCountrys.length; i++) {
+        if (exports.tryParseInt(code) == exports.tryParseInt(exports.codeCountrys[i][0])) {
+            return exports.codeCountrys[i][4]
+        }
+    }
+    return null
+}
+
+// end get files country
+
 exports.paymentPostJob = async function (req, res) {
     const helpers = require('helpers')
     const multer = require('multer')
@@ -400,8 +442,8 @@ exports.paymentPostJob = async function (req, res) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                //expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
-                expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 60 * 1000,
+                expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                //expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 60 * 1000,
             }
 
             if (exports.tryParseJson(req.headers.stripe).type_post == '0') {

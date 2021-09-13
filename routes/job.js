@@ -58,8 +58,8 @@ async function uploadImage(req, res, isWeb) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
-                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
+                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
             })
 
             try {
@@ -198,23 +198,24 @@ router.get('/featured', async (req, res) => {
         const page = helper.tryParseInt(req.query.page) || 0
         const latitude = req.query.latitude
         const longitude = req.query.longitude
+        const code = helper.tryParseInt(req.query.code) || 0
 
         let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
 
-        if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
-            query = {
-                ...query,
-                location: {
-                    $near: {
-                        $geometry: {
-                            type: "Point",
-                            coordinates: [latitude, longitude],
-                        },
-                        $minDistance: 0,
-                    }
-                }
-            }
-        }
+        // if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
+        //     query = {
+        //         ...query,
+        //         location: {
+        //             $near: {
+        //                 $geometry: {
+        //                     type: "Point",
+        //                     coordinates: [latitude, longitude],
+        //                 },
+        //                 $minDistance: 0,
+        //             }
+        //         }
+        //     }
+        // }
 
         const result = await ObjectModel.find(query).limit(limit).skip(page);
 
@@ -252,24 +253,17 @@ router.get('/', async (req, res) => {
 
         let query = { expiration_date: { $gte: new Date() }, status: 1 }
 
-        if (helper.isDefine(code) && helper.isNumber(code)) {
-            query = {
-                ...query,
-                code: code
-            }
-        }
-
-        if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
-            query = {
-                ...query,
-                location: {
-                    $near: {
-                        $geometry: {
-                            type: "Point",
-                            coordinates: [latitude, longitude],
-                        },
-                        $minDistance: 0,
-                    }
+        if (helper.isDefine(code) && code != 'null' && code != 0 && code != '0') {
+            let state = helper.getStateByCode(code)
+            if (state != null) {
+                query = {
+                    ...query,
+                    state: (state),
+                }
+            } else {
+                query = {
+                    ...query,
+                    $and: [{ code: { $gte: (helper.tryParseInt(code) - 1000) } }, { code: { $lte: (helper.tryParseInt(code) + 1000) } }],
                 }
             }
         }

@@ -289,11 +289,11 @@ function countProduct() {
     socket.emit('count-search', querySearch, (response) => {
 
         if (isDefine(categories) && categories == 'find-job') {
-            $('#result_counter').html((response || 0) + ' results for "Find a job"')
+            $('#result_counter').html((response || 0) + ' results for "Find a Job"')
         } else if (isDefine(categories) && categories == 'sell-salon') {
-            $('#result_counter').html((response || 0) + ' results for "Sell salons"')
+            $('#result_counter').html((response || 0) + ' results for "Sell Salons"')
         } else if (isDefine(categories) && categories.includes('nail-supply')) {
-            $('#result_counter').html((response || 0) + ' results for "Nail supply"')
+            $('#result_counter').html((response || 0) + ' results for "Nail Supply"')
         }
 
 

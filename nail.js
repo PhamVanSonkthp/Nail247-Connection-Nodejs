@@ -1401,6 +1401,7 @@ io.sockets.on('connection', (socket) => {
         const UserModel = require('./models/PaymentStripe');
 
         let objForUpdate = {}
+        objForUpdate.name = 'name'
         objForUpdate.public_key = sanitize(data.public_key)
         objForUpdate.secret_key = sanitize(data.secret_key)
         objForUpdate = { $set: objForUpdate }

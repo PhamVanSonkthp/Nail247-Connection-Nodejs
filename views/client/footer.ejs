@@ -19,7 +19,6 @@
         <div>
             <%- include("nav-left"); %>
 
-
                 <div id="modal_signin_signup" class="modal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -665,9 +664,10 @@
 
                     function search(val) {
                         categories = $('#select_categories').val()
-
-                        if ($('#select_categories').val() == 'nail-supply') {
+                        if ($('#select_categories').val().includes('nail-supply')) {
                             $('#keyword').val(val)
+                            $('#lbl_country').html('"' + val + '"')
+
                             history.pushState({}, null, '../search?categories=' + (categories || 0) + '&title=' + val + '&distance=' + (distance || 0) + '&salary=' + (salary || 0))
                             if (typeof countProduct == "undefined") {
                                 location.reload();
@@ -727,7 +727,7 @@
 
                     $(document).ready(function () {
                         $(document).mouseup(function (e) {
-                            var container = $("#container_drop_result");
+                            var container = $("#container_drop_result")
                             var containerInput = $("#keyword");
 
                             if (!container.is(e.target) && !containerInput.is(e.target)) {
@@ -753,7 +753,7 @@
                                 $('#keyword').attr("placeholder", "Search Salon for Sale by City or Zipcode")
                                 $('#select_range_salary').html('<option value="0" selected>Price</option><option value="1">0$ - 500$</option><option value="2">500$ - 1,000$</option><option value="3">1,000$ - 2,000$</option><option value="4">2,000$ up</option>')
                             } else if (this.value == 'nail-supply') {
-                                $('#keyword').attr("placeholder", "Search nail supply")
+                                $('#keyword').attr("placeholder", "Search Nail Supply")
                                 $('#select_range_salary').html('<option value="0" selected>Price</option><option value="1">0$ - 500$</option><option value="2">500$ - 1,000$</option><option value="3">1,000$ - 2,000$</option><option value="4">2,000$ up</option>')
                             } else if (this.value == 'find-job') {
                                 $('#keyword').attr("placeholder", "Search a Job by City or Zipcode")
@@ -767,17 +767,6 @@
 
 
                 <script>
-
-                    function openNav() {
-                        $('#container_nav').show()
-                        document.getElementById("mySidenav").style.width = "250px";
-                    }
-
-                    function closeNav() {
-                        $('#container_nav').hide(200)
-                        document.getElementById("mySidenav").style.width = "0";
-                    }
-
                     socket.emit('welcomes', null, (response) => {
                         if (response) {
                             $('#lbl_welcome_content').html(escapeHtml(response.welcome))
@@ -792,21 +781,6 @@
                             $('#lbl_contents').html(page)
                         }
                     })
-
-                    function onMyAcount() {
-                        if (isDefine(getCookie('_id')) && getCookie('_id') != 'null') {
-                            window.location.href = '../agency/account'
-                        } else {
-                            toggleModalSignInSignUp()
-                        }
-                    }
-                    function onPostAd() {
-                        if (isDefine(getCookie('_id')) && getCookie('_id') != 'null') {
-                            window.location.href = '../agency/account?post=show'
-                        } else {
-                            toggleModalSignInSignUp()
-                        }
-                    }
 
                     document.getElementById('edt_phone').addEventListener('input', function (e) {
                         var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);

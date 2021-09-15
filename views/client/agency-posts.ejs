@@ -847,7 +847,7 @@
                 indexRow = tryParseInt(urlParams.get('row'));
                 indexPage = tryParseInt(urlParams.get('page'));
                 var isSort = urlParams.get('sort') || 1;
-                
+
                 function onShowFilter() {
                     if ($("#basic-table > div").hasClass("d-grid")) {
                         $('#basic-table > div').removeClass('d-grid')
@@ -1225,6 +1225,14 @@
                         alert("Posts are limited to ten photos")
                         return
                     }
+
+                    if ($("#inputSelectMoreImage_update")[0].files.length + products[index_edit].images.length == 0) {
+                        $('.imageuploadify-container').remove()
+                        $('#inputSelectMoreImage_update').focus()
+                        alert("Please select at least one photo")
+                        return
+                    }
+
                     if (!checkFileBigUpdate()) {
                         $('#inputSelectMoreImage_update').focus()
                         return
@@ -1304,7 +1312,11 @@
                         })
                     }))
 
-                    $('#form_update_job').submit()
+                    socket.emit('on-update-images-post', { _id: getCookie('_id'), password: getCookie('password'), id_post: products[index_edit]._id, type: isSort, images: products[index_edit].images }, (response) => {
+                        $('#form_update_job').submit()
+                    })
+
+                    
 
                     // showLoading()
                     // var frm = $('#form_update_job');
@@ -1338,18 +1350,9 @@
                     index = tryParseInt(index)
                     iEdit = tryParseInt(iEdit)
 
-                    if (products[iEdit].images.length <= 1) {
-                        alert('Posts need at least one photo')
-                        return
-                    }
-
                     if (products[iEdit] != undefined && products[iEdit].images != undefined && products[iEdit].images != null && products[iEdit].images.length > 0) {
                         products[iEdit].images = removeIndexOfArray(products[iEdit].images, index);
                     }
-
-                    socket.emit('on-update-images-post', { _id: getCookie('_id'), password: getCookie('password'), id_post: products[iEdit]._id, type: isSort, images: products[iEdit].images }, (response) => {
-
-                    })
 
                     editProduct(iEdit)
                     editProduct(iEdit)

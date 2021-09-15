@@ -11,6 +11,9 @@ const object = mongoose.Schema({
     privacy_policy: {
         ...helper.schemaString,
     },
+    phone_support: {
+        ...helper.schemaString,
+    },
 }, { timestamps: true });
 
 object.set('toObject', { getters: true, setters: true });

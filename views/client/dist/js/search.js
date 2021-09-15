@@ -221,12 +221,21 @@ querySearch = { code: code, categories: categories, distance: distance, latitude
 
 function searchProduct() {
 
-    if (categories == 'find-job') {
+    $('#categories_1_1').removeClass('font-medium')
+    $('#categories_1_2').removeClass('font-medium')
+    $('#categories_1_3').removeClass('font-medium')
+
+    if (categories.includes('find-job')) {
         $('#select_categories').val("find-job").change()
-    } else if (categories == 'sell-salon') {
+        $('#categories_1_1').addClass('font-medium')
+        title = null
+    } else if (categories.includes('sell-salon')) {
         $('#select_categories').val("sell-salon").change()
+        $('#categories_1_2').addClass('font-medium')
+        title = null
     } else if (categories.includes('nail-supply')) {
         $('#select_categories').val("nail-supply").change()
+        $('#categories_1_3').addClass('font-medium')
         title = $('#keyword').val()
     }
 
@@ -252,7 +261,18 @@ function searchProduct() {
                 if (response[i].images != null && response[i].images.length > 0) {
                     bg = escapeHtml(urlImage + response[i].images[0])
                 }
-                $('#containe_newest').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '" class="zoom-in col-span-12 xl:col-span-6 box" style="border-radius: 1rem;box-shadow: 0px 4px 6px #bdbdbd;"> <div class="grid grid-cols-3 intro-y h-full"> <div class="col-span-1"> <div  style="background-image: url(' + bg + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response[i].title) + ' </div> <div class="ellipsis mt-2"> ' + removeHTMLTags(escapeHtml(response[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium ellipsis" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(isNumber(response[i].cost) ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response[i].distance) + '</span> </div> </div> <div class="p-2 grid grid-cols-12"> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city + ', ' + response[i].state) + ' </div> </div> </div></div> </a>')
+                let border
+                let display = ''
+                if (response[i].package == 'Gold') {
+                    border = 'border-gold'
+                } else if (response[i].package == 'Silver') {
+                    border = 'border-normal'
+                    display = 'display: none;'
+                } else {
+                    border = 'border-normal'
+                    display = 'display: none;'
+                }
+                $('#containe_newest').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '" class="zoom-in col-span-12 xl:col-span-6 box ' + border + '"> <div class="grid grid-cols-3 intro-y h-full"> <div class="col-span-1"> <div  style="background-image: url(' + bg + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div style="display:flex;"><div class=" font-medium ellipsis-1" style="flex:10"> ' + escapeHtml(response[i].title) + '</div><div class="text-gold" style="flex: 2;' + display + '">Gold</div> </div> <div class="ellipsis mt-2"> ' + removeHTMLTags(escapeHtml(response[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium ellipsis" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(isNumber(response[i].cost) ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response[i].distance) + '</span> </div> </div> <div class="p-2 grid grid-cols-12"> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city + ', ' + response[i].state) + ' </div> </div> </div></div> </a>')
             }
         } else {
             $('#containe_newest').html('<div class="intro-y col-span-12 text-center font-medium" style="font-size: 2rem;">No result!</div>')
@@ -282,8 +302,10 @@ function loadmoreProduct(page) {
 }
 
 function countProduct() {
-    if ($('#select_categories').val() == 'nail-supply') {
+    if (categories.includes('nail-supply')) {
         title = $('#keyword').val()
+    }else{
+        title = null
     }
     querySearch = { code: code, categories: categories, distance: distance, latitude: latitude, longitude: longitude, salary: salary, limit: limit, offset: offset, title: title }
     socket.emit('count-search', querySearch, (response) => {
@@ -342,8 +364,12 @@ changeSalary(tryParseInt(salary))
 
 socket.emit('name-country-by-code', { code: code }, (response) => {
     if (isDefine(response)) {
-        if (!response.name_city.includes('undefined')) $('#keyword').val(response.name_city)
-        $('#lbl_country').html('" ' + $('#keyword').val() + ' "')
+        if (!response.name_city.includes('undefined') && !$('#select_categories').val().includes('nail-supply')){
+            $('#keyword').val(response.name_city)
+            $('#lbl_country').html('"' + $('#keyword').val() + '"')
+        }else{
+            $('#lbl_country').html('"' + $('#keyword').val() + '"')
+        }
 
         $('#slick').empty()
         for (let i = 0; i < response.relateCities.length; i++) {
@@ -360,4 +386,13 @@ socket.emit('name-country-by-code', { code: code }, (response) => {
         reloadSlick()
     }
 
+})
+
+$(document).ready(function () {
+    $('#keyword').keypress(function (e) {
+        if (e.which == 13 && categories.includes('nail-supply') && $('#keyword').val().length > 0) {
+            search($('#keyword').val())
+            $("#container_drop_result").hide()
+        }
+    })
 })

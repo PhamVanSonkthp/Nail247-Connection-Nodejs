@@ -1,0 +1,54 @@
+<%- include("header", {tab: "home" , title: "Trang chủ" }); %>
+    <!-- BEGIN: Content -->
+
+
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            Settings > phone support
+        </h2>
+    </div>
+
+
+    <div class="intro-y box p-5 mt-5">
+        <input id="edt_phone_support" autocomplete="off" type="text"
+            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+            placeholder="Phone number" />
+
+        <button id="btn_save" onclick="saveContent()" type="button" class="btn btn-success mt-5">Save</button>
+    </div>
+
+    <!-- END: Content -->
+
+    </div>
+    <!-- BEGIN: SCRIPT -->
+
+    <script>
+
+        showLoading()
+        function saveContent() {
+            showLoading()
+            socket.emit('update-contact-us', { _id: getCookie('_id'), password: getCookie('password'), phone_support: $('#edt_phone_support').val() }, (response) => {
+                hideLoading()
+            })
+        }
+
+        $(document).ready(function () {
+            $('#draw_5').addClass('side-menu--active')
+            $('#draw_5').addClass('side-menu--open')
+            $('#draw_5_7').addClass('side-menu--active')
+            $('#draw_5_wrap').addClass('side-menu__sub-open')
+        })
+        socket.emit('contact-us', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+            if (isDefine(response)) {
+                $('#edt_phone_support').val(response.phone_support)
+            }
+            hideLoading()
+        })
+
+        document.getElementById('edt_phone_support').addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        })
+    </script>
+    <!-- END: SCRIPT -->
+    <%- include("footer"); %>

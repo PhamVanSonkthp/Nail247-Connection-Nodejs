@@ -80,6 +80,10 @@ app.get('/admin/privacy-policy', function (req, res) {
   res.render('./admin/privacy-policy')
 })
 
+app.get('/admin/phone-support', function (req, res) {
+  res.render('./admin/phone-support')
+})
+
 //----------Start Clients Area---------//
 
 app.get('/', function (req, res) {
@@ -1461,6 +1465,7 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.contact_us)) objForUpdate.contact_us = sanitize(data.contact_us)
         if (helper.isDefine(data.terms_of_use)) objForUpdate.terms_of_use = sanitize(data.terms_of_use)
         if (helper.isDefine(data.privacy_policy)) objForUpdate.privacy_policy = sanitize(data.privacy_policy)
+        if (helper.isDefine(data.phone_support)) objForUpdate.phone_support = sanitize(data.phone_support)
         objForUpdate = { $set: objForUpdate }
 
         UserModel.findOneAndUpdate({}, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
@@ -1699,41 +1704,21 @@ io.sockets.on('connection', (socket) => {
 
         let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
 
-
         if (helper.isDefine(data.title) && data.title.length > 0) {
+          data.title = data.title.trim().replaceAll('  ' , ' ')
+          let menus = data.title.split(' ')
+          let queryTitle = {}
+          for(let i = 0 ; i < menus.length ; i++){
+            queryTitle = {
+              ...queryTitle,
+              title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }
+            }
+          }
           query = {
             ...query,
-            title: sanitize(data.title)
+            $or: [queryTitle],
           }
         }
-
-        // if (helper.isDefine(data.distance) && helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-
-        //   let maxDistance = 100000000
-        //   if (data.distance == 1) {
-        //     maxDistance = 2000
-        //   } else if (data.distance == 2) {
-        //     maxDistance = 5000
-        //   } else if (data.distance == 3) {
-        //     maxDistance = 100000
-        //   }
-
-        //   query = {
-        //     ...query,
-        //     location: {
-        //       $near: {
-        //         $geometry: {
-        //           type: "Point",
-        //           coordinates: [data.longitude, data.latitude],
-        //         },
-        //         $minDistance: 0,
-        //         $maxDistance: maxDistance,
-        //       }
-        //     }
-        //   }
-        // }
-
-
 
         if (helper.isDefine(data.salary) && helper.tryParseInt(data.salary) != 0) {
           let salary
@@ -1766,7 +1751,7 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.code) && data.code != 'null' && data.code != 0 && data.code != '0') {
+        if (helper.isDefine(data.code) && data.code != 'null' && data.code != 0 && data.code != '0' && !helper.isDefine(data.title)) {
           let state = helper.getStateByCode(data.code)
           if (state != null) {
             query = {
@@ -1783,23 +1768,6 @@ io.sockets.on('connection', (socket) => {
 
         const object = await UserModel.find(query).limit(data.limit).skip(data.offset)
         callback(object)
-
-
-        // if (helper.isDefine(data.distance) && helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-        //   for (let i = 0; i < object.length; i++) {
-        //     object[i] = {
-        //       ...object[i]._doc,
-        //       distance: helper.getDistanceFromLatLonInKm(object[i].location.coordinates[0], object[i].location.coordinates[1], data.longitude, data.latitude).replaceAll('km', 'mile')
-        //     }
-        //   }
-        // } else {
-        //   for (let i = 0; i < object.length; i++) {
-        //     object[i] = {
-        //       ...object[i]._doc,
-        //       distance: 'Unknown'
-        //     }
-        //   }
-        // }
 
       } else {
         callback(null);
@@ -1828,9 +1796,18 @@ io.sockets.on('connection', (socket) => {
         let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
+          data.title = data.title.trim().replaceAll('  ' , ' ')
+          let menus = data.title.split(' ')
+          let queryTitle = {}
+          for(let i = 0 ; i < menus.length ; i++){
+            queryTitle = {
+              ...queryTitle,
+              title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }
+            }
+          }
           query = {
             ...query,
-            title: sanitize(data.title)
+            $or: [queryTitle],
           }
         }
 
@@ -1865,7 +1842,7 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        if (helper.isDefine(data.code) && data.code != 'null' && data.code != 0 && data.code != '0') {
+        if (helper.isDefine(data.code) && data.code != 'null' && data.code != 0 && data.code != '0' && !helper.isDefine(data.title)) {
           let state = helper.getStateByCode(data.code)
           if (state != null) {
             query = {
@@ -1879,9 +1856,7 @@ io.sockets.on('connection', (socket) => {
             }
           }
         }
-
         const object = await UserModel.countDocuments(query)
-
         callback(object)
       } else {
         callback(null);
@@ -2507,7 +2482,7 @@ io.sockets.on('connection', (socket) => {
           helper.fs.unlinkSync(pathImage + 'icon-' + resultNeedDelete[i])
         }
 
-
+        callback(result)
       } else {
         callback(null);
       }

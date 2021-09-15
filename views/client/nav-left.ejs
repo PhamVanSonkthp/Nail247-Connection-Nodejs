@@ -10,31 +10,118 @@
     }
 </style>
 
-<div onclick="closeNav()" id="container_nav"
-        style="z-index: 1000; margin-left: 250px; width: 100%; position: fixed; top: 0; right: 0; bottom: 0; display: none;">
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <div class="side-bar__mn">
-                <div class="side__list-mn">
-                    <ul id="menu-list" class="menu-side" style="list-style-type: none;padding-left: 0rem;">
-                        <li class="menu-item">
-                            <a class="select menu-link" href="../contact-us">Contact us</a>
-                        </li>
-                        <li class="menu-item">
-                            <a class="select menu-link" href="../privacy-policy">Privacy policy</a>
-                        </li>
-                        <li class="menu-item">
-                            <a class="select menu-link" href="../terms-of-use">Terms of use</a>
-                        </li>
-                        <li class="menu-item" style="cursor: pointer;">
-                            <a class="select menu-link" onclick="onMyAcount()">My Account</a>
-                        </li>
-                        <li class="menu-item" style="cursor: pointer;">
-                            <a class="select menu-link" onclick="onPostAd()">Post New AD</a>
-                        </li>
-                    </ul>
+<div id="modal_contact_us" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <button style="position: absolute;right: 0.7rem;top: 0.3rem;" onclick="toggleModalContact()" type="button"
+                class="close no-border" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="no-border" style="font-size: 1.3rem;">&times;</span>
+            </button>
+
+            <div style="border-radius: 0.5rem; padding: 2rem;">
+
+                <h1 class="text-dark text-center font-medium" style="font-size: 1.1rem; padding:0;">
+                    Contact us
+                </h1>
+
+                <div class="text-dark divider" style="font-size: 0.8rem;margin-top: 1rem;">
+
                 </div>
+
+                <h2 class="mt-2" id="content_contact_us">
+
+                </h2>
+
             </div>
-            
+
         </div>
     </div>
+</div>
+
+<div onclick="closeNav()" id="container_nav"
+    style="z-index: 1000; margin-left: 250px; width: 100%; position: fixed; top: 0; right: 0; bottom: 0; display: none;">
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="side-bar__mn">
+            <div class="side__list-mn">
+                <ul id="menu-list" class="menu-side" style="list-style-type: none;padding-left: 0rem;">
+                    <li class="menu-item">
+                        <a class="select menu-link" style="cursor: pointer;" onclick="toggleModalContact()">Contact
+                            us</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="select menu-link" href="../privacy-policy">Privacy policy</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="select menu-link" href="../terms-of-use">Terms of use</a>
+                    </li>
+                    <li class="menu-item" style="cursor: pointer;">
+                        <a class="select menu-link" onclick="onMyAcount()">My Account</a>
+                    </li>
+                    <li class="menu-item" style="cursor: pointer;">
+                        <a class="select menu-link" onclick="onPostAd()">Post New AD</a>
+                    </li>
+                    <li class="menu-item" style="cursor: pointer;">
+                        <a class="select menu-link" id="call_phone_support">
+                            <div>
+                                Phone Support (VN/US)
+                            </div>
+                            <div class="mt-5 ml-5">
+                                <i class="fas fa-phone-alt mr-2"></i><span id="phone_support"></span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function openNav() {
+        $('#container_nav').show()
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        $('#container_nav').hide(200)
+        document.getElementById("mySidenav").style.width = "0";
+    }
+
+    function onMyAcount() {
+        if (isDefine(getCookie('_id')) && getCookie('_id') != 'null') {
+            window.location.href = '../agency/account'
+        } else {
+            toggleModalSignInSignUp()
+        }
+    }
+    function onPostAd() {
+        if (isDefine(getCookie('_id')) && getCookie('_id') != 'null') {
+            window.location.href = '../agency/account?post=show'
+        } else {
+            toggleModalSignInSignUp()
+        }
+    }
+
+    function toggleModalContact() {
+        $('#modal_contact_us').css('display', 'block');
+        $('#modal_contact_us').css('margin-top', '0px');
+        $('#modal_contact_us').css('margin-left', '0px');
+        $('#modal_contact_us').css('z-index', '1000');
+        if ($("#modal_contact_us").hasClass("show")) {
+            $('#modal_contact_us').removeClass('show');
+            $('body').removeClass('overflow-y-hidden');
+        } else {
+            $('#modal_contact_us').addClass('show');
+            $('body').addClass('overflow-y-hidden');
+        }
+    }
+
+    socket.emit('contact-us', null, (response) => {
+        $('#content_contact_us').html(response.contact_us)
+        $('#phone_support').html(response.phone_support)
+        $('#call_phone_support').attr('href' , 'tel:' + response.phone_support)
+    })
+</script>

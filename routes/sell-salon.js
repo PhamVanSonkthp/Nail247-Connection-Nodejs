@@ -142,36 +142,95 @@ async function uploadImage(req, res, isWeb) {
 };
 
 router.put('/:objectId', async (req, res) => {
-    try {
-        let objForUpdate = {};
-        if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon
-        if (helper.isDefine(req.body.address_salon)) objForUpdate.address_salon = req.body.address_salon;
-        if (helper.isDefine(req.body.phone)) objForUpdate.phone = req.body.phone;
-        if (helper.isDefine(req.body.country)) objForUpdate.country = req.body.country;
-        if (helper.isDefine(req.body.city)) objForUpdate.city = req.body.city;
-        if (helper.isDefine(req.body.state)) objForUpdate.state = req.body.state;
-        if (helper.isDefine(req.body.code)) objForUpdate.code = req.body.code;
-        if (helper.isDefine(req.body.title)) objForUpdate.title = req.body.title;
-        if (helper.isDefine(req.body.content)) objForUpdate.content = req.body.content;
-        if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email;
-        if (helper.isDefine(req.body.price)) objForUpdate.price = req.body.price;
-        if (helper.isDefine(req.body.options)) objForUpdate.options = helper.tryParseJson(helper.isDefine(req.body.options));
-        if (helper.isDefine(req.body.images)) objForUpdate.images = helper.tryParseJson(helper.isDefine(req.body.images));
-        if (helper.isDefine(req.body.status)) objForUpdate.status = req.body.status;
-        if (helper.isDefine(req.body.package)) objForUpdate.package = req.body.package;
-        if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider;
-        if (helper.isDefine(req.body.expiration_date)) objForUpdate.expiration_date = req.body.expiration_date;
+    return await updatePostMobile(req, res)
+})
 
-        objForUpdate = { $set: objForUpdate }
+async function updatePostMobile(req, res) {
+    const helpers = require('helpers')
+    const multer = require('multer')
+    const path = require('path')
+    const sharp = require('sharp')
 
-        const object = await ObjectModel.updateOne(
-            { _id: req.params.objectId }, objForUpdate
-        );
-        return res.json(object);
-    } catch (err) {
-        return res.status(400).json(err);
-    }
-});
+    const pathStorage = 'public/images-sells-salons/'
+
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, pathStorage);
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        }
+    });
+
+    let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).array('avatar', 100);
+    upload(req, res, function (err) {
+        (async () => {
+            try {
+
+                let objForUpdate = {}
+                if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon
+                if (helper.isDefine(req.body.phone)) objForUpdate.phone = req.body.phone
+                if (helper.isDefine(req.body.country) && req.body.country) objForUpdate.country = req.body.country
+                if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city
+                if (helper.isDefine(req.body.state) && req.body.state) objForUpdate.state = req.body.state
+                if (helper.isDefine(req.body.code)) objForUpdate.code = req.body.code
+                if (helper.isDefine(req.body.title)) objForUpdate.title = req.body.title
+                if (helper.isDefine(req.body.content)) objForUpdate.content = req.body.content
+                if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email
+                if (helper.isDefine(req.body.price)) objForUpdate.price = req.body.price
+                if (helper.isDefine(req.body.options)) objForUpdate.options = helper.tryParseJson(helper.isDefine(req.body.options))
+                if (helper.isDefine(req.body.images)) objForUpdate.images = helper.tryParseJson(helper.isDefine(req.body.images))
+                if (helper.isDefine(req.body.status)) objForUpdate.status = req.body.status
+
+                objForUpdate = { $set: objForUpdate }
+
+                const savedObject = await ObjectModel.findOneAndUpdate(
+                    { _id: req.params.objectId }, objForUpdate, helper.optsValidator
+                )
+
+                if (req.fileValidationError) {
+                    return res.json(savedObject)
+                } else {
+                    const files = req.files;
+
+                    if (!helper.isDefine(files) || files.length <= 0) {
+                        return res.json(savedObject)
+                    }
+                    // start upload images
+                    let arr = []
+                    for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
+                        sharp(files[index].path).resize(250, 250).toFile(pathStorage + 'icon-' + files[index].filename);
+                        arr.push(files[index].filename);
+                    }
+                    // end upload images
+
+                    try {
+                        for (let i = 0; i < arr.length; i++) {
+                            await ObjectModel.updateOne(
+                                { _id: req.params.objectId },
+                                {
+                                    $push: { images: arr[i] },
+                                }
+                            )
+
+                            savedObject.images.push(arr[i])
+                        }
+
+                        return res.json(savedObject)
+                    } catch (err) {
+                        helper.throwError(err)
+                        return res.json(savedObject)
+                    }
+                }
+            } catch (e) {
+                helper.throwError(e)
+                return res.json(savedObject)
+            }
+
+        })();
+
+    });
+}
 
 router.delete('/:objectId', async (req, res) => {
     try {

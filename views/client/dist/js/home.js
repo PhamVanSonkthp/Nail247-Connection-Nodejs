@@ -283,7 +283,7 @@ $(document).ready(function () {
             $('#keyword').attr("placeholder", "Search Salon for Sale by City or Zipcode")
             $('#select_range_salary').html('<option value="0" selected>Price</option><option value="1">0$ - 500$</option><option value="2">500$ - 1,000$</option><option value="3">1,000$ - 2,000$</option><option value="4">2,000$ up</option>')
         } else if (this.value == 'nail-supply') {
-            $('#keyword').attr("placeholder", "Search nail supply")
+            $('#keyword').attr("placeholder", "Search Nail Supply")
             $('#select_range_salary').html('<option value="0" selected>Price</option><option value="1">0$ - 500$</option><option value="2">500$ - 1,000$</option><option value="3">1,000$ - 2,000$</option><option value="4">2,000$ up</option>')
         } else if (this.value == 'find-job') {
             $('#keyword').attr("placeholder", "Search a Job by City or Zipcode")

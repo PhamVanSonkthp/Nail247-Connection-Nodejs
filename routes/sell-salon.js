@@ -179,7 +179,7 @@ async function updatePostMobile(req, res) {
                 if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email
                 if (helper.isDefine(req.body.price)) objForUpdate.price = req.body.price
                 if (helper.isDefine(req.body.options)) objForUpdate.options = helper.tryParseJson(helper.isDefine(req.body.options))
-                if (helper.isDefine(req.body.images)) objForUpdate.images = helper.tryParseJson(req.body.images)
+                if (helper.isDefine(req.body.images)) objForUpdate.images = helper.tryParseJson(req.body.images) || '[]'
                 if (helper.isDefine(req.body.status)) objForUpdate.status = req.body.status
 
                 objForUpdate = { $set: objForUpdate }
@@ -411,7 +411,6 @@ async function updateImage(req, res, isWeb) {
                 if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email;
                 if (helper.isDefine(req.body.cost)) objForUpdate.price = req.body.cost;
                 if (helper.isDefine(req.body.options)) objForUpdate.options = helper.tryParseJson(helper.isDefine(req.body.options));
-                //if (helper.isDefine(req.body.images)) objForUpdate.images = helper.tryParseJson(helper.isDefine(req.body.images));
                 if (helper.isDefine(req.body.status)) objForUpdate.status = req.body.status;
 
                 objForUpdate = { $set: objForUpdate }

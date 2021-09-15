@@ -1207,8 +1207,8 @@
 
                     for (let x in files) {
                         let filesize = ((files[x].size / 1024) / 1024).toFixed(4);
-                        if (filesize > 4) {
-                            alert('Photo size too big, please reduce photo below 4mb')
+                        if (filesize > 10) {
+                            alert('Photo size too big, please reduce photo below 10mb')
                             $('.imageuploadify-container').remove()
                             return false
                         }

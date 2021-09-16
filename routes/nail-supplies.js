@@ -297,15 +297,25 @@ router.get('/', async (req, res) => {
         const page = parseInt(req.query.page, 10) || 0;
         const latitude = req.query.latitude;
         const longitude = req.query.longitude;
-        const title = req.query.title;
+        let title = req.query.title;
         const price = req.query.price;
 
         let query = { expiration_date: { $gte: new Date() }, status: 1 }
 
-        if (helper.isDefine(title)) {
+        if (helper.isDefine(title) && title.length > 0) {
+
+            title = title.trim().replaceAll('  ', ' ')
+            let menus = title.split(' ')
+            let queryTitle = {}
+            for (let i = 0; i < menus.length; i++) {
+                queryTitle = {
+                    ...queryTitle,
+                    title: { $regex: ".*" + menus[i] + ".*", $options: "$i" }
+                }
+            }
             query = {
                 ...query,
-                title: { $regex: ".*" + title + ".*", $options: "$i" }
+                $or: [queryTitle],
             }
         }
 
@@ -445,7 +455,7 @@ async function updateImage(req, res, isWeb) {
                                     $push: { images: arr[i] },
                                 }
                             )
-                            
+
                             savedObject.images.push(arr[i])
                         }
 

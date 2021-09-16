@@ -146,6 +146,18 @@ app.get('/privacy-policy', function (req, res) {
   res.render('./client/privacy-policy')
 })
 
+app.get('/contact', async (req, res) => {
+  try {
+    const UserModel = require('./models/ContactUs');
+
+    const result = await UserModel.findOne()
+    res.json(result)
+  } catch (e) {
+    helper.throwError(e)
+    res.status(500).json(null)
+  }
+})
+
 //----------End Clients Area---------//
 
 

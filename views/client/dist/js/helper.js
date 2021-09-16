@@ -170,12 +170,10 @@ function removeIndexOfArray(arr, index) {
 	let arrTemp = [];
 	index = parseInt(index);
 	for (let i = 0; i < arr.length && i < index; i++) {
-		console.log(i);
 		arrTemp.push(arr[i]);
 	}
 
 	for (let i = index + 1; i < arr.length; i++) {
-		console.log(i);
 		arrTemp.push(arr[i]);
 	}
 

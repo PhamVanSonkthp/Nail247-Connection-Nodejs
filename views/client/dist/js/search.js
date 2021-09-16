@@ -20,12 +20,12 @@ function reloadSlick() {
         dots: false,
         arrows: true,
         speed: 1000,
-
+        accessibility: false,
         mobileFirst: true,
-
+        focusOnSelect: false,
         slidesToShow: 1,
         slidesToScroll: 1,
-
+        infinite: false,
         responsive: [{
             breakpoint: breakpoint.xs,
             settings: {
@@ -72,9 +72,9 @@ function reloadSlick_2() {
         dots: false,
         arrows: false,
         speed: 1000,
-
+        focusOnSelect: false,
         mobileFirst: true,
-
+        infinite: false,
         slidesToShow: 1,
         slidesToScroll: 1,
 
@@ -385,7 +385,6 @@ socket.emit('name-country-by-code', { code: code }, (response) => {
     if (typeof reloadSlick != "undefined") {
         reloadSlick()
     }
-
 })
 
 $(document).ready(function () {

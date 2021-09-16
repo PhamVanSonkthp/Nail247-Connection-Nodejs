@@ -294,7 +294,12 @@ $(document).ready(function () {
         onSearch($('#keyword').val())
     }
     $("#keyword").focus()
-    //$('#edt_password').get(0).type = 'password';
+
+    $('#keyword').keypress(function (e) {
+        if (e.which == 13 && $('#select_categories').val().includes('nail-supply') && $('#keyword').val().length > 0) {
+            search($('#keyword').val())
+        }
+    })
 })
 
 function clearFilter() {

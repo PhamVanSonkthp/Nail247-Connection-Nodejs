@@ -266,7 +266,7 @@ router.get('/featured', async (req, res) => {
             }
         }
 
-        const result = await ObjectModel.find(query).limit(limit).skip(page);
+        const result = await ObjectModel.find(query).sort({_id : -1}).limit(limit).skip(page);
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             for (let i = 0; i < result.length; i++) {
@@ -344,7 +344,7 @@ router.get('/', async (req, res) => {
             }
         }
 
-        const result = await ObjectModel.find(query).limit(limit).skip(page);
+        const result = await ObjectModel.find(query).sort({_id : -1}).limit(limit).skip(page);
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             for (let i = 0; i < result.length; i++) {

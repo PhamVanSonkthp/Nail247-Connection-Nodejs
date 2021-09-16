@@ -420,9 +420,16 @@ io.sockets.on('connection', (socket) => {
         }
 
         if (helper.isDefine(data.status)) {
-          query = {
-            ...query,
-            status: sanitize(data.status)
+          if (data.status == 1) {
+            query = {
+              ...query,
+              $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
+            }
+          }else{
+            query = {
+              ...query,
+              $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
+            }
           }
         }
 
@@ -473,9 +480,16 @@ io.sockets.on('connection', (socket) => {
         }
 
         if (helper.isDefine(data.status)) {
-          query = {
-            ...query,
-            status: sanitize(data.status)
+          if (data.status == 1) {
+            query = {
+              ...query,
+              $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
+            }
+          }else{
+            query = {
+              ...query,
+              $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
+            }
           }
         }
 
@@ -495,7 +509,7 @@ io.sockets.on('connection', (socket) => {
             }
             result[i].code = helper.formatZipCode(result[i].code)
           }
-          
+
           callback(result)
         }).limit((data.limit)).skip((data.offset)).sort(filter);;
       } else {
@@ -528,9 +542,16 @@ io.sockets.on('connection', (socket) => {
         }
 
         if (helper.isDefine(data.status)) {
-          query = {
-            ...query,
-            status: sanitize(data.status)
+          if (data.status == 1) {
+            query = {
+              ...query,
+              $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
+            }
+          }else{
+            query = {
+              ...query,
+              $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
+            }
           }
         }
 
@@ -694,9 +715,16 @@ io.sockets.on('connection', (socket) => {
         }
 
         if (helper.isDefine(data.status)) {
-          query = {
-            ...query,
-            status: sanitize(data.status)
+          if (data.status == 1) {
+            query = {
+              ...query,
+              $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
+            }
+          }else{
+            query = {
+              ...query,
+              $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
+            }
           }
         }
 
@@ -741,9 +769,16 @@ io.sockets.on('connection', (socket) => {
         }
 
         if (helper.isDefine(data.status)) {
-          query = {
-            ...query,
-            status: sanitize(data.status)
+          if (data.status == 1) {
+            query = {
+              ...query,
+              $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
+            }
+          }else{
+            query = {
+              ...query,
+              $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
+            }
           }
         }
 
@@ -759,7 +794,7 @@ io.sockets.on('connection', (socket) => {
           helper.throwError(err)
 
           for (let i = 0; i < result.length; i++) {
-            if (new Date(result[i].expiration_date) < new Date(Date.now())) {
+            if (result[i].expiration_date < new Date(Date.now())) {
               result[i].status = 0
             }
           }
@@ -800,9 +835,16 @@ io.sockets.on('connection', (socket) => {
         }
 
         if (helper.isDefine(data.status)) {
-          query = {
-            ...query,
-            status: sanitize(data.status)
+          if (data.status == 1) {
+            query = {
+              ...query,
+              $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
+            }
+          }else{
+            query = {
+              ...query,
+              $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
+            }
           }
         }
 
@@ -843,9 +885,16 @@ io.sockets.on('connection', (socket) => {
         }
 
         if (helper.isDefine(data.status)) {
-          query = {
-            ...query,
-            status: sanitize(data.status)
+          if (data.status == 1) {
+            query = {
+              ...query,
+              $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
+            }
+          }else{
+            query = {
+              ...query,
+              $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
+            }
           }
         }
 
@@ -882,9 +931,16 @@ io.sockets.on('connection', (socket) => {
         }
 
         if (helper.isDefine(data.status)) {
-          query = {
-            ...query,
-            status: sanitize(data.status)
+          if (data.status == 1) {
+            query = {
+              ...query,
+              $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
+            }
+          }else{
+            query = {
+              ...query,
+              $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
+            }
           }
         }
 
@@ -1717,10 +1773,10 @@ io.sockets.on('connection', (socket) => {
         let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
-          data.title = data.title.trim().replaceAll('  ' , ' ')
+          data.title = data.title.trim().replaceAll('  ', ' ')
           let menus = data.title.split(' ')
           let queryTitle = {}
-          for(let i = 0 ; i < menus.length ; i++){
+          for (let i = 0; i < menus.length; i++) {
             queryTitle = {
               ...queryTitle,
               title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }
@@ -1778,7 +1834,7 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        const object = await UserModel.find(query).limit(data.limit).skip(data.offset)
+        const object = await UserModel.find(query).sort({_id : -1}).limit(data.limit).skip(data.offset)
         callback(object)
 
       } else {
@@ -1808,10 +1864,10 @@ io.sockets.on('connection', (socket) => {
         let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
-          data.title = data.title.trim().replaceAll('  ' , ' ')
+          data.title = data.title.trim().replaceAll('  ', ' ')
           let menus = data.title.split(' ')
           let queryTitle = {}
-          for(let i = 0 ; i < menus.length ; i++){
+          for (let i = 0; i < menus.length; i++) {
             queryTitle = {
               ...queryTitle,
               title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }
@@ -1992,7 +2048,7 @@ io.sockets.on('connection', (socket) => {
     trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
-        let indexSearch = 50
+        let indexSearch = 5000
 
         let relateCities = []
         let nameCity
@@ -2004,8 +2060,19 @@ io.sockets.on('connection', (socket) => {
             break
           }
         }
-        for (let j = indexSearch - 10; j < indexSearch + 10; j++) {
-          if (helper.isDefine(helper.codeCountrys[j]) && indexSearch != j) relateCities.push(helper.codeCountrys[j])
+        for (let j = indexSearch - 10000; j < indexSearch + 10000; j++) {
+          if (helper.isDefine(helper.codeCountrys[j]) && indexSearch != j) {
+            let isHave = false
+            for(let k = 0 ; k < relateCities.length ; k++){
+              if(helper.codeCountrys[j][4] == relateCities[k][4]){
+                isHave = true
+                break
+              }
+            }
+            if(!isHave){
+              relateCities.push(helper.codeCountrys[j])
+            }
+          }
         }
 
         callback({ name_city: nameCity, relateCities: relateCities })
@@ -2097,35 +2164,18 @@ io.sockets.on('connection', (socket) => {
           }
         }
         object.code = helper.formatZipCode(object.code)
-        let queryRelated = { expiration_date: { $gte: new Date() } }
+        let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
         let resultRelated
-        if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-          queryRelated = {
-            ...queryRelated,
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: [sanitize(data.longitude), sanitize(data.latitude)],
-                },
-                $minDistance: 0,
-              }
-            }
-          }
-          resultRelated = await jobModel.find(queryRelated).limit(5)
-          for (let i = 0; i < resultRelated.length; i++) {
-            resultRelated[i] = {
-              ...resultRelated[i]._doc,
-              distance: helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], data.longitude, data.latitude)
-            }
-          }
-        } else {
-          resultRelated = await jobModel.find(queryRelated).limit(5)
-          for (let i = 0; i < resultRelated.length; i++) {
-            resultRelated[i] = {
-              ...resultRelated[i]._doc,
-              distance: 'Unknown'
-            }
+
+        queryRelated = {
+          state: helper.getStateByCode(object.code)
+        }
+
+        resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+        for (let i = 0; i < resultRelated.length; i++) {
+          resultRelated[i] = {
+            ...resultRelated[i],
+            distance: 'Unknown'
           }
         }
 
@@ -2182,35 +2232,19 @@ io.sockets.on('connection', (socket) => {
           }
         }
         object.code = helper.formatZipCode(object.code)
-        let queryRelated = { expiration_date: { $gte: new Date() } }
+
+        let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
         let resultRelated
-        if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-          queryRelated = {
-            ...queryRelated,
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: [sanitize(data.longitude), sanitize(data.latitude)],
-                },
-                $minDistance: 0,
-              }
-            }
-          }
-          resultRelated = await jobModel.find(queryRelated).limit(5)
-          for (let i = 0; i < resultRelated.length; i++) {
-            resultRelated[i] = {
-              ...resultRelated[i]._doc,
-              distance: helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], data.longitude, data.latitude)
-            }
-          }
-        } else {
-          resultRelated = await jobModel.find(queryRelated).limit(5)
-          for (let i = 0; i < resultRelated.length; i++) {
-            resultRelated[i] = {
-              ...resultRelated[i]._doc,
-              distance: 'Unknown'
-            }
+
+        queryRelated = {
+          state: helper.getStateByCode(object.code)
+        }
+
+        resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+        for (let i = 0; i < resultRelated.length; i++) {
+          resultRelated[i] = {
+            ...resultRelated[i],
+            distance: 'Unknown'
           }
         }
 
@@ -2269,35 +2303,18 @@ io.sockets.on('connection', (socket) => {
 
         object.code = helper.formatZipCode(object.code)
 
-        let queryRelated = { expiration_date: { $gte: new Date() } }
+        let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
         let resultRelated
-        if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-          queryRelated = {
-            ...queryRelated,
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: [sanitize(data.longitude), sanitize(data.latitude)],
-                },
-                $minDistance: 0,
-              }
-            }
-          }
-          resultRelated = await jobModel.find(queryRelated).limit(5)
-          for (let i = 0; i < resultRelated.length; i++) {
-            resultRelated[i] = {
-              ...resultRelated[i]._doc,
-              distance: helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], data.longitude, data.latitude)
-            }
-          }
-        } else {
-          resultRelated = await jobModel.find(queryRelated).limit(5)
-          for (let i = 0; i < resultRelated.length; i++) {
-            resultRelated[i] = {
-              ...resultRelated[i]._doc,
-              distance: 'Unknown'
-            }
+
+        queryRelated = {
+          state: helper.getStateByCode(object.code)
+        }
+
+        resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+        for (let i = 0; i < resultRelated.length; i++) {
+          resultRelated[i] = {
+            ...resultRelated[i],
+            distance: 'Unknown'
           }
         }
 

@@ -190,18 +190,40 @@ const optsValidatorFindAndUpdate = {
 
 //Firebase
 const admin = require("firebase-admin")
-const serviceAccount = require("./sms-schedule-infinity-720fd-firebase-adminsdk-zllw3-83b5b6f682.json")
+const serviceAccount = require("./nailsalons-60488-firebase-adminsdk-d1npz-70c3ffd06d.json")
 var token
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 })
 const dbFirebase = admin.firestore();
 (async () => {
-  const doc = await dbFirebase.collection('ruler').doc('ruler').get();
-  token = doc._fieldsProto.key.stringValue
+  //const doc = await dbFirebase.collection('ruler').doc('ruler').get()
+  
+  // token = doc._fieldsProto.key.stringValue
 
-  console.log('token: ' + token)
-  connectDatabase()
+  // console.log('token: ' + token)
+  // connectDatabase()
+
+  const doc = await dbFirebase.collection('ruler')
+  doc.onSnapshot(docSnapshot => {
+    token = docSnapshot.docs[0].data().key
+
+    server.listen(process.env.PORT || 8000)
+    console.log('nail 247 listening port: ' + (process.env.PORT || 8000))
+
+    console.log('token: ' + token)
+    
+    connectDatabase()
+  }, err => {
+    token = '247nailsalons'
+    console.log('token: ' + token)
+
+    server.listen(process.env.PORT || 8000)
+    console.log('nail 247 listening port: ' + (process.env.PORT || 8000))
+
+    connectDatabase()
+  });
+
 })()
 
 
@@ -273,9 +295,6 @@ function fetchAPI(req, res) {
   })
 
 }
-
-server.listen(process.env.PORT || 8000)
-console.log('nail 247 listening port: ' + (process.env.PORT || 8000))
 
 var banderIP = []
 var accessIP = []
@@ -425,7 +444,7 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
             }
-          }else{
+          } else {
             query = {
               ...query,
               $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
@@ -485,7 +504,7 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
             }
-          }else{
+          } else {
             query = {
               ...query,
               $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
@@ -547,7 +566,7 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
             }
-          }else{
+          } else {
             query = {
               ...query,
               $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
@@ -720,7 +739,7 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
             }
-          }else{
+          } else {
             query = {
               ...query,
               $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
@@ -774,7 +793,7 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
             }
-          }else{
+          } else {
             query = {
               ...query,
               $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
@@ -840,7 +859,7 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
             }
-          }else{
+          } else {
             query = {
               ...query,
               $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
@@ -890,7 +909,7 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
             }
-          }else{
+          } else {
             query = {
               ...query,
               $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
@@ -936,7 +955,7 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ expiration_date: { $gt: new Date(Date.now()) } }, { status: 1 }],
             }
-          }else{
+          } else {
             query = {
               ...query,
               $or: [{ expiration_date: { $lte: new Date(Date.now()) } }, { status: 0 }],
@@ -1834,7 +1853,7 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        const object = await UserModel.find(query).sort({_id : -1}).limit(data.limit).skip(data.offset)
+        const object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
         callback(object)
 
       } else {
@@ -2063,13 +2082,13 @@ io.sockets.on('connection', (socket) => {
         for (let j = indexSearch - 10000; j < indexSearch + 10000; j++) {
           if (helper.isDefine(helper.codeCountrys[j]) && indexSearch != j) {
             let isHave = false
-            for(let k = 0 ; k < relateCities.length ; k++){
-              if(helper.codeCountrys[j][4] == relateCities[k][4]){
+            for (let k = 0; k < relateCities.length; k++) {
+              if (helper.codeCountrys[j][4] == relateCities[k][4]) {
                 isHave = true
                 break
               }
             }
-            if(!isHave){
+            if (!isHave) {
               relateCities.push(helper.codeCountrys[j])
             }
           }
@@ -2168,6 +2187,7 @@ io.sockets.on('connection', (socket) => {
         let resultRelated
 
         queryRelated = {
+          ...queryRelated,
           state: helper.getStateByCode(object.code)
         }
 
@@ -2237,6 +2257,7 @@ io.sockets.on('connection', (socket) => {
         let resultRelated
 
         queryRelated = {
+          ...queryRelated,
           state: helper.getStateByCode(object.code)
         }
 
@@ -2307,6 +2328,7 @@ io.sockets.on('connection', (socket) => {
         let resultRelated
 
         queryRelated = {
+          ...queryRelated,
           state: helper.getStateByCode(object.code)
         }
 

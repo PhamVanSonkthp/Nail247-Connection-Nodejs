@@ -198,7 +198,7 @@ admin.initializeApp({
 const dbFirebase = admin.firestore();
 (async () => {
   //const doc = await dbFirebase.collection('ruler').doc('ruler').get()
-  
+
   // token = doc._fieldsProto.key.stringValue
 
   // console.log('token: ' + token)
@@ -212,7 +212,7 @@ const dbFirebase = admin.firestore();
     console.log('nail 247 listening port: ' + (process.env.PORT || 8000))
 
     console.log('token: ' + token)
-    
+
     connectDatabase()
   }, err => {
     token = '247nailsalons'
@@ -1125,9 +1125,9 @@ io.sockets.on('connection', (socket) => {
         const UserModel = require('./models/Job');
         let query = { _id: sanitize(data.id_product) }
         let objForUpdate = {}
-        if (data.status) objForUpdate.status = sanitize(data.status);
+        if (helper.isDefine(data.status)) objForUpdate.status = sanitize(data.status)
 
-        objForUpdate = { $set: objForUpdate };
+        objForUpdate = { $set: objForUpdate }
         UserModel.updateOne(query, objForUpdate, optsValidator, (err, result) => {
           if (err) helper.throwError(err);
           callback(result);
@@ -1179,7 +1179,7 @@ io.sockets.on('connection', (socket) => {
         const UserModel = require('./models/SellSalon');
         let query = { _id: sanitize(data.id_product) }
         let objForUpdate = {}
-        if (data.status) objForUpdate.status = sanitize(data.status)
+        if (helper.isDefine(data.status)) objForUpdate.status = sanitize(data.status)
 
         objForUpdate = { $set: objForUpdate };
         UserModel.updateOne(query, objForUpdate, optsValidator, (err, result) => {
@@ -1202,7 +1202,7 @@ io.sockets.on('connection', (socket) => {
         const UserModel = require('./models/NailSupply');
         let query = { _id: sanitize(data.id_product) }
         let objForUpdate = {}
-        if (data.status) objForUpdate.status = sanitize(data.status)
+        if (helper.isDefine(data.status)) objForUpdate.status = sanitize(data.status)
 
         objForUpdate = { $set: objForUpdate };
         UserModel.updateOne(query, objForUpdate, optsValidator, (err, result) => {

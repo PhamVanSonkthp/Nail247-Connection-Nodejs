@@ -300,7 +300,9 @@
             maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
 
             socket.emit('post-jobs', { _id: getCookie('_id'), password: getCookie('password'), limit: limit, offset: offset, input: $('#edt_search').val(), minDate: minDate, maxDate: maxDate, cost: $('#select_filter_cost').val(), package: $('#select_filter_package').val(), status: $('#select_filter_status').val() }, (response) => {
-                $("#SpnLoading").hide();
+                $("#SpnLoading").hide()
+                
+                console.log(response)
                 products = response
                 if (products != null) {
                     canvasTableProduct(products);
@@ -376,7 +378,7 @@
             }
             showLoading();
             socket.emit('update-posts-jobs', { _id: getCookie('_id'), password: getCookie('password'), id_product: products[index_edit]._id, status: products[index_edit].status }, (response) => {
-                hideLoading();
+                hideLoading()
                 if (response != null) {
                     canvasTableProduct(products);
                 } else {

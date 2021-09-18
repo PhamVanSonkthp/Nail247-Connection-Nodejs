@@ -184,7 +184,7 @@
 
 
             <div class="grid grid-cols-12 gap-6">
-                <div class="col-span-12 xl:col-span-9">
+                <div class="col-span-12 lg:col-span-9">
                     <div id="slick_images" style="display: block;">
                     </div>
 
@@ -210,10 +210,10 @@
                     </h3>
 
                     <div class="mt-2 -intro-x grid grid-cols-12">
-                        <div class="col-span-12 xl:col-span-9">
+                        <div class="col-span-12 lg:col-span-9">
                             <i class="fas fa-map-marker-alt fa-lg mr-2"></i> <span id="lbl_address"></span>
                         </div>
-                        <div class="col-span-12 xl:col-span-3 text-right">
+                        <div class="col-span-12 lg:col-span-3 text-right">
                             <span>Last Updated:</span> <span id="lbl_last_update"></span>
                         </div>
                     </div>
@@ -223,7 +223,7 @@
 
                     </div>
                     <div class="grid grid-cols-12 mt-5 -intro-x">
-                        <div class="col-span-12 xl:col-span-3">
+                        <div class="col-span-12 lg:col-span-3">
                             <div>
                                 Price:
                             </div>
@@ -234,7 +234,7 @@
                             </div>
                         </div>
 
-                        <div id="container_nearby_city" class="col-span-12 xl:col-span-3">
+                        <div id="container_nearby_city" class="col-span-12 lg:col-span-3">
                             <div>
                                 Nearby City
                             </div>
@@ -243,17 +243,17 @@
                             </div>
                         </div>
 
-                        <div class="col-span-12 xl:col-span-6">
-                            <div class="grid grid-cols-12 gap-6">
-                                <div class="col-span-6 xl:col-span-9 text-right">
+                        <div class="col-span-12 lg:col-span-6">
+                            <div class="grid grid-cols-12 gap-6 pt-1">
+                                <div class="col-span-6 lg:col-span-8 text-right">
                                     <a id="btn_call" class="btn btn-success mr-1 mb-2 mt-5 pl-10 pr-10"
                                         style="background-color: #6bab44;">
                                         <i class="fas fa-phone-alt mr-2"></i><span id="lbl_phone"></span>
                                     </a>
                                 </div>
 
-                                <div class="col-span-6 xl:col-span-3">
-                                    <div class="col-span-12 xl:col-span-9">
+                                <div class="col-span-6 lg:col-span-4">
+                                    <div class="col-span-12 lg:col-span-9">
                                         <button onclick="toggleModalSubmitEmail()"
                                             class="btn btn-success w-24 mr-1 mb-2 mt-5 bg-primary"
                                             style="width: 100% !important;">
@@ -282,7 +282,7 @@
 
                 </div>
 
-                <div class="col-span-12 xl:col-span-3">
+                <div class="col-span-12 lg:col-span-3">
                     <div class="font-medium mt-5 intro-x" style="font-size: 1.3rem;">
                         Related
                     </div>
@@ -369,7 +369,7 @@
                     } else if (response[i].type == 3) {
                         prefix = '../posts-nail-supplies/'
                     }
-                    $('#slick_2').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="mt-2 font-medium ellipsis-1">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis-2" style="font-size: 0.8rem;">' + removeHTMLTags(escapeHtml(response[i].content)) + '</div> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis" style="display: flex;"> <i class="mr-2 fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + '</span> </div> </div> </div> </a>')
+                    $('#slick_2').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="mt-2 font-medium ellipsis-1">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis-2" style="font-size: 0.8rem;">' + removeHTMLTags(escapeHtml(response[i].content)) + '</div> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="mr-2 fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + '</span> </div> </div> </div> </a>')
                 }
                 reloadSlick_2()
             }
@@ -473,9 +473,9 @@
                         urlImage = urlImagePostNailSuppliesIcon
                         for (let i = 0; i < response.related.length; i++) {
                             if (response.related[i].images != null && response.related[i].images.length > 0) {
-                                $('#container_related').append('<a href="' + escapeHtml(prefix + response.related[i].link_slug) + '" class="intro-x mt-5 zoom-in col-span-12 xl:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-image: url(' + escapeHtml(urlImage + response.related[i].images[0]) + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + ((response.related[i].price != 0 ? ('$' + formatMoney(response.related[i].price)) : 'Contact owner')) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance.replace('km', '').trim()) + ' mile</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
+                                $('#container_related').append('<a href="' + escapeHtml(prefix + response.related[i].link_slug) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(' + escapeHtml(urlImage + response.related[i].images[0]) + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + ((response.related[i].price != 0 ? ('$' + formatMoney(response.related[i].price)) : 'Contact owner')) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance.replace('km', '').trim()) + ' mile</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
                             } else {
-                                $('#container_related').append('<a href="' + escapeHtml(prefix + response.related[i].link_slug) + '" class="intro-x mt-5 zoom-in col-span-12 xl:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-image: url(../views/admin/dist/images/no-image.png);height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + ((response.related[i].price != 0 ? ('$' + formatMoney(response.related[i].price)) : 'Contact owner')) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance.replace('km', '').trim()) + ' mile</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis" style="display: flex;"> <i class="fas fa-map-marker-alt color-primary mr-2"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
+                                $('#container_related').append('<a href="' + escapeHtml(prefix + response.related[i].link_slug) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(../views/admin/dist/images/no-image.png);height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + ((response.related[i].price != 0 ? ('$' + formatMoney(response.related[i].price)) : 'Contact owner')) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance.replace('km', '').trim()) + ' mile</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="fas fa-map-marker-alt color-primary mr-2"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
                             }
                         }
                     }

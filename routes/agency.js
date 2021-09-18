@@ -102,7 +102,7 @@ router.get('/job/:objectId', async (req, res) => {
 
         const Model = require('../models/Job');
 
-        const result = await Model.find(query).limit(limit).skip(page);
+        const result = await Model.find(query).sort({ _id: -1 }).limit(limit).skip(page);
 
         res.json(result)
     } catch (err) {
@@ -129,7 +129,7 @@ router.get('/sell-salon/:objectId', async (req, res) => {
 
         const Model = require('../models/SellSalon');
 
-        const result = await Model.find(query).limit(limit).skip(page);
+        const result = await Model.find(query).sort({ _id: -1 }).limit(limit).skip(page);
 
         res.json(result)
     } catch (err) {
@@ -156,7 +156,7 @@ router.get('/nail-supply/:objectId', async (req, res) => {
 
         const Model = require('../models/NailSupply');
 
-        const result = await Model.find(query).limit(limit).skip(page);
+        const result = await Model.find(query).sort({ _id: -1 }).limit(limit).skip(page);
 
         res.json(result)
     } catch (err) {

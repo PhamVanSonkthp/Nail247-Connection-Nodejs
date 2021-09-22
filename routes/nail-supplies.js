@@ -308,7 +308,7 @@ router.get('/', async (req, res) => {
             let menus = title.split(' ')
             let queryTitle = []
             for (let i = 0; i < menus.length; i++) {
-                queryTitle.push({ title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" } })
+                queryTitle.push({ title: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } })
             }
             query = {
                 ...query,

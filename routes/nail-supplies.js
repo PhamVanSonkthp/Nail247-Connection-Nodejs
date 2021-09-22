@@ -266,7 +266,7 @@ router.get('/featured', async (req, res) => {
             }
         }
 
-        const result = await ObjectModel.find(query).sort({_id : -1}).limit(limit).skip(page);
+        const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page);
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             for (let i = 0; i < result.length; i++) {
@@ -293,29 +293,27 @@ router.get('/featured', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const limit = parseInt(req.query.limit, 10) || 25;
-        const page = parseInt(req.query.page, 10) || 0;
+        const limit = helper.tryParseInt(req.query.limit)
+        const page = helper.tryParseInt(req.query.page)
         const latitude = req.query.latitude;
         const longitude = req.query.longitude;
         let title = req.query.title;
         const price = req.query.price;
 
         let query = { expiration_date: { $gte: new Date() }, status: 1 }
+        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: title }
 
         if (helper.isDefine(title) && title.length > 0) {
-
             title = title.trim().replaceAll('  ', ' ')
             let menus = title.split(' ')
-            let queryTitle = {}
+            let queryTitle = []
             for (let i = 0; i < menus.length; i++) {
-                queryTitle = {
-                    ...queryTitle,
-                    title: { $regex: ".*" + menus[i] + ".*", $options: "$i" }
-                }
+                queryTitle.push({ title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" } })
             }
             query = {
                 ...query,
-                $or: [queryTitle],
+                title: { $ne: title },
+                $or: queryTitle,
             }
         }
 
@@ -326,9 +324,17 @@ router.get('/', async (req, res) => {
                     ...query,
                     $and: [{ price: { $gte: 0 } }, { price: { $lte: 500 } }],
                 }
+                querySearched = {
+                    ...querySearched,
+                    $and: [{ price: { $gte: 0 } }, { price: { $lte: 500 } }],
+                }
             } else if (price == 1) {
                 query = {
                     ...query,
+                    $and: [{ price: { $gte: 500 } }, { price: { $lte: 1000 } }],
+                }
+                querySearched = {
+                    ...querySearched,
                     $and: [{ price: { $gte: 500 } }, { price: { $lte: 1000 } }],
                 }
             } else if (price == 2) {
@@ -336,15 +342,23 @@ router.get('/', async (req, res) => {
                     ...query,
                     $and: [{ price: { $gte: 1000 } }, { price: { $lte: 2000 } }],
                 }
+                querySearched = {
+                    ...querySearched,
+                    $and: [{ price: { $gte: 1000 } }, { price: { $lte: 2000 } }],
+                }
             } else if (price == 3) {
                 query = {
                     ...query,
                     $and: [{ price: { $gte: 2000 } }],
                 }
+                querySearched = {
+                    ...querySearched,
+                    $and: [{ price: { $gte: 2000 } }],
+                }
             }
         }
 
-        const result = await ObjectModel.find(query).sort({_id : -1}).limit(limit).skip(page);
+        const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page);
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             for (let i = 0; i < result.length; i++) {
@@ -359,6 +373,14 @@ router.get('/', async (req, res) => {
                     ...result[i]._doc,
                     distance: 'Unknown'
                 }
+            }
+        }
+
+        if (page == 0) {
+            const objectSearched = await UserModel.findOne(querySearched)
+
+            if (helper.isDefine(objectSearched)) {
+                result.unshift(objectSearched)
             }
         }
 

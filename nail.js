@@ -1790,16 +1790,18 @@ io.sockets.on('connection', (socket) => {
         }
 
         let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
+        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 , title : data.title}
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
           let menus = data.title.split(' ')
           let queryTitle = []
           for (let i = 0; i < menus.length; i++) {
-            queryTitle.push({title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }})
+            queryTitle.push({ title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" } })
           }
           query = {
             ...query,
+            title: { $ne: data.title },
             $or: queryTitle,
           }
         }
@@ -1817,9 +1819,17 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ [salary]: { $gte: 0 } }, { [salary]: { $lte: 500 } }],
             }
+            querySearched = {
+              ...querySearched,
+              $and: [{ [salary]: { $gte: 0 } }, { [salary]: { $lte: 500 } }],
+            }
           } else if (data.salary == 2) {
             query = {
               ...query,
+              $and: [{ [salary]: { $gte: 500 } }, { [salary]: { $lte: 1000 } }],
+            }
+            querySearched = {
+              ...querySearched,
               $and: [{ [salary]: { $gte: 500 } }, { [salary]: { $lte: 1000 } }],
             }
           } else if (data.salary == 3) {
@@ -1827,9 +1837,17 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ [salary]: { $gte: 1000 } }, { [salary]: { $lte: 2000 } }],
             }
+            querySearched = {
+              ...querySearched,
+              $and: [{ [salary]: { $gte: 1000 } }, { [salary]: { $lte: 2000 } }],
+            }
           } else if (data.salary == 4) {
             query = {
               ...query,
+              $and: [{ [salary]: { $gte: 2000 } }],
+            }
+            querySearched = {
+              ...querySearched,
               $and: [{ [salary]: { $gte: 2000 } }],
             }
           }
@@ -1850,7 +1868,16 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        const object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
+        let object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
+
+        if (helper.isDefine(data.title) && data.title.length > 0) {
+          const objectSearched = await UserModel.findOne(querySearched)
+
+          if(helper.isDefine(objectSearched)){
+            object.unshift(objectSearched)
+          }
+        }
+
         callback(object)
 
       } else {
@@ -1878,16 +1905,18 @@ io.sockets.on('connection', (socket) => {
         }
 
         let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
+        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 , title : data.title}
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
           let menus = data.title.split(' ')
           let queryTitle = []
           for (let i = 0; i < menus.length; i++) {
-            queryTitle.push({title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }})
+            queryTitle.push({ title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" } })
           }
           query = {
             ...query,
+            title: { $ne: data.title },
             $or: queryTitle,
           }
         }
@@ -1905,9 +1934,17 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ [salary]: { $gte: 0 } }, { [salary]: { $lte: 500 } }],
             }
+            querySearched = {
+              ...querySearched,
+              $and: [{ [salary]: { $gte: 0 } }, { [salary]: { $lte: 500 } }],
+            }
           } else if (data.salary == 2) {
             query = {
               ...query,
+              $and: [{ [salary]: { $gte: 500 } }, { [salary]: { $lte: 1000 } }],
+            }
+            querySearched = {
+              ...querySearched,
               $and: [{ [salary]: { $gte: 500 } }, { [salary]: { $lte: 1000 } }],
             }
           } else if (data.salary == 3) {
@@ -1915,9 +1952,17 @@ io.sockets.on('connection', (socket) => {
               ...query,
               $and: [{ [salary]: { $gte: 1000 } }, { [salary]: { $lte: 2000 } }],
             }
+            querySearched = {
+              ...querySearched,
+              $and: [{ [salary]: { $gte: 1000 } }, { [salary]: { $lte: 2000 } }],
+            }
           } else if (data.salary == 4) {
             query = {
               ...query,
+              $and: [{ [salary]: { $gte: 2000 } }],
+            }
+            querySearched = {
+              ...querySearched,
               $and: [{ [salary]: { $gte: 2000 } }],
             }
           }
@@ -1937,7 +1982,16 @@ io.sockets.on('connection', (socket) => {
             }
           }
         }
-        const object = await UserModel.countDocuments(query)
+        let object = await UserModel.countDocuments(query)
+
+        if (helper.isDefine(data.title) && data.title.length > 0) {
+          const objectSearched = await UserModel.findOne(querySearched)
+
+          if(helper.isDefine(objectSearched)){
+            object++
+          }
+        }
+
         callback(object)
       } else {
         callback(null);

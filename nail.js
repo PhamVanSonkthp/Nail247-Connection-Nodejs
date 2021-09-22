@@ -1794,16 +1794,13 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
           let menus = data.title.split(' ')
-          let queryTitle = {}
+          let queryTitle = []
           for (let i = 0; i < menus.length; i++) {
-            queryTitle = {
-              ...queryTitle,
-              title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }
-            }
+            queryTitle.push({title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }})
           }
           query = {
             ...query,
-            $or: [queryTitle],
+            $or: queryTitle,
           }
         }
 
@@ -1885,16 +1882,13 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
           let menus = data.title.split(' ')
-          let queryTitle = {}
+          let queryTitle = []
           for (let i = 0; i < menus.length; i++) {
-            queryTitle = {
-              ...queryTitle,
-              title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }
-            }
+            queryTitle.push({title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" }})
           }
           query = {
             ...query,
-            $or: [queryTitle],
+            $or: queryTitle,
           }
         }
 

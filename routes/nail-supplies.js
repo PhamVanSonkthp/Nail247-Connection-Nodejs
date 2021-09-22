@@ -377,7 +377,7 @@ router.get('/', async (req, res) => {
         }
 
         if (page == 0) {
-            const objectSearched = await UserModel.findOne(querySearched)
+            const objectSearched = await ObjectModel.findOne(querySearched)
 
             if (helper.isDefine(objectSearched)) {
                 result.unshift(objectSearched)

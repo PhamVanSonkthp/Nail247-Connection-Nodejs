@@ -318,25 +318,15 @@ router.get('/', async (req, res) => {
 
         if (helper.isDefine(price)) {
 
-            if (price == 0) {
+            if (price == 2) {
                 query = {
                     ...query,
-                    $and: [{ price: { $gte: 0 } }, { price: { $lte: 500 } }],
-                }
-            } else if (price == 1) {
-                query = {
-                    ...query,
-                    $and: [{ price: { $gte: 500 } }, { price: { $lte: 1000 } }],
-                }
-            } else if (price == 2) {
-                query = {
-                    ...query,
-                    $and: [{ price: { $gte: 1000 } }, { price: { $lte: 2000 } }],
+                    $and: [{ price: { $gte: 0 } }, { price: { $lte: 100000 } }],
                 }
             } else if (price == 3) {
                 query = {
                     ...query,
-                    $and: [{ price: { $gte: 2000 } }],
+                    $and: [{ price: { $gt: 100000 } }],
                 }
             }
         }

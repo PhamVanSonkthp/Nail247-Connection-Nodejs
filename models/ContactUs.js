@@ -3,16 +3,20 @@ const helper = require('../helper/helper');
 
 const object = mongoose.Schema({
     contact_us: {
-        ...helper.schemaString,
+        type: String,
+        maxLength: 10000000,
     },
     terms_of_use: {
-        ...helper.schemaString,
+        type: String,
+        maxLength: 10000000,
     },
     privacy_policy: {
-        ...helper.schemaString,
+        type: String,
+        maxLength: 10000000,
     },
     phone_support: {
-        ...helper.schemaString,
+        type: String,
+        maxLength: 10000000,
     },
 }, { timestamps: true });
 

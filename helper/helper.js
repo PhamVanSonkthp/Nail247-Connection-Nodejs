@@ -401,7 +401,6 @@ exports.paymentPostJob = async function (req, res) {
     let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).array('avatar', 100);
     upload(req, res, function (err) {
         (async () => {
-
             let ObjectModel;
 
             if (exports.tryParseJson(req.headers.stripe).type_post == '0') {
@@ -410,6 +409,38 @@ exports.paymentPostJob = async function (req, res) {
                 ObjectModel = require('../models/SellSalon')
             } else if (exports.tryParseJson(req.headers.stripe).type_post == '2') {
                 ObjectModel = require('../models/NailSupply')
+            }
+
+            if (exports.tryParseJson(req.headers.stripe).is_repost) {
+                try {
+                    if (exports.tryParseJson(req.headers.stripe).cost_post_job && exports.tryParseJson(req.headers.stripe).cost_post_job > 0) {
+                        const HistoryPaymentObject = require('../models/HistoryPayments')
+                        const objectHistoryPayment = new HistoryPaymentObject({
+                            cost: exports.tryParseJson(req.headers.stripe).cost_post_job,
+                            id_post: exports.tryParseJson(req.headers.stripe).id_post,
+                            type: exports.tryParseJson(req.headers.stripe).type_post,
+                            package: exports.tryParseJson(req.headers.stripe).package_post_job,
+                            id_agency: exports.tryParseJson(req.headers.stripe).id_agency,
+                        })
+                        await objectHistoryPayment.save()
+                    }
+                    let objForUpdate = {}
+                    if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.months_provider = exports.tryParseJson(req.headers.stripe).months_provider_post_job
+                    //if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.expiration_date = Date.now() + exports.tryParseInt(exports.tryParseJson(req.headers.stripe).months_provider_post_job) * 30 * 24 * 60 * 60 * 1000
+                    if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.expiration_date = Date.now() + exports.tryParseInt(exports.tryParseJson(req.headers.stripe).months_provider_post_job) * 60 * 1000
+    
+                    objForUpdate = { $set: objForUpdate }
+    
+                    await ObjectModel.updateOne(
+                        { _id: exports.tryParseJson(req.headers.stripe).id_post }, objForUpdate, exports.optsValidator
+                    )
+    
+                    return res.redirect("/agency/posts?sort=" + (exports.tryParseJson(req.headers.stripe).type_post + 1))
+
+                } catch (err) {
+                    exports.throwError(err)
+                    return res.status(500)
+                }
             }
 
             const index = await ObjectModel.countDocuments()
@@ -442,8 +473,8 @@ exports.paymentPostJob = async function (req, res) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
-                //expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 60 * 1000,
+                //expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 60 * 1000,
             }
 
             if (exports.tryParseJson(req.headers.stripe).type_post == '0') {

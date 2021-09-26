@@ -58,8 +58,8 @@ async function uploadImage(req, res, isWeb) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
-                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
+                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
             })
 
             try {
@@ -142,6 +142,38 @@ async function uploadImage(req, res, isWeb) {
     });
 };
 
+router.put('/re-post', async (req, res) => {
+    try {
+        if (req.body.cost && req.body.cost > 0) {
+            const HistoryPaymentObject = require('../models/HistoryPayments')
+            const objectHistoryPayment = new HistoryPaymentObject({
+                cost: req.body.cost,
+                id_post: req.body.id_post,
+                type: 0,
+                package: req.body.package,
+                id_agency: req.body.id_agency,
+            })
+            await objectHistoryPayment.save()
+        }
+        let objForUpdate = {}
+        if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
+        //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
+        if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
+
+        objForUpdate = { $set: objForUpdate }
+
+        const result = await ObjectModel.updateOne(
+            { _id: req.body.id_post }, objForUpdate, helper.optsValidator
+        )
+
+        return res.json(result)
+
+    } catch (err) {
+        helper.throwError(err)
+        return res.status(500)
+    }
+})
+
 router.put('/:objectId', async (req, res) => {
     return await updatePostMobile(req, res)
 })
@@ -182,6 +214,9 @@ async function updatePostMobile(req, res) {
                 if (helper.isDefine(req.body.options)) objForUpdate.options = helper.tryParseJson(helper.isDefine(req.body.options));
                 if (helper.isDefine(req.body.images)) objForUpdate.images = helper.tryParseJson(req.body.images) || '[]'
                 if (helper.isDefine(req.body.status)) objForUpdate.status = req.body.status;
+                if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
+                //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
+                if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
 
                 objForUpdate = { $set: objForUpdate }
 
@@ -267,7 +302,7 @@ router.get('/featured', async (req, res) => {
         //     }
         // }
 
-        const result = await ObjectModel.find(query).sort({_id : -1}).limit(limit).skip(page);
+        const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page);
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             for (let i = 0; i < result.length; i++) {
@@ -343,7 +378,7 @@ router.get('/', async (req, res) => {
             }
         }
 
-        const result = await ObjectModel.find(query).sort({_id : -1}).limit(limit).skip(page);
+        const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page);
 
         for (let i = 0; i < result.length; i++) {
             result[i] = {

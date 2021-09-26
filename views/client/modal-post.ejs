@@ -2,7 +2,8 @@
     .imageuploadify-container>button {
         display: none;
     }
-    #content_options_post{
+
+    #content_options_post {
         line-height: 2;
     }
 </style>
@@ -307,6 +308,8 @@
 
 <script>
     var stripeHandlerPostJob
+    var is_repost = false
+    var id_post
 
     socket.emit('payments-stripes', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
         if (isDefine(response)) {
@@ -315,7 +318,12 @@
                 locale: 'en',
                 token: function (token) {
                     showLoading()
-                    toggleModalPostJob()
+                    if (is_repost) {
+                        toggleModalRePost()
+                    } else {
+                        toggleModalPostJob()
+                    }
+
                     fetch('/purchase', {
                         method: 'POST',
                         headers: {
@@ -324,6 +332,12 @@
                                 stripeTokenId: token.id,
                                 amount: costPostJob * 100,
                                 type_post: type_post,
+                                is_repost: is_repost,
+                                id_post: id_post,
+                                months_provider_post_job: months_provider_post_job,
+                                package_post_job: package_post_job,
+                                cost_post_job: cost_post_job,
+                                id_agency: id_agency,
                             }),
                         },
                         body: formData
@@ -348,6 +362,7 @@
 <script>
     var type_post
     var codePostJob
+    var months_provider_post_job, package_post_job, cost_post_job, id_agency
     var optionsPostJob, indexPostJob = 0, packagePostJob, monthsProviderPostJob, costPostJob
     var titlePostJob, salonNamePostJob, contentPostJob, phonePostJob, salaryPostJob, emailPostJob, countryPostJob
     var formData
@@ -473,7 +488,17 @@
         $('#form_upload_job').submit()
     }
 
-    function checkoutPostJob() {
+    function checkoutPostJob(isRepost, idPost, typePost, monthsProviderPostJob, packagePostJob, costPostJob, idAgency) {
+        if (isRepost) {
+            is_repost = isRepost
+            id_post = idPost
+            type_post = typePost
+            months_provider_post_job = monthsProviderPostJob
+            package_post_job = packagePostJob
+            cost_post_job = costPostJob
+            id_agency = idAgency
+
+        }
         stripeHandlerPostJob.open({
             amount: costPostJob * 100
         })

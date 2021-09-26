@@ -387,6 +387,12 @@
 
 <body class="main">
 
+    <style>
+        .select2-container {
+            z-index: 10000;
+        }
+    </style>
+
     <div id="add-item-modal" class="modal" tabindex="-1" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -539,6 +545,9 @@
 
                         <div> <a href="javascript:;" data-toggle="modal" class="btn text-white btn-danger mt-5"
                                 data-target="#delete-modal-preview" class="btn btn-primary">Delete post</a> </div>
+
+                        <div> <a href="javascript:;" data-toggle="modal" class="btn text-white btn-warning mt-5"
+                                data-target="#repost-modal" class="btn btn-primary">Re-post</a> </div>
                         <!-- END: Modal Toggle -->
 
 
@@ -564,8 +573,49 @@
                     </div>
                     <div class="px-5 pb-8 text-center"> <button type="button" data-dismiss="modal"
                             class="btn btn-outline-secondary w-24 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button>
-                        <button type="button" onclick="deleteProduct()" class="btn btn-danger w-24" data-dismiss="modal">Confirm</button> </div>
+                        <button type="button" onclick="deleteProduct()" class="btn btn-danger w-24"
+                            data-dismiss="modal">Confirm</button>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="repost-modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content p-5">
+                <div class="font-medium mt-3" style="font-size: 1.3rem;">Select option</div>
+
+                <div id="content_options_repost" class="text-center p-3 font-medium">
+
+                </div>
+
+                <div class="grid grid-cols-12 gap-6 mt-3">
+                    <div class="col-span-12 xl:col-span-4" style="box-shadow: 0px 4px 6px #bdbdbd;">
+                        <div class="font-medium">Package</div>
+                        <select id="select_package_repost_job" class="form-select p-3 no-border"
+                            aria-label="Default select example">
+
+                        </select>
+                    </div>
+
+                    <div class="col-span-12 xl:col-span-4" style="box-shadow: 0px 4px 6px #bdbdbd;">
+                        <div class="font-medium">Price</div>
+                        <select id="select_price_repost_job" class="form-select p-3 no-border"
+                            aria-label="Default select example">
+                        </select>
+                    </div>
+
+                    <div class="col-span-12 xl:col-span-4" style="box-shadow: 0px 4px 6px #bdbdbd;">
+                        <div class="font-medium">Content</div>
+                        <div class="p-3" id="content_repost_job"></div>
+                    </div>
+
+                </div>
+
+                <button type="button" onclick="rePost()" style="background-color: #6bab44;"
+                    class="btn text-white w-full mt-5" aria-expanded="false"><i
+                        class="fas fa-cloud-upload-alt mr-2"></i><span>Re-post</span></button>
             </div>
         </div>
     </div>
@@ -915,7 +965,7 @@
                         if (data[i].status == 1) {
                             cell6.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"><div class="flex items-center lg:justify-center text-theme-9"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg> Active </div><div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>';
                         } else {
-                            cell6.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex items-center lg:justify-center text-theme-6"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Inactive </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
+                            cell6.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex items-center lg:justify-center text-theme-6"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Expired </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
                         }
 
                         cell1.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="name" title="" style=" display: inline-flex; "> <div> <div class="font-medium whitespace-nowrap">' + products[i].name_salon + '</div> <div class="text-gray-600 text-xs whitespace-nowrap">' + products[i].phone + '</div> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
@@ -1084,6 +1134,34 @@
                     })
                 }
 
+                function rePost() {
+
+                    checkoutPostJob(true, products[index_edit]._id, (isSort - 1), monthsProviderPostJob, packagePostJob, costPostJob, getCookie('_id'))
+                }
+
+                $('#select_package_repost_job').on('change', function () {
+                    let i = tryParseInt(this.value)
+                    $('#content_options_repost').html(optionsPostJob[i].content)
+                    packagePostJob = optionsPostJob[i].name
+                    indexPostJob = i
+                    $("#select_price_repost_job").empty()
+                    for (let j = 0; j < optionsPostJob[i].options.length; j++) {
+                        let p = new Option('$' + optionsPostJob[i].options[j].cost + ' / ' + optionsPostJob[i].options[j].month + ' month', j)
+                        $(p).html('$' + optionsPostJob[i].options[j].cost + ' / ' + optionsPostJob[i].options[j].month + ' month')
+                        $("#select_price_repost_job").append(p)
+                    }
+                    $("#content_repost_job").html(optionsPostJob[indexPostJob].options[0].content)
+                    monthsProviderPostJob = optionsPostJob[indexPostJob].options[0].month
+                    costPostJob = optionsPostJob[indexPostJob].options[0].cost
+                })
+
+                $('#select_price_repost_job').on('change', function () {
+                    let i = tryParseInt(this.value)
+                    $("#content_repost_job").html(optionsPostJob[indexPostJob].options[i].content)
+                    monthsProviderPostJob = optionsPostJob[indexPostJob].options[i].month
+                    costPostJob = optionsPostJob[indexPostJob].options[i].cost
+                })
+
                 $(document).ready(function () {
                     const dateObj = new Date();
                     const month = monthNames[dateObj.getMonth()];
@@ -1137,31 +1215,17 @@
                         $('#modal_post_job_edt_salary_update').val('')
                     }
 
+                    if (products[i].status == 0) {
+                        $('#btn_repost').show()
+                    } else {
+                        $('#btn_repost').hide()
+                    }
+
                     CKEDITOR.instances['editor_update'].setData(products[i].content)
 
                     $('#modal_post_job_edt_filter_country_update').val(products[i].city + ', ' + products[i].state + ' ' + products[i].code)
 
                     codePostJob = products[i].code
-
-                    // if (isDefine(products[i].location)) {
-                    //     canvasMapUpdate({ lat: products[i].location.coordinates[1], lng: products[i].location.coordinates[0] })
-                    // } else {
-                    //     canvasMapUpdate({ lat: -1, lng: -1 })
-                    // }
-
-
-                    // $('#container_images_products').empty();
-                    // if (!empty(products[i].images)) {
-                    //     $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                    //     $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-
-                    //     for (let j = 0; j < products[i].images.length; j++) {
-                    //         $('#container_images_products').append(' <div class="h-45 px-2 tns-item" id="tns4-item3" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <img src="' + prefixUrlImage + products[i].images[j] + '" data-action="zoom" class="w-full rounded-md"> </div> </div>');
-                    //     }
-
-                    //     $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                    //     $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                    // }
 
                     $('#ContainerImages').empty()
                     let prefixImage
@@ -1186,6 +1250,84 @@
                     }
 
                     $('#edt_id_post_update').val(products[i]._id)
+
+
+
+                    if ((isSort - 1) == 0) {
+                        socket.emit('options-posts-jobs-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                            if (isDefine(response) && response.length > 0) {
+                                $('#content_options_repost').html(escapeHtml(response[0].content))
+                                optionsPostJob = response
+                                packagePostJob = response[0].name
+                                for (let i = 0; i < response.length; i++) {
+                                    var o = new Option(response[i].name, i)
+                                    $(o).html(escapeHtml(response[i].name))
+                                    $("#select_package_repost_job").append(o)
+
+                                    if (i == 0) {
+                                        for (let j = 0; j < response[i].options.length; j++) {
+                                            let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                            $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
+                                            $("#select_price_repost_job").append(p)
+                                        }
+                                        $("#content_repost_job").html(response[i].options[0].content)
+                                        monthsProviderPostJob = response[i].options[0].month
+                                        costPostJob = response[i].options[0].cost
+                                    }
+                                }
+                            }
+                        })
+                    } else if ((isSort - 1) == 1) {
+                        socket.emit('options-posts-sell-salon-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                            if (isDefine(response) && response.length > 0) {
+                                optionsPostJob = response
+                                packagePostJob = response[0].name
+                                $('#content_options_repost').html(response[0].content)
+                                for (let i = 0; i < response.length; i++) {
+                                    var o = new Option(response[i].name, i)
+                                    $(o).html(response[i].name)
+                                    $("#select_package_repost_job").append(o)
+
+                                    if (i == 0) {
+                                        for (let j = 0; j < response[i].options.length; j++) {
+                                            let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                            $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
+                                            $("#select_price_repost_job").append(p)
+                                        }
+                                        $("#content_repost_job").html(response[i].options[0].content)
+                                        monthsProviderPostJob = response[i].options[0].month
+                                        costPostJob = response[i].options[0].cost
+                                    }
+                                }
+                            }
+                        })
+                    } else if ((isSort - 1) == 2) {
+                        $('#lbl_title_repost').html('Post a Nail Supply')
+                        $('#modal_repost_job_edt_salary').attr("placeholder", "Price (option)")
+                        socket.emit('options-posts-nail-supply-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                            if (isDefine(response) && response.length > 0) {
+                                optionsPostJob = response
+                                packagePostJob = response[0].name
+                                $('#content_options_repost').html(response[0].content)
+                                for (let i = 0; i < response.length; i++) {
+                                    var o = new Option(response[i].name, i)
+                                    $(o).html(response[i].name)
+                                    $("#select_package_repost_job").append(o)
+
+                                    if (i == 0) {
+                                        for (let j = 0; j < response[i].options.length; j++) {
+                                            let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                            $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
+                                            $("#select_price_repost_job").append(p)
+                                        }
+                                        $("#content_repost_job").html(response[i].options[0].content)
+                                        monthsProviderPostJob = response[i].options[0].month
+                                        costPostJob = response[i].options[0].cost
+                                    }
+                                }
+                            }
+                        })
+                    }
 
                     toggleModalAddProduct()
                 }
@@ -1340,35 +1482,20 @@
                     socket.emit('on-update-images-post', { _id: getCookie('_id'), password: getCookie('password'), id_post: products[index_edit]._id, type: isSort, images: products[index_edit].images }, (response) => {
                         $('#form_update_job').submit()
                     })
+                }
 
-
-
-                    // showLoading()
-                    // var frm = $('#form_update_job');
-                    // var formData = new FormData(frm[0]);
-                    // formData.append('file', $('input[type=file]')[0].files[0]);
-                    // $.ajax({
-                    //     type: 'POST',
-                    //     url: actionUpdatePost + '/?_id=' + getCookie('_id') + '&password=' + getCookie('password'),
-                    //     headers: {
-                    //         token: 'infinifyltd'
-                    //     },
-                    //     data: formData,
-                    //     processData: false,
-                    //     contentType: false,
-                    //     success: function (data) {
-                    //         window.location.reload()
-                    //     },
-                    //     error: function (data) {
-                    //         if (data.status == 200) {
-                    //             window.location.reload()
-                    //         } else {
-                    //             alert('error')
-                    //             toggleModalAddProduct()
-                    //             hideLoading()
-                    //         }
-                    //     }
-                    // })
+                function toggleModalRePost() {
+                    $('#repost-modal').css('display', 'block');
+                    $('#repost-modal').css('margin-top', '0px');
+                    $('#repost-modal').css('margin-left', '0px');
+                    $('#repost-modal').css('z-index', '1000');
+                    if ($("#repost-modal").hasClass("show")) {
+                        $('#repost-modal').removeClass('show');
+                        $('body').removeClass('overflow-y-hidden');
+                    } else {
+                        $('#repost-modal').addClass('show');
+                        $('body').addClass('overflow-y-hidden');
+                    }
                 }
 
                 function deleteImage(index, iEdit) {
@@ -1399,18 +1526,6 @@
                             $("#ContainerImages").append('<li style="position: relative;width: 100px;display: block;height: 100% !important;float: left;margin-bottom: 0 !important;" class="mr-2"><img style="width: 100px !important; height: 100px; object-fit: cover;" class="mb-2 border border-primary rounded" src="' + prefixImage + products[iEdit].images[j] + '"><button onclick="deleteImage(\'' + j + '\', \'' + iEdit + '\')" style="height: auto !important;padding: 5px 10px 5px 10px;position: absolute;top: 5px;right: 5px;border-radius: 50%;" class="btn-danger" type="button"><i class="fas fa-times"></i></button></li>');
                         }
                     }
-                    // if (!empty(products[iEdit].images)) {
-                    //     $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                    //     $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-
-                    //     for (let j = 0; j < products[iEdit].images.length; j++) {
-                    //         $('#container_images_products').append(' <div class="h-45 px-2 tns-item" id="tns4-item3" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <img src="' + prefixUrlImage + products[iEdit].images[j] + '" data-action="zoom" class="w-full rounded-md"> </div> </div>');
-                    //     }
-
-                    //     $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                    //     $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                    // }
-
                 }
 
                 $('.tab-link').click(function () {

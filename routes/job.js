@@ -516,4 +516,4 @@ router.post('/update-post/', async (req, res) => {
     return await updateImage(req, res)
 })
 
-module.exports = router;
+module.exports = router

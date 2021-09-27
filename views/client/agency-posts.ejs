@@ -546,7 +546,7 @@
                         <div> <a href="javascript:;" data-toggle="modal" class="btn text-white btn-danger mt-5"
                                 data-target="#delete-modal-preview" class="btn btn-primary">Delete post</a> </div>
 
-                        <div> <a href="javascript:;" data-toggle="modal" class="btn text-white btn-warning mt-5"
+                        <div id="container_repost" > <a href="javascript:;" data-toggle="modal" class="btn text-white btn-warning mt-5"
                                 data-target="#repost-modal" class="btn btn-primary">Re-post</a> </div>
                         <!-- END: Modal Toggle -->
 
@@ -1135,7 +1135,6 @@
                 }
 
                 function rePost() {
-
                     checkoutPostJob(true, products[index_edit]._id, (isSort - 1), monthsProviderPostJob, packagePostJob, costPostJob, getCookie('_id'))
                 }
 
@@ -1251,7 +1250,11 @@
 
                     $('#edt_id_post_update').val(products[i]._id)
 
-
+                    if(!products[i].status){
+                        $('#container_repost').show()
+                    }else{
+                        $('#container_repost').hide()
+                    }
 
                     if ((isSort - 1) == 0) {
                         socket.emit('options-posts-jobs-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {

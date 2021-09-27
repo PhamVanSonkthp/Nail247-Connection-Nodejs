@@ -488,17 +488,18 @@
         $('#form_upload_job').submit()
     }
 
-    function checkoutPostJob(isRepost, idPost, typePost, monthsProviderPostJob, packagePostJob, costPostJob, idAgency) {
+    function checkoutPostJob(isRepost, idPost, typePost, monthsProviderPostJob, packagePostJob, _costPostJob, idAgency) {
         if (isRepost) {
             is_repost = isRepost
             id_post = idPost
             type_post = typePost
             months_provider_post_job = monthsProviderPostJob
             package_post_job = packagePostJob
-            cost_post_job = costPostJob
+            cost_post_job = _costPostJob
             id_agency = idAgency
 
         }
+
         stripeHandlerPostJob.open({
             amount: costPostJob * 100
         })

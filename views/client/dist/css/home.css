@@ -12,6 +12,10 @@ html,
             /* box-shadow: 0 0 10px #719ECE; */
         }
 
+        #edt_phone_code::placeholder{
+            color: red;
+        }
+
         ::-webkit-scrollbar-track
         {
             background: #f1f1f1;

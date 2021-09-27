@@ -1,0 +1,31 @@
+<div id="container_tag_install_app">
+
+</div>
+
+
+<script>
+    function isIOS() {
+        return [
+            'iPad Simulator',
+            'iPhone Simulator',
+            'iPod Simulator',
+            'iPad',
+            'iPhone',
+            'iPod'
+        ].includes(navigator.platform)
+            // iPad on iOS 13 detection
+            || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+    }
+
+    function isAndroid() {
+        let ua = navigator.userAgent.toLowerCase();
+        let isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+        return isAndroid
+    }
+
+    if (isIOS()) {
+        $('#container_tag_install_app').html(' <div class="pl-5 pr-5 pt-1 pb-2" style="display: flex;align-items: center;" ><div> <img src="../views/client/dist/images/icon.png" /> </div> <div class="pl-3 pr-3" style="flex-grow: 4;"> <div style="font-size: 0.8rem;font-weight: bold;"> 247NailSalons is avalable on App Store </div> <div style="font-size: 0.8rem;"> Open in app now </div> </div> <a href="#" style="background-color: #0678fa;border-radius: 30px;padding: 7px 10px 7px 10px;color: white;font-weight: bold;">Open</a></div>')
+    } else if (isAndroid()) {
+        $('#container_tag_install_app').html(' <div class="pl-5 pr-5 pt-1 pb-2" style="display: flex;align-items: center;" ><div> <img src="../views/client/dist/images/icon.png" /> </div> <div class="pl-3 pr-3" style="flex-grow: 4;"> <div style="font-size: 0.8rem;font-weight: bold;"> 247NailSalons is avalable on CH Play </div> <div style="font-size: 0.8rem;"> Open in app now </div> </div> <a href="#" style="background-color: #0678fa;border-radius: 30px;padding: 7px 10px 7px 10px;color: white;font-weight: bold;">Open</a></div>')
+    }
+</script>

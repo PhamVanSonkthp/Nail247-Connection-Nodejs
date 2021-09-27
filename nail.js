@@ -281,17 +281,22 @@ function fetchAPI(req, res) {
     const result = await UserModel.findOne()
     const stripe = require('stripe')(result.secret_key)
 
-    stripe.charges.create({
-      amount: helper.tryParseJson(req.headers.stripe).amount,
-      source: helper.tryParseJson(req.headers.stripe).stripeTokenId,
-      currency: 'usd'
-    }).then(function () {
+    if (helper.tryParseJson(req.headers.stripe).amount == 0) {
       return helper.paymentPostJob(req, res)
-    }).catch(function (e) {
-      console.log('charge fail')
-      console.log(e)
-      res.status(500).end()
-    })
+    } else {
+      stripe.charges.create({
+        amount: helper.tryParseJson(req.headers.stripe).amount,
+        source: helper.tryParseJson(req.headers.stripe).stripeTokenId,
+        currency: 'usd'
+      }).then(function () {
+        return helper.paymentPostJob(req, res)
+      }).catch(function (e) {
+        console.log('charge fail')
+        console.log(e)
+        res.status(500).end()
+      })
+    }
+
   })
 
 }
@@ -1790,7 +1795,7 @@ io.sockets.on('connection', (socket) => {
         }
 
         let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
-        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 , title : data.title}
+        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
@@ -1873,7 +1878,7 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.title) && data.title.length > 0) {
           const objectSearched = await UserModel.findOne(querySearched)
 
-          if(helper.isDefine(objectSearched)){
+          if (helper.isDefine(objectSearched)) {
             object.unshift(objectSearched)
           }
         }
@@ -1905,7 +1910,7 @@ io.sockets.on('connection', (socket) => {
         }
 
         let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
-        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 , title : data.title}
+        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
@@ -1987,7 +1992,7 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.title) && data.title.length > 0) {
           const objectSearched = await UserModel.findOne(querySearched)
 
-          if(helper.isDefine(objectSearched)){
+          if (helper.isDefine(objectSearched)) {
             object++
           }
         }

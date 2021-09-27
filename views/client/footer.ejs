@@ -1,5 +1,11 @@
 <div class="footer">
 
+    <style>
+        #edt_phone_code::placeholder{
+            color: red;
+        }
+    </style>
+
     <div class="text-center wrap-download-app intro-y" style="margin-left: 2rem;
             margin-right: 2rem;">
         <a href="">
@@ -565,6 +571,8 @@
                     function phoneAuth(number) {
                         firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then(function (confirmationResult) {
                             confirmationCodePhone = confirmationResult;
+                        }).then(function (result) {
+                            // User is signed in now.
                         }).catch(function (error) {
                             //alert(error.message);
                         });

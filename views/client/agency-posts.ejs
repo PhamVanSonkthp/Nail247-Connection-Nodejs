@@ -546,8 +546,9 @@
                         <div> <a href="javascript:;" data-toggle="modal" class="btn text-white btn-danger mt-5"
                                 data-target="#delete-modal-preview" class="btn btn-primary">Delete post</a> </div>
 
-                        <div id="container_repost" > <a href="javascript:;" data-toggle="modal" class="btn text-white btn-warning mt-5"
-                                data-target="#repost-modal" class="btn btn-primary">Re-post</a> </div>
+                        <div id="container_repost"> <a href="javascript:;" data-toggle="modal"
+                                class="btn text-white btn-warning mt-5" data-target="#repost-modal"
+                                class="btn btn-primary">Re-post</a> </div>
                         <!-- END: Modal Toggle -->
 
 
@@ -965,7 +966,7 @@
                         if (data[i].status == 1) {
                             cell6.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"><div class="flex items-center lg:justify-center text-theme-9"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg> Active </div><div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>';
                         } else {
-                            cell6.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex items-center lg:justify-center text-theme-6"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Expired </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
+                            cell6.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex items-center lg:justify-center text-theme-6"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Expired <a href="javascript:;" onclick="toggleModalRePost(' + i + ')" data-toggle="modal" class="btn text-white btn-warning ml-3" data-target="#repost-modal" class="btn btn-primary">Repost</a> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
                         }
 
                         cell1.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="name" title="" style=" display: inline-flex; "> <div> <div class="font-medium whitespace-nowrap">' + products[i].name_salon + '</div> <div class="text-gray-600 text-xs whitespace-nowrap">' + products[i].phone + '</div> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
@@ -1250,88 +1251,11 @@
 
                     $('#edt_id_post_update').val(products[i]._id)
 
-                    if(!products[i].status){
+                    if (!products[i].status) {
                         $('#container_repost').show()
-                    }else{
+                    } else {
                         $('#container_repost').hide()
                     }
-
-                    if ((isSort - 1) == 0) {
-                        socket.emit('options-posts-jobs-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                            if (isDefine(response) && response.length > 0) {
-                                $('#content_options_repost').html(escapeHtml(response[0].content))
-                                optionsPostJob = response
-                                packagePostJob = response[0].name
-                                for (let i = 0; i < response.length; i++) {
-                                    var o = new Option(response[i].name, i)
-                                    $(o).html(escapeHtml(response[i].name))
-                                    $("#select_package_repost_job").append(o)
-
-                                    if (i == 0) {
-                                        for (let j = 0; j < response[i].options.length; j++) {
-                                            let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
-                                            $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
-                                            $("#select_price_repost_job").append(p)
-                                        }
-                                        $("#content_repost_job").html(response[i].options[0].content)
-                                        monthsProviderPostJob = response[i].options[0].month
-                                        costPostJob = response[i].options[0].cost
-                                    }
-                                }
-                            }
-                        })
-                    } else if ((isSort - 1) == 1) {
-                        socket.emit('options-posts-sell-salon-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                            if (isDefine(response) && response.length > 0) {
-                                optionsPostJob = response
-                                packagePostJob = response[0].name
-                                $('#content_options_repost').html(response[0].content)
-                                for (let i = 0; i < response.length; i++) {
-                                    var o = new Option(response[i].name, i)
-                                    $(o).html(response[i].name)
-                                    $("#select_package_repost_job").append(o)
-
-                                    if (i == 0) {
-                                        for (let j = 0; j < response[i].options.length; j++) {
-                                            let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
-                                            $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
-                                            $("#select_price_repost_job").append(p)
-                                        }
-                                        $("#content_repost_job").html(response[i].options[0].content)
-                                        monthsProviderPostJob = response[i].options[0].month
-                                        costPostJob = response[i].options[0].cost
-                                    }
-                                }
-                            }
-                        })
-                    } else if ((isSort - 1) == 2) {
-                        $('#lbl_title_repost').html('Post a Nail Supply')
-                        $('#modal_repost_job_edt_salary').attr("placeholder", "Price (option)")
-                        socket.emit('options-posts-nail-supply-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                            if (isDefine(response) && response.length > 0) {
-                                optionsPostJob = response
-                                packagePostJob = response[0].name
-                                $('#content_options_repost').html(response[0].content)
-                                for (let i = 0; i < response.length; i++) {
-                                    var o = new Option(response[i].name, i)
-                                    $(o).html(response[i].name)
-                                    $("#select_package_repost_job").append(o)
-
-                                    if (i == 0) {
-                                        for (let j = 0; j < response[i].options.length; j++) {
-                                            let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
-                                            $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
-                                            $("#select_price_repost_job").append(p)
-                                        }
-                                        $("#content_repost_job").html(response[i].options[0].content)
-                                        monthsProviderPostJob = response[i].options[0].month
-                                        costPostJob = response[i].options[0].cost
-                                    }
-                                }
-                            }
-                        })
-                    }
-
                     toggleModalAddProduct()
                 }
 
@@ -1487,7 +1411,10 @@
                     })
                 }
 
-                function toggleModalRePost() {
+                function toggleModalRePost(index) {
+                    if (isDefine(index)) {
+                        index_edit = index
+                    }
                     $('#repost-modal').css('display', 'block');
                     $('#repost-modal').css('margin-top', '0px');
                     $('#repost-modal').css('margin-left', '0px');
@@ -1498,6 +1425,86 @@
                     } else {
                         $('#repost-modal').addClass('show');
                         $('body').addClass('overflow-y-hidden');
+                    }
+
+                    $("#select_package_repost_job").empty()
+                    $("#select_price_repost_job").empty()
+                    $("#content_post_rejob").empty()
+
+                    if ((isSort - 1) == 0) {
+                        socket.emit('options-posts-jobs-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                            if (isDefine(response) && response.length > 0) {
+                                $('#content_options_repost').html(escapeHtml(response[0].content))
+                                optionsPostJob = response
+                                packagePostJob = response[0].name
+                                for (let i = 0; i < response.length; i++) {
+                                    var o = new Option(response[i].name, i)
+                                    $(o).html(escapeHtml(response[i].name))
+                                    $("#select_package_repost_job").append(o)
+
+                                    if (i == 0) {
+                                        for (let j = 0; j < response[i].options.length; j++) {
+                                            let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                            $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
+                                            $("#select_price_repost_job").append(p)
+                                        }
+                                        $("#content_repost_job").html(response[i].options[0].content)
+                                        monthsProviderPostJob = response[i].options[0].month
+                                        costPostJob = response[i].options[0].cost
+                                    }
+                                }
+                            }
+                        })
+                    } else if ((isSort - 1) == 1) {
+                        socket.emit('options-posts-sell-salon-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                            if (isDefine(response) && response.length > 0) {
+                                optionsPostJob = response
+                                packagePostJob = response[0].name
+                                $('#content_options_repost').html(response[0].content)
+                                for (let i = 0; i < response.length; i++) {
+                                    var o = new Option(response[i].name, i)
+                                    $(o).html(response[i].name)
+                                    $("#select_package_repost_job").append(o)
+
+                                    if (i == 0) {
+                                        for (let j = 0; j < response[i].options.length; j++) {
+                                            let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                            $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
+                                            $("#select_price_repost_job").append(p)
+                                        }
+                                        $("#content_repost_job").html(response[i].options[0].content)
+                                        monthsProviderPostJob = response[i].options[0].month
+                                        costPostJob = response[i].options[0].cost
+                                    }
+                                }
+                            }
+                        })
+                    } else if ((isSort - 1) == 2) {
+                        $('#lbl_title_repost').html('Post a Nail Supply')
+                        $('#modal_repost_job_edt_salary').attr("placeholder", "Price (option)")
+                        socket.emit('options-posts-nail-supply-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                            if (isDefine(response) && response.length > 0) {
+                                optionsPostJob = response
+                                packagePostJob = response[0].name
+                                $('#content_options_repost').html(response[0].content)
+                                for (let i = 0; i < response.length; i++) {
+                                    var o = new Option(response[i].name, i)
+                                    $(o).html(response[i].name)
+                                    $("#select_package_repost_job").append(o)
+
+                                    if (i == 0) {
+                                        for (let j = 0; j < response[i].options.length; j++) {
+                                            let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                            $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
+                                            $("#select_price_repost_job").append(p)
+                                        }
+                                        $("#content_repost_job").html(response[i].options[0].content)
+                                        monthsProviderPostJob = response[i].options[0].month
+                                        costPostJob = response[i].options[0].cost
+                                    }
+                                }
+                            }
+                        })
                     }
                 }
 

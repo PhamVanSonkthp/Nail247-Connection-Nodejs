@@ -580,7 +580,7 @@
                     function codeverify(code) {
                         //var code = document.getElementById('verificationCode').value;
                         confirmationCodePhone.confirm(code).then(function (result) {
-                            socket.emit('sign-up-agency', { phone: phone.replaceAll('+', ''), email: email, password: sha512(password) }, (response) => {
+                            socket.emit('sign-up-agency', { phone: phone.replaceAllTxt('+', ''), email: email, password: sha512(password) }, (response) => {
                                 if (response) {
                                     alert('Sign up is successful! please login again')
                                     location.reload()

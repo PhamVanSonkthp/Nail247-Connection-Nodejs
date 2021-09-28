@@ -156,9 +156,9 @@ router.put('/re-post', async (req, res) => {
             await objectHistoryPayment.save()
         }
         let objForUpdate = {}
+        if (helper.isDefine(req.body.package)) objForUpdate.package = req.body.package
         if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
         //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
-
         if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
 
         objForUpdate = { $set: objForUpdate }

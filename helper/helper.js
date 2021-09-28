@@ -527,7 +527,7 @@ exports.paymentPostJob = async function (req, res) {
                     // start upload images
                     let arr = [];
                     for (let index = 0; exports.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).toFile(pathStorage + 'icon-' + files[index].filename);
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename);
                         arr.push(files[index].filename);
                     }
                     // end upload images

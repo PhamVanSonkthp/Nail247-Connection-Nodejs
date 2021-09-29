@@ -286,7 +286,8 @@ router.get('/featured', async (req, res) => {
         const latitude = req.query.latitude;
         const longitude = req.query.longitude;
 
-        let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
+        //let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
+        let query = {  package: 'Gold' , status: 1 }
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             query = {
@@ -337,8 +338,10 @@ router.get('/', async (req, res) => {
         let title = req.query.title;
         const price = req.query.price;
 
-        let query = { expiration_date: { $gte: new Date() }, status: 1 }
-        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: title }
+        //let query = { expiration_date: { $gte: new Date() }, status: 1 }
+        let query = { status: 1 }
+        //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: title }
+        let querySearched = { title: title , status: 1 }
 
         if (helper.isDefine(title) && title.length > 0) {
             title = title.trim().replaceAll('  ', ' ')

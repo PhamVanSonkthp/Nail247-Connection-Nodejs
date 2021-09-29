@@ -1794,8 +1794,10 @@ io.sockets.on('connection', (socket) => {
           UserModel = require('./models/Job')
         }
 
-        let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
-        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
+        //let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
+        let query = { status: 1 }
+        //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
+        let querySearched = { title: data.title , status: 1}
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
@@ -1909,8 +1911,10 @@ io.sockets.on('connection', (socket) => {
           UserModel = require('./models/Job')
         }
 
-        let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
-        let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
+        //let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
+        let query = {status: 1}
+        //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
+        let querySearched = { title: data.title ,status: 1}
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
@@ -2103,7 +2107,8 @@ io.sockets.on('connection', (socket) => {
     trafficsSocket(socket)
     try {
       if (helper.isDefine(data)) {
-        let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
+        //let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
+        let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, status: 1 }
         const nailSupplyModel = require('./models/NailSupply')
         const results = await nailSupplyModel.find(query).limit(10)
         callback(results)
@@ -2165,7 +2170,8 @@ io.sockets.on('connection', (socket) => {
       const sellSalonModel = require('./models/SellSalon')
       const nailSupplyModel = require('./models/NailSupply')
 
-      let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
+      //let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
+      let query = { package: 'Gold', status: 1 }
 
       let resultJobs = await jobModel.aggregate([{ $match: query }, { $sample: { size: 5 } }])
       let resultSellSalon = await sellSalonModel.aggregate([{ $match: query }, { $sample: { size: 5 } }])
@@ -2204,7 +2210,8 @@ io.sockets.on('connection', (socket) => {
     try {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/Job')
-        let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
+        //let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
+        let query = { link_slug: sanitize(data.link_slug) , status: 1}
 
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
 
@@ -2236,7 +2243,8 @@ io.sockets.on('connection', (socket) => {
           }
         }
         object.code = helper.formatZipCode(object.code)
-        let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
+        //let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
+        let queryRelated = { status: 1 }
         let resultRelated
 
         queryRelated = {
@@ -2273,7 +2281,8 @@ io.sockets.on('connection', (socket) => {
     try {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/SellSalon')
-        let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
+        //let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
+        let query = { link_slug: sanitize(data.link_slug), status: 1 }
 
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
 
@@ -2306,7 +2315,8 @@ io.sockets.on('connection', (socket) => {
         }
         object.code = helper.formatZipCode(object.code)
 
-        let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
+        //let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
+        let queryRelated = { status: 1 }
         let resultRelated
 
         queryRelated = {
@@ -2343,7 +2353,8 @@ io.sockets.on('connection', (socket) => {
     try {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/NailSupply')
-        let query = { expiration_date: { $gte: new Date() }, link_slug: data.link_slug, status: 1 }
+        //let query = { expiration_date: { $gte: new Date() }, link_slug: data.link_slug, status: 1 }
+        let query = { link_slug: data.link_slug, status: 1 }
 
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
 
@@ -2377,7 +2388,8 @@ io.sockets.on('connection', (socket) => {
 
         object.code = helper.formatZipCode(object.code)
 
-        let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
+        //let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
+        let queryRelated = { status: 1 }
         let resultRelated
 
         queryRelated = {

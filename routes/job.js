@@ -286,7 +286,8 @@ router.get('/featured', async (req, res) => {
         const longitude = req.query.longitude
         const code = helper.tryParseInt(req.query.code) || 0
 
-        let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
+        //let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
+        let query = { package: 'Gold', status: 1 }
 
         // if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
         //     query = {
@@ -337,7 +338,8 @@ router.get('/', async (req, res) => {
         const code = req.query.code;
         const cost = req.query.cost;
 
-        let query = { expiration_date: { $gte: new Date() }, status: 1 }
+        //let query = { expiration_date: { $gte: new Date() }, status: 1 }
+        let query = { status: 1 }
 
         if (helper.isDefine(code) && code != 'null' && code != 0 && code != '0') {
             let state = helper.getStateByCode(code)

@@ -1136,7 +1136,71 @@
                 }
 
                 function rePost() {
-                    checkoutPostJob(true, products[index_edit]._id, (isSort - 1), monthsProviderPostJob, packagePostJob, costPostJob, getCookie('_id'))
+                    if (costPostJob && costPostJob > 0) {
+                        checkoutPostJob(true, products[index_edit]._id, (isSort - 1), monthsProviderPostJob, packagePostJob, costPostJob, getCookie('_id'))
+                    } else {
+                        toggleModalRePost()
+                        showLoading()
+                        let actionUpdatePost
+                        if ((isSort - 1) == 0) {
+                            actionUpdatePost = '../job/re-post'
+                        } else if ((isSort - 1) == 1) {
+                            actionUpdatePost = '../sell-salon/re-post'
+                        } else if ((isSort - 1) == 2) {
+                            actionUpdatePost = '../nail-supplies/re-post'
+                        }
+
+                        let data = {
+                            id_post: products[index_edit]._id,
+                            cost: costPostJob,
+                            package: packagePostJob,
+                            id_agency: getCookie('_id'),
+                            months_provider: monthsProviderPostJob
+                        }
+                        console.log(data)
+
+                        fetch(actionUpdatePost, {
+                            method: 'PUT',
+                            headers: {
+                                token: 'infinifyltd',
+                                values: JSON.stringify(data),
+                            }
+                        }).then(function (res) {
+                            if (res.status == 200) {
+                                window.location.href = '../agency/posts?sort=' + (isSort)
+                            } else {
+                                alert('error')
+                                hideLoading()
+                                toggleModalRePost()
+                            }
+                        }).catch(function (data) {
+                            alert(data.message)
+                            hideLoading()
+                            toggleModalRePost()
+                        })
+
+                        // $.ajax({
+                        //     type: 'PUT',
+                        //     url: actionUpdatePost,
+                        //     headers: {
+                        //         token: 'infinifyltd',
+                        //         'Content-Type': 'application/x-www-form-urlencoded'
+                        //     },
+                        //     body: data,
+                        //     cache: false,
+                        //     contentType: false,
+                        //     processData: false,
+                        //     success: function (data) {
+                        //         console.log(data)
+                        //         //window.location.href = '../agency/posts?sort=' + (isSort)
+                        //     },
+                        //     error: function (data) {
+                        //         alert(data)
+                        //         hideLoading()
+                        //         toggleModalRePost()
+                        //     }
+                        // })
+                    }
                 }
 
                 $('#select_package_repost_job').on('change', function () {

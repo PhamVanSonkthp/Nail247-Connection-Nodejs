@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ObjectModel = require('../models/SellSalon');
 const helper = require('../helper/helper');
+const ReminderPostModel = require('../models/ReminderPosts')
 
 router.post('/', async (req, res) => {
     return await uploadImage(req, res)
@@ -64,6 +65,12 @@ async function uploadImage(req, res, isWeb) {
 
             try {
                 const savedObject = await object.save()
+
+                const objectReminer = new ReminderPostModel({
+                    id_post: savedObject._id,
+                })
+
+                await objectReminer.save()
 
                 try {
                     if (helper.isDefine(req.body.cost_package) && req.body.cost_package > 0) {
@@ -143,31 +150,69 @@ async function uploadImage(req, res, isWeb) {
 
 router.put('/re-post', async (req, res) => {
     try {
-        if (req.body.cost && req.body.cost > 0) {
-            const HistoryPaymentObject = require('../models/HistoryPayments')
-            const objectHistoryPayment = new HistoryPaymentObject({
-                cost: req.body.cost,
-                id_post: req.body.id_post,
-                type: 1,
-                package: req.body.package,
-                id_agency: req.body.id_agency,
+        if (helper.isDefine(helper.tryParseJson(req.headers.values))) {
+            if (helper.tryParseJson(req.headers.values).cost && helper.tryParseJson(req.headers.values).cost > 0) {
+                const HistoryPaymentObject = require('../models/HistoryPayments')
+                const objectHistoryPayment = new HistoryPaymentObject({
+                    cost: helper.tryParseJson(req.headers.values).cost,
+                    id_post: helper.tryParseJson(req.headers.values).id_post,
+                    type: 1,
+                    package: helper.tryParseJson(req.headers.values).package,
+                    id_agency: helper.tryParseJson(req.headers.values).id_agency,
+                })
+                await objectHistoryPayment.save()
+            }
+            let objForUpdate = {}
+            if (helper.isDefine(helper.tryParseJson(req.headers.values).package)) objForUpdate.package = helper.tryParseJson(req.headers.values).package
+            if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.months_provider = helper.tryParseJson(req.headers.values).months_provider
+            //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
+            if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 60 * 1000
+
+            objForUpdate = { $set: objForUpdate }
+
+            const result = await ObjectModel.updateOne(
+                { _id: helper.tryParseJson(req.headers.values).id_post }, objForUpdate, helper.optsValidator
+            )
+
+            const objectReminer = new ReminderPostModel({
+                id_post: helper.tryParseJson(req.headers.values).id_post,
             })
-            await objectHistoryPayment.save()
+
+            await objectReminer.save()
+
+            return res.json(result)
+        } else {
+            if (req.body.cost && req.body.cost > 0) {
+                const HistoryPaymentObject = require('../models/HistoryPayments')
+                const objectHistoryPayment = new HistoryPaymentObject({
+                    cost: req.body.cost,
+                    id_post: req.body.id_post,
+                    type: 0,
+                    package: req.body.package,
+                    id_agency: req.body.id_agency,
+                })
+                await objectHistoryPayment.save()
+            }
+            let objForUpdate = {}
+            if (helper.isDefine(req.body.package)) objForUpdate.package = req.body.package
+            if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
+            //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
+            if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
+
+            objForUpdate = { $set: objForUpdate }
+
+            const result = await ObjectModel.updateOne(
+                { _id: req.body.id_post }, objForUpdate, helper.optsValidator
+            )
+
+            const objectReminer = new ReminderPostModel({
+                id_post: req.body.id_post,
+            })
+
+            await objectReminer.save()
+
+            return res.json(result)
         }
-        let objForUpdate = {}
-        if (helper.isDefine(req.body.package)) objForUpdate.package = req.body.package
-        if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
-        //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
-        if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
-
-        objForUpdate = { $set: objForUpdate }
-
-        const result = await ObjectModel.updateOne(
-            { _id: req.body.id_post }, objForUpdate, helper.optsValidator
-        )
-
-        return res.json(result)
-
     } catch (err) {
         helper.throwError(err)
         return res.status(500)
@@ -223,6 +268,12 @@ async function updatePostMobile(req, res) {
                 const savedObject = await ObjectModel.findOneAndUpdate(
                     { _id: req.params.objectId }, objForUpdate, helper.optsValidator
                 )
+
+                const objectReminer = new ReminderPostModel({
+                    id_post: savedObject._id,
+                })
+    
+                await objectReminer.save()
 
                 if (req.fileValidationError) {
                     return res.json(savedObject)

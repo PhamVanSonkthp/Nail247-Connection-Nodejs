@@ -1,3 +1,4 @@
+//#region 
 require('dotenv/config')
 const hash = require('js-sha512')
 const express = require('express')
@@ -7,9 +8,29 @@ const logger = require('morgan')
 const sanitize = require('mongo-sanitize')
 const mongoSanitize = require('express-mongo-sanitize');
 const helper = require('./helper/helper')
-const server = require('http').createServer(app);
+const server = require('http').createServer(app)
 const io = require('socket.io')(server, { cors: { origin: "*" } })
+const croner = require('node-cron')
+const nodemailer = require('nodemailer')
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'bontukyhpkt@gmail.com',
+    pass: 'rkdvpbvkoqwvjvlh'
+  }
+})
+
+//#endregion
+
+//#region 
+
+const ReminderPostModel = require('./models/ReminderPosts')
+const JobPostModel = require('./models/Job')
+const SellSalonPostModel = require('./models/SellSalon')
+const NailSupplyPostModel = require('./models/NailSupply')
+
+//#endregion
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
@@ -1797,7 +1818,7 @@ io.sockets.on('connection', (socket) => {
         //let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
         let query = { status: 1 }
         //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
-        let querySearched = { title: data.title , status: 1}
+        let querySearched = { title: data.title, status: 1 }
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
@@ -1912,9 +1933,9 @@ io.sockets.on('connection', (socket) => {
         }
 
         //let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
-        let query = {status: 1}
+        let query = { status: 1 }
         //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
-        let querySearched = { title: data.title ,status: 1}
+        let querySearched = { title: data.title, status: 1 }
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           data.title = data.title.trim().replaceAll('  ', ' ')
@@ -2211,7 +2232,7 @@ io.sockets.on('connection', (socket) => {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/Job')
         //let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
-        let query = { link_slug: sanitize(data.link_slug) , status: 1}
+        let query = { link_slug: sanitize(data.link_slug), status: 1 }
 
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
 
@@ -2612,3 +2633,65 @@ io.sockets.on('connection', (socket) => {
 
 });
 
+croner.schedule('* * * * *', async () => {
+  try {
+    const results = await ReminderPostModel.find()
+    const JobPostModel = require('./models/Job')
+    const SellSalonPostModel = require('./models/SellSalon')
+    const NailSupplyPostModel = require('./models/NailSupply')
+    const AgencyModel = require('./models/Agency')
+
+    for (let i = 0; i < results.length; i++) {
+      let query = { _id: results[i].id_post, expiration_date: { $lt: new Date(Date.now()) } }
+      const job = await JobPostModel.findOne(query)
+      const sellSalon = await SellSalonPostModel.findOne(query)
+      const nailSupply = await NailSupplyPostModel.findOne(query)
+
+      let name, email, title, content
+
+      if (job) {
+        title = job.title
+        content = job.content
+        const agency = await AgencyModel.findById(job.id_agency)
+        email = agency.email
+        name = agency.name
+      }
+
+      if (sellSalon) {
+        title = sellSalon.title
+        content = sellSalon.content
+        const agency = await AgencyModel.findById(sellSalon.id_agency)
+        email = agency.email
+        name = agency.name
+      }
+
+      if (nailSupply) {
+        title = nailSupply.title
+        content = nailSupply.content
+        const agency = await AgencyModel.findById(nailSupply.id_agency)
+        email = agency.email
+        name = agency.name
+      }
+
+      if (helper.isDefine(email)) {
+        let mailOptions = {
+          from: 'bontukyhpkt@gmail.com',
+          to: email,
+          subject: 'hello ' + name,
+          text: 'Your post: ' + title + ' is Expried'
+        }
+
+        await transporter.sendMail(mailOptions)
+
+        await ReminderPostModel.deleteOne({_id : results[i]._id})
+
+        console.log(email)
+      }
+    }
+
+    console.log(results)
+  } catch (err) {
+    helper.throwError(err)
+  }
+
+})

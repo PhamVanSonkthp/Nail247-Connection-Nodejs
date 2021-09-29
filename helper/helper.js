@@ -500,6 +500,14 @@ exports.paymentPostJob = async function (req, res) {
             try {
                 const savedObject = await object.save()
 
+                const ReminderPostModel = require('../models/ReminderPosts')
+                
+                const objectReminer = new ReminderPostModel({
+                    id_post: savedObject._id,
+                })
+
+                await objectReminer.save()
+
                 try {
                     if (exports.isDefine(req.body.cost_package) && req.body.cost_package > 0) {
                         const HistoryPaymentObject = require('../models/HistoryPayments')

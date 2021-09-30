@@ -339,8 +339,8 @@ router.get('/featured', async (req, res) => {
         const latitude = req.query.latitude;
         const longitude = req.query.longitude;
 
-        //let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
-        let query = { package: 'Gold', status: 1 }
+        let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
+        //let query = { package: 'Gold', status: 1 }
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             query = {

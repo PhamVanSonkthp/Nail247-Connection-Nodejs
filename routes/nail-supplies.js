@@ -107,8 +107,9 @@ async function uploadImage(req, res, isWeb) {
                     // start upload images
                     let arr = [];
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename);
-                        arr.push(files[index].filename);
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg' )
+                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg' )
+                        arr.push( files[index].filename.split('.')[0] + '.jpg' )
                     }
                     // end upload images
                     try {
@@ -274,7 +275,7 @@ async function updatePostMobile(req, res) {
                 const objectReminer = new ReminderPostModel({
                     id_post: savedObject._id,
                 })
-    
+
                 await objectReminer.save()
 
                 if (req.fileValidationError) {
@@ -288,8 +289,9 @@ async function updatePostMobile(req, res) {
                     // start upload images
                     let arr = []
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename);
-                        arr.push(files[index].filename);
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg' )
+                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg' )
+                        arr.push( files[index].filename.split('.')[0] + '.jpg' )
                     }
                     // end upload images
 
@@ -338,7 +340,7 @@ router.get('/featured', async (req, res) => {
         const longitude = req.query.longitude;
 
         //let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
-        let query = {  package: 'Gold' , status: 1 }
+        let query = { package: 'Gold', status: 1 }
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             query = {
@@ -392,7 +394,7 @@ router.get('/', async (req, res) => {
         //let query = { expiration_date: { $gte: new Date() }, status: 1 }
         let query = { status: 1 }
         //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: title }
-        let querySearched = { title: title , status: 1 }
+        let querySearched = { title: title, status: 1 }
 
         if (helper.isDefine(title) && title.length > 0) {
             title = title.trim().replaceAll('  ', ' ')
@@ -552,8 +554,9 @@ async function updateImage(req, res, isWeb) {
                     // start upload images
                     let arr = [];
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename);
-                        arr.push(files[index].filename);
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg' )
+                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg' )
+                        arr.push( files[index].filename.split('.')[0] + '.jpg' )
                     }
                     // end upload images
                     try {

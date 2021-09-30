@@ -1906,6 +1906,12 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
+        for (let i = 0; i < object.length; i++) {
+          if ((new Date(Date.now())) > (new Date(object[i].expiration_date))) {
+            object[i].status = 0
+          }
+        }
+
         callback(object)
 
       } else {
@@ -2191,8 +2197,7 @@ io.sockets.on('connection', (socket) => {
       const sellSalonModel = require('./models/SellSalon')
       const nailSupplyModel = require('./models/NailSupply')
 
-      //let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
-      let query = { package: 'Gold', status: 1 }
+      let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
 
       let resultJobs = await jobModel.aggregate([{ $match: query }, { $sample: { size: 5 } }])
       let resultSellSalon = await sellSalonModel.aggregate([{ $match: query }, { $sample: { size: 5 } }])
@@ -2252,6 +2257,10 @@ io.sockets.on('connection', (socket) => {
 
         let object = await jobModel.findOne(query)
 
+        if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
+          object.status = 0
+        }
+
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
           object = {
             ...object._doc,
@@ -2279,6 +2288,11 @@ io.sockets.on('connection', (socket) => {
             ...resultRelated[i],
             distance: 'Unknown'
           }
+
+          if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
+            resultRelated[i].status = 0
+          }
+
         }
 
         const nearCountry = nearCountryByCode(object.code)
@@ -2323,6 +2337,10 @@ io.sockets.on('connection', (socket) => {
 
         let object = await jobModel.findOne(query)
 
+        if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
+          object.status = 0
+        }
+
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
           object = {
             ...object._doc,
@@ -2350,6 +2368,10 @@ io.sockets.on('connection', (socket) => {
           resultRelated[i] = {
             ...resultRelated[i],
             distance: 'Unknown'
+          }
+
+          if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
+            resultRelated[i].status = 0
           }
         }
 
@@ -2395,6 +2417,10 @@ io.sockets.on('connection', (socket) => {
 
         let object = await jobModel.findOne(query)
 
+        if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
+          object.status = 0
+        }
+
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
           object = {
             ...object._doc,
@@ -2423,6 +2449,10 @@ io.sockets.on('connection', (socket) => {
           resultRelated[i] = {
             ...resultRelated[i],
             distance: 'Unknown'
+          }
+
+          if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
+            resultRelated[i].status = 0
           }
         }
 
@@ -2677,13 +2707,13 @@ croner.schedule('* * * * *', async () => {
         let mailOptions = {
           from: 'bontukyhpkt@gmail.com',
           to: email,
-          subject: 'hello ' + name,
+          subject: '247 Nail Salons, your Ad is expiring!',
           text: 'Your post: ' + title + ' is Expried'
         }
 
         await transporter.sendMail(mailOptions)
 
-        await ReminderPostModel.deleteOne({_id : results[i]._id})
+        await ReminderPostModel.deleteOne({ _id: results[i]._id })
 
         console.log(email)
       }

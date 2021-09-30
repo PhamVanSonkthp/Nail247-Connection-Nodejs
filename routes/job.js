@@ -273,7 +273,7 @@ async function updatePostMobile(req, res) {
                 const objectReminer = new ReminderPostModel({
                     id_post: savedObject._id,
                 })
-    
+
                 await objectReminer.save()
 
                 if (req.fileValidationError) {
@@ -331,14 +331,14 @@ router.delete('/:objectId', async (req, res) => {
 
 router.get('/featured', async (req, res) => {
     try {
-        const limit = helper.tryParseInt(req.query.limit) || 10
-        const page = helper.tryParseInt(req.query.page) || 0
+        const limit = helper.tryParseInt(req.query.limit)
+        const page = helper.tryParseInt(req.query.page)
         const latitude = req.query.latitude
         const longitude = req.query.longitude
         const code = helper.tryParseInt(req.query.code) || 0
 
-        //let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
-        let query = { package: 'Gold', status: 1 }
+        let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
+        //let query = { package: 'Gold', status: 1 }
 
         // if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
         //     query = {
@@ -382,8 +382,8 @@ router.get('/featured', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const limit = helper.tryParseInt(req.query.limit) || 25;
-        const page = helper.tryParseInt(req.query.page) || 0;
+        const limit = helper.tryParseInt(req.query.limit)
+        const page = helper.tryParseInt(req.query.page)
         // const latitude = req.query.latitude;
         // const longitude = req.query.longitude;
         const code = req.query.code;
@@ -439,6 +439,11 @@ router.get('/', async (req, res) => {
                 ...result[i]._doc,
                 distance: 'Unknown'
             }
+
+            if ((new Date(Date.now())) > (new Date(result[i].expiration_date))) {
+                result[i].status = 0
+            }
+
         }
 
         return res.json(result);

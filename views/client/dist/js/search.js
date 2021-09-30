@@ -144,6 +144,7 @@ socket.emit('featured', null, (response) => {
             } else if (response[i].type == 3) {
                 prefix = '../posts-nail-supplies/'
             }
+
             $('#slick_2').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '"><div class="slide intro-x"> <div class="intro-x panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="mt-2 font-medium ellipsis-1">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis" style="font-size: 0.8rem;">' + escapeHtml(response[i].content || 'Unknown') + '</div> <div class="grid grid-cols-12 mt-2" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city || 'Unknow') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + '</span> </div> </div> </div> </a>')
         }
         reloadSlick_2()
@@ -254,6 +255,7 @@ function searchProduct() {
             urlImage = urlImagePostNailSuppliesIcon
             prefix = '../posts-nail-supplies/'
         }
+
         if (isDefine(response) && response.length > 0) {
             $('#containe_newest').empty()
             for (let i = 0; i < response.length; i++) {
@@ -272,6 +274,7 @@ function searchProduct() {
                     border = 'border-normal'
                     display = 'display: none;'
                 }
+
                 $('#containe_newest').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '" class="zoom-in col-span-12 lg:col-span-6 box ' + border + '"> <div class="grid grid-cols-3 intro-y h-full"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(' + bg + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div style="display:flex;"><div class=" font-medium ellipsis-1" style="flex:10"> ' + escapeHtml(response[i].title) + '</div><div class="text-gold" style="flex: 2;' + display + '">Gold</div> </div> <div class="ellipsis mt-2"> ' + removeHTMLTags(escapeHtml(response[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium ellipsis" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(isNumber(response[i].cost) ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response[i].distance) + '</span> </div> </div> <div class="p-2 grid grid-cols-12"> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city + ', ' + response[i].state) + ' </div> </div> </div></div> </a>')
             }
         } else {
@@ -304,7 +307,7 @@ function loadmoreProduct(page) {
 function countProduct() {
     if (categories.includes('nail-supply')) {
         title = $('#keyword').val()
-    }else{
+    } else {
         title = null
     }
     querySearch = { code: code, categories: categories, distance: distance, latitude: latitude, longitude: longitude, salary: salary, limit: limit, offset: offset, title: title }
@@ -364,10 +367,10 @@ changeSalary(tryParseInt(salary))
 
 socket.emit('name-country-by-code', { code: code }, (response) => {
     if (isDefine(response)) {
-        if (!response.name_city.includes('undefined') && !$('#select_categories').val().includes('nail-supply')){
+        if (!response.name_city.includes('undefined') && !$('#select_categories').val().includes('nail-supply')) {
             $('#keyword').val(response.name_city)
             $('#lbl_country').html('"' + $('#keyword').val() + '"')
-        }else{
+        } else {
             $('#lbl_country').html('"' + $('#keyword').val() + '"')
         }
 

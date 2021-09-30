@@ -330,8 +330,8 @@ router.delete('/:objectId', async (req, res) => {
 
 router.get('/featured', async (req, res) => {
     try {
-        const limit = helper.tryParseInt(req.query.limit) || 10
-        const page = helper.tryParseInt(req.query.page) || 0
+        const limit = helper.tryParseInt(req.query.limit)
+        const page = helper.tryParseInt(req.query.page)
         const latitude = req.query.latitude;
         const longitude = req.query.longitude;
 
@@ -380,8 +380,8 @@ router.get('/featured', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const limit = helper.tryParseInt(req.query.limit) || 25;
-        const page = helper.tryParseInt(req.query.page) || 0;
+        const limit = helper.tryParseInt(req.query.limit)
+        const page = helper.tryParseInt(req.query.page)
         const latitude = req.query.latitude;
         const longitude = req.query.longitude;
         const code = req.query.code;
@@ -422,21 +422,18 @@ router.get('/', async (req, res) => {
 
         const result = await ObjectModel.find(query).sort({_id : -1}).limit(limit).skip(page);
 
-        if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
-            for (let i = 0; i < result.length; i++) {
-                result[i] = {
-                    ...result[i]._doc,
-                    distance: helper.getDistanceFromLatLonInKm(result[i].location.coordinates[0], result[i].location.coordinates[1], latitude, longitude)
-                }
+        for (let i = 0; i < result.length; i++) {
+            result[i] = {
+                ...result[i]._doc,
+                distance: 'Unknown'
             }
-        } else {
-            for (let i = 0; i < result.length; i++) {
-                result[i] = {
-                    ...result[i]._doc,
-                    distance: 'Unknown'
-                }
+
+            if ((new Date(Date.now())) > (new Date(result[i].expiration_date))) {
+                result[i].status = 0
             }
+
         }
+        
         return res.json(result);
     } catch (err) {
         helper.throwError(err)

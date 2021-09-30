@@ -13,13 +13,13 @@ const io = require('socket.io')(server, { cors: { origin: "*" } })
 const croner = require('node-cron')
 const nodemailer = require('nodemailer')
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'bontukyhpkt@gmail.com',
-    pass: 'rkdvpbvkoqwvjvlh'
-  }
-})
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'bontukyhpkt@gmail.com',
+//     pass: 'rkdvpbvkoqwvjvlh'
+//   }
+// })
 
 //#endregion
 
@@ -2663,6 +2663,21 @@ io.sockets.on('connection', (socket) => {
 
 });
 
+// Generate test SMTP service account from ethereal.email
+// Only needed if you don't have a real mail account for testing
+//let testAccount = await nodemailer.createTestAccount();
+
+// create reusable transporter object using the default SMTP transport
+const transporter = nodemailer.createTransport({
+  host: "smtp.zoho.com",
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: 'hi@247nailsalons.com', // generated ethereal user
+    pass: 'Tomhotro247@', // generated ethereal password
+  },
+});
+
 croner.schedule('* * * * *', async () => {
   try {
     const results = await ReminderPostModel.find()
@@ -2703,20 +2718,38 @@ croner.schedule('* * * * *', async () => {
         name = agency.name
       }
 
-      if (helper.isDefine(email)) {
-        let mailOptions = {
-          from: 'bontukyhpkt@gmail.com',
-          to: email,
-          subject: '247 Nail Salons, your Ad is expiring!',
-          text: 'Your post: ' + title + ' is Expried'
-        }
+      // if (helper.isDefine(email)) {
+      //   let mailOptions = {
+      //     from: 'bontukyhpkt@gmail.com',
+      //     to: email,
+      //     subject: '247 Nail Salons, your Ad is expiring!',
+      //     text: 'Your post: ' + title + ' is Expried'
+      //   }
 
-        await transporter.sendMail(mailOptions)
+      //   await transporter.sendMail(mailOptions)
+
+      //   await ReminderPostModel.deleteOne({ _id: results[i]._id })
+
+      //   console.log(email)
+      // }
+
+      if (helper.isDefine(email)) {
+
+        // send mail with defined transport object
+        let info = await transporter.sendMail({
+          from: 'hi@247nailsalons.com', // sender address
+          to: email,
+          subject: "247NailSalons.com", // Subject line
+          text: "247 Nail Salons, your Ad is expiring!",
+          html: "<b>Hi " + name + "</b><p>Your Ad post at 247NailSalons.com is about to expire today. We hope our platform can help you spread your ad to many people.</p><p>To Re-post your Ad. it’s as easy as ever – just use our App or login to website https://247nailsalons.com/ Then go to My Post you will see Re-Post option there, after that pick the package that suits your needs and follow the prompts.</p><p>If you have any questions regarding your membership, benefits, or repost your ad, please don’t hesitate to reach out by replying to this email or calling us at (312) 620-0455.</p><p>Thanks,</p><p>247 Nail Salons</p><p>https://247nailsalons.com/</p>",
+        });
 
         await ReminderPostModel.deleteOne({ _id: results[i]._id })
 
-        console.log(email)
+        console.log("Message sent: %s", info.messageId);
+
       }
+
     }
 
     console.log(results)

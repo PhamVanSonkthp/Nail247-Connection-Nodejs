@@ -63,6 +63,13 @@ exports.saveTraffics = function (name, status) {
     }
 }
 
+exports.optsValidatorFindAndUpdate = {
+    runValidators: true,
+    new: true,
+    upsert: true,
+    setDefaultsOnInsert: true,
+  }
+
 function empty(val) {
 
     // test results
@@ -501,12 +508,12 @@ exports.paymentPostJob = async function (req, res) {
                 const savedObject = await object.save()
 
                 const ReminderPostModel = require('../models/ReminderPosts')
-                
-                const objectReminer = new ReminderPostModel({
-                    id_post: savedObject._id,
-                })
 
-                await objectReminer.save()
+                const query = {
+                    id_post: savedObject._id,
+                }
+    
+                await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
 
                 try {
                     if (exports.isDefine(req.body.cost_package) && req.body.cost_package > 0) {

@@ -66,11 +66,11 @@ async function uploadImage(req, res, isWeb) {
             try {
                 const savedObject = await object.save()
 
-                const objectReminer = new ReminderPostModel({
+                const query = {
                     id_post: savedObject._id,
-                })
+                }
 
-                await objectReminer.save()
+                await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
 
                 try {
                     if (helper.isDefine(req.body.cost_package) && req.body.cost_package > 0) {
@@ -106,9 +106,9 @@ async function uploadImage(req, res, isWeb) {
                     // start upload images
                     let arr = [];
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg' )
-                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg' )
-                        arr.push( files[index].filename.split('.')[0] + '.jpg' )
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
+                        arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
                     // end upload images
                     try {
@@ -175,11 +175,11 @@ router.put('/re-post', async (req, res) => {
                 { _id: helper.tryParseJson(req.headers.values).id_post }, objForUpdate, helper.optsValidator
             )
 
-            const objectReminer = new ReminderPostModel({
+            const query = {
                 id_post: helper.tryParseJson(req.headers.values).id_post,
-            })
+            }
 
-            await objectReminer.save()
+            await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
 
             return res.json(result)
         } else {
@@ -206,11 +206,11 @@ router.put('/re-post', async (req, res) => {
                 { _id: req.body.id_post }, objForUpdate, helper.optsValidator
             )
 
-            const objectReminer = new ReminderPostModel({
+            const query = {
                 id_post: req.body.id_post,
-            })
+            }
 
-            await objectReminer.save()
+            await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
 
             return res.json(result)
         }
@@ -270,11 +270,11 @@ async function updatePostMobile(req, res) {
                     { _id: req.params.objectId }, objForUpdate, helper.optsValidator
                 )
 
-                const objectReminer = new ReminderPostModel({
+                const query = {
                     id_post: savedObject._id,
-                })
+                }
 
-                await objectReminer.save()
+                await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
 
                 if (req.fileValidationError) {
                     return res.json(savedObject)
@@ -287,9 +287,9 @@ async function updatePostMobile(req, res) {
                     // start upload images
                     let arr = []
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg' )
-                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg' )
-                        arr.push( files[index].filename.split('.')[0] + '.jpg' )
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
+                        arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
                     // end upload images
 
@@ -516,9 +516,9 @@ async function updateImage(req, res, isWeb) {
                     // start upload images
                     let arr = [];
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg' )
-                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg' )
-                        arr.push( files[index].filename.split('.')[0] + '.jpg' )
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
+                        arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
                     // end upload images
                     try {

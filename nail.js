@@ -799,12 +799,13 @@ io.sockets.on('connection', (socket) => {
         }
 
         let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" }, id_agency: data._id };
-        if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-          query = {
-            ...query,
-            $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-          }
-        }
+
+        // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+        //   query = {
+        //     ...query,
+        //     $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+        //   }
+        // }
 
         if (helper.isDefine(data.package)) {
           query = {
@@ -835,17 +836,15 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        UserModel.find(query, (err, result) => {
-          helper.throwError(err)
+        const result = await UserModel.find(query).sort(filter).limit(data.limit).skip(data.offset)
 
-          for (let i = 0; i < result.length; i++) {
-            if (result[i].expiration_date < new Date(Date.now())) {
-              result[i].status = 0
-            }
+        for (let i = 0; i < result.length; i++) {
+          if (result[i].expiration_date < new Date(Date.now())) {
+            result[i].status = 0
           }
+        }
+        callback(result)
 
-          callback(result)
-        }).limit((data.limit)).skip((data.offset)).sort(filter);;
       } else {
         callback(null);
       }
@@ -865,12 +864,12 @@ io.sockets.on('connection', (socket) => {
         const NailSupplyModel = require('./models/NailSupply');
         let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" }, id_agency: data._id };
 
-        if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-          query = {
-            ...query,
-            $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-          }
-        }
+        // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+        //   query = {
+        //     ...query,
+        //     $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+        //   }
+        // }
 
         if (helper.isDefine(data.package)) {
           query = {
@@ -2739,7 +2738,7 @@ croner.schedule('* * * * *', async () => {
         let info = await transporter.sendMail({
           from: 'hi@247nailsalons.com', // sender address
           to: email,
-          subject: "247NailSalons.com", // Subject line
+          subject: "247 Nail Salons, your Ad is expiring!", // Subject line
           text: "247 Nail Salons, your Ad is expiring!",
           html: "<b>Hi " + name + "</b><p>Your Ad post at 247NailSalons.com is about to expire today. We hope our platform can help you spread your ad to many people.</p><p>To Re-post your Ad. it’s as easy as ever – just use our App or login to website https://247nailsalons.com/ Then go to My Post you will see Re-Post option there, after that pick the package that suits your needs and follow the prompts.</p><p>If you have any questions regarding your membership, benefits, or repost your ad, please don’t hesitate to reach out by replying to this email or calling us at (312) 620-0455.</p><p>Thanks,</p><p>247 Nail Salons</p><p>https://247nailsalons.com/</p>",
         });

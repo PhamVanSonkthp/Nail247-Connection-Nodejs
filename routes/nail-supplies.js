@@ -66,11 +66,11 @@ async function uploadImage(req, res, isWeb) {
             try {
                 const savedObject = await object.save()
 
-                const objectReminer = new ReminderPostModel({
+                const query = {
                     id_post: savedObject._id,
-                })
-
-                await objectReminer.save()
+                }
+    
+                await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
 
                 try {
                     if (helper.isDefine(req.body.cost_package) && req.body.cost_package > 0) {
@@ -176,11 +176,11 @@ router.put('/re-post', async (req, res) => {
                 { _id: helper.tryParseJson(req.headers.values).id_post }, objForUpdate, helper.optsValidator
             )
 
-            const objectReminer = new ReminderPostModel({
+            const query = {
                 id_post: helper.tryParseJson(req.headers.values).id_post,
-            })
+            }
 
-            await objectReminer.save()
+            await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
 
             return res.json(result)
         } else {
@@ -207,11 +207,11 @@ router.put('/re-post', async (req, res) => {
                 { _id: req.body.id_post }, objForUpdate, helper.optsValidator
             )
 
-            const objectReminer = new ReminderPostModel({
+            const query = {
                 id_post: req.body.id_post,
-            })
+            }
 
-            await objectReminer.save()
+            await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
 
             return res.json(result)
         }
@@ -272,11 +272,11 @@ async function updatePostMobile(req, res) {
                     { _id: req.params.objectId }, objForUpdate, helper.optsValidator
                 )
 
-                const objectReminer = new ReminderPostModel({
+                const query = {
                     id_post: savedObject._id,
-                })
-
-                await objectReminer.save()
+                }
+    
+                await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
 
                 if (req.fileValidationError) {
                     return res.json(savedObject)

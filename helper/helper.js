@@ -68,7 +68,7 @@ exports.optsValidatorFindAndUpdate = {
     new: true,
     upsert: true,
     setDefaultsOnInsert: true,
-  }
+}
 
 function empty(val) {
 
@@ -436,13 +436,13 @@ exports.paymentPostJob = async function (req, res) {
                     if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.months_provider = exports.tryParseJson(req.headers.stripe).months_provider_post_job
                     //if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.expiration_date = Date.now() + exports.tryParseInt(exports.tryParseJson(req.headers.stripe).months_provider_post_job) * 30 * 24 * 60 * 60 * 1000
                     if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.expiration_date = Date.now() + exports.tryParseInt(exports.tryParseJson(req.headers.stripe).months_provider_post_job) * 60 * 1000
-    
+
                     objForUpdate = { $set: objForUpdate }
-    
+
                     await ObjectModel.updateOne(
                         { _id: exports.tryParseJson(req.headers.stripe).id_post }, objForUpdate, exports.optsValidator
                     )
-    
+
                     return res.redirect("/agency/posts?sort=" + (exports.tryParseJson(req.headers.stripe).type_post + 1))
 
                 } catch (err) {
@@ -512,7 +512,7 @@ exports.paymentPostJob = async function (req, res) {
                 const query = {
                     id_post: savedObject._id,
                 }
-    
+
                 await ReminderPostModel.findOneAndUpdate(query, query, exports.optsValidatorFindAndUpdate)
 
                 try {
@@ -543,9 +543,14 @@ exports.paymentPostJob = async function (req, res) {
                     // start upload images
                     let arr = [];
                     for (let index = 0; exports.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg' )
-                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg' )
-                        arr.push( files[index].filename.split('.')[0] + '.jpg' )
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        try {
+                            sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
+                        }catch(err){
+                            
+                        }
+                        
+                        arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
 
                     arr.sort()

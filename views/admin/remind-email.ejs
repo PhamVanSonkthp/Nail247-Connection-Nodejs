@@ -1,0 +1,60 @@
+<%- include("header", {tab: "home" , title: "Trang chủ" }); %>
+    <script src="../views/client/dist/js/ckeditor/ckeditor.js"></script>
+    <script src="../views/client/dist/js/ckeditor/samples/js/sample.js"></script>
+    <!-- BEGIN: Content -->
+
+
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            Settings > remind email
+        </h2>
+    </div>
+
+
+    <div class="intro-y box p-5 mt-5">
+
+        <label>Title</label>
+        <input id="edt_title" autocomplete="off" type="text"
+            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border mb-5"
+            placeholder="Title email" />
+
+        <label>Content</label>
+        <textarea id="editor" autocomplete="off" type="text"
+            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+            placeholder="Content email"></textarea>
+
+        <button id="btn_save" onclick="saveContent()" type="button" class="btn btn-success mt-5">Save</button>
+    </div>
+
+    <!-- END: Content -->
+
+    </div>
+    <!-- BEGIN: SCRIPT -->
+
+    <script>
+
+        showLoading()
+        function saveContent() {
+            showLoading()
+            socket.emit('update-contact-us', { _id: getCookie('_id'), password: getCookie('password'),title_email_remind : $('#edt_title').val() , content_email_remind: CKEDITOR.instances.editor.getData() }, (response) => {
+                hideLoading()
+            })
+        }
+
+        $(document).ready(function () {
+            $('#draw_5').addClass('side-menu--active')
+            $('#draw_5').addClass('side-menu--open')
+            $('#draw_5_8').addClass('side-menu--active')
+            $('#draw_5_wrap').addClass('side-menu__sub-open')
+        })
+        socket.emit('contact-us', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+            if (isDefine(response)) {
+                CKEDITOR.instances['editor'].setData(response.content_email_remind)
+                $('#edt_title').val(response.title_email_remind)
+            }
+            hideLoading()
+        })
+        initSample()
+    </script>
+    <!-- END: SCRIPT -->
+    <%- include("footer"); %>

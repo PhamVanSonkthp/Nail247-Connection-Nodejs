@@ -75,7 +75,7 @@ router.delete('/:objectId', async (req, res) => {
 
 router.get('/sign-in', async (req, res) => {
     try {
-        let query = { phone: req.query.phone, password: req.query.password }
+        let query = { phone: req.query.phone, password: req.query.password, status: 1 }
         const object = await ObjectModel.findOne(query);
         res.json(object);
     } catch (err) {

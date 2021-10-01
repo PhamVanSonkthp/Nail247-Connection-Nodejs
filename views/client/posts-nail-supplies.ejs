@@ -455,11 +455,13 @@
                     $('#lbl_address').html(escapeHtml(response.post.city + ', ' + response.post.state + ' ' + response.post.code))
                     $('#lbl_salary').html(escapeHtml(response.post.price != 0 ? ('$' + formatMoney(response.post.price)) : 'Contact owner'))
 
-                    $('#lbl_content').html((response.post.content))
+                    $('#lbl_content').html(escapeHtml(response.post.content))
 
+                    $("#lbl_content").attr("style", 'line-height: 2;position: relative;min-height: 100px;')
                     if (response.post.status == 0) {
-                        $("#lbl_content").attr("style", 'opacity: 0.5 !important;');
+                        $("#lbl_content").attr("style", 'opacity: 0.5 !important;line-height: 2;position: relative;min-height: 100px;')
                         $('#container_contact').hide()
+                        $('#lbl_content').append('<div style="width: 50%;"><img style="position: absolute;top: 0;bottom:0;left: 0;right: 0;margin: auto;height: 100px;" src="../views/client/dist/images/expired.png"></div>')
                     }
 
                     $('#lbl_phone').html(escapeHtml(response.post.phone))

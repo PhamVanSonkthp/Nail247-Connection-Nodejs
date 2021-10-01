@@ -18,6 +18,14 @@ const object = mongoose.Schema({
         type: String,
         maxLength: 10000000,
     },
+    title_email_remind: {
+        type: String,
+        maxLength: 10000000,
+    },
+    content_email_remind: {
+        type: String,
+        maxLength: 10000000,
+    },
 }, { timestamps: true });
 
 object.set('toObject', { getters: true, setters: true });

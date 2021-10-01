@@ -59,8 +59,8 @@ async function uploadImage(req, res, isWeb) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
-                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
+                expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                //expiration_date: Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000,
             })
 
             try {
@@ -173,8 +173,8 @@ router.put('/re-post', async (req, res) => {
             let objForUpdate = {}
             if (helper.isDefine(helper.tryParseJson(req.headers.values).package)) objForUpdate.package = helper.tryParseJson(req.headers.values).package
             if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.months_provider = helper.tryParseJson(req.headers.values).months_provider
-            //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
-            if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 60 * 1000
+            if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 30 * 24 * 60 * 60 * 1000
+            //if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 60 * 1000
 
             objForUpdate = { $set: objForUpdate }
 
@@ -204,8 +204,8 @@ router.put('/re-post', async (req, res) => {
             let objForUpdate = {}
             if (helper.isDefine(req.body.package)) objForUpdate.package = req.body.package
             if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
-            //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
-            if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
+            if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
+            //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
 
             objForUpdate = { $set: objForUpdate }
 

@@ -434,8 +434,8 @@ exports.paymentPostJob = async function (req, res) {
                     let objForUpdate = {}
                     if (exports.isDefine(exports.tryParseJson(req.headers.stripe).package_post_job)) objForUpdate.package = exports.tryParseJson(req.headers.stripe).package_post_job
                     if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.months_provider = exports.tryParseJson(req.headers.stripe).months_provider_post_job
-                    //if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.expiration_date = Date.now() + exports.tryParseInt(exports.tryParseJson(req.headers.stripe).months_provider_post_job) * 30 * 24 * 60 * 60 * 1000
-                    if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.expiration_date = Date.now() + exports.tryParseInt(exports.tryParseJson(req.headers.stripe).months_provider_post_job) * 60 * 1000
+                    if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.expiration_date = Date.now() + exports.tryParseInt(exports.tryParseJson(req.headers.stripe).months_provider_post_job) * 30 * 24 * 60 * 60 * 1000
+                    //if (exports.isDefine(exports.tryParseJson(req.headers.stripe).months_provider_post_job)) objForUpdate.expiration_date = Date.now() + exports.tryParseInt(exports.tryParseJson(req.headers.stripe).months_provider_post_job) * 60 * 1000
 
                     objForUpdate = { $set: objForUpdate }
 
@@ -481,8 +481,8 @@ exports.paymentPostJob = async function (req, res) {
                 images: [],
                 package: req.body.package,
                 id_agency: req.body.id_agency,
-                //expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
-                expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 60 * 1000,
+                expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000,
+                //expiration_date: Date.now() + exports.tryParseInt(req.body.months_provider) * 60 * 1000,
             }
 
             if (exports.tryParseJson(req.headers.stripe).type_post == '0') {

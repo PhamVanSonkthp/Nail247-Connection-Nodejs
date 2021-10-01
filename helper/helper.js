@@ -513,7 +513,7 @@ exports.paymentPostJob = async function (req, res) {
                     id_post: savedObject._id,
                 }
     
-                await ReminderPostModel.findOneAndUpdate(query, query, helper.optsValidatorFindAndUpdate)
+                await ReminderPostModel.findOneAndUpdate(query, query, exports.optsValidatorFindAndUpdate)
 
                 try {
                     if (exports.isDefine(req.body.cost_package) && req.body.cost_package > 0) {

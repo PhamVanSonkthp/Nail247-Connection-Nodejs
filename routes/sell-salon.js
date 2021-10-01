@@ -106,10 +106,13 @@ async function uploadImage(req, res, isWeb) {
                     // start upload images
                     let arr = [];
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
-                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
+                        await sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        //sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
+
+                    arr.sort()
+
                     // end upload images
                     try {
                         for (let i = 0; i < arr.length; i++) {
@@ -287,10 +290,13 @@ async function updatePostMobile(req, res) {
                     // start upload images
                     let arr = []
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
-                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
+                        await sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        //sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
+
+                    arr.sort()
+
                     // end upload images
 
                     try {
@@ -516,10 +522,13 @@ async function updateImage(req, res, isWeb) {
                     // start upload images
                     let arr = [];
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
-                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
-                        sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
+                        await sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        //sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
+
+                    arr.sort()
+                    
                     // end upload images
                     try {
                         for (let i = 0; i < arr.length; i++) {

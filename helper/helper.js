@@ -405,7 +405,7 @@ exports.paymentPostJob = async function (req, res) {
         }
     });
 
-    let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).array('avatar', 100);
+    let upload = multer({ storage: storage }).array('avatar', 100);
     upload(req, res, function (err) {
         (async () => {
             let ObjectModel;

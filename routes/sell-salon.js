@@ -25,7 +25,7 @@ async function uploadImage(req, res, isWeb) {
         }
     });
 
-    let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).array('avatar', 100);
+    let upload = multer({ storage: storage }).array('avatar', 100);
     upload(req, res, function (err) {
         (async () => {
 
@@ -248,7 +248,7 @@ async function updatePostMobile(req, res) {
         }
     });
 
-    let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).array('avatar', 100);
+    let upload = multer({ storage: storage }).array('avatar', 100);
     upload(req, res, function (err) {
         (async () => {
             try {
@@ -478,7 +478,7 @@ async function updateImage(req, res, isWeb) {
         }
     });
 
-    let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).array('avatar', 100);
+    let upload = multer({ storage: storage }).array('avatar', 100);
     upload(req, res, function (err) {
         (async () => {
             try {

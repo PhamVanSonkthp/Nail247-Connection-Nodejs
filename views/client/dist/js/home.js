@@ -266,7 +266,7 @@ $(document).ready(function () {
         }
     });
 
-    if (getCookie('name') && getCookie('_id')) {
+    if (getCookie('name') || getCookie('_id')) {
         $('#btn_toggle_dialog').html('<i class="far fa-user mr-2"></i>Hello ' + (getCookie('name') != 'null' ? getCookie('name') : '') + ' !')
     }
 

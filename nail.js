@@ -2731,14 +2731,9 @@ croner.schedule('* * * * *', async () => {
         })
 
         await ReminderPostModel.deleteOne({ _id: results[i]._id })
-
-        console.log("Message sent: %s", info.messageId);
-
       }
 
     }
-
-    console.log(results)
   } catch (err) {
     helper.throwError(err)
   }

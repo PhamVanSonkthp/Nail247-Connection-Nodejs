@@ -454,12 +454,12 @@ io.sockets.on('connection', (socket) => {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/Job');
         let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } };
-        if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-          query = {
-            ...query,
-            $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-          }
-        }
+        // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+        //   query = {
+        //     ...query,
+        //     $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+        //   }
+        // }
 
         if (helper.isDefine(data.package)) {
           query = {
@@ -514,12 +514,12 @@ io.sockets.on('connection', (socket) => {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/SellSalon');
         let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } };
-        if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-          query = {
-            ...query,
-            $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-          }
-        }
+        // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+        //   query = {
+        //     ...query,
+        //     $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+        //   }
+        // }
 
         if (helper.isDefine(data.package)) {
           query = {
@@ -576,12 +576,12 @@ io.sockets.on('connection', (socket) => {
       if (data != null && await helper.checkLogin(data._id, data.password)) {
         const UserModel = require('./models/NailSupply');
         let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } };
-        if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-          query = {
-            ...query,
-            $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-          }
-        }
+        // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+        //   query = {
+        //     ...query,
+        //     $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+        //   }
+        // }
 
         if (helper.isDefine(data.package)) {
           query = {
@@ -749,12 +749,12 @@ io.sockets.on('connection', (socket) => {
         const UserModel = require('./models/Job');
         let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } };
 
-        if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-          query = {
-            ...query,
-            $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-          }
-        }
+        // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+        //   query = {
+        //     ...query,
+        //     $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+        //   }
+        // }
 
         if (helper.isDefine(data.package)) {
           query = {
@@ -918,12 +918,12 @@ io.sockets.on('connection', (socket) => {
 
         const UserModel = require('./models/SellSalon');
         let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } };
-        if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-          query = {
-            ...query,
-            $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-          }
-        }
+        // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+        //   query = {
+        //     ...query,
+        //     $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+        //   }
+        // }
 
         if (helper.isDefine(data.package)) {
           query = {
@@ -964,12 +964,12 @@ io.sockets.on('connection', (socket) => {
 
         const UserModel = require('./models/NailSupply');
         let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } };
-        if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-          query = {
-            ...query,
-            $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-          }
-        }
+        // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+        //   query = {
+        //     ...query,
+        //     $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+        //   }
+        // }
 
         if (helper.isDefine(data.package)) {
           query = {

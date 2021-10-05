@@ -108,7 +108,7 @@ var offset = 0
 var isShow = 3
 var stt = 0
 var count = 0
-
+var numberPage = 0
 
 let categories = urlParams.get('categories') || 'find-job'
 
@@ -280,27 +280,43 @@ function searchProduct() {
         } else {
             $('#containe_newest').html('<div class="intro-y col-span-12 text-center font-medium" style="font-size: 2rem;">No result!</div>')
         }
-    })
 
-    paginator();
+        //paginator(response)
+    })
 }
 
 function loadmoreProduct(page) {
-    if (offset > limit * page) {
+    // if (offset > limit * page) {
+    //     offset = parseInt(offset) - parseInt(limit);
+    //     stt = offset + 1;
+    //     isShow = isShow - 1;
+    // } else if (offset < limit * page) {
+    //     isShow = isShow + 1;
+    //     offset = parseInt(offset) + parseInt(limit);
+    //     stt = offset + 1;
+    // } else {
+    //     isShow = (limit * page);
+    //     offset = parseInt(limit) * (limit * page);
+    //     stt = parseInt(offset) + 1;
+    // }
+
+    // offset = limit * page;
+
+    if (page == -1) {
         offset = parseInt(offset) - parseInt(limit);
         stt = offset + 1;
         isShow = isShow - 1;
-    } else if (offset < limit * page) {
+    } else if (page == -2) {
         isShow = isShow + 1;
         offset = parseInt(offset) + parseInt(limit);
-        stt = offset + 1;
-    } else {
-        isShow = (limit * page);
-        offset = parseInt(limit) * (limit * page);
         stt = parseInt(offset) + 1;
-    }
 
-    offset = limit * page;
+    } else {
+        isShow = page;
+        offset = parseInt(limit) * parseInt(page);
+        stt = offset + 1;
+    }
+    paginator(numberPage)
     searchProduct()
 }
 
@@ -323,15 +339,17 @@ function countProduct() {
 
 
         if (isDefine(response)) {
-            count = response
-            if ((count / limit) - parseInt(count / limit) > 0) {
-                count = parseInt(count / limit) + 1;
-            }
-            else {
-                count = count / limit;
-            }
+            // count = response
+            // if ((count / limit) - parseInt(count / limit) > 0) {
+            //     count = parseInt(count / limit) + 1;
+            // }
+            // else {
+            //     count = count / limit;
+            // }
 
-            paginator();
+            numberPage = response
+
+            paginator(numberPage)
         }
     })
 }

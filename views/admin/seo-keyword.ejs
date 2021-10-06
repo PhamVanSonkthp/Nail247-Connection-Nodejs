@@ -1,0 +1,65 @@
+<%- include("header", {tab: "home" , title: "Trang chủ" }); %>
+    <script src="../views/client/dist/js/ckeditor/ckeditor.js"></script>
+    <script src="../views/client/dist/js/ckeditor/samples/js/sample.js"></script>
+    <!-- BEGIN: Content -->
+
+
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            Settings > SEO keyword
+        </h2>
+    </div>
+
+
+    <div class="intro-y box p-5 mt-5">
+
+        <label>Keyword</label>
+        <input id="edt_keyword" autocomplete="off" type="text"
+            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border mb-5"
+            placeholder="keyword" />
+
+        <label>Description</label>
+        <input id="edt_description" autocomplete="off" type="text"
+            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border mb-5"
+            placeholder="Description" />
+
+        <label>Promotion </label>
+        <input id="edt_promotion" autocomplete="off" type="text"
+            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border mb-5"
+            placeholder="Promotion " />
+
+        <button id="btn_save" onclick="saveContent()" type="button" class="btn btn-success mt-5">Save</button>
+    </div>
+
+    <!-- END: Content -->
+
+    </div>
+    <!-- BEGIN: SCRIPT -->
+
+    <script>
+
+        showLoading()
+        function saveContent() {
+            showLoading()
+            socket.emit('update-contact-us', { _id: getCookie('_id'), password: getCookie('password'), keyword: $('#edt_keyword').val(), description: $('#edt_description').val(), promotion: $('#edt_promotion').val() }, (response) => {
+                hideLoading()
+            })
+        }
+
+        $(document).ready(function () {
+            $('#draw_5').addClass('side-menu--active')
+            $('#draw_5').addClass('side-menu--open')
+            $('#draw_5_9').addClass('side-menu--active')
+            $('#draw_5_wrap').addClass('side-menu__sub-open')
+        })
+        socket.emit('contact-us', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+            if (isDefine(response)) {
+                $('#edt_keyword').val(response.keyword)
+                $('#edt_description').val(response.description)
+                $('#edt_promotion').val(response.promotion)
+            }
+            hideLoading()
+        })
+    </script>
+    <!-- END: SCRIPT -->
+    <%- include("footer"); %>

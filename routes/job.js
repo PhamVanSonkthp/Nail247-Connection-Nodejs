@@ -30,14 +30,6 @@ async function uploadImage(req, res, isWeb) {
     upload(req, res, function (err) {
         (async () => {
 
-            let location = {
-                "type": "Point",
-                "coordinates": [
-                    0,
-                    0,
-                ]
-            }
-
             const index = await ObjectModel.countDocuments()
 
             const object = new ObjectModel({
@@ -48,7 +40,7 @@ async function uploadImage(req, res, isWeb) {
                 city: req.body.city,
                 state: req.body.state,
                 code: req.body.code,
-                location: location,
+                location: helper.tryParseLocation(req.body.location),
                 title: req.body.title,
                 content: req.body.content,
                 email: req.body.email,
@@ -112,8 +104,8 @@ async function uploadImage(req, res, isWeb) {
                         await sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
                         try {
                             await sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
-                        }catch(err){
-                            
+                        } catch (err) {
+
                         }
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
@@ -300,8 +292,8 @@ async function updatePostMobile(req, res) {
                         await sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
                         try {
                             await sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
-                        }catch(err){
-                            
+                        } catch (err) {
+
                         }
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
@@ -497,13 +489,6 @@ async function updateImage(req, res, isWeb) {
     upload(req, res, function (err) {
         (async () => {
             try {
-                let location = {
-                    "type": "Point",
-                    "coordinates": [
-                        0,
-                        0,
-                    ]
-                }
 
                 let objForUpdate = {}
                 if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon
@@ -512,7 +497,7 @@ async function updateImage(req, res, isWeb) {
                 if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city;
                 if (helper.isDefine(req.body.state) && req.body.state) objForUpdate.state = req.body.state;
                 if (helper.isDefine(req.body.code)) objForUpdate.code = req.body.code;
-                if (helper.isDefine(location)) objForUpdate.location = location
+                if (helper.isDefine(req.body.location)) objForUpdate.location = helper.tryParseLocation(req.body.location)
                 if (helper.isDefine(req.body.title)) objForUpdate.title = req.body.title;
                 if (helper.isDefine(req.body.content)) objForUpdate.content = req.body.content;
                 if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email;
@@ -548,8 +533,8 @@ async function updateImage(req, res, isWeb) {
                         await sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
                         try {
                             await sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
-                        }catch(err){
-                            
+                        } catch (err) {
+
                         }
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }

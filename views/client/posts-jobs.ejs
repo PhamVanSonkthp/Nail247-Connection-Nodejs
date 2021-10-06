@@ -2,7 +2,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Import PhotoSwipe Styles -->
     <link rel="stylesheet" href="../views/client/dist/css/photo-swipe-4.1.0/photoswipe.css">
@@ -107,6 +107,60 @@
             .container-hidden-mobile {
                 display: none;
             }
+        }
+
+
+
+        .social__item {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .social__item:after {
+            color: #818181;
+            content: attr(data-count);
+            font-size: 14px;
+            left: 0;
+            line-height: 20px;
+            position: absolute;
+            text-align: center;
+            top: 100%;
+            width: 100%;
+        }
+
+        .social {
+            text-align: left !important;
+        }
+
+        .social__item>span {
+            background-color: aliceblue;
+            height: 60px;
+            width: 50px;
+            border: none;
+        }
+
+        .social__item>span:hover {
+            background-color: antiquewhite;
+        }
+
+        .fa {
+            background: #fff;
+            border-radius: 35px;
+            color: #818181;
+            cursor: pointer;
+            display: block;
+            font-size: 30px;
+            height: 30px;
+            line-height: 70px;
+            position: relative;
+            text-align: center;
+            transition: all .2s;
+            width: 30px;
+        }
+
+        .social {
+            margin: 5px 0 40px;
+            text-align: center;
         }
     </style>
 
@@ -271,11 +325,13 @@
                     </h2>
 
                     <div class="mt-5 -intro-x" id="lbl_content">
-                        
+
                     </div>
 
-                    <!-- <iframe id="map" class="mt-5" width="100%" height="450" frameborder="0" style="border:0"
-                        allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
+                    <%- include("share-ad"); %>
+
+                    <iframe id="map" class="mt-5" width="100%" height="450" frameborder="0" style="border:0"
+                        allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
 
                 </div>
@@ -469,7 +525,7 @@
                     $('#lbl_phone').html(escapeHtml(response.post.phone))
                     $('#lbl_email').html(escapeHtml(response.post.email))
                     $('#btn_call').attr('href', 'tel:' + escapeHtml(response.post.phone))
-                    // $('#map').attr('src', 'https://maps.google.com/maps?q=' + response.post.location.coordinates[1] + ', ' + response.post.location.coordinates[0] + '&z=15&output=embed')
+                    $('#map').attr('src', 'https://maps.google.com/maps?q=' + response.post.location.coordinates[1] + ', ' + response.post.location.coordinates[0] + '&z=15&output=embed')
                     $('#container_clear_filter').css('display', 'block')
                     post = response.post
                     if (isDefine(response.post.images) && response.post.images.length > 0) {
@@ -482,9 +538,9 @@
                         urlImage = urlImagePostJobsIcon
                         for (let i = 0; i < response.related.length; i++) {
                             if (response.related[i].images != null && response.related[i].images.length > 0) {
-                                $('#container_related').append('<a href="' + (prefix + escapeHtml(response.related[i].link_slug)) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(' + (urlImage) + escapeHtml(response.related[i].images[0]) + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + ((response.related[i].cost != 0 ? ('$' + formatMoney(response.related[i].cost)) : 'Contact owner')) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance.replace('km', '').trim()) + ' mile</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display : ' + (response.related[i].status == 0 ? 'none' : 'block') + ';"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
+                                $('#container_related').append('<a href="' + (prefix + escapeHtml(response.related[i].link_slug)) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(' + (urlImage) + escapeHtml(response.related[i].images[0]) + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + ((response.related[i].cost != 0 ? ('$' + formatMoney(response.related[i].cost)) : 'Contact owner')) + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance.replace('km', '').trim()) + ' mile</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
                             } else {
-                                $('#container_related').append('<a href="' + (prefix + escapeHtml(response.related[i].link_slug)) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(../views/admin/dist/images/no-image.png);height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + (response.related[i].cost != 0 ? ('$' + formatMoney(response.related[i].cost)) : 'Contact owner') + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance.replace('km', '').trim()) + ' mile</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display : ' + (response.related[i].status == 0 ? 'none' : 'block') + ';"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="fas fa-map-marker-alt color-primary mr-2"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
+                                $('#container_related').append('<a href="' + (prefix + escapeHtml(response.related[i].link_slug)) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(../views/admin/dist/images/no-image.png);height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + (response.related[i].cost != 0 ? ('$' + formatMoney(response.related[i].cost)) : 'Contact owner') + ' </span><div class="ml-4" style="display: none;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance.replace('km', '').trim()) + ' mile</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="fas fa-map-marker-alt color-primary mr-2"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
                             }
                         }
                     }

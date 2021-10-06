@@ -26,6 +26,18 @@ const object = mongoose.Schema({
         type: String,
         maxLength: 10000000,
     },
+    keyword: {
+        type: String,
+        maxLength: 10000000,
+    },
+    description: {
+        type: String,
+        maxLength: 10000000,
+    },
+    promotion: {
+        type: String,
+        maxLength: 10000000,
+    },
 }, { timestamps: true });
 
 object.set('toObject', { getters: true, setters: true });

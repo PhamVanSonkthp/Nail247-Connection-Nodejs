@@ -22,7 +22,17 @@ exports.getDistanceFromLatLonInKm = function (lat1, lon1, lat2, lon2) {
         ;
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c; // Distance in km
-    return d.toFixed(2) + ' km';
+
+    const factor = 0.621371
+
+    // calculate miles
+    const miles = d * factor
+
+    return miles.toFixed(2) + ' miles';
+}
+
+exports.mileToKm = function(mile){
+    return mile * 1.6;
 }
 
 exports.isDefine = function (val) {
@@ -216,6 +226,32 @@ function setNumber(num) {
     return exports.tryParseInt(num);
 }
 
+exports.tryParseLocation = function (location) {
+    try {
+        if (exports.isDefine(location)) {
+            let lng = exports.tryParseFloat(location.replace('{', '').replace('}', '').split(',')[0].trim())
+            let lat = exports.tryParseFloat(location.replace('{', '').replace('}', '').split(',')[1].trim())
+
+            return {
+                "type": "Point",
+                "coordinates": [
+                    lng,
+                    lat,
+                ]
+            }
+        }
+    } catch (err) {
+        exports.throwError(err)
+        return {
+            "type": "Point",
+            "coordinates": [
+                0,
+                0,
+            ]
+        }
+    }
+}
+
 function capitalizeFirstLetter(string) {
     if (exports.isDefine(string)) {
         return string.charAt(0).toUpperCase() + string.slice(1)
@@ -373,6 +409,17 @@ exports.getStateByCode = function (code) {
     for (let i = 0; i < exports.codeCountrys.length; i++) {
         if (exports.tryParseInt(code) == exports.tryParseInt(exports.codeCountrys[i][0])) {
             return exports.codeCountrys[i][4]
+        }
+    }
+    return null
+}
+
+exports.getLocationCityByCode = function (code) {
+    for (let i = 0; i < exports.codeCountrys.length; i++) {
+        if (exports.tryParseInt(code) == exports.tryParseInt(exports.codeCountrys[i][0])) {
+            return {
+                lat: exports.tryParseFloat(exports.codeCountrys[i][1]), lng: exports.tryParseFloat(exports.codeCountrys[i][2])
+            }
         }
     }
     return null
@@ -546,10 +593,10 @@ exports.paymentPostJob = async function (req, res) {
                         sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
                         try {
                             sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
-                        }catch(err){
-                            
+                        } catch (err) {
+
                         }
-                        
+
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
 

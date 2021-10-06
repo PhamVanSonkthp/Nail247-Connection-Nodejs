@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const helper = require('../helper/helper');
+const mongoose = require('mongoose')
+const helper = require('../helper/helper')
 
 const object = mongoose.Schema({
     name_salon: {

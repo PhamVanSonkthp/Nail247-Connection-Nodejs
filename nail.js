@@ -13,22 +13,12 @@ const io = require('socket.io')(server, { cors: { origin: "*" } })
 const croner = require('node-cron')
 const nodemailer = require('nodemailer')
 
-// const transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'bontukyhpkt@gmail.com',
-//     pass: 'rkdvpbvkoqwvjvlh'
-//   }
-// })
-
-//#endregion
-
-//#region 
-
 const ReminderPostModel = require('./models/ReminderPosts')
 const JobPostModel = require('./models/Job')
 const SellSalonPostModel = require('./models/SellSalon')
 const NailSupplyPostModel = require('./models/NailSupply')
+const AgencyModel = require('./models/Agency')
+const ContactModel = require('./models/ContactUs')
 
 //#endregion
 app.set('views', './views');
@@ -107,6 +97,10 @@ app.get('/admin/phone-support', function (req, res) {
 
 app.get('/admin/remind-email', function (req, res) {
   res.render('./admin/remind-email')
+})
+
+app.get('/admin/seo-keyword', function (req, res) {
+  res.render('./admin/seo-keyword')
 })
 
 //----------Start Clients Area---------//
@@ -1584,6 +1578,9 @@ io.sockets.on('connection', (socket) => {
         if (helper.isDefine(data.phone_support)) objForUpdate.phone_support = sanitize(data.phone_support)
         if (helper.isDefine(data.title_email_remind)) objForUpdate.title_email_remind = sanitize(data.title_email_remind)
         if (helper.isDefine(data.content_email_remind)) objForUpdate.content_email_remind = sanitize(data.content_email_remind)
+        if (helper.isDefine(data.keyword)) objForUpdate.keyword = sanitize(data.keyword)
+        if (helper.isDefine(data.description)) objForUpdate.description = sanitize(data.description)
+        if (helper.isDefine(data.promotion)) objForUpdate.promotion = sanitize(data.promotion)
         objForUpdate = { $set: objForUpdate }
 
         UserModel.findOneAndUpdate({}, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
@@ -1901,7 +1898,64 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
+        if (helper.isDefine(data.code) && helper.isDefine(data.distance)) {
+
+          const lat = helper.getLocationCityByCode(data.code).lat
+          const lng = helper.getLocationCityByCode(data.code).lng
+
+          if (helper.isDefine(lat) && helper.isDefine(lng)) {
+            let maxDistance
+
+            if (data.distance == 1) {
+              maxDistance = 20000 * 1.6
+            } else if (data.distance == 2) {
+              maxDistance = 50000 * 1.6
+            } else if (data.distance == 3) {
+              maxDistance = 100000 * 1.6
+            } else {
+              maxDistance = 10000000 * 1.6
+            }
+            query = {
+              ...query,
+              location: {
+                $near: {
+                  $geometry: {
+                    type: "Point",
+                    coordinates: [sanitize(lng), sanitize(lat)],
+                  },
+                  $minDistance: 0,
+                  $maxDistance: maxDistance,
+                }
+              }
+            }
+          }
+        }
+
         let object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
+
+        for (let i = 0; i < object.length; i++) {
+          for (let j = i; j < object.length - 1; j++) {
+            if(new Date(object[i]._doc.createdAt).getDay() == new Date().getDay() && object[i]._doc.package == 'Gold'){
+              let temp = object[i]
+              object[i] = object[j]
+              object[j] = temp
+            }
+          }
+        }
+
+        if (helper.isDefine(data.code) && data.code > 0 && helper.isDefine(data.distance)) {
+          const lat = helper.getLocationCityByCode(data.code).lat
+          const lng = helper.getLocationCityByCode(data.code).lng
+
+          if (helper.isDefine(lat) && helper.isDefine(lng)) {
+            for (let i = 0; i < object.length; i++) {
+              object[i] = {
+                ...object[i]._doc,
+                distance: helper.getDistanceFromLatLonInKm(object[i]._doc.location.coordinates[0], object[i]._doc.location.coordinates[1], lng, lat)
+              }
+            }
+          }
+        }
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           const objectSearched = await UserModel.findOne(querySearched)
@@ -2023,7 +2077,42 @@ io.sockets.on('connection', (socket) => {
             }
           }
         }
-        let object = await UserModel.countDocuments(query)
+
+        if (helper.isDefine(data.code) && helper.isDefine(data.distance)) {
+
+          const lat = helper.getLocationCityByCode(data.code).lat
+          const lng = helper.getLocationCityByCode(data.code).lng
+
+          if (helper.isDefine(lat) && helper.isDefine(lng)) {
+            let maxDistance
+
+            if (data.distance == 1) {
+              maxDistance = 20000 * 1.6
+            } else if (data.distance == 2) {
+              maxDistance = 50000 * 1.6
+            } else if (data.distance == 3) {
+              maxDistance = 100000 * 1.6
+            } else {
+              maxDistance = 10000000 * 1.6
+            }
+            query = {
+              ...query,
+              location: {
+                $near: {
+                  $geometry: {
+                    type: "Point",
+                    coordinates: [sanitize(lng), sanitize(lat)],
+                  },
+                  $minDistance: 0,
+                  $maxDistance: maxDistance,
+                }
+              }
+            }
+          }
+        }
+
+        let object = await UserModel.find(query)
+        object = object.length
 
         if (helper.isDefine(data.title) && data.title.length > 0) {
           const objectSearched = await UserModel.findOne(querySearched)
@@ -2242,7 +2331,7 @@ io.sockets.on('connection', (socket) => {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/Job')
         //let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
-        let query = { link_slug: sanitize(data.link_slug), status: 1 }
+        let query = { link_slug: sanitize(data.link_slug.split('?')[0]), status: 1 }
 
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
 
@@ -2322,7 +2411,7 @@ io.sockets.on('connection', (socket) => {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/SellSalon')
         //let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
-        let query = { link_slug: sanitize(data.link_slug), status: 1 }
+        let query = { link_slug: sanitize(data.link_slug.split('?')[0]), status: 1 }
 
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
 
@@ -2402,7 +2491,7 @@ io.sockets.on('connection', (socket) => {
       if (helper.isDefine(data)) {
         const jobModel = require('./models/NailSupply')
         //let query = { expiration_date: { $gte: new Date() }, link_slug: data.link_slug, status: 1 }
-        let query = { link_slug: data.link_slug, status: 1 }
+        let query = { link_slug: sanitize(data.link_slug.split('?')[0]), status: 1 }
 
         if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
 
@@ -2673,20 +2762,14 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true, // true for 465, false for other ports
   auth: {
-    user: 'hi@247nailsalons.com', 
-    pass: 'Tomhotro247@', 
+    user: 'hi@247nailsalons.com',
+    pass: 'Tomhotro247@',
   },
 });
 
 croner.schedule('* * * * *', async () => {
   try {
     const results = await ReminderPostModel.find()
-    const JobPostModel = require('./models/Job')
-    const SellSalonPostModel = require('./models/SellSalon')
-    const NailSupplyPostModel = require('./models/NailSupply')
-    const AgencyModel = require('./models/Agency')
-    const ContactModel = require('./models/ContactUs');
-
     const resultContact = await ContactModel.findOne()
 
     for (let i = 0; i < results.length; i++) {
@@ -2722,10 +2805,10 @@ croner.schedule('* * * * *', async () => {
       }
 
       if (helper.isDefine(email)) {
-        let info = await transporter.sendMail({
-          from: 'hi@247nailsalons.com', 
+        await transporter.sendMail({
+          from: 'hi@247nailsalons.com',
           to: email,
-          subject: resultContact.title_email_remind, 
+          subject: resultContact.title_email_remind,
           text: resultContact.title_email_remind,
           html: "<b>Hi " + name + "</b>" + resultContact.content_email_remind,
         })
@@ -2737,5 +2820,100 @@ croner.schedule('* * * * *', async () => {
   } catch (err) {
     helper.throwError(err)
   }
+})
 
+croner.schedule('23 * * * *', async () => {
+  try {
+    const fs = require('fs')
+
+    let page = '<?xml version="1.0" encoding="UTF-8"?>' + '\n'
+    page += '<urlset' + '\n'
+    page += 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' + '\n'
+    page += 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' + '\n'
+    page += 'xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9' + '\n'
+    page += 'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' + '\n'
+
+    page += '<url>' + '\n'
+    page += '<loc>https://247nailsalons.com/</loc>' + '\n'
+    page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+    page += '<priority>1.00</priority>' + '\n'
+    page += '</url>' + '\n'
+
+    page += '<url>' + '\n'
+    page += '<loc>https://247nailsalons.com/search?categories=find-job</loc>' + '\n'
+    page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+    page += '<priority>0.80</priority>' + '\n'
+    page += '</url>' + '\n'
+
+    page += '<url>' + '\n'
+    page += '<loc>https://247nailsalons.com/search?categories=sell-salon</loc>' + '\n'
+    page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+    page += '<priority>0.80</priority>' + '\n'
+    page += '</url>' + '\n'
+
+    page += '<url>' + '\n'
+    page += '<loc>https://247nailsalons.com/search?categories=nail-supply</loc>' + '\n'
+    page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+    page += '<priority>0.80</priority>' + '\n'
+    page += '</url>' + '\n'
+
+
+    const JobModel = require('./models/Job')
+    const SellSalonModel = require('./models/SellSalon')
+    const NailSupplyModel = require('./models/NailSupply')
+
+    const jobs = await JobModel.find().sort({ _id: -1 }).limit(20)
+    const sellSalons = await SellSalonModel.find().sort({ _id: -1 }).limit(20)
+    const nailSupplys = await NailSupplyModel.find().sort({ _id: -1 }).limit(20)
+
+    for (let i = 0; i < jobs.length; i++) {
+      page += '<url>' + '\n'
+      page += '<loc>https://nail.okechua.com/posts-jobs/' + jobs[i].link_slug + '</loc>' + '\n'
+      page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+      page += '<priority>0.70</priority>' + '\n'
+      page += '</url>' + '\n'
+    }
+
+    for (let i = 0; i < sellSalons.length; i++) {
+      page += '<url>' + '\n'
+      page += '<loc>https://nail.okechua.com/posts-sell-salons/' + sellSalons[i].link_slug + '</loc>' + '\n'
+      page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+      page += '<priority>0.70</priority>' + '\n'
+      page += '</url>' + '\n'
+    }
+
+    for (let i = 0; i < nailSupplys.length; i++) {
+      page += '<url>' + '\n'
+      page += '<loc>https://nail.okechua.com/posts-nail-supplies/' + nailSupplys[i].link_slug + '</loc>' + '\n'
+      page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+      page += '<priority>0.70</priority>' + '\n'
+      page += '</url>' + '\n'
+    }
+
+    page += '<url>' + '\n'
+    page += '<loc>https://247nailsalons.com/privacy-policy</loc>' + '\n'
+    page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+    page += '<priority>0.10</priority>' + '\n'
+    page += '</url>' + '\n'
+
+    page += '<url>' + '\n'
+    page += '<loc>https://247nailsalons.com/terms-of-use</loc>' + '\n'
+    page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+    page += '<priority>0.10</priority>' + '\n'
+    page += '</url>' + '\n'
+
+    page += '<url>' + '\n'
+    page += '<loc>https://247nailsalons.com/terms-of-use</loc>' + '\n'
+    page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
+    page += '<priority>0.10</priority>' + '\n'
+    page += '</url>' + '\n'
+
+    page += '</urlset>'
+
+    fs.writeFile('sitemap.xml', page, function (err) {
+
+    })
+  } catch (err) {
+    helper.throwError(err)
+  }
 })

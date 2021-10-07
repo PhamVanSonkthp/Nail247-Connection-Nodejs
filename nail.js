@@ -188,24 +188,20 @@ app.get('/posts-jobs/:slug', async function (req, res) {
 
     resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
     for (let i = 0; i < resultRelated.length; i++) {
-      resultRelated[i] = {
-        ...resultRelated[i],
-        distance: 'Unknown'
-      }
-
       if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
         resultRelated[i].status = 0
       }
-
+      resultRelated[i].content = resultRelated[i].content.replaceAll("\"" , "")
     }
 
     const nearCountry = nearCountryByCode(object.code)
+    object.content = object.content.replaceAll("\"" , "")
     object = {
       post: object,
       related: resultRelated,
       nearCountry: nearCountry
     }
-    res.render('./client/posts-jobs', { object: object , url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+    res.render('./client/posts-jobs', { object: JSON.stringify(object), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
   } catch (err) {
     helper.throwError(err)
   }
@@ -236,16 +232,18 @@ app.get('/posts-sell-salons/:slug', async function (req, res) {
   for (let i = 0; i < resultRelated.length; i++) {
     if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
       resultRelated[i].status = 0
+      resultRelated[i].content = resultRelated[i].content.replaceAll("\"" , "")
     }
   }
 
   const nearCountry = nearCountryByCode(object.code)
+  object.content = object.content.replaceAll("\"" , "")
   object = {
     post: object,
     related: resultRelated,
     nearCountry: nearCountry
   }
-  res.render('./client/posts-sell-salons', { object: object , url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+  res.render('./client/posts-sell-salons', { object: object, url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
 });
 
 app.get('/posts-nail-supplies/:slug', async function (req, res) {
@@ -306,17 +304,19 @@ app.get('/posts-nail-supplies/:slug', async function (req, res) {
 
     if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
       resultRelated[i].status = 0
+      resultRelated[i].content = resultRelated[i].content.replaceAll("\"" , "")
     }
   }
 
   const nearCountry = nearCountryByCode(object.code)
+  object.content = object.content.replaceAll("\"" , "")
   object = {
     post: object,
     related: resultRelated,
     nearCountry: nearCountry
   }
 
-  res.render('./client/posts-nail-supplies', { object: object , url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+  res.render('./client/posts-nail-supplies', { object: object, url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
 });
 
 app.get('/agency/account', function (req, res) {

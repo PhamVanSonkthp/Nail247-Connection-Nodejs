@@ -1,5 +1,4 @@
 <%- include("header"); %>
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -437,9 +436,12 @@
         }
 
         function detailPost(latitude, longitude) {
-            var response = '<%- JSON.stringify(object) %>'
+
+            var response = '<%- object %>'
 
             console.log(response)
+
+       
 
             response = JSON.parse(response)
             

@@ -126,7 +126,7 @@ app.get('/', async function (req, res) {
 })
 
 app.get('/forgot-password', function (req, res) {
-  res.render('./client/forgot-password');
+  res.render('./client/forgot-password', { url: domain + 'search/', title: 'Forgot password', content: 'Find a job, sell salon, nail supply', image: domain });
 });
 
 app.get('/search', function (req, res) {
@@ -169,7 +169,6 @@ function nearCountryByCode(code) {
 app.get('/posts-jobs/:slug', async function (req, res) {
   if (helper.isDefine(req.params.slug)) {
     const jobModel = require('./models/Job')
-    //let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
     let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
 
     let object = await jobModel.findOne(query)

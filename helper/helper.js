@@ -436,11 +436,11 @@ exports.paymentPostJob = async function (req, res) {
     let pathStorage
 
     if (exports.tryParseJson(req.headers.stripe).type_post == '0') {
-        pathStorage = 'public/images-jobs/'
+        pathStorage = 'views/client/dist/images/images-jobs/'
     } else if (exports.tryParseJson(req.headers.stripe).type_post == '1') {
-        pathStorage = 'public/images-sells-salons/'
+        pathStorage = 'views/client/dist/images/images-sells-salons/'
     } else if (exports.tryParseJson(req.headers.stripe).type_post == '2') {
-        pathStorage = 'public/images-nail-supplies/'
+        pathStorage = 'views/client/dist/images/images-nail-supplies/'
     }
 
     const storage = multer.diskStorage({

@@ -12,19 +12,16 @@
     </div>
 </div>
 
-<div>Share this Ad</div>
-
-<div class="social">
-    <div class="social__item">
-        <span onclick="copyLinkPost()" class="fa fa-link" data-count="..." data-social="lk"></span>
-    </div>
-    <div class="social__item">
-        <span onclick="sharePostOnFacebook()" class="fa fa-facebook" data-count="..." data-social="fb"></span>
-    </div>
-    <div class="social__item">
-        <span onclick="sharePostOnTwitter()" class="fa fa-twitter" data-count="..." data-social="tw"></span>
-    </div>
-
+<script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<div>
+    <div class="fb-share-button" data-href="<%- url %>" data-layout="button_count"></div>
+    <span onclick="copyLinkPost()" style="cursor: pointer;" class="ml-3"><i class="fas fa-link fa-lg"></i></span>
 </div>
 
 <script>
@@ -40,11 +37,4 @@
         });
     }
 
-    function sharePostOnFacebook() {
-        window.open('https://www.facebook.com/sharer.php?u=' + window.location.href, '_blank');
-    }
-
-    function sharePostOnTwitter() {
-        window.open('https://twitter.com/intent/tweet?url=' + window.location.href, '_blank');
-    }
 </script>

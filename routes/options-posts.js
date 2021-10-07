@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
         const limit = parseInt(req.query.limit, 10) || 25;
         const page = parseInt(req.query.page, 10) || 0;
         const type = req.query.type || 0;
-        let query = {type : type}
+        let query = {type : type , status : 1}
         const result = await ObjectModel.find(query).limit(limit).skip(page);
         res.json(result);
     } catch (err) {

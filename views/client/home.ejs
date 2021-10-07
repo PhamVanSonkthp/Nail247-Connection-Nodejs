@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    <%
+    function removeHTMLTags(html) {
+        var regX = /(<([^>]+)>)/ig;
+        return html.replace(regX, "")
+    }
+    %>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Infinity ltd">
-    <meta id="tag_keyword" name="keyword" content="sell salon, find nail tech, nail technician, nail supply, tim tho nail, tiem nail, 247 nail salon, 247nails">
-    <meta id="tag_promotion" name="promotion" content="Find NailTech, Sell Salon & Nail Supply">
-    <meta id="tag_description" name="Description" content="Our App provide strongest and fastest tool to help you find a Nail Job or Salon for Sale near your place. We also provide classifieds for nail supplies to connect sellers and buyers. 247 Nail Salons app provides full features for you can post classifieds most conveniently. Download now and take 247 NailSalons app with you wherever you go. Please don't forget share this app with your friends, family and co-worker. Thank you">
+    <meta name="keyword" content="<%- title %>">
+    <meta name="promotion" content="<%- removeHTMLTags(content) %>">
+    <meta name="Description" content="<%- removeHTMLTags(content) %>">
+
+    <meta property="og:url" content="<%- url %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<%- title %>" />
+    <meta property="og:description" content="<%- removeHTMLTags(content) %>" />
+    <meta property="og:image" content="<%- image %>" />
 
     <link href="../views/client/dist/images/icon.png" rel="shortcut icon">
     <title>247 Nail Salons - Tim Tho Nail | Ban Tiem Nail | Mua Ban Nail Supply</title>

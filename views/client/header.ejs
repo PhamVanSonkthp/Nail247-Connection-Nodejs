@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<%
+function removeHTMLTags(html) {
+	var regX = /(<([^>]+)>)/ig;
+	return html.replace(regX, "")
+}
+%>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Infinity ltd">
-    <meta id="tag_keyword" name="keyword" content="sell salon, find nail tech, nail technician, nail supply, tim tho nail, tiem nail, 247 nail salon, 247nails">
-    <meta id="tag_promotion" name="promotion" content="Find NailTech, Sell Salon & Nail Supply">
-    <meta id="tag_description" name="Description" content="Our App provide strongest and fastest tool to help you find a Nail Job or Salon for Sale near your place. We also provide classifieds for nail supplies to connect sellers and buyers. 247 Nail Salons app provides full features for you can post classifieds most conveniently. Download now and take 247 NailSalons app with you wherever you go. Please don't forget share this app with your friends, family and co-worker. Thank you">
+    <meta name="keyword" content="<%- title %>">
+    <meta name="promotion" content="<%- removeHTMLTags(content) %>">
+    <meta name="Description" content="<%- removeHTMLTags(content) %>">
+
+    <meta property="og:url" content="<%- url %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<%- title %>" />
+    <meta property="og:description" content="<%- removeHTMLTags(content) %>" />
+    <meta property="og:image" content="<%- image %>" />
 
     <title>247 Nail Salons - Tim Tho Nail | Ban Tiem Nail | Mua Ban Nail Supply</title>
     <link href="../views/client/dist/images/icon.png" rel="shortcut icon">
@@ -682,198 +693,162 @@
 
     <%- include("tag-install-app"); %>
 
-    <div class="header" style="min-height: 10rem;">
-        <div>
+        <div class="header" style="min-height: 10rem;">
             <div>
-                <div style="position: relative;">
-                    <div class="logo pt-5">
-                        <a href="/">
-                            <img src="../views/client/dist/images/logo.png" />
-                        </a>
+                <div>
+                    <div style="position: relative;">
+                        <div class="logo pt-5">
+                            <a href="/">
+                                <img src="../views/client/dist/images/logo.png" />
+                            </a>
 
-                    </div>
+                        </div>
 
-                    <div class="mt-10 menu-right">
-                        <button id="btn_toggle_dialog" class="btn btn-rounded-success mr-5 text-white p-3"
-                            style="background-color: #6bab44;">
-                            <i class="far fa-user mr-2"></i>Sign in / Sign up
-                        </button>
+                        <div class="mt-10 menu-right">
+                            <button id="btn_toggle_dialog" class="btn btn-rounded-success mr-5 text-white p-3"
+                                style="background-color: #6bab44;">
+                                <i class="far fa-user mr-2"></i>Sign in / Sign up
+                            </button>
 
-                        <a style="position: absolute; cursor: pointer;" onclick="openNav()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-align-left block mx-auto">
-                                <line x1="17" y1="10" x2="3" y2="10"></line>
-                                <line x1="21" y1="6" x2="3" y2="6"></line>
-                                <line x1="21" y1="14" x2="3" y2="14"></line>
-                                <line x1="17" y1="18" x2="3" y2="18"></line>
-                            </svg>
-                        </a>
+                            <a style="position: absolute; cursor: pointer;" onclick="openNav()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-align-left block mx-auto">
+                                    <line x1="17" y1="10" x2="3" y2="10"></line>
+                                    <line x1="21" y1="6" x2="3" y2="6"></line>
+                                    <line x1="21" y1="14" x2="3" y2="14"></line>
+                                    <line x1="17" y1="18" x2="3" y2="18"></line>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="container_search" class="mt-20" style="max-width: 60rem;">
-        <div class="container sm:px-10">
-            <div class="box grid grid-cols-12 pt-1 pb-1 search-box">
-                <div class="col-span-12 xl:col-span-3 box">
-                    <select id="select_categories" class="form-select p-3 no-border" style="background-color: white;"
-                        aria-label="Default select example">
-                        <option value="find-job">Find a Job</option>
-                        <option value="sell-salon">Salon for Sale</option>
-                        <option value="nail-supply">Nail Supplies</option>
-                    </select>
-                </div>
+        <div id="container_search" class="mt-20" style="max-width: 60rem;">
+            <div class="container sm:px-10">
+                <div class="box grid grid-cols-12 pt-1 pb-1 search-box">
+                    <div class="col-span-12 xl:col-span-3 box">
+                        <select id="select_categories" class="form-select p-3 no-border"
+                            style="background-color: white;" aria-label="Default select example">
+                            <option value="find-job">Find a Job</option>
+                            <option value="sell-salon">Salon for Sale</option>
+                            <option value="nail-supply">Nail Supplies</option>
+                        </select>
+                    </div>
 
-                <div class="col-span-12 xl:col-span-9">
-                    <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-                        <div class="relative text-gray-700 dark:text-gray-300">
-                            <svg style="z-index: 100;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="ml-4 feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 lefr-0">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            </svg>
-                            <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)"
-                                style="padding-right: 4.5rem;"
-                                class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
-                                placeholder="Search a Job by City or zipcode">
-                            <span>
-                                <svg style="cursor: pointer;" onclick="showFilter()" xmlns="http://www.w3.org/2000/svg"
-                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4c8c"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
-                                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                                </svg>
-                            </span>
-                            <span id="container_clear_filter" style="display: none;">
-                                <svg style="cursor: pointer;position: absolute;right: 2rem !important;"
-                                    onclick="clearFilter()" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    <div class="col-span-12 xl:col-span-9">
+                        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+                            <div class="relative text-gray-700 dark:text-gray-300">
+                                <svg style="z-index: 100;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    class="ml-4 feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 lefr-0">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                 </svg>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-12" id="container_fillter" style=" display: none;">
-                        <div class="col-span-6" style="display: none;">
-                            <div class="relative text-gray-700 dark:text-gray-300 ml-4" id="container_filter_ranger"
-                                onclick="filterRanger()">
-                                <img class="mt-2"
-                                    style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
-                                    src="../views/client/dist/images/distance.png">
-                                <input type="text" style="cursor: pointer; background: white;" disabled
+                                <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)"
+                                    style="padding-right: 4.5rem;"
                                     class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
-                                    value="Radius Ranger">
+                                    placeholder="Search a Job by City or zipcode">
+                                <span>
+                                    <svg style="cursor: pointer;" onclick="showFilter()"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="#ef4c8c" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                                    </svg>
+                                </span>
+                                <span id="container_clear_filter" style="display: none;">
+                                    <svg style="cursor: pointer;position: absolute;right: 2rem !important;"
+                                        onclick="clearFilter()" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </span>
                             </div>
                         </div>
 
-                        <div class="col-span-12">
-                            <div class="relative text-gray-700 dark:text-gray-300 ml-4">
-                                <img class="mt-2"
-                                    style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
-                                    src="../views/client/dist/images/salary.png">
-                                <select class="form-select p-3 no-border pl-5" id="select_range_salary"
-                                    style="background-color: white;" aria-label="Default select example"
-                                    onchange="if (typeof changeSalary != 'undefined') changeSalary(tryParseInt(this.value))">
-                                    <option value="0" selected="">Salary</option>
-                                    <option value="1">0$ - 500$</option>
-                                    <option value="2">500$ - 1,000$</option>
-                                    <option value="3">1,000$ - 2,000$</option>
-                                    <option value="4">2,000$+</option>
-                                </select>
+                        <div class="grid grid-cols-12" id="container_fillter" style=" display: none;">
+                            <div class="col-span-6" style="display: none;">
+                                <div class="relative text-gray-700 dark:text-gray-300 ml-4" id="container_filter_ranger"
+                                    onclick="filterRanger()">
+                                    <img class="mt-2"
+                                        style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
+                                        src="../views/client/dist/images/distance.png">
+                                    <input type="text" style="cursor: pointer; background: white;" disabled
+                                        class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
+                                        value="Radius Ranger">
+                                </div>
+                            </div>
+
+                            <div class="col-span-12">
+                                <div class="relative text-gray-700 dark:text-gray-300 ml-4">
+                                    <img class="mt-2"
+                                        style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
+                                        src="../views/client/dist/images/salary.png">
+                                    <select class="form-select p-3 no-border pl-5" id="select_range_salary"
+                                        style="background-color: white;" aria-label="Default select example"
+                                        onchange="if (typeof changeSalary != 'undefined') changeSalary(tryParseInt(this.value))">
+                                        <option value="0" selected="">Salary</option>
+                                        <option value="1">0$ - 500$</option>
+                                        <option value="2">500$ - 1,000$</option>
+                                        <option value="3">1,000$ - 2,000$</option>
+                                        <option value="4">2,000$+</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="search-box" id="container_drop_result">
-                <div class="relative text-gray-700 dark:text-gray-300"
-                    style="right: 0; left: 0;display: none;box-shadow: rgb(64 60 67 / 24%) 0px 9px 8px -3px, rgb(64 60 67 / 24%) 8px 0px 8px -7px, rgb(64 60 67 / 24%) -8px 0px 8px -7px;">
+                <div class="search-box" id="container_drop_result">
+                    <div class="relative text-gray-700 dark:text-gray-300"
+                        style="right: 0; left: 0;display: none;box-shadow: rgb(64 60 67 / 24%) 0px 9px 8px -3px, rgb(64 60 67 / 24%) 8px 0px 8px -7px, rgb(64 60 67 / 24%) -8px 0px 8px -7px;">
+                    </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
-    </div>
+        </div>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search)
-        const url = document.location.toString()
-        let distance = urlParams.get('distance') || 0
-        let salary = urlParams.get('salary') || 0
-        let code = urlParams.get('code') || 0
-        let title = urlParams.get('title')
+        <script>
+            const urlParams = new URLSearchParams(window.location.search)
+            const url = document.location.toString()
+            let distance = urlParams.get('distance') || 0
+            let salary = urlParams.get('salary') || 0
+            let code = urlParams.get('code') || 0
+            let title = urlParams.get('title')
 
-        if (isDefine(title)) {
-            $('#keyword').val(title)
-        }
-        //console.log(title)
+            if (isDefine(title)) {
+                $('#keyword').val(title)
+            }
 
-        if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'find-job') {
-            $('#select_categories').val("find-job").change()
-        } else if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'sell-salon') {
-            $('#select_categories').val("sell-salon").change()
-        } else if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'nail-supply') {
-            $('#select_categories').val("nail-supply").change()
-        } else if (isDefine(url) && url.includes('posts-jobs')) {
-            $('#select_categories').val("find-job").change()
-        } else if (isDefine(url) && url.includes('posts-sell-salons')) {
-            $('#select_categories').val("sell-salon").change()
-        } else if (isDefine(url) && url.includes('posts-nail-supplies')) {
-            $('#select_categories').val("nail-supply").change()
-        }
+            if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'find-job') {
+                $('#select_categories').val("find-job").change()
+            } else if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'sell-salon') {
+                $('#select_categories').val("sell-salon").change()
+            } else if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'nail-supply') {
+                $('#select_categories').val("nail-supply").change()
+            } else if (isDefine(url) && url.includes('posts-jobs')) {
+                $('#select_categories').val("find-job").change()
+            } else if (isDefine(url) && url.includes('posts-sell-salons')) {
+                $('#select_categories').val("sell-salon").change()
+            } else if (isDefine(url) && url.includes('posts-nail-supplies')) {
+                $('#select_categories').val("nail-supply").change()
+            }
 
-        // socket.emit('name-country-by-code', { code: code }, (response) => {
-        //     if (isDefine(response)) {
-        //         $('#keyword').val(response.name_city)
-        //         $('#lbl_country').html('" ' + $('#keyword').val() + ' "')
+            function clearFilter() {
+                $('#keyword').val('')
+                $("#keyword").focus();
+                $('#container_clear_filter').hide()
+            }
+        </script>
 
-        //         $('#slick').empty()
-        //         for (let i = 0; i < response.relateCities.length; i++) {
-        //             $('#slick').append('<div onclick="search(' + tryParseInt(response.relateCities[i][0]) + ')" class="slide"> <div class="panel panel-default" style="background: #737172;opacity: 0.9; cursor: pointer; position: relative;"> <img src="../views/client/dist/images/bg-relate-city.png" class="img-responsive" style="opacity: 0.5;max-height: 3rem;object-fit: cover;width: 100%;" /> <p class="text-white" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;height: 1rem;text-align: center;"> ' + response.relateCities[i][3] + ',' + response.relateCities[i][4] + '</p> </div> </div>')
-        //         }
-        //         if ($('#keyword').val().length > 0) {
-        //             $('#container_clear_filter').show()
-        //         } else {
-        //             $('#container_clear_filter').hide()
-        //         }
-        //     }
-
-        //     if (typeof reloadSlick != "undefined") {
-        //         reloadSlick()
-        //     }
-
-        // })
-
-        function clearFilter() {
-            $('#keyword').val('')
-            $("#keyword").focus();
-            $('#container_clear_filter').hide()
-        }
-    </script>
-
-    <script>
-
-        var latitude, longitude
-
-        // function savePosition(position) {
-        //     latitude = position.coords.latitude
-        //     longitude = position.coords.longitude
-        // }
-
-        // if (navigator.geolocation) {
-        //     navigator.geolocation.getCurrentPosition(savePosition);
-        // }
-
-
-        $('#select_range_salary').val(salary).change()
-
-    </script>
+        <script>
+            $('#select_range_salary').val(salary).change()
+        </script>

@@ -358,9 +358,3 @@ $('#edt_phone').on('propertychange input', function (e) {
     var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
     e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
 })
-
-socket.emit('contact-us', null, (response) => {
-    $('#tag_keyword').attr('content', response.keyword)
-    $('#tag_description').attr('content', response.description)
-    $('#tag_promotion').attr('content', response.promotion)
-})

@@ -1,6 +1,7 @@
 //#region 
 require('dotenv/config')
 const hash = require('js-sha512')
+const cors = require('cors');
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -12,7 +13,7 @@ const server = require('http').createServer(app)
 const io = require('socket.io')(server, { cors: { origin: "*" } })
 const croner = require('node-cron')
 const nodemailer = require('nodemailer')
-
+const domain = 'https://nail.okechua.com/'
 const ReminderPostModel = require('./models/ReminderPosts')
 const JobPostModel = require('./models/Job')
 const SellSalonPostModel = require('./models/SellSalon')
@@ -21,13 +22,20 @@ const AgencyModel = require('./models/Agency')
 const ContactModel = require('./models/ContactUs')
 
 //#endregion
-app.set('views', './views');
-app.set('view engine', 'ejs');
+app.set('views', './views')
+app.set('view engine', 'ejs')
 
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(mongoSanitize());
-app.use(logger('dev'));
+app.use(express.json({ limit: '50mb' }))
+app.use(express.urlencoded({ limit: '50mb', extended: true }))
+app.use(mongoSanitize())
+app.use(logger('dev'))
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+  optionSuccessStatus: 200,
+}
+app.use(cors(corsOptions))
+
 //app.use(express.static("views"));
 app.use(express.static(__dirname));
 
@@ -105,40 +113,208 @@ app.get('/admin/seo-keyword', function (req, res) {
 
 //----------Start Clients Area---------//
 
-app.get('/', function (req, res) {
-  res.render('./client/home');
-});
+app.get('/', async function (req, res) {
+  let result
+  try {
+    const UserModel = require('./models/ContactUs')
+    result = await UserModel.findOne()
+  } catch (e) {
+    helper.throwError(e)
+  }
+
+  res.render('./client/home', { url: domain, title: result.keyword, content: result.description, image: domain + 'views/client/dist/images/icon.png', keyword: result.keyword, description: result.description, promotion: result.promotion })
+})
 
 app.get('/forgot-password', function (req, res) {
   res.render('./client/forgot-password');
 });
 
 app.get('/search', function (req, res) {
-  res.render('./client/search');
+  res.render('./client/search', { url: domain + 'search/', title: 'Find a job | sell salon | nail supply', content: 'Find a job, sell salon, nail supply', image: domain });
 });
 
-app.get('/posts-jobs/*', function (req, res) {
-  res.render('./client/posts-jobs');
+// app.get('/posts-jobs/*', function (req, res) {
+//   res.render('./client/posts-jobs');
+// });
+
+function nearCountryByCode(code) {
+  code = helper.tryParseInt(code)
+  let counter = 0
+  let result = []
+
+  for (let i = 0; i < helper.codeCountrys.length; i++) {
+    if ((helper.isDefine(helper.codeCountrys[i][0]) && Math.abs(helper.tryParseInt(helper.codeCountrys[i][0]) - code) < 10)) {
+      if (counter > 5) {
+        break
+      } else {
+        ++counter
+      }
+      result.push(helper.codeCountrys[i])
+    }
+  }
+
+  for (let i = 0; i < result.length - 1; i++) {
+    for (let j = i; j < result.length; j++) {
+      if (Math.abs(helper.tryParseInt(result[i].code) - helper.tryParseInt(code)) < Math.abs(helper.tryParseInt(result[j].code) - helper.tryParseInt(code))) {
+        let temp = result[i]
+        result[i] = result[j]
+        result[j] = temp
+      }
+    }
+  }
+
+  return result
+}
+
+app.get('/posts-jobs/:slug', async function (req, res) {
+  if (helper.isDefine(req.params.slug)) {
+    const jobModel = require('./models/Job')
+    //let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
+    let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
+
+    let object = await jobModel.findOne(query)
+
+    if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
+      object.status = 0
+    }
+
+    object.code = helper.formatZipCode(object.code)
+    let queryRelated = { status: 1 }
+    let resultRelated
+
+    queryRelated = {
+      ...queryRelated,
+      state: helper.getStateByCode(object.code)
+    }
+
+    resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+    for (let i = 0; i < resultRelated.length; i++) {
+      resultRelated[i] = {
+        ...resultRelated[i],
+        distance: 'Unknown'
+      }
+
+      if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
+        resultRelated[i].status = 0
+      }
+
+    }
+
+    const nearCountry = nearCountryByCode(object.code)
+    object = {
+      post: object,
+      related: resultRelated,
+      nearCountry: nearCountry
+    }
+    res.render('./client/posts-jobs', { object: JSON.stringify({ object }), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+  }
+})
+
+app.get('/posts-sell-salons/:slug', async function (req, res) {
+  const jobModel = require('./models/SellSalon')
+  let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
+
+  let object = await jobModel.findOne(query)
+
+  if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
+    object.status = 0
+  }
+
+  object.code = helper.formatZipCode(object.code)
+
+  let queryRelated = { status: 1 }
+  let resultRelated
+
+  queryRelated = {
+    ...queryRelated,
+    state: helper.getStateByCode(object.code)
+  }
+
+  resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+  for (let i = 0; i < resultRelated.length; i++) {
+    if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
+      resultRelated[i].status = 0
+    }
+  }
+
+  const nearCountry = nearCountryByCode(object.code)
+  object = {
+    post: object,
+    related: resultRelated,
+    nearCountry: nearCountry
+  }
+  res.render('./client/posts-sell-salons', { object: JSON.stringify({ object }), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
 });
 
-app.get('/posts-jobs', function (req, res) {
-  res.render('./client/posts-jobs');
-});
+app.get('/posts-nail-supplies/:slug', async function (req, res) {
+  const jobModel = require('./models/NailSupply')
+  let query = { link_slug: sanitize(data.link_slug.split('?')[0]), status: 1 }
 
-app.get('/posts-sell-salons/*', function (req, res) {
-  res.render('./client/posts-sell-salons');
-});
+  if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
 
-app.get('/posts-sell-salons', function (req, res) {
-  res.render('./client/posts-sell-salons');
-});
+    query = {
+      ...query,
+      location: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [sanitize(data.longitude), sanitize(data.latitude)],
+          },
+          $minDistance: 0,
+        }
+      }
+    }
+  }
 
-app.get('/posts-nail-supplies/*', function (req, res) {
-  res.render('./client/posts-nail-supplies');
-});
+  let object = await jobModel.findOne(query)
 
-app.get('/posts-nail-supplies', function (req, res) {
-  res.render('./client/posts-nail-supplies');
+  if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
+    object.status = 0
+  }
+
+  if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
+    object = {
+      ...object._doc,
+      distance: helper.getDistanceFromLatLonInKm(object.location.coordinates[0], object.location.coordinates[1], data.longitude, data.latitude)
+    }
+  } else {
+    object = {
+      ...object._doc,
+      distance: 'Unknown'
+    }
+  }
+
+  object.code = helper.formatZipCode(object.code)
+
+  //let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
+  let queryRelated = { status: 1 }
+  let resultRelated
+
+  queryRelated = {
+    ...queryRelated,
+    state: helper.getStateByCode(object.code)
+  }
+
+  resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+  for (let i = 0; i < resultRelated.length; i++) {
+    resultRelated[i] = {
+      ...resultRelated[i],
+      distance: 'Unknown'
+    }
+
+    if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
+      resultRelated[i].status = 0
+    }
+  }
+
+  const nearCountry = nearCountryByCode(object.code)
+  object = {
+    post: object,
+    related: resultRelated,
+    nearCountry: nearCountry
+  }
+
+  res.render('./client/posts-nail-supplies', { object: JSON.stringify({ object }), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
 });
 
 app.get('/agency/account', function (req, res) {
@@ -1935,7 +2111,7 @@ io.sockets.on('connection', (socket) => {
 
         for (let i = 0; i < object.length; i++) {
           for (let j = i; j < object.length - 1; j++) {
-            if(new Date(object[i]._doc.createdAt).getDay() == new Date().getDay() && object[i]._doc.package == 'Gold'){
+            if (new Date(object[i]._doc.createdAt).getDay() == new Date().getDay() && object[i]._doc.package == 'Gold') {
               let temp = object[i]
               object[i] = object[j]
               object[j] = temp
@@ -2132,34 +2308,7 @@ io.sockets.on('connection', (socket) => {
     }
   })
 
-  function nearCountryByCode(code) {
-    code = helper.tryParseInt(code)
-    let counter = 0
-    let result = []
 
-    for (let i = 0; i < helper.codeCountrys.length; i++) {
-      if ((helper.isDefine(helper.codeCountrys[i][0]) && Math.abs(helper.tryParseInt(helper.codeCountrys[i][0]) - code) < 10)) {
-        if (counter > 5) {
-          break
-        } else {
-          ++counter
-        }
-        result.push(helper.codeCountrys[i])
-      }
-    }
-
-    for (let i = 0; i < result.length - 1; i++) {
-      for (let j = i; j < result.length; j++) {
-        if (Math.abs(helper.tryParseInt(result[i].code) - helper.tryParseInt(code)) < Math.abs(helper.tryParseInt(result[j].code) - helper.tryParseInt(code))) {
-          let temp = result[i]
-          result[i] = result[j]
-          result[j] = temp
-        }
-      }
-    }
-
-    return result
-  }
 
   socket.on('search-country', async (data, callback) => {
     trafficsSocket(socket)
@@ -2322,247 +2471,6 @@ io.sockets.on('connection', (socket) => {
     } catch (e) {
       helper.throwError(e);
       callback(null);
-    }
-  });
-
-  socket.on('detail-posts-jobs', async (data, callback) => {
-    trafficsSocket(socket)
-    try {
-      if (helper.isDefine(data)) {
-        const jobModel = require('./models/Job')
-        //let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
-        let query = { link_slug: sanitize(data.link_slug.split('?')[0]), status: 1 }
-
-        if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-
-          query = {
-            ...query,
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: [sanitize(data.longitude), sanitize(data.latitude)],
-                },
-                $minDistance: 0,
-              }
-            }
-          }
-        }
-
-        let object = await jobModel.findOne(query)
-
-        if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
-          object.status = 0
-        }
-
-        if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-          object = {
-            ...object._doc,
-            distance: helper.getDistanceFromLatLonInKm(object.location.coordinates[0], object.location.coordinates[1], data.longitude, data.latitude)
-          }
-        } else {
-          object = {
-            ...object._doc,
-            distance: 'Unknown'
-          }
-        }
-        object.code = helper.formatZipCode(object.code)
-        //let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
-        let queryRelated = { status: 1 }
-        let resultRelated
-
-        queryRelated = {
-          ...queryRelated,
-          state: helper.getStateByCode(object.code)
-        }
-
-        resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
-        for (let i = 0; i < resultRelated.length; i++) {
-          resultRelated[i] = {
-            ...resultRelated[i],
-            distance: 'Unknown'
-          }
-
-          if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
-            resultRelated[i].status = 0
-          }
-
-        }
-
-        const nearCountry = nearCountryByCode(object.code)
-        object = {
-          post: object,
-          related: resultRelated,
-          nearCountry: nearCountry
-        }
-        callback(object)
-      } else {
-        callback(null);
-      }
-    } catch (e) {
-      helper.throwError(e)
-      callback(null)
-    }
-  })
-
-  socket.on('detail-posts-sell-salons', async (data, callback) => {
-    trafficsSocket(socket)
-    try {
-      if (helper.isDefine(data)) {
-        const jobModel = require('./models/SellSalon')
-        //let query = { expiration_date: { $gte: new Date() }, link_slug: sanitize(data.link_slug), status: 1 }
-        let query = { link_slug: sanitize(data.link_slug.split('?')[0]), status: 1 }
-
-        if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-
-          query = {
-            ...query,
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: [sanitize(data.longitude), sanitize(data.latitude)],
-                },
-                $minDistance: 0,
-              }
-            }
-          }
-        }
-
-        let object = await jobModel.findOne(query)
-
-        if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
-          object.status = 0
-        }
-
-        if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-          object = {
-            ...object._doc,
-            distance: helper.getDistanceFromLatLonInKm(object.location.coordinates[0], object.location.coordinates[1], data.longitude, data.latitude)
-          }
-        } else {
-          object = {
-            ...object._doc,
-            distance: 'Unknown'
-          }
-        }
-        object.code = helper.formatZipCode(object.code)
-
-        //let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
-        let queryRelated = { status: 1 }
-        let resultRelated
-
-        queryRelated = {
-          ...queryRelated,
-          state: helper.getStateByCode(object.code)
-        }
-
-        resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
-        for (let i = 0; i < resultRelated.length; i++) {
-          resultRelated[i] = {
-            ...resultRelated[i],
-            distance: 'Unknown'
-          }
-
-          if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
-            resultRelated[i].status = 0
-          }
-        }
-
-        const nearCountry = nearCountryByCode(object.code)
-        object = {
-          post: object,
-          related: resultRelated,
-          nearCountry: nearCountry
-        }
-        callback(object)
-      } else {
-        callback(null);
-      }
-    } catch (e) {
-      helper.throwError(e)
-      callback(null)
-    }
-  })
-
-  socket.on('detail-posts-nail-supplies', async (data, callback) => {
-    trafficsSocket(socket)
-    try {
-      if (helper.isDefine(data)) {
-        const jobModel = require('./models/NailSupply')
-        //let query = { expiration_date: { $gte: new Date() }, link_slug: data.link_slug, status: 1 }
-        let query = { link_slug: sanitize(data.link_slug.split('?')[0]), status: 1 }
-
-        if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-
-          query = {
-            ...query,
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: [sanitize(data.longitude), sanitize(data.latitude)],
-                },
-                $minDistance: 0,
-              }
-            }
-          }
-        }
-
-        let object = await jobModel.findOne(query)
-
-        if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
-          object.status = 0
-        }
-
-        if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-          object = {
-            ...object._doc,
-            distance: helper.getDistanceFromLatLonInKm(object.location.coordinates[0], object.location.coordinates[1], data.longitude, data.latitude)
-          }
-        } else {
-          object = {
-            ...object._doc,
-            distance: 'Unknown'
-          }
-        }
-
-        object.code = helper.formatZipCode(object.code)
-
-        //let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
-        let queryRelated = { status: 1 }
-        let resultRelated
-
-        queryRelated = {
-          ...queryRelated,
-          state: helper.getStateByCode(object.code)
-        }
-
-        resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
-        for (let i = 0; i < resultRelated.length; i++) {
-          resultRelated[i] = {
-            ...resultRelated[i],
-            distance: 'Unknown'
-          }
-
-          if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
-            resultRelated[i].status = 0
-          }
-        }
-
-        const nearCountry = nearCountryByCode(object.code)
-        object = {
-          post: object,
-          related: resultRelated,
-          nearCountry: nearCountry
-        }
-        callback(object)
-      } else {
-        callback(null);
-      }
-    } catch (e) {
-      helper.throwError(e)
-      callback(null)
     }
   })
 
@@ -2868,7 +2776,7 @@ croner.schedule('23 * * * *', async () => {
 
     for (let i = 0; i < jobs.length; i++) {
       page += '<url>' + '\n'
-      page += '<loc>https://nail.okechua.com/posts-jobs/' + jobs[i].link_slug + '</loc>' + '\n'
+      page += '<loc>https://247nailsalons.com/posts-jobs/' + jobs[i].link_slug + '</loc>' + '\n'
       page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
       page += '<priority>0.70</priority>' + '\n'
       page += '</url>' + '\n'
@@ -2876,7 +2784,7 @@ croner.schedule('23 * * * *', async () => {
 
     for (let i = 0; i < sellSalons.length; i++) {
       page += '<url>' + '\n'
-      page += '<loc>https://nail.okechua.com/posts-sell-salons/' + sellSalons[i].link_slug + '</loc>' + '\n'
+      page += '<loc>https://247nailsalons.com/posts-sell-salons/' + sellSalons[i].link_slug + '</loc>' + '\n'
       page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
       page += '<priority>0.70</priority>' + '\n'
       page += '</url>' + '\n'
@@ -2884,7 +2792,7 @@ croner.schedule('23 * * * *', async () => {
 
     for (let i = 0; i < nailSupplys.length; i++) {
       page += '<url>' + '\n'
-      page += '<loc>https://nail.okechua.com/posts-nail-supplies/' + nailSupplys[i].link_slug + '</loc>' + '\n'
+      page += '<loc>https://247nailsalons.com/posts-nail-supplies/' + nailSupplys[i].link_slug + '</loc>' + '\n'
       page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
       page += '<priority>0.70</priority>' + '\n'
       page += '</url>' + '\n'

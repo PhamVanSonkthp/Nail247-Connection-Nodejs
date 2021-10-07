@@ -116,7 +116,7 @@ async function uploadImage(req, res, isWeb) {
                         arr.push( files[index].filename.split('.')[0] + '.jpg' )
                     }
 
-                    arr.sort()
+                    
                     // end upload images
                     try {
                         for (let i = 0; i < arr.length; i++) {
@@ -302,7 +302,7 @@ async function updatePostMobile(req, res) {
                         }
                         arr.push( files[index].filename.split('.')[0] + '.jpg' )
                     }
-                    arr.sort()
+                    
 
                     // end upload images
 
@@ -462,13 +462,60 @@ router.get('/', async (req, res) => {
             }
         }
 
+        if (helper.isDefine(req.query.code) && helper.isDefine(req.query.range)) {
+
+            const lat = helper.getLocationCityByCode(req.query.code).lat
+            const lng = helper.getLocationCityByCode(req.query.code).lng
+
+            if (helper.isDefine(lat) && helper.isDefine(lng)) {
+                let maxDistance = helper.tryParseInt(req.query.range) * 1000 * 1.6
+                if(req.query.range == 0){
+                    maxDistance = 10000000 * 1.6
+                }
+                query = {
+                    ...query,
+                    location: {
+                        $near: {
+                            $geometry: {
+                                type: "Point",
+                                coordinates: [(lng), (lat)],
+                            },
+                            $minDistance: 0,
+                            $maxDistance: maxDistance,
+                        }
+                    }
+                }
+            }
+        }
+
         const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page);
 
+
         for (let i = 0; i < result.length; i++) {
-            result[i] = {
-                ...result[i]._doc,
-                distance: 'Unknown'
+            for (let j = i; j < result.length - 1; j++) {
+                if (new Date(result[i]._doc.createdAt).getDay() == new Date().getDay() && result[i]._doc.package == 'Gold') {
+                    let temp = result[i]
+                    result[i] = result[j]
+                    result[j] = temp
+                }
             }
+        }
+
+        if (helper.isDefine(req.query.code) && helper.isDefine(req.query.range) ) {
+            const lat = helper.getLocationCityByCode(req.query.code).lat
+            const lng = helper.getLocationCityByCode(req.query.code).lng
+
+            if (helper.isDefine(lat) && helper.isDefine(lng)) {
+                for (let i = 0; i < result.length; i++) {
+                    result[i] = {
+                        ...result[i]._doc,
+                        distance: helper.getDistanceFromLatLonInKm(result[i]._doc.location.coordinates[0], result[i]._doc.location.coordinates[1], lng, lat)
+                    }
+                }
+            }
+        }
+
+        for (let i = 0; i < result.length; i++) {
 
             if ((new Date(Date.now())) > (new Date(result[i].expiration_date))) {
                 result[i].status = 0
@@ -574,7 +621,7 @@ async function updateImage(req, res, isWeb) {
                         arr.push( files[index].filename.split('.')[0] + '.jpg' )
                     }
 
-                    arr.sort()
+                    
 
                     // end upload images
                     try {

@@ -202,7 +202,7 @@ app.get('/posts-jobs/:slug', async function (req, res) {
       related: resultRelated,
       nearCountry: nearCountry
     }
-    res.render('./client/posts-jobs', { object: JSON.stringify(object), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+    res.render('./client/posts-jobs', { object: JSON.stringify(object), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'views/client/dist/images/images-jobs/' + object.post.images[0] })
   } catch (err) {
     helper.throwError(err)
   }
@@ -244,7 +244,7 @@ app.get('/posts-sell-salons/:slug', async function (req, res) {
     related: resultRelated,
     nearCountry: nearCountry
   }
-  res.render('./client/posts-sell-salons', { object: JSON.stringify(object), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+  res.render('./client/posts-sell-salons', { object: JSON.stringify(object), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'views/client/dist/images/images-sells-salons/' + object.post.images[0] })
 });
 
 app.get('/posts-nail-supplies/:slug', async function (req, res) {
@@ -317,7 +317,7 @@ app.get('/posts-nail-supplies/:slug', async function (req, res) {
     nearCountry: nearCountry
   }
 
-  res.render('./client/posts-nail-supplies', { object: JSON.stringify(object), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+  res.render('./client/posts-nail-supplies', { object: JSON.stringify(object), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'views/client/dist/images/images-nail-supplies/' + object.post.images[0] })
 });
 
 app.get('/agency/account', function (req, res) {
@@ -2619,13 +2619,13 @@ io.sockets.on('connection', (socket) => {
         let UserModel
         if (data.type == 1) {
           UserModel = require('./models/Job')
-          pathImage = 'public/images-jobs/'
+          pathImage = 'views/client/dist/images/images-jobs/'
         } else if (data.type == 2) {
           UserModel = require('./models/SellSalon')
-          pathImage = 'public/images-sells-salons/'
+          pathImage = 'views/client/dist/images/images-sells-salons/'
         } else if (data.type == 3) {
           UserModel = require('./models/NailSupply')
-          pathImage = 'public/images-nail-supplies/'
+          pathImage = 'views/client/dist/images/images-nail-supplies/'
         }
 
         const result = await UserModel.findById(sanitize(data.id_post))

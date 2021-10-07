@@ -205,7 +205,7 @@ app.get('/posts-jobs/:slug', async function (req, res) {
       related: resultRelated,
       nearCountry: nearCountry
     }
-    res.render('./client/posts-jobs', { object: JSON.stringify({ object }), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+    res.render('./client/posts-jobs', { object: object , url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
   } catch (err) {
     helper.throwError(err)
   }
@@ -245,7 +245,7 @@ app.get('/posts-sell-salons/:slug', async function (req, res) {
     related: resultRelated,
     nearCountry: nearCountry
   }
-  res.render('./client/posts-sell-salons', { object: JSON.stringify({ object }), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+  res.render('./client/posts-sell-salons', { object: object , url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
 });
 
 app.get('/posts-nail-supplies/:slug', async function (req, res) {
@@ -316,7 +316,7 @@ app.get('/posts-nail-supplies/:slug', async function (req, res) {
     nearCountry: nearCountry
   }
 
-  res.render('./client/posts-nail-supplies', { object: JSON.stringify({ object }), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+  res.render('./client/posts-nail-supplies', { object: object , url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
 });
 
 app.get('/agency/account', function (req, res) {

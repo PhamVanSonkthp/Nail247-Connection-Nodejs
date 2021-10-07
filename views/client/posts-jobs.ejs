@@ -437,12 +437,13 @@
         }
 
         function detailPost(latitude, longitude) {
-            var response = '<%- object %>'
+            var response = '<%- JSON.stringify(object) %>'
 
             console.log(response)
+
+            response = JSON.parse(response)
             
-            response = JSON.parse(response).object
-            
+            console.log(response)
             
             if (isDefine(response)) {
                 for (let i = 0; i < response.nearCountry.length; i++) {

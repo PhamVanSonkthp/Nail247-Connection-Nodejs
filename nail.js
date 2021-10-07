@@ -2779,7 +2779,7 @@ croner.schedule('23 * * * *', async () => {
 
     for (let i = 0; i < jobs.length; i++) {
       page += '<url>' + '\n'
-      page += '<loc>' + domain + '/posts-jobs/' + jobs[i].link_slug + '</loc>' + '\n'
+      page += '<loc>' + domain + 'posts-jobs/' + jobs[i].link_slug + '</loc>' + '\n'
       page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
       page += '<priority>0.70</priority>' + '\n'
       page += '</url>' + '\n'
@@ -2787,7 +2787,7 @@ croner.schedule('23 * * * *', async () => {
 
     for (let i = 0; i < sellSalons.length; i++) {
       page += '<url>' + '\n'
-      page += '<loc>' + domain + '/posts-sell-salons/' + sellSalons[i].link_slug + '</loc>' + '\n'
+      page += '<loc>' + domain + 'posts-sell-salons/' + sellSalons[i].link_slug + '</loc>' + '\n'
       page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
       page += '<priority>0.70</priority>' + '\n'
       page += '</url>' + '\n'
@@ -2795,26 +2795,26 @@ croner.schedule('23 * * * *', async () => {
 
     for (let i = 0; i < nailSupplys.length; i++) {
       page += '<url>' + '\n'
-      page += '<loc>' + domain + '/posts-nail-supplies/' + nailSupplys[i].link_slug + '</loc>' + '\n'
+      page += '<loc>' + domain + 'posts-nail-supplies/' + nailSupplys[i].link_slug + '</loc>' + '\n'
       page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
       page += '<priority>0.70</priority>' + '\n'
       page += '</url>' + '\n'
     }
 
     page += '<url>' + '\n'
-    page += '<loc>' + domain + '/privacy-policy</loc>' + '\n'
+    page += '<loc>' + domain + 'privacy-policy</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>0.10</priority>' + '\n'
     page += '</url>' + '\n'
 
     page += '<url>' + '\n'
-    page += '<loc>' + domain + '/terms-of-use</loc>' + '\n'
+    page += '<loc>' + domain + 'terms-of-use</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>0.10</priority>' + '\n'
     page += '</url>' + '\n'
 
     page += '<url>' + '\n'
-    page += '<loc>' + domain + '/terms-of-use</loc>' + '\n'
+    page += '<loc>' + domain + 'terms-of-use</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>0.10</priority>' + '\n'
     page += '</url>' + '\n'

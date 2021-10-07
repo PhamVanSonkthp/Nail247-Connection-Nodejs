@@ -15,7 +15,7 @@ async function uploadImage(req, res, isWeb) {
     const sharp = require('sharp')
 
     const pathStorage = 'views/client/dist/images/images-nail-supplies/'
-    const pathStorageTest = 'public/images/images-nail-supplies/'
+    const pathStorageTest = 'public/images-nail-supplies/'
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -241,7 +241,7 @@ async function updatePostMobile(req, res) {
     const sharp = require('sharp')
 
     const pathStorage = 'views/client/dist/images/images-nail-supplies/'
-    const pathStorageTest = 'public/images/images-nail-supplies/'
+    const pathStorageTest = 'public/images-nail-supplies/'
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -556,7 +556,7 @@ async function updateImage(req, res, isWeb) {
     const sharp = require('sharp')
 
     const pathStorage = 'views/client/dist/images/images-nail-supplies/'
-    const pathStorageTest = 'public/images/images-nail-supplies/'
+    const pathStorageTest = 'public/images-nail-supplies/'
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {

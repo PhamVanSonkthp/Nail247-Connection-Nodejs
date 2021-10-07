@@ -437,13 +437,13 @@ exports.paymentPostJob = async function (req, res) {
     let pathStorageTest
     if (exports.tryParseJson(req.headers.stripe).type_post == '0') {
         pathStorage = 'views/client/dist/images/images-jobs/'
-        pathStorageTest = 'public/images/images-jobs/'
+        pathStorageTest = 'public/images-jobs/'
     } else if (exports.tryParseJson(req.headers.stripe).type_post == '1') {
         pathStorage = 'views/client/dist/images/images-sells-salons/'
-        pathStorageTest = 'public/images/images-sells-salons/'
+        pathStorageTest = 'public/images-sells-salons/'
     } else if (exports.tryParseJson(req.headers.stripe).type_post == '2') {
         pathStorage = 'views/client/dist/images/images-nail-supplies/'
-        pathStorageTest = 'public/images/images-nail-supplies/'
+        pathStorageTest = 'public/images-nail-supplies/'
     }
 
     const storage = multer.diskStorage({

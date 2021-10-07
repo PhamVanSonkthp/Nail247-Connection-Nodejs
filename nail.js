@@ -167,7 +167,7 @@ function nearCountryByCode(code) {
 }
 
 app.get('/posts-jobs/:slug', async function (req, res) {
-  if (helper.isDefine(req.params.slug)) {
+  try {
     const jobModel = require('./models/Job')
     let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
 
@@ -206,7 +206,10 @@ app.get('/posts-jobs/:slug', async function (req, res) {
       nearCountry: nearCountry
     }
     res.render('./client/posts-jobs', { object: JSON.stringify({ object }), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+  } catch (err) {
+    helper.throwError(err)
   }
+
 })
 
 app.get('/posts-sell-salons/:slug', async function (req, res) {

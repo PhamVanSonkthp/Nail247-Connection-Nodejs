@@ -15,6 +15,7 @@ async function uploadImage(req, res, isWeb) {
     const sharp = require('sharp')
 
     const pathStorage = 'views/client/dist/images/images-sells-salons/'
+    const pathStorageTest = 'public/images/images-sells-salons/'
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -99,15 +100,17 @@ async function uploadImage(req, res, isWeb) {
                     let arr = [];
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
                         sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorageTest + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
                         try {
                             sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
-                        }catch(err){
-                            
+                            sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorageTest + files[index].filename.split('.')[0] + '.jpg')
+                        } catch (err) {
+
                         }
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
 
-                    
+
 
                     // end upload images
                     try {
@@ -230,6 +233,7 @@ async function updatePostMobile(req, res) {
     const sharp = require('sharp')
 
     const pathStorage = 'views/client/dist/images/images-sells-salons/'
+    const pathStorageTest = 'public/images/images-sells-salons/'
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -287,15 +291,17 @@ async function updatePostMobile(req, res) {
                     let arr = []
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
                         sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorageTest + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
                         try {
                             sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
-                        }catch(err){
-                            
+                            sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorageTest + files[index].filename.split('.')[0] + '.jpg')
+                        } catch (err) {
+
                         }
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
 
-                    
+
 
                     // end upload images
 
@@ -416,7 +422,7 @@ router.get('/', async (req, res) => {
 
             if (helper.isDefine(lat) && helper.isDefine(lng)) {
                 let maxDistance = helper.tryParseInt(req.query.range) * 1000 * 1.6
-                if(req.query.range == 0){
+                if (req.query.range == 0) {
                     maxDistance = 10000000 * 1.6
                 }
                 query = {
@@ -447,7 +453,7 @@ router.get('/', async (req, res) => {
             }
         }
 
-        if (helper.isDefine(req.query.code) && helper.isDefine(req.query.range) ) {
+        if (helper.isDefine(req.query.code) && helper.isDefine(req.query.range)) {
             const lat = helper.getLocationCityByCode(req.query.code).lat
             const lng = helper.getLocationCityByCode(req.query.code).lng
 
@@ -487,6 +493,7 @@ async function updateImage(req, res, isWeb) {
     const sharp = require('sharp')
 
     const pathStorage = 'views/client/dist/images/images-sells-salons/'
+    const pathStorageTest = 'public/images/images-sells-salons/'
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -543,15 +550,17 @@ async function updateImage(req, res, isWeb) {
                     let arr = [];
                     for (let index = 0; helper.isDefine(files) && index < files.length; index++) {
                         sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorage + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
+                        sharp(files[index].path).resize(250, 250).withMetadata().toFile(pathStorageTest + 'icon-' + files[index].filename.split('.')[0] + '.jpg')
                         try {
                             sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorage + files[index].filename.split('.')[0] + '.jpg')
-                        }catch(err){
-                            
+                            sharp(files[index].path).resize({ width: 1000 }).withMetadata().toFile(pathStorageTest + files[index].filename.split('.')[0] + '.jpg')
+                        } catch (err) {
+
                         }
                         arr.push(files[index].filename.split('.')[0] + '.jpg')
                     }
 
-                    
+
 
                     // end upload images
                     try {

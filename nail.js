@@ -13,7 +13,7 @@ const server = require('http').createServer(app)
 const io = require('socket.io')(server, { cors: { origin: "*" } })
 const croner = require('node-cron')
 const nodemailer = require('nodemailer')
-const domain = 'https://nail.okechua.com/'
+const domain = process.env.DOMAIN
 const ReminderPostModel = require('./models/ReminderPosts')
 const JobPostModel = require('./models/Job')
 const SellSalonPostModel = require('./models/SellSalon')
@@ -191,11 +191,11 @@ app.get('/posts-jobs/:slug', async function (req, res) {
       if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
         resultRelated[i].status = 0
       }
-      resultRelated[i].content = resultRelated[i].content.replaceAll("\"" , "")
+      resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
 
     const nearCountry = nearCountryByCode(object.code)
-    object.content = object.content.replaceAll("\"" , "")
+    object.content = object.content.replaceAll("\"", "")
     object = {
       post: object,
       related: resultRelated,
@@ -232,12 +232,12 @@ app.get('/posts-sell-salons/:slug', async function (req, res) {
   for (let i = 0; i < resultRelated.length; i++) {
     if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
       resultRelated[i].status = 0
-      resultRelated[i].content = resultRelated[i].content.replaceAll("\"" , "")
+      resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
   }
 
   const nearCountry = nearCountryByCode(object.code)
-  object.content = object.content.replaceAll("\"" , "")
+  object.content = object.content.replaceAll("\"", "")
   object = {
     post: object,
     related: resultRelated,
@@ -304,12 +304,12 @@ app.get('/posts-nail-supplies/:slug', async function (req, res) {
 
     if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
       resultRelated[i].status = 0
-      resultRelated[i].content = resultRelated[i].content.replaceAll("\"" , "")
+      resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
   }
 
   const nearCountry = nearCountryByCode(object.code)
-  object.content = object.content.replaceAll("\"" , "")
+  object.content = object.content.replaceAll("\"", "")
   object = {
     post: object,
     related: resultRelated,
@@ -2744,25 +2744,25 @@ croner.schedule('23 * * * *', async () => {
     page += 'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' + '\n'
 
     page += '<url>' + '\n'
-    page += '<loc>https://247nailsalons.com/</loc>' + '\n'
+    page += '<loc>' + domain + '/</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>1.00</priority>' + '\n'
     page += '</url>' + '\n'
 
     page += '<url>' + '\n'
-    page += '<loc>https://247nailsalons.com/search?categories=find-job</loc>' + '\n'
+    page += '<loc>' + domain + '/search?categories=find-job</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>0.80</priority>' + '\n'
     page += '</url>' + '\n'
 
     page += '<url>' + '\n'
-    page += '<loc>https://247nailsalons.com/search?categories=sell-salon</loc>' + '\n'
+    page += '<loc>' + domain + '/search?categories=sell-salon</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>0.80</priority>' + '\n'
     page += '</url>' + '\n'
 
     page += '<url>' + '\n'
-    page += '<loc>https://247nailsalons.com/search?categories=nail-supply</loc>' + '\n'
+    page += '<loc>' + domain + '/search?categories=nail-supply</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>0.80</priority>' + '\n'
     page += '</url>' + '\n'
@@ -2778,7 +2778,7 @@ croner.schedule('23 * * * *', async () => {
 
     for (let i = 0; i < jobs.length; i++) {
       page += '<url>' + '\n'
-      page += '<loc>https://247nailsalons.com/posts-jobs/' + jobs[i].link_slug + '</loc>' + '\n'
+      page += '<loc>' + domain + '/posts-jobs/' + jobs[i].link_slug + '</loc>' + '\n'
       page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
       page += '<priority>0.70</priority>' + '\n'
       page += '</url>' + '\n'
@@ -2786,7 +2786,7 @@ croner.schedule('23 * * * *', async () => {
 
     for (let i = 0; i < sellSalons.length; i++) {
       page += '<url>' + '\n'
-      page += '<loc>https://247nailsalons.com/posts-sell-salons/' + sellSalons[i].link_slug + '</loc>' + '\n'
+      page += '<loc>' + domain + '/posts-sell-salons/' + sellSalons[i].link_slug + '</loc>' + '\n'
       page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
       page += '<priority>0.70</priority>' + '\n'
       page += '</url>' + '\n'
@@ -2794,26 +2794,26 @@ croner.schedule('23 * * * *', async () => {
 
     for (let i = 0; i < nailSupplys.length; i++) {
       page += '<url>' + '\n'
-      page += '<loc>https://247nailsalons.com/posts-nail-supplies/' + nailSupplys[i].link_slug + '</loc>' + '\n'
+      page += '<loc>' + domain + '/posts-nail-supplies/' + nailSupplys[i].link_slug + '</loc>' + '\n'
       page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
       page += '<priority>0.70</priority>' + '\n'
       page += '</url>' + '\n'
     }
 
     page += '<url>' + '\n'
-    page += '<loc>https://247nailsalons.com/privacy-policy</loc>' + '\n'
+    page += '<loc>' + domain + '/privacy-policy</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>0.10</priority>' + '\n'
     page += '</url>' + '\n'
 
     page += '<url>' + '\n'
-    page += '<loc>https://247nailsalons.com/terms-of-use</loc>' + '\n'
+    page += '<loc>' + domain + '/terms-of-use</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>0.10</priority>' + '\n'
     page += '</url>' + '\n'
 
     page += '<url>' + '\n'
-    page += '<loc>https://247nailsalons.com/terms-of-use</loc>' + '\n'
+    page += '<loc>' + domain + '/terms-of-use</loc>' + '\n'
     page += '<lastmod>2021-10-02T03:39:13+00:00</lastmod>' + '\n'
     page += '<priority>0.10</priority>' + '\n'
     page += '</url>' + '\n'

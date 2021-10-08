@@ -502,6 +502,9 @@ router.post('/form-web/', async (req, res) => {
 })
 
 async function updateImage(req, res, isWeb) {
+
+    console.log('req.body.location')
+
     const helpers = require('helpers')
     const multer = require('multer')
     const path = require('path')
@@ -524,6 +527,8 @@ async function updateImage(req, res, isWeb) {
     upload(req, res, function (err) {
         (async () => {
             try {
+
+                console.log(req.body)
 
                 let objForUpdate = {}
                 if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon

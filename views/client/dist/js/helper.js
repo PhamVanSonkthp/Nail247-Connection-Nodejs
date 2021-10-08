@@ -1,11 +1,11 @@
 const socket = io.connect('/', { secure: true });
 
-const urlImagePostJobs = "../views/client/dist/images/images-jobs/";
-const urlImagePostJobsIcon = "../views/client/dist/images/images-jobs/icon-";
-const urlImagePostSellsSalons = "../views/client/dist/images/images-sells-salons/";
-const urlImagePostSellsSalonsIcon = "../views/client/dist/images/images-sells-salons/icon-";
-const urlImagePostNailSupplies = "../views/client/dist/images/images-nail-supplies/";
-const urlImagePostNailSuppliesIcon = "../views/client/dist/images/images-nail-supplies/icon-";
+const urlImagePostJobs = "../public/images-jobs/";
+const urlImagePostJobsIcon = "../public/images-jobs/icon-";
+const urlImagePostSellsSalons = "../public/images-sells-salons/";
+const urlImagePostSellsSalonsIcon = "../public/images-sells-salons/icon-";
+const urlImagePostNailSupplies = "../public/images-nail-supplies/";
+const urlImagePostNailSuppliesIcon = "../public/images-nail-supplies/icon-";
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
 	"July", "August", "September", "October", "November", "December"];

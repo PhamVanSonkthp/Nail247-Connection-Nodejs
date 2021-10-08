@@ -31,7 +31,7 @@ exports.getDistanceFromLatLonInKm = function (lat1, lon1, lat2, lon2) {
     return miles.toFixed(2) + ' miles';
 }
 
-exports.mileToKm = function(mile){
+exports.mileToKm = function (mile) {
     return mile * 1.6;
 }
 
@@ -436,14 +436,24 @@ exports.paymentPostJob = async function (req, res) {
     let pathStorage
     let pathStorageTest
     if (exports.tryParseJson(req.headers.stripe).type_post == '0') {
-        pathStorage = 'views/client/dist/images/images-jobs/'
+        // pathStorage = 'views/client/dist/images/images-jobs/'
+        // pathStorageTest = 'public/images-jobs/'
+
+        pathStorage = 'public/images-jobs/'
         pathStorageTest = 'public/images-jobs/'
+
     } else if (exports.tryParseJson(req.headers.stripe).type_post == '1') {
-        pathStorage = 'views/client/dist/images/images-sells-salons/'
-        pathStorageTest = 'public/images-sells-salons/'
+        // pathStorage = 'views/client/dist/images/images-sells-salons/'
+        // pathStorageTest = 'public/images-sells-salons/'
+
+        pathStorage = 'public/images-jobs/'
+        pathStorageTest = 'public/images-jobs/'
     } else if (exports.tryParseJson(req.headers.stripe).type_post == '2') {
-        pathStorage = 'views/client/dist/images/images-nail-supplies/'
-        pathStorageTest = 'public/images-nail-supplies/'
+        // pathStorage = 'views/client/dist/images/images-nail-supplies/'
+        // pathStorageTest = 'public/images-nail-supplies/'
+
+        pathStorage = 'public/images-jobs/'
+        pathStorageTest = 'public/images-jobs/'
     }
 
     const storage = multer.diskStorage({

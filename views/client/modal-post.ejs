@@ -193,7 +193,8 @@
                                 <input id="modal_post_job_edt_filter_country" autocomplete="off" type="text"
                                     maxlength="10000"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                    placeholder="* City or Zipcode of your salon" oninput="onFilterCountryPostJob()">
+                                    placeholder="* City or Zipcode of your salon"
+                                    oninput="onFilterCountryPostJob()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round"
@@ -209,26 +210,29 @@
                         </div>
 
                     </div>
+                    <div id="container_map">
 
-                    <div class="col-span-12 xl:col-span-6 mt-3" style="box-shadow: 0px 4px 6px #bdbdbd;">
-                        <div class="relative text-gray-700 dark:text-gray-300 box">
-                            <input id="pac-input" autocomplete="off" type="text" maxlength="10000"
-                                class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                placeholder="* Your salon on map">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
+                        <div class="col-span-12 xl:col-span-6 mt-3" style="box-shadow: 0px 4px 6px #bdbdbd;">
+                            <div class="relative text-gray-700 dark:text-gray-300 box">
+                                <input id="pac-input" autocomplete="off" type="text" maxlength="10000"
+                                    class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                                    placeholder="* Salon Address">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
 
+                            </div>
+                        </div>
+
+                        <div class="mt-2" style="height: 20rem;">
+                            <div id="map"></div>
                         </div>
                     </div>
 
-                    <div class="mt-2" style="height: 20rem;">
-                        <div id="map"></div>
-                    </div>
 
                     <div class="font-medium mt-3" style="font-size: 1.3rem;">Select option</div>
 
@@ -274,453 +278,456 @@
 
 
 <%- include("map-post"); %>
-<%- include("map-post-update"); %>
-    <script>
-        var stripeHandlerPostJob
-        var is_repost = false
-        var id_post
+    <%- include("map-post-update"); %>
+        <script>
+            var stripeHandlerPostJob
+            var is_repost = false
+            var id_post
 
-        socket.emit('payments-stripes', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-            if (isDefine(response)) {
-                stripeHandlerPostJob = StripeCheckout.configure({
-                    key: response,
-                    locale: 'en',
-                    token: function (token) {
-                        showLoading()
-                        if (is_repost) {
-                            toggleModalRePost()
-                        } else {
-                            toggleModalPostJob()
-                        }
-
-                        fetch('/purchase', {
-                            method: 'POST',
-                            headers: {
-                                token: 'infinifyltd',
-                                stripe: JSON.stringify({
-                                    stripeTokenId: token.id,
-                                    amount: costPostJob * 100,
-                                    type_post: type_post,
-                                    is_repost: is_repost,
-                                    id_post: id_post,
-                                    months_provider_post_job: months_provider_post_job,
-                                    package_post_job: package_post_job,
-                                    cost_post_job: cost_post_job,
-                                    id_agency: id_agency,
-                                }),
-                            },
-                            body: formData
-                        }).then(function (res) {
-                            if (res.status == 200) {
-                                window.location.href = '../agency/posts?sort=' + (type_post + 1)
+            socket.emit('payments-stripes', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                if (isDefine(response)) {
+                    stripeHandlerPostJob = StripeCheckout.configure({
+                        key: response,
+                        locale: 'en',
+                        token: function (token) {
+                            showLoading()
+                            if (is_repost) {
+                                toggleModalRePost()
                             } else {
-                                alert('error')
-                                hideLoading()
                                 toggleModalPostJob()
                             }
-                        }).catch(function (data) {
-                            alert(data.message)
-                            hideLoading()
-                        })
-                    }
-                })
-            }
-        })
-    </script>
 
-    <script>
-        var type_post
-        var codePostJob
-        var months_provider_post_job, package_post_job, cost_post_job, id_agency
-        var optionsPostJob, indexPostJob = 0, packagePostJob, monthsProviderPostJob, costPostJob
-        var titlePostJob, salonNamePostJob, contentPostJob, phonePostJob, salaryPostJob, emailPostJob, countryPostJob
-        var formData
-
-        const urlParams = new URLSearchParams(window.location.search)
-
-        function uploadPostJob() {
-            $('.removed').remove()
-
-            if ($("#inputSelectMoreImage")[0].files.length > 10) {
-                $('.imageuploadify-container').remove()
-                $('#inputSelectMoreImage').focus()
-                alert("You can select only 10 images")
-                return
-            }
-
-            if (!checkFileBig()) {
-                $('#inputSelectMoreImage').focus()
-                return
-            }
-            if (isEmptyFile()) {
-                $('#inputSelectMoreImage').focus()
-                alert('Please select at least one photo')
-                return
-            }
-
-
-            if (!$('#modal_post_job_edt_title').val().length) {
-                $('#modal_post_job_edt_title').focus()
-                $('#modal_post_job_edt_title').before('<p class="removed" style="color:red">Title is require</p>')
-                return
-            }
-            if (!CKEDITOR.instances.editor.getData().length) {
-                $('#editor').focus()
-                $('#editor').before('<p class="removed" style="color:red">Content is require</p>')
-                return
-            }
-
-            if (getOnlyNumber($('#modal_post_job_edt_phone').val()).length < 10) {
-                $('#modal_post_job_edt_phone').focus()
-                $('#modal_post_job_edt_phone').before('<p class="removed" style="color:red">Phone is require</p>')
-                return
-            }
-            if (!validateEmail($('#modal_post_job_edt_email').val())) {
-                $('#modal_post_job_edt_email').focus()
-                $('#modal_post_job_edt_email').before('<p class="removed" style="color:red">Please enter correct email</p>')
-                return
-            }
-
-            if (!$('#edt_city').val().length || !codePostJob) {
-                $('#modal_post_job_edt_filter_country').focus()
-                $('#modal_post_job_edt_filter_country').before('<p class="removed" style="color:red">City is require</p>')
-                return
-            }
-
-            if (!isDefine(posPostJob)) {
-                alert('Need position on map')
-                return
-            }
-
-            titlePostJob = ($('#modal_post_job_edt_title').val())
-            salonNamePostJob = ($('#modal_post_job_edt_name_salon').val())
-            contentPostJob = CKEDITOR.instances.editor.getData()
-            phonePostJob = ($('#modal_post_job_edt_phone').val())
-            salaryPostJob = ($('#modal_post_job_edt_salary').val())
-            emailPostJob = ($('#modal_post_job_edt_email').val())
-            countryPostJob = ($('#modal_post_job_edt_filter_country').val())
-
-            $('#edt_code').val(codePostJob)
-            $('#edt_months_provider').val(monthsProviderPostJob)
-            $('#edt_package').val(packagePostJob)
-            $('#edt_id_agency').val(getCookie('_id'))
-            $('#edt_cost_package').val(costPostJob)
-            $('#edt_content').val(contentPostJob)
-            $('#edt_location').val(posPostJob)
-
-            $('#form_upload_job').unbind();
-
-            $('#form_upload_job').on('submit', (function (e) {
-                e.preventDefault()
-                formData = new FormData(this)
-
-                if (costPostJob == 0) {
-                    showLoading()
-                    toggleModalPostJob()
-                    let actionUpdatePost
-                    if (type_post == 0) {
-                        actionUpdatePost = '../job/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
-                    } else if (type_post == 1) {
-                        actionUpdatePost = '../sell-salon/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
-                    } else if (type_post == 2) {
-                        actionUpdatePost = '../nail-supplies/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
-                    }
-
-                    $.ajax({
-                        type: 'POST',
-                        url: actionUpdatePost,
-                        headers: {
-                            token: 'infinifyltd'
-                        },
-                        data: formData,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (data) {
-                            window.location.href = '../agency/posts?sort=' + (type_post + 1)
-                        },
-                        error: function (data) {
-                            alert('error')
-                            toggleModalPostJob()
-                            hideLoading()
+                            fetch('/purchase', {
+                                method: 'POST',
+                                headers: {
+                                    token: 'infinifyltd',
+                                    stripe: JSON.stringify({
+                                        stripeTokenId: token.id,
+                                        amount: costPostJob * 100,
+                                        type_post: type_post,
+                                        is_repost: is_repost,
+                                        id_post: id_post,
+                                        months_provider_post_job: months_provider_post_job,
+                                        package_post_job: package_post_job,
+                                        cost_post_job: cost_post_job,
+                                        id_agency: id_agency,
+                                    }),
+                                },
+                                body: formData
+                            }).then(function (res) {
+                                if (res.status == 200) {
+                                    window.location.href = '../agency/posts?sort=' + (type_post + 1)
+                                } else {
+                                    alert('error')
+                                    hideLoading()
+                                    toggleModalPostJob()
+                                }
+                            }).catch(function (data) {
+                                alert(data.message)
+                                hideLoading()
+                            })
                         }
                     })
-
-                } else {
-                    checkoutPostJob()
                 }
-            }))
-
-            $('#form_upload_job').submit()
-        }
-
-        function checkoutPostJob(isRepost, idPost, typePost, monthsProviderPostJob, packagePostJob, _costPostJob, idAgency) {
-            if (isRepost) {
-                is_repost = isRepost
-                id_post = idPost
-                type_post = typePost
-                months_provider_post_job = monthsProviderPostJob
-                package_post_job = packagePostJob
-                cost_post_job = _costPostJob
-                id_agency = idAgency
-
-            }
-
-            stripeHandlerPostJob.open({
-                amount: costPostJob * 100
             })
-        }
+        </script>
 
-        $('#select_package_post_job').on('change', function () {
-            let i = tryParseInt(this.value)
-            $('#content_options_post').html(optionsPostJob[i].content)
-            packagePostJob = optionsPostJob[i].name
-            indexPostJob = i
-            $("#select_price_post_job").empty()
-            for (let j = 0; j < optionsPostJob[i].options.length; j++) {
-                let p = new Option('$' + optionsPostJob[i].options[j].cost + ' / ' + optionsPostJob[i].options[j].month + ' month', j)
-                $(p).html('$' + optionsPostJob[i].options[j].cost + ' / ' + optionsPostJob[i].options[j].month + ' month')
-                $("#select_price_post_job").append(p)
-            }
-            $("#content_post_job").html(optionsPostJob[indexPostJob].options[0].content)
-            monthsProviderPostJob = optionsPostJob[indexPostJob].options[0].month
-            costPostJob = optionsPostJob[indexPostJob].options[0].cost
-            if (costPostJob == 0) {
-                $('#btn_post_job').html('Post For Free')
-            } else {
-                $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
-            }
-        })
+        <script>
+            var type_post
+            var codePostJob
+            var months_provider_post_job, package_post_job, cost_post_job, id_agency
+            var optionsPostJob, indexPostJob = 0, packagePostJob, monthsProviderPostJob, costPostJob
+            var titlePostJob, salonNamePostJob, contentPostJob, phonePostJob, salaryPostJob, emailPostJob, countryPostJob
+            var formData
 
-        $('#select_price_post_job').on('change', function () {
-            let i = tryParseInt(this.value)
-            $("#content_post_job").html(optionsPostJob[indexPostJob].options[i].content)
-            monthsProviderPostJob = optionsPostJob[indexPostJob].options[i].month
-            costPostJob = optionsPostJob[indexPostJob].options[i].cost
-            if (costPostJob == 0) {
-                $('#btn_post_job').html('Post For Free')
-            } else {
-                $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
-            }
-        })
+            const urlParams = new URLSearchParams(window.location.search)
 
-        function fillCountryPostJob(val) {
-            $('#modal_post_job_edt_filter_country').val(val)
-            $('#edt_city').val(val.split(',')[0])
-            $('#edt_state').val(val.split(',')[1].trim().split(' ')[0])
-            codePostJob = val.split(',')[1].trim().split(' ')[1]
-            $('#container_filter_country').hide(200)
-        }
-        function onFilterCountryPostJob() {
-            if ($('#modal_post_job_edt_filter_country').val().length) {
-                $('#container_filter_country').show(200)
+            function uploadPostJob() {
+                $('.removed').remove()
 
-                socket.emit('search-country', { val: $('#modal_post_job_edt_filter_country').val() }, (response) => {
-                    $('#container_filter_country').empty()
-                    if (response && $('#modal_post_job_edt_filter_country').val().length) {
-                        for (let i = 0; i < response.length; i++) {
-                            $('#container_filter_country').append('<div onclick="fillCountryPostJob(\'' + escapeHtml(response[i][3]) + ', ' + escapeHtml(response[i][4]) + ' ' + escapeHtml(response[i][0]) + '\')" ><span class="font-medium">' + escapeHtml(response[i][3]) + ', ' + escapeHtml(response[i][4]) + '</span> <span class="ml-2" style="font-size: 0.8rem;">' + escapeHtml(response[i][0]) + '</span></div>')
+                if ($("#inputSelectMoreImage")[0].files.length > 10) {
+                    $('.imageuploadify-container').remove()
+                    $('#inputSelectMoreImage').focus()
+                    alert("You can select only 10 images")
+                    return
+                }
+
+                if (!checkFileBig()) {
+                    $('#inputSelectMoreImage').focus()
+                    return
+                }
+                if (isEmptyFile()) {
+                    $('#inputSelectMoreImage').focus()
+                    alert('Please select at least one photo')
+                    return
+                }
+
+
+                if (!$('#modal_post_job_edt_title').val().length) {
+                    $('#modal_post_job_edt_title').focus()
+                    $('#modal_post_job_edt_title').before('<p class="removed" style="color:red">Title is require</p>')
+                    return
+                }
+                if (!CKEDITOR.instances.editor.getData().length) {
+                    $('#editor').focus()
+                    $('#editor').before('<p class="removed" style="color:red">Content is require</p>')
+                    return
+                }
+
+                if (getOnlyNumber($('#modal_post_job_edt_phone').val()).length < 10) {
+                    $('#modal_post_job_edt_phone').focus()
+                    $('#modal_post_job_edt_phone').before('<p class="removed" style="color:red">Phone is require</p>')
+                    return
+                }
+                if (!validateEmail($('#modal_post_job_edt_email').val())) {
+                    $('#modal_post_job_edt_email').focus()
+                    $('#modal_post_job_edt_email').before('<p class="removed" style="color:red">Please enter correct email</p>')
+                    return
+                }
+
+                if (!$('#edt_city').val().length || !codePostJob) {
+                    $('#modal_post_job_edt_filter_country').focus()
+                    $('#modal_post_job_edt_filter_country').before('<p class="removed" style="color:red">City is require</p>')
+                    return
+                }
+
+                if ( type_post != 2 && !isDefine(posPostJob)) {
+                    alert('Need position on map')
+                    return
+                }
+
+                titlePostJob = ($('#modal_post_job_edt_title').val())
+                salonNamePostJob = ($('#modal_post_job_edt_name_salon').val())
+                contentPostJob = CKEDITOR.instances.editor.getData()
+                phonePostJob = ($('#modal_post_job_edt_phone').val())
+                salaryPostJob = ($('#modal_post_job_edt_salary').val())
+                emailPostJob = ($('#modal_post_job_edt_email').val())
+                countryPostJob = ($('#modal_post_job_edt_filter_country').val())
+
+                $('#edt_code').val(codePostJob)
+                $('#edt_months_provider').val(monthsProviderPostJob)
+                $('#edt_package').val(packagePostJob)
+                $('#edt_id_agency').val(getCookie('_id'))
+                $('#edt_cost_package').val(costPostJob)
+                $('#edt_content').val(contentPostJob)
+                $('#edt_location').val(posPostJob)
+
+                $('#form_upload_job').unbind();
+
+                $('#form_upload_job').on('submit', (function (e) {
+                    e.preventDefault()
+                    formData = new FormData(this)
+
+                    if (costPostJob == 0) {
+                        showLoading()
+                        toggleModalPostJob()
+                        let actionUpdatePost
+                        if (type_post == 0) {
+                            actionUpdatePost = '../job/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
+                        } else if (type_post == 1) {
+                            actionUpdatePost = '../sell-salon/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
+                        } else if (type_post == 2) {
+                            actionUpdatePost = '../nail-supplies/form-web/?_id=' + getCookie('_id') + '&password=' + getCookie('password')
                         }
+
+                        $.ajax({
+                            type: 'POST',
+                            url: actionUpdatePost,
+                            headers: {
+                                token: 'infinifyltd'
+                            },
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                window.location.href = '../agency/posts?sort=' + (type_post + 1)
+                            },
+                            error: function (data) {
+                                alert('error')
+                                toggleModalPostJob()
+                                hideLoading()
+                            }
+                        })
+
+                    } else {
+                        checkoutPostJob()
                     }
+                }))
+
+                $('#form_upload_job').submit()
+            }
+
+            function checkoutPostJob(isRepost, idPost, typePost, monthsProviderPostJob, packagePostJob, _costPostJob, idAgency) {
+                if (isRepost) {
+                    is_repost = isRepost
+                    id_post = idPost
+                    type_post = typePost
+                    months_provider_post_job = monthsProviderPostJob
+                    package_post_job = packagePostJob
+                    cost_post_job = _costPostJob
+                    id_agency = idAgency
+
+                }
+
+                stripeHandlerPostJob.open({
+                    amount: costPostJob * 100
                 })
-            } else {
+            }
+
+            $('#select_package_post_job').on('change', function () {
+                let i = tryParseInt(this.value)
+                $('#content_options_post').html(optionsPostJob[i].content)
+                packagePostJob = optionsPostJob[i].name
+                indexPostJob = i
+                $("#select_price_post_job").empty()
+                for (let j = 0; j < optionsPostJob[i].options.length; j++) {
+                    let p = new Option('$' + optionsPostJob[i].options[j].cost + ' / ' + optionsPostJob[i].options[j].month + ' month', j)
+                    $(p).html('$' + optionsPostJob[i].options[j].cost + ' / ' + optionsPostJob[i].options[j].month + ' month')
+                    $("#select_price_post_job").append(p)
+                }
+                $("#content_post_job").html(optionsPostJob[indexPostJob].options[0].content)
+                monthsProviderPostJob = optionsPostJob[indexPostJob].options[0].month
+                costPostJob = optionsPostJob[indexPostJob].options[0].cost
+                if (costPostJob == 0) {
+                    $('#btn_post_job').html('Post For Free')
+                } else {
+                    $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
+                }
+            })
+
+            $('#select_price_post_job').on('change', function () {
+                let i = tryParseInt(this.value)
+                $("#content_post_job").html(optionsPostJob[indexPostJob].options[i].content)
+                monthsProviderPostJob = optionsPostJob[indexPostJob].options[i].month
+                costPostJob = optionsPostJob[indexPostJob].options[i].cost
+                if (costPostJob == 0) {
+                    $('#btn_post_job').html('Post For Free')
+                } else {
+                    $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
+                }
+            })
+
+            function fillCountryPostJob(val) {
+                $('#modal_post_job_edt_filter_country').val(val)
+                $('#edt_city').val(val.split(',')[0])
+                $('#edt_state').val(val.split(',')[1].trim().split(' ')[0])
+                codePostJob = val.split(',')[1].trim().split(' ')[1]
                 $('#container_filter_country').hide(200)
             }
-        }
-    </script>
+            function onFilterCountryPostJob() {
+                if ($('#modal_post_job_edt_filter_country').val().length) {
+                    $('#container_filter_country').show(200)
 
-    <script>
-
-        document.getElementById('modal_post_job_edt_phone').addEventListener('input', function (e) {
-            var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        })
-
-        function onPost(val) {
-            if (val == 2) {
-                $('#lbl_name_salon').html('Company name')
-                $('#modal_post_job_edt_name_salon').attr("placeholder", "Company name")
-            } else {
-                $('#lbl_name_salon').html('Name salon')
-                $('#modal_post_job_edt_name_salon').attr("placeholder", "Name salon")
+                    socket.emit('search-country', { val: $('#modal_post_job_edt_filter_country').val() }, (response) => {
+                        $('#container_filter_country').empty()
+                        if (response && $('#modal_post_job_edt_filter_country').val().length) {
+                            for (let i = 0; i < response.length; i++) {
+                                $('#container_filter_country').append('<div onclick="fillCountryPostJob(\'' + escapeHtml(response[i][3]) + ', ' + escapeHtml(response[i][4]) + ' ' + escapeHtml(response[i][0]) + '\')" ><span class="font-medium">' + escapeHtml(response[i][3]) + ', ' + escapeHtml(response[i][4]) + '</span> <span class="ml-2" style="font-size: 0.8rem;">' + escapeHtml(response[i][0]) + '</span></div>')
+                            }
+                        }
+                    })
+                } else {
+                    $('#container_filter_country').hide(200)
+                }
             }
-            $('.dropdown-menu').hide()
-            $("#select_package_post_job").empty()
-            $("#select_price_post_job").empty()
-            $("#content_post_job").empty()
+        </script>
+
+        <script>
+
+            document.getElementById('modal_post_job_edt_phone').addEventListener('input', function (e) {
+                var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+            })
+
+            function onPost(val) {
+                if (val == 2) {
+                    $('#lbl_name_salon').html('Company name')
+                    $('#modal_post_job_edt_name_salon').attr("placeholder", "Company name")
+                    $('#modal_post_job_edt_filter_country').attr("placeholder", "City or Zipcode of your salon (option)")
+                    $('#container_map').hide()
+                } else {
+                    $('#container_map').show()
+                    $('#lbl_name_salon').html('Name salon')
+                    $('#modal_post_job_edt_name_salon').attr("placeholder", "Name salon")
+                }
+                $('.dropdown-menu').hide()
+                $("#select_package_post_job").empty()
+                $("#select_price_post_job").empty()
+                $("#content_post_job").empty()
 
 
-            type_post = val
+                type_post = val
 
-            if (type_post == 0) {
-                $('#lbl_title_post').html('Post a Job')
-                $('#modal_post_job_edt_salary').attr("placeholder", "Salary / week")
-                socket.emit('options-posts-jobs-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                    if (isDefine(response) && response.length > 0) {
-                        $('#content_options_post').html(escapeHtml(response[0].content))
-                        optionsPostJob = response
-                        packagePostJob = response[0].name
-                        for (let i = 0; i < response.length; i++) {
-                            var o = new Option(response[i].name, i)
-                            $(o).html(escapeHtml(response[i].name))
-                            $("#select_package_post_job").append(o)
+                if (type_post == 0) {
+                    $('#lbl_title_post').html('Post a Job')
+                    $('#modal_post_job_edt_salary').attr("placeholder", "Salary / week")
+                    socket.emit('options-posts-jobs-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                        if (isDefine(response) && response.length > 0) {
+                            $('#content_options_post').html(escapeHtml(response[0].content))
+                            optionsPostJob = response
+                            packagePostJob = response[0].name
+                            for (let i = 0; i < response.length; i++) {
+                                var o = new Option(response[i].name, i)
+                                $(o).html(escapeHtml(response[i].name))
+                                $("#select_package_post_job").append(o)
 
-                            if (i == 0) {
-                                for (let j = 0; j < response[i].options.length; j++) {
-                                    let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
-                                    $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
-                                    $("#select_price_post_job").append(p)
-                                }
-                                $("#content_post_job").html(response[i].options[0].content)
-                                monthsProviderPostJob = response[i].options[0].month
-                                costPostJob = response[i].options[0].cost
-                                if (costPostJob == 0) {
-                                    $('#btn_post_job').html('Post For Free')
-                                } else {
-                                    $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
+                                if (i == 0) {
+                                    for (let j = 0; j < response[i].options.length; j++) {
+                                        let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                        $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
+                                        $("#select_price_post_job").append(p)
+                                    }
+                                    $("#content_post_job").html(response[i].options[0].content)
+                                    monthsProviderPostJob = response[i].options[0].month
+                                    costPostJob = response[i].options[0].cost
+                                    if (costPostJob == 0) {
+                                        $('#btn_post_job').html('Post For Free')
+                                    } else {
+                                        $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
+                                    }
                                 }
                             }
                         }
-                    }
-                })
-            } else if (type_post == 1) {
-                $('#lbl_title_post').html('Post a Salon for Sale')
-                $('#modal_post_job_edt_salary').attr("placeholder", "Price (option)")
-                socket.emit('options-posts-sell-salon-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                    if (isDefine(response) && response.length > 0) {
-                        optionsPostJob = response
-                        packagePostJob = response[0].name
-                        $('#content_options_post').html(response[0].content)
-                        for (let i = 0; i < response.length; i++) {
-                            var o = new Option(response[i].name, i)
-                            $(o).html(response[i].name)
-                            $("#select_package_post_job").append(o)
+                    })
+                } else if (type_post == 1) {
+                    $('#lbl_title_post').html('Post a Salon for Sale')
+                    $('#modal_post_job_edt_salary').attr("placeholder", "Price (option)")
+                    socket.emit('options-posts-sell-salon-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                        if (isDefine(response) && response.length > 0) {
+                            optionsPostJob = response
+                            packagePostJob = response[0].name
+                            $('#content_options_post').html(response[0].content)
+                            for (let i = 0; i < response.length; i++) {
+                                var o = new Option(response[i].name, i)
+                                $(o).html(response[i].name)
+                                $("#select_package_post_job").append(o)
 
-                            if (i == 0) {
-                                for (let j = 0; j < response[i].options.length; j++) {
-                                    let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
-                                    $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
-                                    $("#select_price_post_job").append(p)
-                                }
-                                $("#content_post_job").html(response[i].options[0].content)
-                                monthsProviderPostJob = response[i].options[0].month
-                                costPostJob = response[i].options[0].cost
-                                if (costPostJob == 0) {
-                                    $('#btn_post_job').html('Post For Free')
-                                } else {
-                                    $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
-                                }
-                            }
-                        }
-                    }
-                })
-            } else if (type_post == 2) {
-                $('#lbl_title_post').html('Post a Nail Supply')
-                $('#modal_post_job_edt_salary').attr("placeholder", "Price (option)")
-                socket.emit('options-posts-nail-supply-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                    if (isDefine(response) && response.length > 0) {
-                        optionsPostJob = response
-                        packagePostJob = response[0].name
-                        $('#content_options_post').html(response[0].content)
-                        for (let i = 0; i < response.length; i++) {
-                            var o = new Option(response[i].name, i)
-                            $(o).html(response[i].name)
-                            $("#select_package_post_job").append(o)
-
-                            if (i == 0) {
-                                for (let j = 0; j < response[i].options.length; j++) {
-                                    let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
-                                    $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
-                                    $("#select_price_post_job").append(p)
-                                }
-                                $("#content_post_job").html(response[i].options[0].content)
-                                monthsProviderPostJob = response[i].options[0].month
-                                costPostJob = response[i].options[0].cost
-                                if (costPostJob == 0) {
-                                    $('#btn_post_job').html('Post For Free')
-                                } else {
-                                    $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
+                                if (i == 0) {
+                                    for (let j = 0; j < response[i].options.length; j++) {
+                                        let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                        $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
+                                        $("#select_price_post_job").append(p)
+                                    }
+                                    $("#content_post_job").html(response[i].options[0].content)
+                                    monthsProviderPostJob = response[i].options[0].month
+                                    costPostJob = response[i].options[0].cost
+                                    if (costPostJob == 0) {
+                                        $('#btn_post_job').html('Post For Free')
+                                    } else {
+                                        $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
+                                    }
                                 }
                             }
                         }
-                    }
-                })
+                    })
+                } else if (type_post == 2) {
+                    $('#lbl_title_post').html('Post a Nail Supply')
+                    $('#modal_post_job_edt_salary').attr("placeholder", "Price (option)")
+                    socket.emit('options-posts-nail-supply-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                        if (isDefine(response) && response.length > 0) {
+                            optionsPostJob = response
+                            packagePostJob = response[0].name
+                            $('#content_options_post').html(response[0].content)
+                            for (let i = 0; i < response.length; i++) {
+                                var o = new Option(response[i].name, i)
+                                $(o).html(response[i].name)
+                                $("#select_package_post_job").append(o)
+
+                                if (i == 0) {
+                                    for (let j = 0; j < response[i].options.length; j++) {
+                                        let p = new Option('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month', j)
+                                        $(p).html('$' + response[i].options[j].cost + ' / ' + response[i].options[j].month + ' month')
+                                        $("#select_price_post_job").append(p)
+                                    }
+                                    $("#content_post_job").html(response[i].options[0].content)
+                                    monthsProviderPostJob = response[i].options[0].month
+                                    costPostJob = response[i].options[0].cost
+                                    if (costPostJob == 0) {
+                                        $('#btn_post_job').html('Post For Free')
+                                    } else {
+                                        $('#btn_post_job').html('$' + formatMoney(costPostJob) + ' Check out')
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+                toggleModalPostJob()
             }
-            toggleModalPostJob()
-        }
 
-        function toggleModalPostJob() {
-            $('#modal_post_job').css('display', 'block');
-            $('#modal_post_job').css('margin-top', '0px');
-            $('#modal_post_job').css('margin-left', '0px');
-            $('#modal_post_job').css('z-index', '1000');
-            if ($("#modal_post_job").hasClass("show")) {
-                $('#modal_post_job').removeClass('show');
-                $('body').removeClass('overflow-y-hidden');
-            } else {
-                $('#modal_post_job').addClass('show');
-                $('body').addClass('overflow-y-hidden');
+            function toggleModalPostJob() {
+                $('#modal_post_job').css('display', 'block');
+                $('#modal_post_job').css('margin-top', '0px');
+                $('#modal_post_job').css('margin-left', '0px');
+                $('#modal_post_job').css('z-index', '1000');
+                if ($("#modal_post_job").hasClass("show")) {
+                    $('#modal_post_job').removeClass('show');
+                    $('body').removeClass('overflow-y-hidden');
+                } else {
+                    $('#modal_post_job').addClass('show');
+                    $('body').addClass('overflow-y-hidden');
+                }
+                //canvasMap({ lat: 40.906659, lng: -101.361232 })
             }
-            //canvasMap({ lat: 40.906659, lng: -101.361232 })
-        }
 
-        function logout() {
-            deleteAllCookies()
-            window.location.replace('../')
-        }
-
-        function checkLogin() {
-            if (getCookie('_id') && getCookie('password')) {
-                socket.emit('recent-login-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
-                    if (!response) {
-                        logout()
-                    }
-                })
-            } else {
-                logout()
+            function logout() {
+                deleteAllCookies()
+                window.location.replace('../')
             }
-        }
 
-        function hideOptions() {
-            $('.dropdown-menu').show()
-        }
-
-        checkLogin()
-
-        function onChangeImage() {
-            $('.imageuploadify-container').remove()
-            checkFileBig()
-        }
-
-        function checkFileBig() {
-            let files = $('#inputSelectMoreImage').prop('files')
-
-            for (let x in files) {
-                let filesize = ((files[x].size / 1024) / 1024).toFixed(4);
-                if (filesize > 10) {
-                    alert('Photo size too big, please reduce photo below 10mb')
-                    $('.imageuploadify-container').remove()
-                    return false
+            function checkLogin() {
+                if (getCookie('_id') && getCookie('password')) {
+                    socket.emit('recent-login-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                        if (!response) {
+                            logout()
+                        }
+                    })
+                } else {
+                    logout()
                 }
             }
 
-            return true
-        }
+            function hideOptions() {
+                $('.dropdown-menu').show()
+            }
 
-        function isEmptyFile() {
-            return $('#inputSelectMoreImage').prop('files').length == 0
-        }
+            checkLogin()
 
-        function deleteAllCookies() {
-            document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
-        }
+            function onChangeImage() {
+                $('.imageuploadify-container').remove()
+                checkFileBig()
+            }
 
-        initSample()
-    </script>
+            function checkFileBig() {
+                let files = $('#inputSelectMoreImage').prop('files')
 
-    <script src="../views/admin/dist/js/jquery.masknumber.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.number').maskNumber({ integer: true })
-        })
-    </script>
+                for (let x in files) {
+                    let filesize = ((files[x].size / 1024) / 1024).toFixed(4);
+                    if (filesize > 10) {
+                        alert('Photo size too big, please reduce photo below 10mb')
+                        $('.imageuploadify-container').remove()
+                        return false
+                    }
+                }
+
+                return true
+            }
+
+            function isEmptyFile() {
+                return $('#inputSelectMoreImage').prop('files').length == 0
+            }
+
+            function deleteAllCookies() {
+                document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+            }
+
+            initSample()
+        </script>
+
+        <script src="../views/admin/dist/js/jquery.masknumber.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.number').maskNumber({ integer: true })
+            })
+        </script>

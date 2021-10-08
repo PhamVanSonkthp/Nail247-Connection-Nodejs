@@ -2112,15 +2112,16 @@ io.sockets.on('connection', (socket) => {
 
         let object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
 
+        let leftObjects = []
+        let rightObjects = []
         for (let i = 0; i < object.length; i++) {
-          for (let j = i; j < object.length - 1; j++) {
-            if (new Date(object[i]._doc.createdAt).getDay() == new Date().getDay() && object[i]._doc.package == 'Gold') {
-              let temp = object[i]
-              object[i] = object[j]
-              object[j] = temp
-            }
+          if (new Date(object[i]._doc.createdAt).getDay() == new Date().getDay() && object[i]._doc.package == 'Gold') {
+            leftObjects.push(object[i])
+          } else {
+            rightObjects.push(object[i])
           }
         }
+        object = leftObjects.concat(rightObjects)
 
         if (helper.isDefine(data.code) && data.code > 0 && helper.isDefine(data.distance)) {
           const lat = helper.getLocationCityByCode(data.code).lat

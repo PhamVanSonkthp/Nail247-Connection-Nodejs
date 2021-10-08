@@ -105,7 +105,21 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
+<<<<<<< HEAD
 <loc>https://247nailsalons.com/posts-jobs/can-receptionist-185</loc>
+=======
+<loc>https://nail.okechua.com/posts-nail-supplies/123-2</loc>
+<lastmod>2021-10-02T03:39:13+00:00</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/posts-nail-supplies/123123213-1</loc>
+<lastmod>2021-10-02T03:39:13+00:00</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/posts-nail-supplies/123-0</loc>
+>>>>>>> aefad5fe45fc2fa62d3a727a478eadc645b4d90c
 <lastmod>2021-10-02T03:39:13+00:00</lastmod>
 <priority>0.70</priority>
 </url>

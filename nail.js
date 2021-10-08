@@ -188,10 +188,16 @@ app.get('/posts-jobs/:slug', async function (req, res) {
     }
 
     resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+
+    const lat = helper.getLocationCityByCode(object.code).lat
+    const lng = helper.getLocationCityByCode(object.code).lng
+
     for (let i = 0; i < resultRelated.length; i++) {
       if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
         resultRelated[i].status = 0
       }
+
+      resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
       resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
 
@@ -230,11 +236,17 @@ app.get('/posts-sell-salons/:slug', async function (req, res) {
   }
 
   resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+
+  const lat = helper.getLocationCityByCode(object.code).lat
+  const lng = helper.getLocationCityByCode(object.code).lng
+
   for (let i = 0; i < resultRelated.length; i++) {
     if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
       resultRelated[i].status = 0
       resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
+    resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
+    resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
   }
 
   const nearCountry = nearCountryByCode(object.code)
@@ -297,16 +309,18 @@ app.get('/posts-nail-supplies/:slug', async function (req, res) {
   }
 
   resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
-  for (let i = 0; i < resultRelated.length; i++) {
-    resultRelated[i] = {
-      ...resultRelated[i],
-      distance: 'Unknown'
-    }
 
+  const lat = helper.getLocationCityByCode(object.code).lat
+  const lng = helper.getLocationCityByCode(object.code).lng
+
+  for (let i = 0; i < resultRelated.length; i++) {
     if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
       resultRelated[i].status = 0
       resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
+
+    resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
+    resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
   }
 
   const nearCountry = nearCountryByCode(object.code)

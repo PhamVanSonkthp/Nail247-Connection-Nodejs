@@ -1,4 +1,8 @@
 <style>
+    #content_options_post>p:first-of-type {
+        font-size: 1.5rem;
+    }
+
     .imageuploadify-container>button {
         display: none;
     }
@@ -193,8 +197,7 @@
                                 <input id="modal_post_job_edt_filter_country" autocomplete="off" type="text"
                                     maxlength="10000"
                                     class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                    placeholder="* City or Zipcode of your salon"
-                                    oninput="onFilterCountryPostJob()">
+                                    placeholder="* City or Zipcode of your salon" oninput="onFilterCountryPostJob()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round"
@@ -391,7 +394,7 @@
                     return
                 }
 
-                if ( type_post != 2 && !isDefine(posPostJob)) {
+                if (type_post != 2 && !isDefine(posPostJob)) {
                     alert('Need position on map')
                     return
                 }

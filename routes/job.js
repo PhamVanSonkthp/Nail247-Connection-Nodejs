@@ -456,17 +456,18 @@ router.get('/', async (req, res) => {
             }
         }
 
-        const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page)
+        let result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page)
 
+        let leftObjects = []
+        let rightObjects = []
         for (let i = 0; i < result.length; i++) {
-            for (let j = i; j < result.length - 1; j++) {
-                if (new Date(result[i]._doc.createdAt).getDay() == new Date().getDay() && result[i]._doc.package == 'Gold') {
-                    let temp = result[i]
-                    result[i] = result[j]
-                    result[j] = temp
-                }
-            }
+          if (new Date(result[i]._doc.createdAt).getDay() == new Date().getDay() && result[i]._doc.package == 'Gold') {
+            leftObjects.push(result[i])
+          } else {
+            rightObjects.push(result[i])
+          }
         }
+        result = leftObjects.concat(rightObjects)
 
         if (helper.isDefine(req.query.code) && helper.isDefine(req.query.range)) {
             const lat = helper.getLocationCityByCode(req.query.code).lat

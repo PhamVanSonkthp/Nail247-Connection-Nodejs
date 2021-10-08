@@ -534,25 +534,28 @@
                             </div>
                         </div>
 
-                        <div class="col-span-12 xl:col-span-6 mt-3" style="box-shadow: 0px 4px 6px #bdbdbd;">
-                            <div class="relative text-gray-700 dark:text-gray-300 box">
-                                <input id="pac-input-update" autocomplete="off" type="text" maxlength="10000"
-                                    class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                    placeholder="* Your salon on map">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-
+                        <div id="container_map_update">
+                            <div class="col-span-12 xl:col-span-6 mt-3" style="box-shadow: 0px 4px 6px #bdbdbd;">
+                                <div class="relative text-gray-700 dark:text-gray-300 box">
+                                    <input id="pac-input-update" autocomplete="off" type="text" maxlength="10000"
+                                        class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
+                                        placeholder="* Salon Address">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+    
+                                </div>
+                            </div>
+    
+                            <div class="mt-2" style="height: 20rem;">
+                                <div id="map_update"></div>
                             </div>
                         </div>
-
-                        <div class="mt-2" style="height: 20rem;">
-                            <div id="map_update"></div>
-                        </div>
+                        
 
                         <div> <a href="javascript:;" data-toggle="modal" class="btn text-white btn-danger mt-5"
                                 data-target="#delete-modal-preview" class="btn btn-primary">Delete post</a> </div>
@@ -1331,14 +1334,17 @@
                         prefixImage = urlImagePostJobsIcon
                         $('#lbl_nam_salon_update').html('Name salon')
                         $('#modal_post_job_edt_name_salon_update').attr("placeholder", "Name salon")
+                        $('#container_map_update').show()
                     } else if (isSort == 2) {
                         prefixImage = urlImagePostSellsSalonsIcon
                         $('#lbl_nam_salon_update').html('Name salon')
                         $('#modal_post_job_edt_name_salon_update').attr("placeholder", "Name salon")
+                        $('#container_map_update').show()
                     } else if (isSort == 3) {
                         prefixImage = urlImagePostNailSuppliesIcon
                         $('#lbl_nam_salon_update').html('Company name')
                         $('#modal_post_job_edt_name_salon_update').attr("placeholder", "Company name")
+                        $('#container_map_update').hide()
                     }
 
                     if (products[i].images != null && products[i].images != undefined && products[i].images.length > 0) {

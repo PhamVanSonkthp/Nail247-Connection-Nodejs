@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Infinity ltd">
     <meta name="keyword" content="<%- title %>">
-    <meta name="promotion" content="<%- removeHTMLTags(content) %>">
+    <meta name="promotion" content="<%- removeHTMLTags(promotion) %>">
     <meta name="Description" content="<%- removeHTMLTags(content) %>">
 
     <meta property="og:url" content="<%- url %>" />
@@ -162,7 +162,7 @@
                             </div>
 
                             <div class="grid grid-cols-12" id="container_fillter" style=" display: none;">
-                                <div class="col-span-6" style="display: none;">
+                                <div class="col-span-6">
                                     <div class="relative text-gray-700 dark:text-gray-300 ml-4"
                                         id="container_filter_ranger" onclick="filterRanger()">
                                         <img class="mt-2"

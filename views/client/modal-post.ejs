@@ -173,6 +173,7 @@
                     <input name="cost_package" id="edt_cost_package" style="display: none;" />
                     <input name="content" id="edt_content" style="display: none;" />
                     <input name="location" id="edt_location" style="display: none;" />
+                    <input name="address_salon" id="edt_address_salon" style="display: none;" />
 
                     <div class="grid grid-cols-12 gap-6 mt-3">
                         <div class="col-span-12 xl:col-span-6" style="box-shadow: 0px 4px 6px #bdbdbd;">
@@ -414,6 +415,7 @@
                 $('#edt_cost_package').val(costPostJob)
                 $('#edt_content').val(contentPostJob)
                 $('#edt_location').val(posPostJob)
+                $('#edt_address_salon').val($('#pac-input').val())
 
                 $('#form_upload_job').unbind();
 

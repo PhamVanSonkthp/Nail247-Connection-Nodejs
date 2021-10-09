@@ -183,9 +183,20 @@
                         </div>
                     </div>
 
-                    <h2 class="font-medium -intro-x" style="font-size: 1.3rem;">
-                        Newest
-                    </h2>
+                    <div class="grid grid-cols-12 gap-6">
+                        <div class="col-span-6">
+                            <span id="lbl_type_newest" onclick="changeTypeSearch(0)" class="font-medium -intro-x" style="cursor: pointer;font-size: 1.5rem; color: #eb1b6c;">
+                                Newest
+                            </span>
+                        </div>
+                        
+                        <div class="col-span-6">
+                            <p id="lbl_type_nearest" onclick="changeTypeSearch(1)" class="float-right font-medium intro-x" style="cursor: pointer;font-size: 1rem;">
+                                Nearest
+                            </p>
+                        </div>
+                    </div>
+                    
 
                     <div id="containe_newest" class="grid grid-cols-12 gap-6 mt-5">
 

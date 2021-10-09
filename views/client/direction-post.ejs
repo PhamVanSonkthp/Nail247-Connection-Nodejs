@@ -4,6 +4,7 @@
 
     <script>
         function initMap() {
+            console.log(post)
             const uluru = { lat: post.location.coordinates[1], lng: post.location.coordinates[0] };
             const map = new google.maps.Map(document.getElementById("map2"), {
                 zoom: 15,
@@ -11,7 +12,7 @@
             });
             const contentString =
                 '<p style="font-weight:bold;">' +
-                post.name_salon +
+                post.name_salon + ' - ' + post.address_salon +
                 '</p>' + 
                 '<p>' +
                 post.city + ', ' + post.state + ', ' + ( ( "00" + post.code).substring(( "00" + post.code).length - 5 , ( "00" + post.code).length) ) +

@@ -2097,7 +2097,12 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
-        let object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
+        let object
+        if(helper.isDefine(data.type_search) && data.type_search){
+          object = await UserModel.find(query).limit(data.limit).skip(data.offset)
+        }else{
+          object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
+        }
 
         let leftObjects = []
         let rightObjects = []

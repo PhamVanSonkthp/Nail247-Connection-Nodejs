@@ -705,7 +705,9 @@
                     function filterRanger() {
                         if ($('#container_filter_ranger').hasClass('color-primary')) {
                             $('#container_filter_ranger').removeClass('color-primary')
+                            changeTypeSearch(0)
                         } else {
+                            changeTypeSearch(1)
                             $('#container_filter_ranger').addClass('color-primary')
                         }
                     }

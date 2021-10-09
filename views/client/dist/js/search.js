@@ -218,10 +218,16 @@ function changeSalary(val) {
     loadmoreProduct(0)
 }
 
-querySearch = { code: code, categories: categories, distance: distance, salary: salary, limit: limit, offset: offset, title: title }
+querySearch = { code: code, categories: categories, distance: distance, salary: salary, limit: limit, offset: offset, title: title, type_search: typeSearch }
 
 function searchProduct() {
-
+    if(isDefine(code) && tryParseInt(code) > 0 && !categories.includes('nail-supply')){
+        $('#lbl_type_nearest').show()
+        $('#container_filter_ranger').show()
+    }else{
+        $('#container_filter_ranger').hide()
+        $('#lbl_type_nearest').hide()
+    }
     $('#categories_1_1').removeClass('font-medium')
     $('#categories_1_2').removeClass('font-medium')
     $('#categories_1_3').removeClass('font-medium')
@@ -241,7 +247,7 @@ function searchProduct() {
     }
 
     $('#containe_newest').html('<div class="col-span-12 text-center intro-y"><svg style="cursor: pointer;width:2.5rem;height: 2.5rem;position: static;" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 135 135" fill="none" stroke="#ef4c8c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search absolute my-auto inset-y-0 mr-3 right-0"> <!-- <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon> --> <path d="M67.447 58c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zm9.448 9.447c0 5.523 4.477 10 10 10 5.522 0 10-4.477 10-10s-4.478-10-10-10c-5.523 0-10 4.477-10 10zm-9.448 9.448c-5.523 0-10 4.477-10 10 0 5.522 4.477 10 10 10s10-4.478 10-10c0-5.523-4.477-10-10-10zM58 67.447c0-5.523-4.477-10-10-10s-10 4.477-10 10 4.477 10 10 10 10-4.477 10-10z"> <animateTransform attributeName="transform" type="rotate" from="0 67 67" to="-360 67 67" dur="2.5s" repeatCount="indefinite"> </animateTransform> </path> <path d="M28.19 40.31c6.627 0 12-5.374 12-12 0-6.628-5.373-12-12-12-6.628 0-12 5.372-12 12 0 6.626 5.372 12 12 12zm30.72-19.825c4.686 4.687 12.284 4.687 16.97 0 4.686-4.686 4.686-12.284 0-16.97-4.686-4.687-12.284-4.687-16.97 0-4.687 4.686-4.687 12.284 0 16.97zm35.74 7.705c0 6.627 5.37 12 12 12 6.626 0 12-5.373 12-12 0-6.628-5.374-12-12-12-6.63 0-12 5.372-12 12zm19.822 30.72c-4.686 4.686-4.686 12.284 0 16.97 4.687 4.686 12.285 4.686 16.97 0 4.687-4.686 4.687-12.284 0-16.97-4.685-4.687-12.283-4.687-16.97 0zm-7.704 35.74c-6.627 0-12 5.37-12 12 0 6.626 5.373 12 12 12s12-5.374 12-12c0-6.63-5.373-12-12-12zm-30.72 19.822c-4.686-4.686-12.284-4.686-16.97 0-4.686 4.687-4.686 12.285 0 16.97 4.686 4.687 12.284 4.687 16.97 0 4.687-4.685 4.687-12.283 0-16.97zm-35.74-7.704c0-6.627-5.372-12-12-12-6.626 0-12 5.373-12 12s5.374 12 12 12c6.628 0 12-5.373 12-12zm-19.823-30.72c4.687-4.686 4.687-12.284 0-16.97-4.686-4.686-12.284-4.686-16.97 0-4.687 4.686-4.687 12.284 0 16.97 4.686 4.687 12.284 4.687 16.97 0z"> <animateTransform attributeName="transform" type="rotate" from="0 67 67" to="360 67 67" dur="8s" repeatCount="indefinite"></animateTransform> </path> </svg>Loading...<div>')
-    querySearch = { code: code, categories: categories, distance: distance, salary: salary, limit: limit, offset: offset, title: title }
+    querySearch = { code: code, categories: categories, distance: distance, salary: salary, limit: limit, offset: offset, title: title, type_search: typeSearch }
     socket.emit('search', querySearch, (response) => {
         let urlImage
         let prefix
@@ -285,22 +291,6 @@ function searchProduct() {
 }
 
 function loadmoreProduct(page) {
-    // if (offset > limit * page) {
-    //     offset = parseInt(offset) - parseInt(limit);
-    //     stt = offset + 1;
-    //     isShow = isShow - 1;
-    // } else if (offset < limit * page) {
-    //     isShow = isShow + 1;
-    //     offset = parseInt(offset) + parseInt(limit);
-    //     stt = offset + 1;
-    // } else {
-    //     isShow = (limit * page);
-    //     offset = parseInt(limit) * (limit * page);
-    //     stt = parseInt(offset) + 1;
-    // }
-
-    // offset = limit * page;
-
     if (page == -1) {
         offset = parseInt(offset) - parseInt(limit);
         stt = offset + 1;
@@ -325,7 +315,7 @@ function countProduct() {
     } else {
         title = null
     }
-    querySearch = { code: code, categories: categories, distance: distance, salary: salary, limit: limit, offset: offset, title: title }
+    querySearch = { code: code, categories: categories, distance: distance, salary: salary, limit: limit, offset: offset, title: title, type_search: typeSearch }
     socket.emit('count-search', querySearch, (response) => {
 
         if (isDefine(categories) && categories == 'find-job') {
@@ -398,3 +388,20 @@ $(document).ready(function () {
         }
     })
 })
+
+function changeTypeSearch(val) {
+    if (val == 0) {
+        $("#lbl_type_newest").css("font-size", "1.5rem")
+        $("#lbl_type_newest").css("color", "#eb1b6c")
+        $("#lbl_type_nearest").css("font-size", "1rem")
+        $("#lbl_type_nearest").css("color", "black")
+    } else {
+        $("#lbl_type_newest").css("font-size", "1rem")
+        $("#lbl_type_newest").css("color", "black")
+        $("#lbl_type_nearest").css("font-size", "1.5rem")
+        $("#lbl_type_nearest").css("color", "#eb1b6c")
+    }
+
+    typeSearch = val
+    search(new URLSearchParams(window.location.search).get('code') || 0)
+}

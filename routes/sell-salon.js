@@ -247,6 +247,7 @@ async function updatePostMobile(req, res) {
 
                 let objForUpdate = {}
                 if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon
+                if (helper.isDefine(req.body.address_salon)) objForUpdate.address_salon = req.body.address_salon
                 if (helper.isDefine(req.body.phone)) objForUpdate.phone = req.body.phone
                 if (helper.isDefine(req.body.country) && req.body.country) objForUpdate.country = req.body.country
                 if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city
@@ -505,6 +506,7 @@ async function updateImage(req, res, isWeb) {
 
                 let objForUpdate = {}
                 if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon
+                if (helper.isDefine(req.body.address_salon)) objForUpdate.address_salon = req.body.address_salon
                 if (helper.isDefine(req.body.phone)) objForUpdate.phone = req.body.phone;
                 if (helper.isDefine(req.body.country) && req.body.country) objForUpdate.country = req.body.country;
                 if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city;

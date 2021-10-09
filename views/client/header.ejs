@@ -823,6 +823,7 @@ function removeHTMLTags(html) {
             let salary = urlParams.get('salary') || 0
             let code = urlParams.get('code') || 0
             let title = urlParams.get('title')
+            let typeSearch = 0
 
             if (isDefine(title)) {
                 $('#keyword').val(title)

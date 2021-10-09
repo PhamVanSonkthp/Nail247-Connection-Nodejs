@@ -539,7 +539,7 @@
                                 <div class="relative text-gray-700 dark:text-gray-300 box">
                                     <input id="pac-input-update" autocomplete="off" type="text" maxlength="10000"
                                         class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                        placeholder="* Salon Address">
+                                        placeholder="* Salon Address" name="address_salon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="#eb1b6c" stroke-width="1.5" stroke-linecap="round"
                                         stroke-linejoin="round"
@@ -1325,7 +1325,8 @@
                     CKEDITOR.instances['editor_update'].setData(products[i].content)
 
                     $('#modal_post_job_edt_filter_country_update').val(products[i].city + ', ' + products[i].state + ' ' + products[i].code)
-
+                    $('#pac-input-update').val(products[i].address_salon)
+                    
                     codePostJob = products[i].code
 
                     $('#ContainerImages').empty()
@@ -1475,6 +1476,7 @@
                     $('#edt_code_update').val(codePostJob)
                     $('#edt_content_update').val(CKEDITOR.instances.editor_update.getData())
                     $('#edt_location_update').val(posPostJobUpdate)
+                    
                     $('#form_update_job').attr('action', actionUpdatePost + '/?_id=' + getCookie('_id') + '&password=' + getCookie('password'))
 
                     showLoading()

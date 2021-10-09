@@ -208,7 +208,7 @@ app.get('/posts-jobs/:slug', async function (req, res) {
       related: resultRelated,
       nearCountry: nearCountry
     }
-    res.render('./client/posts-jobs', { object: JSON.stringify(object), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'views/client/dist/images/images-jobs/' + object.post.images[0] })
+    res.render('./client/posts-jobs', { object: JSON.stringify(object), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
   } catch (err) {
     helper.throwError(err)
   }
@@ -250,51 +250,24 @@ app.get('/posts-sell-salons/:slug', async function (req, res) {
   }
 
   const nearCountry = nearCountryByCode(object.code)
+
   object.content = object.content.replaceAll("\"", "")
   object = {
     post: object,
     related: resultRelated,
     nearCountry: nearCountry
   }
-  res.render('./client/posts-sell-salons', { object: JSON.stringify(object), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'views/client/dist/images/images-sells-salons/' + object.post.images[0] })
+  res.render('./client/posts-sell-salons', { object: JSON.stringify(object), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-sells-salons/' + object.post.images[0] })
 });
 
 app.get('/posts-nail-supplies/:slug', async function (req, res) {
   const jobModel = require('./models/NailSupply')
-  let query = { link_slug: sanitize(data.link_slug.split('?')[0]), status: 1 }
-
-  if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-
-    query = {
-      ...query,
-      location: {
-        $near: {
-          $geometry: {
-            type: "Point",
-            coordinates: [sanitize(data.longitude), sanitize(data.latitude)],
-          },
-          $minDistance: 0,
-        }
-      }
-    }
-  }
+  let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
 
   let object = await jobModel.findOne(query)
 
   if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
     object.status = 0
-  }
-
-  if (helper.isDefine(data.latitude) && helper.isDefine(data.longitude)) {
-    object = {
-      ...object._doc,
-      distance: helper.getDistanceFromLatLonInKm(object.location.coordinates[0], object.location.coordinates[1], data.longitude, data.latitude)
-    }
-  } else {
-    object = {
-      ...object._doc,
-      distance: 'Unknown'
-    }
   }
 
   object.code = helper.formatZipCode(object.code)
@@ -331,7 +304,7 @@ app.get('/posts-nail-supplies/:slug', async function (req, res) {
     nearCountry: nearCountry
   }
 
-  res.render('./client/posts-nail-supplies', { object: JSON.stringify(object), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'views/client/dist/images/images-nail-supplies/' + object.post.images[0] })
+  res.render('./client/posts-nail-supplies', { object: JSON.stringify(object), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0] })
 });
 
 app.get('/agency/account', function (req, res) {
@@ -2634,13 +2607,13 @@ io.sockets.on('connection', (socket) => {
         let UserModel
         if (data.type == 1) {
           UserModel = require('./models/Job')
-          pathImage = 'views/client/dist/images/images-jobs/'
+          pathImage = 'public/images-jobs/'
         } else if (data.type == 2) {
           UserModel = require('./models/SellSalon')
-          pathImage = 'views/client/dist/images/images-sells-salons/'
+          pathImage = 'public/images-sells-salons/'
         } else if (data.type == 3) {
           UserModel = require('./models/NailSupply')
-          pathImage = 'views/client/dist/images/images-nail-supplies/'
+          pathImage = 'public/images-nail-supplies/'
         }
 
         const result = await UserModel.findById(sanitize(data.id_post))

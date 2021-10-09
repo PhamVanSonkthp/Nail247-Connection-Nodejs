@@ -19,9 +19,10 @@
         js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-<div>
+<div class="mb-3">
+    <span class="mr-2" style="font-weight: bold;">Share on Facebook:</span>
     <div class="fb-share-button" data-href="<%- url %>" data-layout="button_count"></div>
-    <span onclick="copyLinkPost()" style="cursor: pointer;" class="ml-3"><i class="fas fa-link fa-lg"></i></span>
+    <span onclick="copyLinkPost()" style="cursor: pointer;font-weight: bold;" class="ml-3">Copy link post:<i class="ml-2 fas fa-link fa-lg"></i></span>
 </div>
 
 <script>

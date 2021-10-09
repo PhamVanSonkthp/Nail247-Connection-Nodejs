@@ -9,7 +9,7 @@
 
     <script src="../views/client/dist/css/photo-swipe-4.1.0/photoswipe.min.js"></script>
     <script src="../views/client/dist/css/photo-swipe-4.1.0/photoswipe-ui-default.min.js"></script>
-
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
 
     </div>
@@ -275,10 +275,10 @@
 
                     <%- include("share-ad"); %>
 
-                        <iframe id="map" class="mt-5" width="100%" height="450" frameborder="0" style="border:0"
-                            allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        <iframe id="map" class="mt-5" width="100%" height="450" frameborder="0"
+                            style="border:0;display:none;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
-
+                        <div id="map2" style="height: 500px;"></div>
                 </div>
 
                 <div class="col-span-12 lg:col-span-3">
@@ -438,7 +438,7 @@
         function detailPost(latitude, longitude) {
             var response = '<%- object %>'
             response = JSON.parse(response)
-            
+
             if (isDefine(response)) {
                 for (let i = 0; i < response.nearCountry.length; i++) {
                     $('#slick_country').append('<div onclick="search(' + tryParseInt(response.nearCountry[i][0]) + ')" class="slide"> <div class="panel panel-default" style="background: #737172;opacity: 0.9; cursor: pointer; position: relative;"> <img src="../views/client/dist/images/bg-relate-city.png" class="img-responsive" style="opacity: 0.1;max-height: 2rem;object-fit: cover;width: 100%;" /> <p class="text-white" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;height: 1rem;text-align: center;"> ' + response.nearCountry[i][3] + ', ' + response.nearCountry[i][4] + ' ' + response.nearCountry[i][0] + '</p> </div> </div>')
@@ -561,4 +561,6 @@
 
     </script>
 
-    <%- include("footer"); %>
+    <%- include("direction-post"); %>
+
+        <%- include("footer"); %>

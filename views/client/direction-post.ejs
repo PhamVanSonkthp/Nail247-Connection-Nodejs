@@ -4,7 +4,6 @@
 
     <script>
         function initMap() {
-            console.log(post)
             const uluru = { lat: post.location.coordinates[1], lng: post.location.coordinates[0] };
             const map = new google.maps.Map(document.getElementById("map2"), {
                 zoom: 15,
@@ -12,12 +11,11 @@
             });
             const contentString =
                 '<p style="font-weight:bold;">' +
-                post.name_salon + ' - ' + post.address_salon +
+                post.name_salon +
                 '</p>' + 
-                '<p>' +
-                post.city + ', ' + post.state + ', ' + ( ( "00" + post.code).substring(( "00" + post.code).length - 5 , ( "00" + post.code).length) ) +
+                '<p style="font-weight:bold;">' +
+                ( isDefine(post.address_salon) ? post.address_salon.toLowerCase() : '' ) +
                 '</p>' + 
-
                 '<a style="color: #3a84df;font-size: 15px;margin-top: 5px;" target="_blank" jstcache="37" href="https://maps.google.com/maps/dir//'+post.location.coordinates[1]+','+post.location.coordinates[0]+'/@'+post.location.coordinates[1]+','+post.location.coordinates[0]+'" class="navigate-link"> <div class="icon navigate-icon"></div> <div jstcache="38" class="navigate-text">Directions here</div> </a>'
             const infowindow = new google.maps.InfoWindow({
                 content: contentString,

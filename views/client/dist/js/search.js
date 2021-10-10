@@ -223,10 +223,12 @@ querySearch = { code: code, categories: categories, distance: distance, salary: 
 function searchProduct() {
     if(isDefine(code) && tryParseInt(code) > 0 && !categories.includes('nail-supply')){
         $('#lbl_type_nearest').show()
+        $('#lbl_div').show()
         $('#container_filter_ranger').show()
     }else{
         $('#container_filter_ranger').hide()
         $('#lbl_type_nearest').hide()
+        $('#lbl_div').hide()
     }
     $('#categories_1_1').removeClass('font-medium')
     $('#categories_1_2').removeClass('font-medium')

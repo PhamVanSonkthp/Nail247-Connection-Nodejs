@@ -452,16 +452,22 @@ router.get('/', async (req, res) => {
             }
         }
 
-        let result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page)
+        let result
+        if (helper.isDefine(req.query.type_search) && req.query.type_search) {
+            result = await ObjectModel.find(query)
+        } else {
+            result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page)
+        }
+
 
         let leftObjects = []
         let rightObjects = []
         for (let i = 0; i < result.length; i++) {
-          if (new Date(result[i]._doc.createdAt).getDay() == new Date().getDay() && result[i]._doc.package == 'Gold') {
-            leftObjects.push(result[i])
-          } else {
-            rightObjects.push(result[i])
-          }
+            if (new Date(result[i]._doc.createdAt).getDay() == new Date().getDay() && result[i]._doc.package == 'Gold') {
+                leftObjects.push(result[i])
+            } else {
+                rightObjects.push(result[i])
+            }
         }
         result = leftObjects.concat(rightObjects)
 
@@ -480,17 +486,23 @@ router.get('/', async (req, res) => {
         }
 
         for (let i = 0; i < result.length; i++) {
-
             if ((new Date(Date.now())) > (new Date(result[i].expiration_date))) {
                 result[i].status = 0
             }
+        }
 
+        if (helper.isDefine(req.query.type_search) && req.query.type_search) {
+            let tempObject = []
+            for (let i = page; i < limit + page && i < result.length; i++) {
+                tempObject.push(result[i])
+            }
+            result = tempObject
         }
 
         return res.json(result);
     } catch (err) {
         helper.throwError(err)
-        return res.status(400).json(err);
+        return res.status(500).json(err);
     }
 });
 

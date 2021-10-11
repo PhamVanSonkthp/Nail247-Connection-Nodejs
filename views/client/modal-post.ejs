@@ -389,7 +389,7 @@
                     return
                 }
 
-                if (!$('#edt_city').val().length || !codePostJob) {
+                if ((!$('#edt_city').val().length || !codePostJob) && type_post != 2) {
                     $('#modal_post_job_edt_filter_country').focus()
                     $('#modal_post_job_edt_filter_country').before('<p class="removed" style="color:red">City is require</p>')
                     return
@@ -566,6 +566,7 @@
                 if (type_post == 0) {
                     $('#lbl_title_post').html('Post a Job')
                     $('#modal_post_job_edt_salary').attr("placeholder", "Salary / week")
+                    $('#modal_post_job_edt_filter_country').attr("placeholder", "* City or Zipcode of your salon")
                     socket.emit('options-posts-jobs-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
                         if (isDefine(response) && response.length > 0) {
                             $('#content_options_post').html(escapeHtml(response[0].content))
@@ -597,6 +598,7 @@
                 } else if (type_post == 1) {
                     $('#lbl_title_post').html('Post a Salon for Sale')
                     $('#modal_post_job_edt_salary').attr("placeholder", "Price (option)")
+                    $('#modal_post_job_edt_filter_country').attr("placeholder", "* City or Zipcode of your salon")
                     socket.emit('options-posts-sell-salon-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
                         if (isDefine(response) && response.length > 0) {
                             optionsPostJob = response
@@ -628,6 +630,7 @@
                 } else if (type_post == 2) {
                     $('#lbl_title_post').html('Post a Nail Supply')
                     $('#modal_post_job_edt_salary').attr("placeholder", "Price (option)")
+                    $('#modal_post_job_edt_filter_country').attr("placeholder", "City or Zipcode of your salon (option)")
                     socket.emit('options-posts-nail-supply-agency', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
                         if (isDefine(response) && response.length > 0) {
                             optionsPostJob = response

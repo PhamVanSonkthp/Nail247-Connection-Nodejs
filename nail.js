@@ -174,6 +174,7 @@ app.get('/posts-jobs/:slug', async function (req, res) {
 
     let object = await jobModel.findOne(query)
 
+    
     if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
       object.status = 0
     }
@@ -211,101 +212,109 @@ app.get('/posts-jobs/:slug', async function (req, res) {
     res.render('./client/posts-jobs', { object: JSON.stringify(object), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
   } catch (err) {
     helper.throwError(err)
+    res.redirect(domain + 'search?categories=find-job')
   }
-
 })
 
 app.get('/posts-sell-salons/:slug', async function (req, res) {
-  const jobModel = require('./models/SellSalon')
-  let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
-
-  let object = await jobModel.findOne(query)
-
-  if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
-    object.status = 0
-  }
-
-  object.code = helper.formatZipCode(object.code)
-
-  let queryRelated = { status: 1 }
-  let resultRelated
-
-  queryRelated = {
-    ...queryRelated,
-    state: helper.getStateByCode(object.code)
-  }
-
-  resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
-
-  const lat = helper.getLocationCityByCode(object.code).lat
-  const lng = helper.getLocationCityByCode(object.code).lng
-
-  for (let i = 0; i < resultRelated.length; i++) {
-    if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
-      resultRelated[i].status = 0
+  try{
+    const jobModel = require('./models/SellSalon')
+    let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
+  
+    let object = await jobModel.findOne(query)
+  
+    if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
+      object.status = 0
+    }
+  
+    object.code = helper.formatZipCode(object.code)
+  
+    let queryRelated = { status: 1 }
+    let resultRelated
+  
+    queryRelated = {
+      ...queryRelated,
+      state: helper.getStateByCode(object.code)
+    }
+  
+    resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+  
+    const lat = helper.getLocationCityByCode(object.code).lat
+    const lng = helper.getLocationCityByCode(object.code).lng
+  
+    for (let i = 0; i < resultRelated.length; i++) {
+      if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
+        resultRelated[i].status = 0
+        resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
+      }
+      resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
       resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
-    resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-    resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
+  
+    const nearCountry = nearCountryByCode(object.code)
+  
+    object.content = object.content.replaceAll("\"", "")
+    object = {
+      post: object,
+      related: resultRelated,
+      nearCountry: nearCountry
+    }
+    res.render('./client/posts-sell-salons', { object: JSON.stringify(object), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-sells-salons/' + object.post.images[0] })
+  } catch (err) {
+    helper.throwError(err)
+    res.redirect(domain + 'search?categories=sell-salon')
   }
-
-  const nearCountry = nearCountryByCode(object.code)
-
-  object.content = object.content.replaceAll("\"", "")
-  object = {
-    post: object,
-    related: resultRelated,
-    nearCountry: nearCountry
-  }
-  res.render('./client/posts-sell-salons', { object: JSON.stringify(object), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-sells-salons/' + object.post.images[0] })
-});
+})
 
 app.get('/posts-nail-supplies/:slug', async function (req, res) {
-  const jobModel = require('./models/NailSupply')
-  let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
-
-  let object = await jobModel.findOne(query)
-
-  if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
-    object.status = 0
-  }
-
-  object.code = helper.formatZipCode(object.code)
-
-  //let queryRelated = { expiration_date: { $gte: new Date() }, status: 1 }
-  let queryRelated = { status: 1 }
-  let resultRelated
-
-  queryRelated = {
-    ...queryRelated,
-    state: helper.getStateByCode(object.code)
-  }
-
-  resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
-
-  const lat = helper.getLocationCityByCode(object.code).lat
-  const lng = helper.getLocationCityByCode(object.code).lng
-
-  for (let i = 0; i < resultRelated.length; i++) {
-    if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
-      resultRelated[i].status = 0
+  try{
+    const jobModel = require('./models/NailSupply')
+    let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
+  
+    let object = await jobModel.findOne(query)
+  
+    if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
+      object.status = 0
+    }
+  
+    object.code = helper.formatZipCode(object.code)
+    let queryRelated = { status: 1 }
+    let resultRelated
+  
+    queryRelated = {
+      ...queryRelated,
+      state: helper.getStateByCode(object.code)
+    }
+  
+    resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
+  
+    const lat = helper.getLocationCityByCode(object.code).lat
+    const lng = helper.getLocationCityByCode(object.code).lng
+  
+    for (let i = 0; i < resultRelated.length; i++) {
+      if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
+        resultRelated[i].status = 0
+        resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
+      }
+  
+      resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
       resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
-
-    resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-    resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
+  
+    const nearCountry = nearCountryByCode(object.code)
+    object.content = object.content.replaceAll("\"", "")
+    object = {
+      post: object,
+      related: resultRelated,
+      nearCountry: nearCountry
+    }
+  
+    res.render('./client/posts-nail-supplies', { object: JSON.stringify(object), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0] })
+  }catch (err) {
+    helper.throwError(err)
+    res.redirect(domain + 'search?categories=nail-supply')
   }
-
-  const nearCountry = nearCountryByCode(object.code)
-  object.content = object.content.replaceAll("\"", "")
-  object = {
-    post: object,
-    related: resultRelated,
-    nearCountry: nearCountry
-  }
-
-  res.render('./client/posts-nail-supplies', { object: JSON.stringify(object), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0] })
-});
+})
 
 app.get('/agency/account', function (req, res) {
   res.render('./client/agency-account');

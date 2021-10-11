@@ -25,7 +25,6 @@ function reloadSlick() {
         focusOnSelect: false,
         slidesToShow: 1,
         slidesToScroll: 1,
-        infinite: false,
         responsive: [{
             breakpoint: breakpoint.xs,
             settings: {

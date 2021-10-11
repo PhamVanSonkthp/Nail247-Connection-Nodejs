@@ -77,7 +77,7 @@ h1 {
     -webkit-line-clamp: 2;
     /* number of lines to show */
     -webkit-box-orient: vertical;
-    height: 1.9rem;
+    height: 2rem;
 }
 
 .accordion-button:not(.collapsed) {

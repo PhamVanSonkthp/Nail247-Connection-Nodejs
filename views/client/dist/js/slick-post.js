@@ -28,22 +28,22 @@ function reloadSlickImages() {
         responsive: [{
             breakpoint: breakpoint.xs,
             settings: {
-                slidesToShow: Math.min(post.images.length , 2),
-                slidesToScroll: Math.min(post.images.length , 2)
+                slidesToShow: 2,
+                slidesToScroll: 2
             }
         },
         {
             breakpoint: breakpoint.sm,
             settings: {
-                slidesToShow: Math.min(post.images.length , 3),
-                slidesToScroll: Math.min(post.images.length , 3)
+                slidesToShow: 3,
+                slidesToScroll: 3
             }
         },
         {
             breakpoint: breakpoint.md,
             settings: {
-                slidesToShow: Math.min(post.images.length , 4),
-                slidesToScroll: Math.min(post.images.length , 4)
+                slidesToShow: 4,
+                slidesToScroll: 4
             }
         },
         ]

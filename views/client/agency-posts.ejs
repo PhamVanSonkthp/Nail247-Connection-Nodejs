@@ -1324,7 +1324,12 @@
 
                     CKEDITOR.instances['editor_update'].setData(products[i].content)
 
-                    $('#modal_post_job_edt_filter_country_update').val(products[i].city + ', ' + products[i].state + ' ' + products[i].code)
+                    if(products[i].city && products[i].state && products[i].code){
+                        $('#modal_post_job_edt_filter_country_update').val(products[i].city + ', ' + products[i].state + ' ' + products[i].code)
+                    }else{
+                        $('#modal_post_job_edt_filter_country_update').val('')
+                    }
+                    
                     $('#pac-input-update').val(products[i].address_salon)
                     
                     codePostJob = products[i].code

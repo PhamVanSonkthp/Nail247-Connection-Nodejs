@@ -20,17 +20,14 @@ const object = mongoose.Schema({
     },
     city: {
         ...helper.schemaString,
-        ...helper.schemaRequired,
         ...helper.schemaCapitalizeFirstLetter,
     },
     state: {
         ...helper.schemaString,
-        ...helper.schemaRequired,
         ...helper.schemaCapitalizeFirstLetter,
     },
     code: {
         ...helper.schemaNumber,
-        ...helper.schemaRequired,
     },
     location:{
         type: { 

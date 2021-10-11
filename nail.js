@@ -128,15 +128,11 @@ app.get('/', async function (req, res) {
 
 app.get('/forgot-password', function (req, res) {
   res.render('./client/forgot-password', { url: domain + 'search/', title: 'Forgot password', content: 'Find a job, sell salon, nail supply', image: domain });
-});
+})
 
 app.get('/search', function (req, res) {
   res.render('./client/search', { url: domain + 'search/', title: 'Find a job | sell salon | nail supply', content: 'Find a job, sell salon, nail supply', image: domain });
-});
-
-// app.get('/posts-jobs/*', function (req, res) {
-//   res.render('./client/posts-jobs');
-// });
+})
 
 function nearCountryByCode(code) {
   code = helper.tryParseInt(code)
@@ -338,6 +334,14 @@ app.get('/terms-of-use', function (req, res) {
 
 app.get('/privacy-policy', function (req, res) {
   res.render('./client/privacy-policy')
+})
+
+app.get('/blog', function (req, res) {
+  res.render('./client/blog', { url: domain + 'blog' , title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain })
+})
+
+app.get('/blog/:slug', function (req, res) {
+  res.render('./client/detail-blog', { url: domain + 'blog' , title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain })
 })
 
 app.get('/contact', async (req, res) => {
@@ -2136,12 +2140,14 @@ io.sockets.on('connection', (socket) => {
                 distance: helper.getDistanceFromLatLonInKm(object[i]._doc.location.coordinates[0], object[i]._doc.location.coordinates[1], lng, lat)
               }
             }
+
+            if(helper.isDefine(data.type_search) && helper.tryParseInt(data.type_search) > 0)
             object.sort(function (a, b) {
-              return parseFloat(a.distance) - parseFloat(b.distance);
+                return parseFloat(a.distance) - parseFloat(b.distance);
             })
           }
         }
-
+        
         if (helper.isDefine(data.title) && data.title.length > 0) {
           const objectSearched = await UserModel.findOne(querySearched)
 
@@ -2163,6 +2169,7 @@ io.sockets.on('connection', (socket) => {
           }
           object = tempObject
         }
+        
         callback(object)
 
       } else {

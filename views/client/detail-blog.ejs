@@ -1,0 +1,129 @@
+<html>
+
+<% function removeHTMLTags(html) { var regX=/(<([^>]+)>)/ig;
+    return html.replace(regX, "")
+    }
+    %>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Infinity ltd">
+        <meta name="keyword" content="<%- title %>">
+        <meta name="promotion" content="<%- removeHTMLTags(content) %>">
+        <meta name="Description" content="<%- removeHTMLTags(content) %>">
+
+        <meta property="og:url" content="<%- url %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="<%- title %>" />
+        <meta property="og:description" content="<%- removeHTMLTags(content) %>" />
+        <meta property="og:image" content="<%- image %>" />
+
+        <title>247 Nail Salons - Tim Tho Nail | Ban Tiem Nail | Mua Ban Nail Supply</title>
+        <link href="../views/client/dist/images/icon.png" rel="shortcut icon">
+
+        <!-- BEGIN: CSS Assets-->
+        <link rel="stylesheet" href="../views/client/dist/css/app.css" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+            crossorigin="anonymous" />
+
+        <style>
+            html,
+            body {
+                height: 100%;
+                /* background-color: #fafbfe; */
+                background: white;
+                padding: 0 !important;
+                line-height: normal !important;
+            }
+
+            .read_more_tag:hover {
+                text-decoration: none;
+            }
+
+            .read_more_tag {
+                text-decoration: underline;
+                -webkit-transition: all .3s;
+                transition: all .3s;
+                transition-duration: .3s;
+            }
+
+            .ellipsis-2 {
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2 !important;
+                -webkit-box-orient: vertical;
+            }
+
+            .post-category-item {
+                position: absolute;
+                left: -5;
+                top: 70px;
+                z-index: 10;
+                padding: 10px;
+                background-color: black;
+                color: white;
+                text-transform: uppercase;
+            }
+
+            a {
+                text-underline-offset: 2px;
+                -webkit-transition: all .3s;
+                transition: all .3s;
+                transition-duration: .3s;
+            }
+
+            a:hover {
+                color: #eaaa85 !important;
+            }
+        </style>
+        <!-- END: CSS Assets-->
+    </head>
+
+    <body>
+        <div
+            style="background-image: url(../views/client/dist/images/blog-bg.jpg);background-position: center;background-repeat: no-repeat;background-size: cover;">
+            <div class="container p-5">
+
+                <div style="min-height: 500px;display: flex;align-items: center;">
+                    <div>
+                        <h2 style="font-family: 'Quentin', sans-serif;font-weight: 400;font-size: 35px;">247 Beauty</h2>
+                        <h1
+                            style="font-family: 'Raleway', sans-serif;font-weight: 200;font-size: 80px;line-height: 1.2em;">
+                            Blog Grid</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="container p-5">
+
+                <div class="grid grid-cols-12 gap-6">
+                    <div class="col-span-12 xl:col-span-9" style="position: relative;">
+
+                        <a class="post-category-item"
+                            href="https://demo.artureanec.com/themes/cosmecos-new/category/body-care/">BodyCare</a>
+
+                        <div>
+                            <img src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/beautiful-face-young-adult-woman-with-clean-fresh-skin-isolated-white-2-1170x538.jpg" />
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-span-12 xl:col-span-3">
+
+                        <div>
+                            Categories
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>

@@ -411,7 +411,7 @@ router.get('/', async (req, res) => {
             }
         }
 
-        if (helper.isDefine(req.query.code) && helper.isDefine(req.query.range)) {
+        if (helper.isDefine(req.query.code)) {
 
             const lat = helper.getLocationCityByCode(req.query.code).lat
             const lng = helper.getLocationCityByCode(req.query.code).lng
@@ -438,7 +438,7 @@ router.get('/', async (req, res) => {
         }
 
         let result
-        if (helper.isDefine(req.query.type_search) && req.query.type_search) {
+        if (helper.isDefine(req.query.type_search) && helper.tryParseInt(req.query.type_search) > 0) {
             result = await ObjectModel.find(query)
         } else {
             result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page)
@@ -455,7 +455,7 @@ router.get('/', async (req, res) => {
         }
         result = leftObjects.concat(rightObjects)
 
-        if (helper.isDefine(req.query.code) && helper.isDefine(req.query.range)) {
+        if (helper.isDefine(req.query.code) ) {
             const lat = helper.getLocationCityByCode(req.query.code).lat
             const lng = helper.getLocationCityByCode(req.query.code).lng
 
@@ -466,6 +466,10 @@ router.get('/', async (req, res) => {
                         distance: helper.getDistanceFromLatLonInKm(result[i]._doc.location.coordinates[0], result[i]._doc.location.coordinates[1], lng, lat)
                     }
                 }
+                if(helper.isDefine(req.query.type_search) && helper.tryParseInt(req.query.type_search) > 0)
+                result.sort(function (a, b) {
+                    return parseFloat(a.distance) - parseFloat(b.distance);
+                })
             }
         }
 

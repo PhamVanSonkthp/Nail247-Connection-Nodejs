@@ -210,7 +210,7 @@
                     </h3>
 
                     <div class="mt-2 -intro-x grid grid-cols-12">
-                        <div class="col-span-12 lg:col-span-9">
+                        <div class="col-span-12 lg:col-span-9" id="container_address">
                             <i class="fas fa-map-marker-alt fa-lg mr-2"></i> <span id="lbl_address"></span>
                         </div>
                         <div class="col-span-12 lg:col-span-3 text-right">
@@ -461,6 +461,9 @@
                 let datetime = (('0' + (new Date(response.post.updatedAt).getMonth() + 1)).substring(('0' + (new Date(response.post.updatedAt).getMonth() + 1)).length - 2, ('0' + (new Date(response.post.updatedAt).getMonth() + 1)).length) + '/' + new Date(response.post.updatedAt).getDate() + '/' + new Date(response.post.updatedAt).getFullYear())
                 $('#lbl_last_update').html(escapeHtml(datetime))
                 $('#lbl_address').html(escapeHtml(response.post.city + ', ' + response.post.state + ' ' + response.post.code))
+                if(!response.post.city || !response.post.state || !response.post.code){
+                    $('#container_address').empty()
+                }
                 $('#lbl_salary').html(escapeHtml(response.post.price != 0 ? ('$' + formatMoney(response.post.price)) : 'Contact owner'))
 
                 $('#lbl_content').html(escapeHtml(response.post.content))

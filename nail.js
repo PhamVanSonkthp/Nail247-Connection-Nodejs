@@ -174,7 +174,7 @@ app.get('/posts-jobs/:slug', async function (req, res) {
 
     let object = await jobModel.findOne(query)
 
-    
+
     if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
       object.status = 0
     }
@@ -217,31 +217,31 @@ app.get('/posts-jobs/:slug', async function (req, res) {
 })
 
 app.get('/posts-sell-salons/:slug', async function (req, res) {
-  try{
+  try {
     const jobModel = require('./models/SellSalon')
     let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
-  
+
     let object = await jobModel.findOne(query)
-  
+
     if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
       object.status = 0
     }
-  
+
     object.code = helper.formatZipCode(object.code)
-  
+
     let queryRelated = { status: 1 }
     let resultRelated
-  
+
     queryRelated = {
       ...queryRelated,
       state: helper.getStateByCode(object.code)
     }
-  
+
     resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
-  
+
     const lat = helper.getLocationCityByCode(object.code).lat
     const lng = helper.getLocationCityByCode(object.code).lng
-  
+
     for (let i = 0; i < resultRelated.length; i++) {
       if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
         resultRelated[i].status = 0
@@ -250,9 +250,9 @@ app.get('/posts-sell-salons/:slug', async function (req, res) {
       resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
       resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
-  
+
     const nearCountry = nearCountryByCode(object.code)
-  
+
     object.content = object.content.replaceAll("\"", "")
     object = {
       post: object,
@@ -267,40 +267,40 @@ app.get('/posts-sell-salons/:slug', async function (req, res) {
 })
 
 app.get('/posts-nail-supplies/:slug', async function (req, res) {
-  try{
+  try {
     const jobModel = require('./models/NailSupply')
     let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
-  
+
     let object = await jobModel.findOne(query)
-  
+
     if ((new Date(Date.now())) > (new Date(object.expiration_date))) {
       object.status = 0
     }
-  
+
     object.code = helper.formatZipCode(object.code)
     let queryRelated = { status: 1 }
     let resultRelated
-  
+
     queryRelated = {
       ...queryRelated,
       state: helper.getStateByCode(object.code)
     }
-  
+
     resultRelated = await jobModel.aggregate([{ $match: queryRelated }, { $sample: { size: 5 } }])
-  
+
     const lat = helper.getLocationCityByCode(object.code).lat
     const lng = helper.getLocationCityByCode(object.code).lng
-  
+
     for (let i = 0; i < resultRelated.length; i++) {
       if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
         resultRelated[i].status = 0
         resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
       }
-  
+
       resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
       resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
     }
-  
+
     const nearCountry = nearCountryByCode(object.code)
     object.content = object.content.replaceAll("\"", "")
     object = {
@@ -308,9 +308,9 @@ app.get('/posts-nail-supplies/:slug', async function (req, res) {
       related: resultRelated,
       nearCountry: nearCountry
     }
-  
+
     res.render('./client/posts-nail-supplies', { object: JSON.stringify(object), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0] })
-  }catch (err) {
+  } catch (err) {
     helper.throwError(err)
     res.redirect(domain + 'search?categories=nail-supply')
   }
@@ -2096,7 +2096,7 @@ io.sockets.on('connection', (socket) => {
                 $near: {
                   $geometry: {
                     type: "Point",
-                    coordinates: [sanitize(lng), sanitize(lat)],
+                    coordinates: [(lng), (lat)],
                   },
                   $minDistance: 0,
                   $maxDistance: maxDistance,
@@ -2107,9 +2107,10 @@ io.sockets.on('connection', (socket) => {
         }
 
         let object
-        if(helper.isDefine(data.type_search) && data.type_search){
-          object = await UserModel.find(query).limit(data.limit).skip(data.offset)
-        }else{
+        if (helper.isDefine(data.type_search) && data.type_search) {
+          //object = await UserModel.find(query).limit(data.limit).skip(data.offset)
+          object = await UserModel.find(query)
+        } else {
           object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
         }
 
@@ -2135,6 +2136,9 @@ io.sockets.on('connection', (socket) => {
                 distance: helper.getDistanceFromLatLonInKm(object[i]._doc.location.coordinates[0], object[i]._doc.location.coordinates[1], lng, lat)
               }
             }
+            object.sort(function (a, b) {
+              return parseFloat(a.distance) - parseFloat(b.distance);
+            })
           }
         }
 
@@ -2152,6 +2156,13 @@ io.sockets.on('connection', (socket) => {
           }
         }
 
+        if (helper.isDefine(data.type_search) && data.type_search) {
+          let tempObject = []
+          for (let i = data.offset; i < data.limit + data.offset && i < object.length; i++) {
+            tempObject.push(object[i])
+          }
+          object = tempObject
+        }
         callback(object)
 
       } else {

@@ -1,0 +1,367 @@
+html,
+body {
+    height: 100%;
+    /* background-color: #fafbfe; */
+    background: white;
+    padding: 0 !important;
+    line-height: normal !important;
+}
+
+.read_more_tag:hover {
+    text-decoration: none;
+}
+
+.read_more_tag {
+    text-decoration: underline;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    transition-duration: .3s;
+}
+
+.ellipsis-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+}
+
+.post-category-item {
+    position: absolute;
+    left: -5;
+    top: 70px;
+    z-index: 10;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+}
+
+a {
+    text-underline-offset: 2px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    transition-duration: .3s;
+}
+
+a:hover {
+    color: #eaaa85 !important;
+}
+
+.widget-title {
+    position: relative;
+    padding-top: 20px;
+}
+
+.widget-title:before {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 0;
+    right: initial;
+    top: 0;
+    width: 30px;
+    height: 6px;
+    -webkit-mask-image: url(../images/title-line.svg);
+    -webkit-mask-position: bottom center;
+    -webkit-mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #eaaa85;
+}
+
+.featured-posts-item-link {
+    font-size: 1.4rem;
+}
+
+.slide-extra .mini-cart .mini-cart-count>span,
+.content-wrapper .wrapper-socials a:hover,
+.sidebar .widget-title:before,
+.content-wrapper .widget_calendar tbody a:before,
+.content-wrapper .wp-block-calendar tbody a:before,
+.content-wrapper .widget_tag_cloud .tagcloud .tag-cloud-link:hover,
+.content-wrapper .wp-block-tag-cloud .tag-cloud-link:hover,
+.content-wrapper .widget_recent_comments ul .recentcomments:before,
+.content-wrapper .wp-block-latest-comments li:before,
+.post-meta-header .post-meta-item:not(:first-child):before,
+.content-wrapper input[type="checkbox"]:checked,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="checkbox"]:checked,
+.woocommerce form .form-row input[type="checkbox"].input-checkbox:checked,
+.content-wrapper input[type="radio"]:checked,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="radio"]:checked,
+.cosmecos-heading .cosmecos-title-decoration:before,
+.has-drop-cap:not(:focus):first-letter,
+.icon-box-title .icon-box-title-decoration:before {
+    background-color: #eaaa85;
+}
+
+.widget_cosmecos_featured_posts_widget .featured-posts-wrapper .featured-posts-item .featured-posts-item-description .featured-posts-item-link {
+    font-weight: 500;
+}
+
+.logo,
+.widget_recent_comments ul .recentcomments,
+.content-wrapper .wp-block-latest-comments .wp-block-latest-comments__comment-meta,
+.widget_archive ul li,
+.wp-block-archives li,
+.widget_categories ul li,
+.wp-block-categories li,
+.widget_cosmecos_featured_posts_widget .featured-posts-item-link,
+.widget_recent_entries a,
+.wp-block-latest-posts li a,
+.widget_meta ul li,
+.widget_pages ul li,
+.widget_nav_menu ul li,
+.widget_rss ul a.rsswidget,
+.wp-block-rss .wp-block-rss__item-title,
+.widget_tag_cloud .tagcloud .tag-cloud-link,
+.post-categories a.post-category-item,
+.post-meta-footer .post-meta-item-tags,
+.post-comment-author,
+.content-wrapper .wp-block-pullquote blockquote cite,
+.post-more-button a,
+.post-quote .post-quote-author,
+.content-pagination .page-numbers,
+.content-pagination .post-page-numbers,
+.post-navigation-link,
+.post-navigation-title,
+.cosmecos-price-item-widget .price-item .price-item-title,
+.cosmecos-person-widget .person-name,
+.cosmecos-testimonial-carousel-widget .testimonial-item .author-container .author-name,
+.elementor-widget-counter .elementor-counter .elementor-counter-number-wrapper,
+.elementor-widget-counter .elementor-counter .elementor-counter-title,
+.banner-widget .banner-subtitle,
+.cosmecos_tabs_widget .cosmecos_tabs_titles_container .cosmecos_tab_title_item,
+.elementor-widget-cosmecos_countdown .countdown_separator,
+.elementor-widget-cosmecos_countdown .countdown_digits,
+.elementor-widget-cosmecos_countdown .countdown_digits_placeholder,
+.cosmecos_content_slider_widget .cosmecos_content_slider_title,
+.wp-block-search .wp-block-search__label,
+body .content-wrapper blockquote cite,
+.elementor-widget-image-box .elementor-image-box-wrapper .elementor-image-box-content .elementor-image-box-title,
+.cosmecos_content_slider_widget .slick-navigation .slick-arrow {
+    font-family: "Raleway", sans-serif;
+}
+
+body,
+body input,
+body textarea,
+body select,
+.grid-listing .grid-item,
+.elementor-widget-image-box .elementor-image-box-wrapper .elementor-image-box-content .elementor-image-box-description,
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="date"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="datetime"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="datetime-local"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="email"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="month"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="number"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="password"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="range"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="search"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="tel"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="text"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="time"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="url"],
+div.wpforms-container.wpforms-container-full .wpforms-form input[type="week"],
+div.wpforms-container.wpforms-container-full .wpforms-form select,
+div.wpforms-container.wpforms-container-full .wpforms-form textarea {
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 16px;
+    line-height: 1.875em;
+    font-weight: 400;
+}
+
+.slide-extra .extra-menu>li .sub-menu-trigger,
+.slide-extra-wrapper,
+.slide-extra-wrapper .slide-extra-close,
+.content-wrapper .widget_cosmecos_contacts_widget .cosmecos-contacts-widget-field:before,
+.content-wrapper .widget_calendar .wp-calendar-nav a,
+.content-wrapper .wp-block-calendar .wp-calendar-nav a,
+.content-wrapper .widget_calendar thead th,
+.content-wrapper .wp-block-calendar thead th,
+.content-wrapper .widget_recent_comments ul .recentcomments,
+.content-wrapper .widget_recent_comments ul .recentcomments .comment-author-link a,
+.content-wrapper .wp-block-latest-comments li .wp-block-latest-comments__comment-meta,
+.content-wrapper .wp-block-latest-comments li .wp-block-latest-comments__comment-author,
+.content-wrapper .widget_categories li.cat-item-hierarchical,
+.content-wrapper .wp-block-categories li.cat-item-hierarchical,
+.content-wrapper .widget_cosmecos_featured_posts_widget .featured-posts-item-date,
+.content-wrapper .widget_recent_entries .post-date,
+.content-wrapper .wp-block-latest-posts li .wp-block-latest-posts__post-date,
+.content-wrapper .widget_pages .widget-archive-trigger,
+.content-wrapper .widget_nav_menu .widget-menu-trigger,
+.content-wrapper .widget_rss .rss-date,
+.content-wrapper .wp-block-rss .wp-block-rss__item-publish-date,
+.content-wrapper .wp-block-latest-comments .wp-block-latest-comments__comment-date,
+.post-meta-header .post-meta-item,
+.post-meta-header .post-meta-item a,
+.post-comment-date,
+.content-wrapper .select2-container--default .select2-selection--single .select2-selection__placeholder,
+.post-navigation-categories a,
+.cosmecos-person-widget .person-position,
+.cosmecos-testimonial-carousel-widget .view-type-1 .testimonial-item .author-container .author-position,
+.cosmecos-testimonial-carousel-widget .view-type-2 .testimonial-item .author-container .author-position,
+.cosmecos-instagram-feed .instagram-feed-info .user-description {
+    color: #969696;
+}
+
+.post-meta-header .post-meta-item {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+    line-height: 1.4286em;
+    text-transform: uppercase;
+    position: relative;
+    font-weight: 600;
+}
+
+@media only screen and (min-width: 992px) {
+    h3,
+    body .elementor-widget-heading h3.elementor-heading-title {
+        font-size: 38px;
+        line-height: 1.4737em;
+    }
+}
+
+.content-wrapper .widget_tag_cloud .tagcloud .tag-cloud-link,
+.content-wrapper .wp-block-tag-cloud .tag-cloud-link,
+.content-wrapper .widget_recent_comments ul .recentcomments:after,
+.content-wrapper .wp-block-latest-comments li:after,
+.content-wrapper .widget_mc4wp_form_widget .mc4wp-form .mc4wp-form-fields input[type="text"],
+.content-wrapper .widget_mc4wp_form_widget .mc4wp-form .mc4wp-form-fields input[type="email"],
+.content-wrapper .widget_mc4wp_form_widget .mc4wp-form .mc4wp-form-fields input[type="url"],
+.content-wrapper .widget_mc4wp_form_widget .mc4wp-form .mc4wp-form-fields input[type="password"],
+.content-wrapper .widget_mc4wp_form_widget .mc4wp-form .mc4wp-form-fields input[type="search"],
+.content-wrapper .widget_mc4wp_form_widget .mc4wp-form .mc4wp-form-fields input[type="tel"],
+.wp-block-gallery .blocks-gallery-item a:before,
+.portfolio-item-wrapper .portfolio-item-link:before,
+.elementor-image-gallery .gallery .gallery-item .gallery-icon a:before,
+.gallery .gallery-icon a:before,
+.blog-item:hover,
+.sticky>.blog-item,
+.status-sticky>.blog-item,
+.cosmecos-price-item-widget .price-item:before,
+.elementor-widget-cosmecos_image .image-widget .image-container.image-style-framed:before,
+.elementor-widget-video.video-image-style-framed .elementor-custom-embed-image-overlay:before,
+.banner-widget:before,
+.content-wrapper input[type="text"]:focus,
+.content-wrapper input[type="email"]:focus,
+.content-wrapper input[type="url"]:focus,
+.content-wrapper input[type="password"]:focus,
+.content-wrapper input[type="search"]:focus,
+.content-wrapper input[type="number"]:focus,
+.content-wrapper input[type="tel"]:focus,
+.content-wrapper input[type="range"]:focus,
+.content-wrapper input[type="date"]:focus,
+.content-wrapper input[type="month"]:focus,
+.content-wrapper input[type="week"]:focus,
+.content-wrapper input[type="time"]:focus,
+.content-wrapper input[type="datetime"]:focus,
+.content-wrapper input[type="datetime-local"]:focus,
+.content-wrapper input[type="color"]:focus,
+.content-wrapper select:focus,
+.content-wrapper .select2-container .select2-selection--single:focus,
+.content-wrapper textarea:focus,
+.site-search:focus,
+.content-wrapper .widget_search .search-form .search-form-field:focus,
+.select2-dropdown:focus,
+.select2-container--default .select2-search--dropdown .select2-search__field:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="text"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="email"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="url"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="password"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="search"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="number"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="tel"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="date"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="month"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="week"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="time"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="datetime"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="datetime-local"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form input[type="color"]:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form select:focus,
+.content-wrapper div.wpforms-container.wpforms-container-full .wpforms-form textarea:focus,
+.cosmecos-testimonial-carousel-widget .testimonial-carousel-wrapper.view-type-4:before,
+.cosmecos-testimonial-carousel-widget .testimonial-carousel-wrapper.view-type-4 .testimonial-carousel-corner:before,
+.cosmecos-instagram-feed .instagram-feed-info:before,
+.product-category-widget:before,
+.cosmecos_countdown_widget .countdown_digits:before {
+    border-color: #000000;
+}
+
+.tag-cloud-link {
+    font-size: 16px !important;
+    line-height: 22px;
+    font-weight: 500;
+    padding: 3px 9px;
+    -webkit-transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 5px 0;
+    cursor: pointer;
+    text-decoration: none;
+    border: solid 1px;
+}
+
+.tag-cloud-link {
+    border: solid 1px;
+    display: inline-block;
+    padding: 5px;
+}
+
+.tag-cloud-link:hover {
+    background-color: #eaaa85;
+}
+
+.widget_cosmecos_banner_widget .banner-widget-wrapper {
+    position: relative;
+    text-align: center;
+    padding: 42px 30px 43px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    -moz-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.widget_cosmecos_banner_widget .banner-widget-wrapper .banner-content {
+    position: relative;
+    z-index: 2;
+}
+
+.banner-widget-wrapper>img {
+    position: absolute;
+    left: 50%;
+    right: initial;
+    bottom: 0;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+p {
+    line-height: 1.875em;
+    font-size: 16px;
+}
+
+.banner-title {
+    font-size: 20px;
+    line-height: 1.4737em;
+}

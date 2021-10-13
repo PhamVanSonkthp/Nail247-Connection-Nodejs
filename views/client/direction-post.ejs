@@ -6,36 +6,36 @@
         function initMap() {
             try{
                 console.log('initmap')
-                if (typeof post == 'undefined') {
-                    return
-                }
+                // if (typeof post == 'undefined') {
+                //     return
+                // }
 
-                const uluru = { lat: post.location.coordinates[1], lng: post.location.coordinates[0] };
-                const map = new google.maps.Map(document.getElementById("map2"), {
-                    zoom: 15,
-                    center: uluru,
-                });
-                const contentString =
-                    '<p style="font-weight:bold;">' +
-                    post.name_salon +
-                    '</p>' + 
-                    '<div>' +
-                    ( isDefine(post.address_salon) ? post.address_salon : '' ) +
-                    '</div>' + 
-                    '<a style="color: #3a84df;font-size: 15px;margin-top: 5px;" target="_blank" jstcache="37" href="https://maps.google.com/maps/dir//'+post.location.coordinates[1]+','+post.location.coordinates[0]+'/@'+post.location.coordinates[1]+','+post.location.coordinates[0]+'" class="navigate-link"> <div class="icon navigate-icon"></div> <div jstcache="38" class="navigate-text">Directions here</div> </a>'
-                const infowindow = new google.maps.InfoWindow({
-                    content: contentString,
-                });
-                const marker = new google.maps.Marker({
-                    position: uluru,
-                    map,
-                });
+                // const uluru = { lat: post.location.coordinates[1], lng: post.location.coordinates[0] };
+                // const map = new google.maps.Map(document.getElementById("map2"), {
+                //     zoom: 15,
+                //     center: uluru,
+                // });
+                // const contentString =
+                //     '<p style="font-weight:bold;">' +
+                //     post.name_salon +
+                //     '</p>' + 
+                //     '<div>' +
+                //     ( isDefine(post.address_salon) ? post.address_salon : '' ) +
+                //     '</div>' + 
+                //     '<a style="color: #3a84df;font-size: 15px;margin-top: 5px;" target="_blank" jstcache="37" href="https://maps.google.com/maps/dir//'+post.location.coordinates[1]+','+post.location.coordinates[0]+'/@'+post.location.coordinates[1]+','+post.location.coordinates[0]+'" class="navigate-link"> <div class="icon navigate-icon"></div> <div jstcache="38" class="navigate-text">Directions here</div> </a>'
+                // const infowindow = new google.maps.InfoWindow({
+                //     content: contentString,
+                // });
+                // const marker = new google.maps.Marker({
+                //     position: uluru,
+                //     map,
+                // });
 
-                infowindow.open({
-                    anchor: marker,
-                    map,
-                    shouldFocus: false,
-                });
+                // infowindow.open({
+                //     anchor: marker,
+                //     map,
+                //     shouldFocus: false,
+                // });
             }catch(err){
                 console.log(err)
             }

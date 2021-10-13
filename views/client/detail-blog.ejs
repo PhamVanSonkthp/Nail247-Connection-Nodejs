@@ -25,104 +25,171 @@
 
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="../views/client/dist/css/app.css" />
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-            crossorigin="anonymous" />
+        <link rel="stylesheet" href="../views/client/dist/css/blog.css" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-        <style>
-            html,
-            body {
-                height: 100%;
-                /* background-color: #fafbfe; */
-                background: white;
-                padding: 0 !important;
-                line-height: normal !important;
-            }
-
-            .read_more_tag:hover {
-                text-decoration: none;
-            }
-
-            .read_more_tag {
-                text-decoration: underline;
-                -webkit-transition: all .3s;
-                transition: all .3s;
-                transition-duration: .3s;
-            }
-
-            .ellipsis-2 {
-                overflow: hidden;
-                display: -webkit-box;
-                -webkit-line-clamp: 2 !important;
-                -webkit-box-orient: vertical;
-            }
-
-            .post-category-item {
-                position: absolute;
-                left: -5;
-                top: 70px;
-                z-index: 10;
-                padding: 10px;
-                background-color: black;
-                color: white;
-                text-transform: uppercase;
-            }
-
-            a {
-                text-underline-offset: 2px;
-                -webkit-transition: all .3s;
-                transition: all .3s;
-                transition-duration: .3s;
-            }
-
-            a:hover {
-                color: #eaaa85 !important;
-            }
-        </style>
         <!-- END: CSS Assets-->
     </head>
 
     <body>
-        <div
-            style="background-image: url(../views/client/dist/images/blog-bg.jpg);background-position: center;background-repeat: no-repeat;background-size: cover;">
-            <div class="container p-5">
 
-                <div style="min-height: 500px;display: flex;align-items: center;">
-                    <div>
-                        <h2 style="font-family: 'Quentin', sans-serif;font-weight: 400;font-size: 35px;">247 Beauty</h2>
-                        <h1
-                            style="font-family: 'Raleway', sans-serif;font-weight: 200;font-size: 80px;line-height: 1.2em;">
-                            Blog Grid</h1>
+        <%- include("header-blog"); %>
+
+            <div style="background-image: url(../views/client/dist/images/blog-bg.jpg);background-position: center;background-repeat: no-repeat;background-size: cover;">
+                <div class="container p-5">
+
+                    <div style="min-height: 500px;display: flex;align-items: center;">
+                        <div>
+                            <h2 style="font-family: 'Quentin', sans-serif;font-weight: 400;font-size: 35px;">247 Beauty</h2>
+                            <h1 style="font-family: 'Raleway', sans-serif;font-weight: 200;font-size: 80px;line-height: 1.2em;">
+                                Blog</h1>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div>
-            <div class="container p-5">
+            <div>
+                <div class="container p-5">
 
-                <div class="grid grid-cols-12 gap-6">
-                    <div class="col-span-12 xl:col-span-9" style="position: relative;">
+                    <div class="grid grid-cols-12 gap-6">
+                        <div class="col-span-12 xl:col-span-9" style="position: relative;">
 
-                        <a class="post-category-item"
-                            href="https://demo.artureanec.com/themes/cosmecos-new/category/body-care/">BodyCare</a>
+                            <a class="post-category-item" href="https://demo.artureanec.com/themes/cosmecos-new/category/body-care/">BodyCare</a>
 
-                        <div>
-                            <img src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/beautiful-face-young-adult-woman-with-clean-fresh-skin-isolated-white-2-1170x538.jpg" />
+                            <div>
+                                <img src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/beautiful-face-young-adult-woman-with-clean-fresh-skin-isolated-white-2-1170x538.jpg" />
+                            </div>
+
+                            <div class="post-meta-header mb-5 mt-5">
+                                <div class="post-meta-item post-meta-item-date"><a href="https://demo.artureanec.com/themes/cosmecos-new/2020/12/01/">December 1, 2020</a></div>
+                                <div class="post-meta-item post-meta-item-author">By <a href="https://demo.artureanec.com/themes/cosmecos-new/author/admin/">admin</a></div>
+                            </div>
+
+                            <h3 class="post-title">Color Correcy with Loose Setting Powder</h3>
+
+                            <div class="post-content">
+
+                                <p>False brotula viperfish tenpounder tube-eye capelin flathead central mudminnow sillago; crocodile shark featherfin knifefish piranha cod icefish bullhead, wasp fish. Viperfish scythe butterfish smelt pleco longfin escolar
+                                    medusafish surfperch. Australian herring: Pacific viperfish grenadier orangestriped hatchetfish pearl danio leatherjacket. Butterflyfish crocodile shark zebra shark sergeant major peladillo ziege gunnel sea bream cavefish
+                                    cobbler electric catfish medaka central mudminnow wasp fish jewel tetra.</p>
+
+
+
+                                <p>Snakehead hillstream loach salmon: black dragonfish man-of-war fish flyingfish yellow-and-black triplefin, mouthbrooder, orbicular velvetfish emperor bream sprat, wrasse thorny catfish. Gurnard leatherjacket nase tenuis
+                                    flagfish zebra trout collared carpetshark, yellow-and-black triplefin ayu yellow jack.</p>
+
+
+                            </div>
+
                         </div>
-                        
-                    </div>
 
-                    <div class="col-span-12 xl:col-span-3">
+                        <div class="col-span-12 xl:col-span-3">
 
-                        <div>
-                            Categories
+                            <h4 class="widget-title">
+                                <span style="font-size: 2rem;">Latest Posts</span>
+                            </h4>
+
+                            <div class="grid grid-cols-3 gap-6 mt-4">
+                                <div class="col-span-1">
+                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
+                                </div>
+                                <div class="col-span-2">
+                                    <div>
+                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
+                                    </div>
+                                    <div class="featured-posts-item-date mt-4">
+                                        DECEMBER 2, 2020
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-6 mt-4">
+                                <div class="col-span-1">
+                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
+                                </div>
+                                <div class="col-span-2">
+                                    <div>
+                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
+                                    </div>
+                                    <div class="featured-posts-item-date mt-4">
+                                        DECEMBER 2, 2020
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-6 mt-4">
+                                <div class="col-span-1">
+                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
+                                </div>
+                                <div class="col-span-2">
+                                    <div>
+                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
+                                    </div>
+                                    <div class="featured-posts-item-date mt-4">
+                                        DECEMBER 2, 2020
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-6 mt-4">
+                                <div class="col-span-1">
+                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
+                                </div>
+                                <div class="col-span-2">
+                                    <div>
+                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
+                                    </div>
+                                    <div class="featured-posts-item-date mt-4">
+                                        DECEMBER 2, 2020
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-6 mt-4">
+                                <div class="col-span-1">
+                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
+                                </div>
+                                <div class="col-span-2">
+                                    <div>
+                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
+                                    </div>
+                                    <div class="featured-posts-item-date mt-4">
+                                        DECEMBER 2, 2020
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="widget-wrapper">
+                                <h4 class="widget-title mt-5">
+                                    <span style="font-size: 2rem;">Tags</span>
+                                </h4>
+                                <div class="tagcloud">
+                                    <h2 class="tag-cloud-link">
+                                        Cosmetic
+                                    </h2>
+                                    <h2 class="tag-cloud-link">
+                                        Cosmetic
+                                    </h2>
+                                    <h2 class="tag-cloud-link">
+                                        Cosmetic
+                                    </h2>
+                                    <h2 class="tag-cloud-link">
+                                        Cosmetic
+                                    </h2>
+                                    <h2 class="tag-cloud-link">
+                                        Cosmetic
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div class="widget-wrapper">
+                                <div class="banner-widget-wrapper" style="position: relative; max-width: 250px;margin-top: 120px;">
+                                    <img style="z-index: -1;top: -100px;" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2021/02/bg-banner-standard.jpg">
+
+                                    <p class="text-center banner-title">Contact Us</p>
+                                    <p class="text-center mt-3">Smelt-whiting burbot lown loach stonecat electric ish coley roosterfish fish forehead brooder</p>
+                                </div>
+                            </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
-        </div>
 
     </body>
 

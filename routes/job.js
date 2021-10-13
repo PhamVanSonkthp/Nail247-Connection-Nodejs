@@ -21,7 +21,6 @@ async function uploadImage(req, res, isWeb) {
             cb(null, pathStorage);
         },
         filename: function (req, file, cb) {
-            console.log(file)
             cb(null, file.fieldname + '-' + Date.now().toString() + path.extname(file.originalname))
         }
     });
@@ -238,7 +237,6 @@ async function updatePostMobile(req, res) {
             cb(null, pathStorage);
         },
         filename: function (req, file, cb) {
-            console.log(file)
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
     });
@@ -489,8 +487,6 @@ router.get('/', async (req, res) => {
             }
         }
 
-
-        console.log(result)
         for (let i = 0; i < result.length; i++) {
             if ((new Date(Date.now())) > (new Date(result[i].expiration_date))) {
                 result[i].status = 0
@@ -518,8 +514,6 @@ router.post('/form-web/', async (req, res) => {
 
 async function updateImage(req, res, isWeb) {
 
-    console.log('req.body.location')
-
     const helpers = require('helpers')
     const multer = require('multer')
     const path = require('path')
@@ -532,7 +526,6 @@ async function updateImage(req, res, isWeb) {
             cb(null, pathStorage);
         },
         filename: function (req, file, cb) {
-            console.log(file)
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
     });
@@ -541,8 +534,6 @@ async function updateImage(req, res, isWeb) {
     upload(req, res, function (err) {
         (async () => {
             try {
-
-                console.log(req.body)
 
                 let objForUpdate = {}
                 if (helper.isDefine(req.body.name_salon)) objForUpdate.name_salon = req.body.name_salon

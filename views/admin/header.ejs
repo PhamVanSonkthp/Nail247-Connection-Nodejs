@@ -28,7 +28,7 @@
     <!-- END: JS Assets-->
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#LblNameUser').text(getCookie('name'));
             $('#LblPointUser').text(getCookie('point'));
         });
@@ -38,12 +38,12 @@
         .zoom-img-wrap {
             z-index: 1000;
         }
-
+        
         .tns-controls {
             display: none;
         }
-
-        .d-grid{
+        
+        .d-grid {
             display: grid !important;
         }
     </style>
@@ -57,67 +57,62 @@
             /* number of lines to show */
             -webkit-box-orient: vertical;
         }
-
+        
         #lbl_link_slug:hover {
             text-decoration: underline !important;
-
         }
-
+        
         .text-center {
             text-align: center;
         }
-
+        
         #gallery {
             display: inline-block;
         }
-
+        
         #container {
             text-align: center;
         }
-
+        
         #ListIndustries>a {
-
             color: black;
             background-color: #f6f6f6;
             text-decoration: none;
             display: block;
-
         }
-
+        
         #ListTypeProducts>a {
-
             color: black;
             background-color: #f6f6f6;
             text-decoration: none;
             display: block;
-
         }
-
+        
         .disabledbutton {
             pointer-events: none;
             opacity: 0.2;
         }
-
+        
         .selected {
             background: lavender;
         }
-
+        
         .scroll-hozizontal::-webkit-scrollbar {
             width: 1px !important;
             background-color: #F5F5F5 !important;
             height: 5px !important;
         }
-
+        
         .scroll-hozizontal::-webkit-scrollbar-thumb {
             background-color: #000000 !important;
             border: 2px solid #555555 !important;
         }
-
+        
         .active-drop {
             position: relative;
             background-color: #e15915;
         }
-
+        
         .active-drop::after {
             content: '';
             position: absolute;
@@ -131,7 +126,7 @@
             border-left: solid 5px transparent;
             border-right: solid 5px transparent;
         }
-
+        
         #container_sort>a {
             display: inline-block !important;
             color: white !important;
@@ -149,12 +144,10 @@
         .text-danger {
             color: red !important;
         }
-
+        
         a {
             cursor: pointer;
         }
-
-
         /* #TblProduct>tbody :hover {
             cursor: pointer;
             background-color: rgb(241, 255, 251);
@@ -171,84 +164,84 @@
         cursor: pointer;
         background-color: rgb(241, 255, 251);
     } */
-
+        
         .modal-lg {
             max-width: 80%;
         }
-
+        
         .modal-dialog {
             width: 80%;
             /* height: 80%; */
         }
-
+        
         .modal-content {
             height: auto;
             /* height: 80%; */
             border-radius: 0;
         }
-
         /* width */
-        ::-webkit-scrollbar {
+        
+         ::-webkit-scrollbar {
             width: 5px;
         }
-
         /* Track */
-        ::-webkit-scrollbar-track {
+        
+         ::-webkit-scrollbar-track {
             background: #f1f1f1;
         }
-
         /* Handle */
-        ::-webkit-scrollbar-thumb {
+        
+         ::-webkit-scrollbar-thumb {
             background: #888;
         }
-
         /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
+        
+         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
-
+        
         .modal-confirm {
             color: #636363;
             width: 325px;
             margin: 30px auto;
         }
-
+        
         .modal-confirm .modal-content {
             padding: 20px;
             border-radius: 5px;
             border: none;
         }
-
+        
         .modal-confirm .modal-header {
             border-bottom: none;
             position: relative;
         }
-
+        
         .modal-confirm h4 {
             text-align: center;
             font-size: 26px;
             margin: 30px 0 -15px;
         }
-
+        
         .modal-confirm .form-control,
         .modal-confirm .btn {
             min-height: 40px;
             border-radius: 3px;
         }
-
+        
         .modal-confirm .close {
             position: absolute;
             top: -5px;
             right: -5px;
         }
-
+        
         .modal-confirm .modal-footer {
             border: none;
             text-align: center;
             border-radius: 5px;
             font-size: 13px;
         }
-
+        
         .modal-confirm .icon-box {
             color: #fff;
             position: absolute;
@@ -265,17 +258,17 @@
             text-align: center;
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
-
+        
         .modal-confirm .icon-box i {
             font-size: 58px;
             position: relative;
             top: 3px;
         }
-
+        
         .modal-confirm.modal-dialog {
             margin-top: 80px;
         }
-
+        
         .modal-confirm .btn {
             color: #fff;
             border-radius: 4px;
@@ -285,19 +278,18 @@
             line-height: normal;
             border: none;
         }
-
+        
         .modal-confirm .btn:hover,
         .modal-confirm .btn:focus {
             background: #6fb32b;
             outline: none;
         }
-
+        
         .trigger-btn {
             display: inline-block;
             margin: 100px auto;
         }
-
-
+        
         #ContainerEdtName {
             position: absolute;
             /* background-color: #f6f6f6; */
@@ -305,14 +297,14 @@
             /* border: 1px solid #ddd; */
             z-index: 1;
         }
-
+        
         #ContainerEdtName a {
             color: black;
             background-color: #f6f6f6;
             text-decoration: none;
             display: block;
         }
-
+        
         #ContainerEdtName>a:hover {
             background-color: #ddd;
         }
@@ -323,7 +315,7 @@
         cursor: pointer;
         background-color: rgb(241, 255, 251);
     } */
-
+        
         #ContainerImages {
             list-style-type: none;
             /* display:flex; */
@@ -331,16 +323,16 @@
             /* white-space: nowrap; */
             overflow-y: hidden !important;
         }
-
+        
         #ContainerImages>li {
             display: inline;
         }
-
+        
         .center-cropped {
             background-position: center center;
             background-repeat: no-repeat;
         }
-
+        
         #ContainerCategory {
             position: absolute;
             /* background-color: #f6f6f6; */
@@ -349,14 +341,14 @@
             /* border: 1px solid #ddd; */
             z-index: 1;
         }
-
+        
         #ContainerCategory a {
             color: black;
             background-color: #f6f6f6;
             text-decoration: none;
             display: block;
         }
-
+        
         #ContainerCategory>a:hover {
             background-color: rgb(138, 145, 151) !important;
         }
@@ -367,7 +359,7 @@
             position: relative;
             background-color: #e15915;
         }
-
+        
         .active-drop::after {
             content: '';
             position: absolute;
@@ -381,21 +373,21 @@
             border-left: solid 5px transparent;
             border-right: solid 5px transparent;
         }
-
+        
         button {
             height: 100% !important;
         }
-
+        
         .pd-wrap {
             padding: 40px 0;
             font-family: 'Poppins', sans-serif;
         }
-
+        
         .heading-section {
             text-align: center;
             margin-bottom: 20px;
         }
-
+        
         .sub-heading {
             font-family: 'Poppins', sans-serif;
             font-size: 12px;
@@ -405,7 +397,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-
+        
         .heading-section h2 {
             font-size: 32px;
             font-weight: 500;
@@ -413,7 +405,7 @@
             padding-bottom: 15px;
             font-family: 'Poppins', sans-serif;
         }
-
+        
         .user-img {
             width: 80px;
             height: 80px;
@@ -422,30 +414,30 @@
             min-width: 80px;
             background-size: 100%;
         }
-
+        
         .carousel-testimonial .item {
             padding: 30px 10px;
         }
-
+        
         .quote {
             position: absolute;
             top: -23px;
             color: #2e9da1;
             font-size: 27px;
         }
-
+        
         .name {
             margin-bottom: 0;
             line-height: 14px;
             font-size: 17px;
             font-weight: 500;
         }
-
+        
         .position {
             color: #adadad;
             font-size: 14px;
         }
-
+        
         .owl-nav button {
             position: absolute;
             top: 50%;
@@ -453,42 +445,42 @@
             outline: none;
             height: 25px;
         }
-
+        
         .owl-nav button svg {
             width: 25px;
             height: 25px;
         }
-
+        
         .owl-nav button.owl-prev {
             left: 25px;
         }
-
+        
         .owl-nav button.owl-next {
             right: 25px;
         }
-
+        
         .owl-nav button span {
             font-size: 45px;
         }
-
+        
         .product-thumb .item img {
             height: 100px;
         }
-
+        
         .product-name {
             font-size: 22px;
             font-weight: 500;
             line-height: 22px;
             margin-bottom: 4px;
         }
-
+        
         .product-price-discount {
             font-size: 22px;
             font-weight: 400;
             padding: 10px 0;
             clear: both;
         }
-
+        
         .product-price-discount span.line-through {
             text-decoration: line-through;
             margin-left: 10px;
@@ -496,37 +488,37 @@
             vertical-align: middle;
             color: #a5a5a5;
         }
-
+        
         .display-flex {
             display: flex;
         }
-
+        
         .align-center {
             align-items: center;
         }
-
+        
         .product-info {
             width: 100%;
         }
-
+        
         .reviews-counter {
             font-size: 13px;
         }
-
+        
         .reviews-counter span {
             vertical-align: -2px;
         }
-
+        
         .rate {
             float: left;
             padding: 0 10px 0 0;
         }
-
+        
         .rate:not(:checked)>input {
             position: absolute;
             top: -9999px;
         }
-
+        
         .rate:not(:checked)>label {
             float: right;
             width: 15px;
@@ -538,20 +530,20 @@
             margin-bottom: 0;
             line-height: 21px;
         }
-
+        
         .rate:not(:checked)>label:before {
             content: '\2605';
         }
-
+        
         .rate>input:checked~label {
             color: #ffc700;
         }
-
+        
         .rate:not(:checked)>label:hover,
         .rate:not(:checked)>label:hover~label {
             color: #deb217;
         }
-
+        
         .rate>input:checked+label:hover,
         .rate>input:checked+label:hover~label,
         .rate>input:checked~label:hover,
@@ -559,31 +551,31 @@
         .rate>label:hover~input:checked~label {
             color: #c59b08;
         }
-
+        
         .product-dtl p {
             font-size: 14px;
             line-height: 24px;
             color: #7a7a7a;
         }
-
+        
         .product-dtl .form-control {
             font-size: 15px;
         }
-
+        
         .product-dtl label {
             line-height: 16px;
             font-size: 15px;
         }
-
+        
         .form-control:focus {
             outline: none;
             box-shadow: none;
         }
-
+        
         .product-count {
             margin-top: 15px;
         }
-
+        
         .product-count .qtyminus,
         .product-count .qtyplus {
             width: 34px;
@@ -595,20 +587,20 @@
             color: #fff;
             cursor: pointer;
         }
-
+        
         .product-count .qtyminus {
             border-radius: 3px 0 0 3px;
         }
-
+        
         .product-count .qtyplus {
             border-radius: 0 3px 3px 0;
         }
-
+        
         .product-count .qty {
             width: 60px;
             text-align: center;
         }
-
+        
         .round-black-btn {
             border-radius: 4px;
             background: #212529;
@@ -619,36 +611,36 @@
             border: solid 2px #212529;
             transition: all 0.5s ease-in-out 0s;
         }
-
+        
         .round-black-btn:hover,
         .round-black-btn:focus {
             background: transparent;
             color: #212529;
             text-decoration: none;
         }
-
+        
         .product-info-tabs {
             margin-top: 25px;
         }
-
+        
         .product-info-tabs .nav-tabs {
             border-bottom: 2px solid #d8d8d8;
         }
-
+        
         .product-info-tabs .nav-tabs .nav-item {
             margin-bottom: 0;
         }
-
+        
         .product-info-tabs .nav-tabs .nav-link {
             border: none;
             border-bottom: 2px solid transparent;
             color: #323232;
         }
-
+        
         .product-info-tabs .nav-tabs .nav-item .nav-link:hover {
             border: none;
         }
-
+        
         .product-info-tabs .nav-tabs .nav-item.show .nav-link,
         .product-info-tabs .nav-tabs .nav-link.active,
         .product-info-tabs .nav-tabs .nav-link.active:hover {
@@ -656,27 +648,27 @@
             border-bottom: 2px solid #d8d8d8;
             font-weight: bold;
         }
-
+        
         .product-info-tabs .tab-content .tab-pane {
             padding: 30px 20px;
             font-size: 15px;
             line-height: 24px;
             color: #7a7a7a;
         }
-
+        
         .review-form .form-group {
             clear: both;
         }
-
+        
         .mb-20 {
             margin-bottom: 20px;
         }
-
+        
         .review-form .rate {
             float: none;
             display: inline-block;
         }
-
+        
         .review-heading {
             font-size: 24px;
             font-weight: 600;
@@ -685,19 +677,19 @@
             text-transform: uppercase;
             color: #000;
         }
-
+        
         .review-form .form-control {
             font-size: 14px;
         }
-
+        
         .review-form input.form-control {
             height: 40px;
         }
-
+        
         .review-form textarea.form-control {
             resize: none;
         }
-
+        
         .review-form .round-black-btn {
             text-transform: uppercase;
             cursor: pointer;
@@ -708,12 +700,10 @@
 
 <body class="main">
 
-    <div id="DialogLoading" class="text-center"
-        style="height: 100%; width: 100%; position: fixed; z-index: 1000; display: none;">
+    <div id="DialogLoading" class="text-center" style="height: 100%; width: 100%; position: fixed; z-index: 1000; display: none;">
         <div style="position: fixed; left: 0;right: 0;top: 0;bottom: 0;opacity: 0.5;background-color: rgb(61, 73, 73);">
         </div>
-        <div style="color: white; position: absolute;width: 100%;top: 0;bottom: 0;right: 0;left: 0;margin: auto;height: 100px;"
-            class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
+        <div style="color: white; position: absolute;width: 100%;top: 0;bottom: 0;right: 0;left: 0;margin: auto;height: 100px;" class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
 
             <svg width="20" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8">
                 <defs>
@@ -780,8 +770,7 @@
                 <img class="w-10 h-10 p-2" src="../views/admin/src/images/icon.png" style="background: white;
                     border-radius: 50%;">
             </a>
-            <a id="mobile-menu-toggler"> <i data-feather="bar-chart-2"
-                    class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+            <a id="mobile-menu-toggler"> <i data-feather="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
         </div>
         <ul class="border-t border-theme-29 py-5 hidden">
             <li>
@@ -893,7 +882,14 @@
                     </li>
                 </ul>
             </li>
-            
+
+            <li>
+                <a href="../admin/blogs" class="menu menu--active">
+                    <div class="menu__icon"> <i data-feather="book"></i> </div>
+                    <div class="menu__title"> Blogs</div>
+                </a>
+            </li>
+
         </ul>
     </div>
     <!-- END: Mobile Menu -->
@@ -1026,6 +1022,15 @@
                         </li>
                     </ul>
                 </li>
+
+                <li>
+                    <a id="draw_6" href="../admin/blogs" class="side-menu">
+                        <div class="side-menu__icon"> <i data-feather="book"></i> </div>
+                        <div class="side-menu__title">
+                            Blogs
+                        </div>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- END: Side Menu -->
@@ -1052,7 +1057,12 @@
                 } else {
                     showLoading();
                     toggleModalChangePassword();
-                    socket.emit('change-password-admin', { _id: getCookie('_id'), password: getCookie('password'), old_password: sha512($('#EdtOldPassword').val()) , new_password: sha512($('#EdtNewPassword').val()) }, (response) => {
+                    socket.emit('change-password-admin', {
+                        _id: getCookie('_id'),
+                        password: getCookie('password'),
+                        old_password: sha512($('#EdtOldPassword').val()),
+                        new_password: sha512($('#EdtNewPassword').val())
+                    }, (response) => {
                         hideLoading();
                         if (response == null) {
                             $('#LblError').text('Old password invalid');
@@ -1096,10 +1106,8 @@
                             </div>
                         </div>
                         <div class="modal-footer text-right">
-                            <button type="button" data-dismiss="modal"
-                                class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                            <button type="button" onclick="confirmChangePassword()" class="btn btn-primary w-24"
-                                style="color: white; background-color: orange;">Change</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                            <button type="button" onclick="confirmChangePassword()" class="btn btn-primary w-24" style="color: white; background-color: orange;">Change</button>
                         </div>
                     </div>
                 </div>
@@ -1111,14 +1119,11 @@
             <!-- BEGIN: Top Bar -->
             <div class="top-bar">
                 <!-- BEGIN: Breadcrumb -->
-                <div class="-intro-x breadcrumb mr-auto hidden sm:flex"> <a href="">Application</a> <i
-                        data-feather="chevron-right" class="breadcrumb__icon"></i> <a id="lbl_role"
-                        class="breadcrumb--active">Override</a> </div>
+                <div class="-intro-x breadcrumb mr-auto hidden sm:flex"> <a href="">Application</a> <i data-feather="chevron-right" class="breadcrumb__icon"></i> <a id="lbl_role" class="breadcrumb--active">Override</a> </div>
                 <!-- END: Breadcrumb -->
                 <!-- BEGIN: Account Menu -->
                 <div class="intro-x dropdown w-8 h-8">
-                    <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in"
-                        role="button" aria-expanded="false">
+                    <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in" role="button" aria-expanded="false">
                         <img src="../views/admin/dist/images/posts-jobs/admin.png">
                     </div>
                     <div class="dropdown-menu w-56">
@@ -1127,16 +1132,14 @@
                                 <!-- <a href="../"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
                                     <i data-feather="tv" class="w-4 h-4 mr-2"></i> Ap24h Mall </a> -->
-                                <a onclick="toggleModalChangePassword()"
-                                    class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
+                                <a onclick="toggleModalChangePassword()" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
                                     <i data-feather="user" class="w-4 h-4 mr-2"></i> Change password </a>
                                 <!-- <a href="side-menu-light-dashboard-overview-5"
                                     class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
                                     <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Giúp đỡ </a> -->
                             </div>
                             <div class="p-2 border-t border-theme-27 dark:border-dark-3">
-                                <a style="cursor: pointer;" onclick="logout()"
-                                    class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
+                                <a style="cursor: pointer;" onclick="logout()" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
                                     <i data-feather="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
                             </div>
                         </div>
@@ -1146,13 +1149,12 @@
             </div>
 
             <script>
-                if(getCookie('permission') == 1){
+                if (getCookie('permission') == 1) {
                     $('#draw_1').hide()
                     $('#draw_4').hide()
                     $('#draw_5').hide()
                     $('#lbl_role').html('Manager')
-                }else{
+                } else {
                     $('#lbl_role').html('Admin')
                 }
-
             </script>

@@ -64,7 +64,7 @@
         <div id="basic-table" class="mt-5 clear-both">
 
             <div class="source-code grid grid-cols-12 gap-6" style="display: none; opacity: 1;">
-                <div class="col-span-12 xl:col-span-3 intro-y">
+                <div class="col-span-12 xl:col-span-4 intro-y">
                     <b>Cost</b>
                     <div class="form-control">
                         <select class="w-20 form-select box mt-3 sm:mt-0" id="select_filter_cost">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 intro-y">
+                <div class="col-span-12 xl:col-span-4 intro-y">
                     <b>Package</b>
                     <div class="form-control">
                         <select class="w-20 form-select box mt-3 sm:mt-0" id="select_filter_package">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 intro-y">
+                <div class="col-span-12 xl:col-span-4 intro-y">
                     <b>Type</b>
                     <div class="form-control">
                         <select class="w-20 form-select box mt-3 sm:mt-0" id="select_filter_type">
@@ -99,7 +99,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 intro-y">
+                <div class="col-span-12 xl:col-span-3 intro-y" style="display: none;">
                     <b>Date range</b>
                     <div>
                         <input id="dtp_query" data-daterange="true" class="datepicker form-control block p-3">
@@ -293,7 +293,7 @@
             }, (response) => {
                 if (response != null) {
                     $('#container_sort').html('<a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 0) ? 'active-drop' : '') + '" onclick="onSort_0()" id="sort_0" data-custom-value="/admin/history-payments?sort=0' + '">All: ' + escapeHtml(response[0]) + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 1) ? 'active-drop' : '') + '" onclick="onSort_1()" id="sort_1" data-custom-value="/admin/history-payments?sort=1' + '">Posts find jobs: ' + escapeHtml(response[1]) + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 2) ? 'active-drop' : '') + '" onclick="onSort_2()" id="sort_2" data-custom-value="/admin/history-payments?sort=2' + '">Posts sell salons: ' + escapeHtml(response[2]) + '</a> <a  class="nav-item nav-link alert-success no_select ' + ((isSort != undefined && isSort == 3) ? 'active-drop' : '') + '" onclick="onSort_3()" id="sort_3" data-custom-value="/admin/history-payments?sort=3' + '">Posts nail supply: ' + escapeHtml(response[3]) + '</a> ');
-                    numberPage = response
+                    numberPage = response[0]
                     paginator(numberPage)
                 }
             });

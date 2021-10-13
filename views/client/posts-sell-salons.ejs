@@ -325,40 +325,40 @@
 
             </div>
 
-            <script src="../views/client/dist/js/slick-post.js"></script>
+            <!-- <script src="../views/client/dist/js/slick-post.js"></script> -->
 
             <script>
-                let slug = document.location.toString().split('/')[document.location.toString().split('/').length - 1]
+                //let slug = document.location.toString().split('/')[document.location.toString().split('/').length - 1]
 
                 var post
 
-                socket.emit('featured', null, (response) => {
-                    if (response) {
-                        $('#slick_2').empty()
-                        for (let i = 0; i < response.length; i++) {
-                            let urlImage
-                            if (response[i].type == 1 && isDefine(response[i].images) && response[i].images.length > 0) {
-                                urlImage = urlImagePostJobsIcon + response[i].images[0]
-                            } else if (response[i].type == 2 && isDefine(response[i].images) && response[i].images.length > 0) {
-                                urlImage = urlImagePostSellsSalonsIcon + response[i].images[0]
-                            } else if (response[i].type == 3 && isDefine(response[i].images) && response[i].images.length > 0) {
-                                urlImage = urlImagePostNailSuppliesIcon + response[i].images[0]
-                            } else {
-                                urlImage = '../views/admin/dist/images/no-image.png'
-                            }
-                            let prefix
-                            if (response[i].type == 1) {
-                                prefix = '../posts-jobs/'
-                            } else if (response[i].type == 2) {
-                                prefix = '../posts-sell-salons/'
-                            } else if (response[i].type == 3) {
-                                prefix = '../posts-nail-supplies/'
-                            }
-                            $('#slick_2').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="mt-2 font-medium ellipsis-1">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis-2" style="font-size: 0.8rem;">' + removeHTMLTags(escapeHtml(response[i].content)) + '</div> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="mr-2 fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + '</span> </div> </div> </div> </a>')
-                        }
-                        reloadSlick_2()
-                    }
-                })
+                // socket.emit('featured', null, (response) => {
+                //     if (response) {
+                //         $('#slick_2').empty()
+                //         for (let i = 0; i < response.length; i++) {
+                //             let urlImage
+                //             if (response[i].type == 1 && isDefine(response[i].images) && response[i].images.length > 0) {
+                //                 urlImage = urlImagePostJobsIcon + response[i].images[0]
+                //             } else if (response[i].type == 2 && isDefine(response[i].images) && response[i].images.length > 0) {
+                //                 urlImage = urlImagePostSellsSalonsIcon + response[i].images[0]
+                //             } else if (response[i].type == 3 && isDefine(response[i].images) && response[i].images.length > 0) {
+                //                 urlImage = urlImagePostNailSuppliesIcon + response[i].images[0]
+                //             } else {
+                //                 urlImage = '../views/admin/dist/images/no-image.png'
+                //             }
+                //             let prefix
+                //             if (response[i].type == 1) {
+                //                 prefix = '../posts-jobs/'
+                //             } else if (response[i].type == 2) {
+                //                 prefix = '../posts-sell-salons/'
+                //             } else if (response[i].type == 3) {
+                //                 prefix = '../posts-nail-supplies/'
+                //             }
+                //             $('#slick_2').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="mt-2 font-medium ellipsis-1">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis-2" style="font-size: 0.8rem;">' + removeHTMLTags(escapeHtml(response[i].content)) + '</div> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="mr-2 fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + '</span> </div> </div> </div> </a>')
+                //         }
+                //         reloadSlick_2()
+                //     }
+                // })
 
                 function reloadSlickCountry() {
                     $('#slick_country').slick({

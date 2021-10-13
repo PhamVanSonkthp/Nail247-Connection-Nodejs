@@ -425,9 +425,14 @@
                 var response = '<%- object %>'
                 response = JSON.parse(response)
                 post = response.post
-                if (typeof initMap != 'undefined') {
+                try{
+                    if (typeof initMap !== 'undefined') {
                     initMap()
                 }
+                }catch(err){
+                    console.log(err)
+                }
+                
                 
                 if (isDefine(response)) {
                     for (let i = 0; i < response.nearCountry.length; i++) {

@@ -127,7 +127,7 @@ app.get('/', async function(req, res) {
         helper.throwError(e)
     }
 
-    res.render('./client/home', { url: domain, title: result.keyword, content: result.description, image: domain + 'views/client/dist/images/icon.png', keyword: result.keyword, description: result.description, promotion: result.promotion })
+    res.render('./client/home', { url: domain, title: result.keyword, content: result.description, image: domain + 'views/client/dist/images/banner.jpg', keyword: result.keyword, description: result.description, promotion: result.promotion })
 })
 
 app.get('/forgot-password', function(req, res) {

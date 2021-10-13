@@ -437,9 +437,9 @@ exports.paymentPostJob = async function (req, res) {
     if (exports.tryParseJson(req.headers.stripe).type_post == '0') {
         pathStorage = 'public/images-jobs/'
     } else if (exports.tryParseJson(req.headers.stripe).type_post == '1') {
-        pathStorage = 'public/images-jobs/'
+        pathStorage = 'public/images-sells-salons/'
     } else if (exports.tryParseJson(req.headers.stripe).type_post == '2') {
-        pathStorage = 'public/images-jobs/'
+        pathStorage = 'public/images-nail-supplies/'
     }
 
     const storage = multer.diskStorage({
@@ -493,19 +493,11 @@ exports.paymentPostJob = async function (req, res) {
 
                 } catch (err) {
                     exports.throwError(err)
-                    return res.status(500)
+                    return res.status(500).end()
                 }
             }
 
             const index = await ObjectModel.countDocuments()
-
-            let location = {
-                "type": "Point",
-                "coordinates": [
-                    0,
-                    0,
-                ]
-            }
 
             let modelSave = {
                 name_salon: req.body.name_salon,
@@ -515,7 +507,7 @@ exports.paymentPostJob = async function (req, res) {
                 city: req.body.city,
                 state: req.body.state,
                 code: req.body.code,
-                location: location,
+                location: exports.tryParseLocation(req.body.location),
                 title: req.body.title,
                 content: req.body.content,
                 email: req.body.email,

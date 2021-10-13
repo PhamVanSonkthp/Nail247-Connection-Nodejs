@@ -19,67 +19,65 @@
             padding: 0.3rem;
             cursor: pointer;
         }
-
+        
         li:hover {
             color: #eb1b6c;
         }
-
+        
         ul {
             list-style-type: none;
             padding-left: 1rem;
         }
-
+        
         .slick-track {
             float: left;
-
         }
-
+        
         #slick_2>.slick-list {
             padding-bottom: 2rem;
         }
-
+        
         .slick-slide {
             margin-left: 0.2rem;
             margin-right: 0.2rem;
             cursor: pointer;
             min-width: 10rem;
         }
-
+        
         .panel-default {
             border-radius: 0.5rem;
             box-shadow: 0px 1px 6px #bdbdbd
         }
-
+        
         .panel-body {
-
             padding: 0.5rem;
         }
-
+        
         .slick-prev {
             margin-right: 1rem;
         }
-
+        
         .slick-next {
             margin-left: 1rem;
         }
-
+        
         .slick-prev:focus {
             outline: none;
         }
-
+        
         .slick-next:focus {
             outline: none;
         }
-
+        
         .container {
             padding-left: 1rem;
             padding-right: 1rem;
         }
-
+        
         h1 {
             padding: 0;
         }
-
+        
         .ellipsis {
             overflow: hidden;
             text-overflow: ellipsis;
@@ -88,21 +86,21 @@
             /* number of lines to show */
             -webkit-box-orient: vertical;
         }
-
+        
         .accordion-button:not(.collapsed) {
             --tw-text-opacity: 1;
             color: #363636 !important;
         }
-
+        
         .accordion-button {
             --tw-text-opacity: 1;
             color: #363636 !important;
         }
-
+        
         .form-check-input[type=checkbox]:checked {
             background-color: black !important;
         }
-
+        
         @media (max-width:1279px) {
             .container-hidden-mobile {
                 display: none;
@@ -189,11 +187,7 @@
                     </div>
 
                     <h3 id="lbl_name_salon" class="mt-3 -intro-x" style="font-size: 1.2rem;">
-                        <div class="col-span-12 text-center intro-y"><svg
-                                style="cursor: pointer;width:2.5rem;height: 2.5rem;position: static;"
-                                xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 135 135"
-                                fill="none" stroke="#ef4c8c" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round"
+                        <div class="col-span-12 text-center intro-y"><svg style="cursor: pointer;width:2.5rem;height: 2.5rem;position: static;" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 135 135" fill="none" stroke="#ef4c8c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                                 class="feather feather-search absolute my-auto inset-y-0 mr-3 right-0">
                                 <!-- <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon> -->
                                 <path
@@ -206,7 +200,8 @@
                                     <animateTransform attributeName="transform" type="rotate" from="0 67 67"
                                         to="360 67 67" dur="8s" repeatCount="indefinite"></animateTransform>
                                 </path>
-                            </svg>Loading...<div></div>
+                            </svg>Loading...
+                            <div></div>
                     </h3>
 
                     <div class="mt-2 -intro-x grid grid-cols-12">
@@ -245,17 +240,14 @@
                         <div class="col-span-12 lg:col-span-6 pt-1" id="container_contact">
                             <div class="grid grid-cols-12 gap-6">
                                 <div class="col-span-6 lg:col-span-8 text-right">
-                                    <a id="btn_call" class="btn btn-success mr-1 mb-2 mt-5 pl-10 pr-10"
-                                        style="background-color: #6bab44;">
+                                    <a id="btn_call" class="btn btn-success mr-1 mb-2 mt-5 pl-10 pr-10" style="background-color: #6bab44;">
                                         <i class="fas fa-phone-alt mr-2"></i><span id="lbl_phone"></span>
                                     </a>
                                 </div>
 
                                 <div class="col-span-6 lg:col-span-4">
                                     <div class="col-span-12 lg:col-span-9">
-                                        <button onclick="toggleModalSubmitEmail()"
-                                            class="btn btn-success w-24 mr-1 mb-2 mt-5 bg-primary"
-                                            style="width: 100% !important;">
+                                        <button onclick="toggleModalSubmitEmail()" class="btn btn-success w-24 mr-1 mb-2 mt-5 bg-primary" style="width: 100% !important;">
                                             <i class="far fa-envelope fa-lg	mr-2"></i> Email </button>
                                     </div>
                                 </div>
@@ -277,292 +269,284 @@
 
                     <%- include("share-ad"); %>
 
-                        <iframe id="map" class="mt-5" width="100%" height="450" frameborder="0" style="border:0;display:none;"
-                            allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                            <div id="map2" style="height: 500px;"></div>
+                        <iframe id="map" class="mt-5" width="100%" height="450" frameborder="0" style="border:0;display:none;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        <div id="map2" style="height: 500px;"></div>
+                        </div>
+
+                        <div class="col-span-12 lg:col-span-3">
+                            <div class="font-medium mt-5 intro-x" style="font-size: 1.3rem;">
+                                Related
+                            </div>
+
+                            <div id="container_related">
+
+                            </div>
+
+                        </div>
+
                 </div>
+                <h2 class="font-medium mt-5" style="font-size: 1.5rem;">
+                    Featured
+                </h2>
 
-                <div class="col-span-12 lg:col-span-3">
-                    <div class="font-medium mt-5 intro-x" style="font-size: 1.3rem;">
-                        Related
-                    </div>
-
-                    <div id="container_related">
-
-                    </div>
+                <div id="slick_2" class="mt-5" style="display: block;">
 
                 </div>
-
             </div>
-            <h2 class="font-medium mt-5" style="font-size: 1.5rem;">
-                Featured
-            </h2>
 
-            <div id="slick_2" class="mt-5" style="display: block;">
+            <div id="modal_submit_email" class="modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
-            </div>
-        </div>
+                        <div class="grid grid-cols-12">
 
-        <div id="modal_submit_email" class="modal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <div class="grid grid-cols-12">
-
-                        <div class="col-span-12" style="border-radius: 0.5rem; padding: 2rem;">
-                            <button style="position: absolute;right: 0.7rem;top: 0.3rem;"
-                                onclick="toggleModalSubmitEmail()" type="button" class="close no-border"
-                                data-dismiss="modal" aria-label="Close">
+                            <div class="col-span-12" style="border-radius: 0.5rem; padding: 2rem;">
+                                <button style="position: absolute;right: 0.7rem;top: 0.3rem;" onclick="toggleModalSubmitEmail()" type="button" class="close no-border" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true" class="no-border" style="font-size: 1.3rem;">&times;</span>
                             </button>
 
-                            <div class="text-dark font-medium text-center" style="font-size: 1.1rem;">
-                                Please Contact Owner By Email Below
-                            </div>
+                                <div class="text-dark font-medium text-center" style="font-size: 1.1rem;">
+                                    Please Contact Owner By Email Below
+                                </div>
 
 
-                            <div id="lbl_email" class="text-dark font-medium text-center mt-5"
-                                style="font-size: 1.1rem;">
+                                <div id="lbl_email" class="text-dark font-medium text-center mt-5" style="font-size: 1.1rem;">
 
-                            </div>
+                                </div>
 
-                            <div class="mt-3">
-                                <button onclick="copyEmail()" class="btn btn-success w-24 mr-1 mb-2 mt-5 bg-primary"
-                                    style="width: 100% !important;">
+                                <div class="mt-3">
+                                    <button onclick="copyEmail()" class="btn btn-success w-24 mr-1 mb-2 mt-5 bg-primary" style="width: 100% !important;">
                                     <i class="far fa-envelope fa-lg	mr-2"></i> COPY Email </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-        </div>
+            <script src="../views/client/dist/js/slick-post.js"></script>
 
-        <script src="../views/client/dist/js/slick-post.js"></script>
+            <script>
+                let slug = document.location.toString().split('/')[document.location.toString().split('/').length - 1]
 
-        <script>
-            let slug = document.location.toString().split('/')[document.location.toString().split('/').length - 1]
+                var post
 
-            var post
-
-            socket.emit('featured', null, (response) => {
-                if (response) {
-                    $('#slick_2').empty()
-                    for (let i = 0; i < response.length; i++) {
-                        let urlImage
-                        if (response[i].type == 1 && isDefine(response[i].images) && response[i].images.length > 0) {
-                            urlImage = urlImagePostJobsIcon + response[i].images[0]
-                        } else if (response[i].type == 2 && isDefine(response[i].images) && response[i].images.length > 0) {
-                            urlImage = urlImagePostSellsSalonsIcon + response[i].images[0]
-                        } else if (response[i].type == 3 && isDefine(response[i].images) && response[i].images.length > 0) {
-                            urlImage = urlImagePostNailSuppliesIcon + response[i].images[0]
-                        } else {
-                            urlImage = '../views/admin/dist/images/no-image.png'
-                        }
-                        let prefix
-                        if (response[i].type == 1) {
-                            prefix = '../posts-jobs/'
-                        } else if (response[i].type == 2) {
-                            prefix = '../posts-sell-salons/'
-                        } else if (response[i].type == 3) {
-                            prefix = '../posts-nail-supplies/'
-                        }
-                        $('#slick_2').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="mt-2 font-medium ellipsis-1">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis-2" style="font-size: 0.8rem;">' + removeHTMLTags(escapeHtml(response[i].content)) + '</div> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="mr-2 fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + '</span> </div> </div> </div> </a>')
-                    }
-                    reloadSlick_2()
-                }
-            })
-
-            function reloadSlickCountry() {
-                $('#slick_country').slick({
-                    autoplay: true,
-                    autoplaySpeed: 10000,
-                    draggable: true,
-                    pauseOnHover: false,
-                    infinite: true,
-                    dots: false,
-                    arrows: false,
-                    speed: 1000,
-
-                    mobileFirst: true,
-
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-
-                    responsive: [{
-                        breakpoint: breakpoint.xs,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    },
-                    {
-                        breakpoint: breakpoint.sm,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    },
-                    {
-                        breakpoint: breakpoint.md,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    },
-                    {
-                        breakpoint: breakpoint.lg,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                    ]
-                });
-            }
-
-            function detailPost(latitude, longitude) {
-                var response = '<%- object %>'
-                response = JSON.parse(response)
-
-                post = response.post
-                    try{
-                        if (typeof initMap !== 'undefined') {
-                            //initMap()
-                            console.log('undefined')
-                        }
-                    }catch(err){
-                        console.log(err)
-                    }
-                    
-                if (isDefine(response)) {
-                    for (let i = 0; i < response.nearCountry.length; i++) {
-                        $('#slick_country').append('<div onclick="search(' + tryParseInt(response.nearCountry[i][0]) + ')" class="slide"> <div class="panel panel-default" style="background: #737172;opacity: 0.9; cursor: pointer; position: relative;"> <img src="../views/client/dist/images/bg-relate-city.png" class="img-responsive" style="opacity: 0.1;max-height: 2rem;object-fit: cover;width: 100%;" /> <p class="text-white" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;height: 1rem;text-align: center;"> ' + response.nearCountry[i][3] + ', ' + response.nearCountry[i][4] + ' ' + response.nearCountry[i][0] + '</p> </div> </div>')
-                    }
-                    reloadSlickCountry()
-
-                    $('#keyword').val(response.post.city + ', ' + response.post.state + ' ' + response.post.code)
-                    if (isDefine(response.post.images) && response.post.images.length > 0) {
-                        for (let i = 0; i < response.post.images.length; i++) {
-                            $('#slick_images').append('<div class="slide"> <div class="panel panel-default" style="cursor: pointer; position: relative;"> <img onclick="slideImage(' + i + ')" src="' + escapeHtml(urlImagePostSellsSalonsIcon + response.post.images[i]) + '" class="img-responsive" style="height: 20rem;object-fit: cover;width: 100%;" /> </div> </div>')
-                        }
-                    }
-                    $('#lbl_name_salon').html(escapeHtml(response.post.name_salon))
-                    $('#lbl_title').html(escapeHtml(response.post.title))
-                    let datetime = (('0' + (new Date(response.post.updatedAt).getMonth() + 1)).substring(('0' + (new Date(response.post.updatedAt).getMonth() + 1)).length - 2, ('0' + (new Date(response.post.updatedAt).getMonth() + 1)).length) + '/' + new Date(response.post.updatedAt).getDate() + '/' + new Date(response.post.updatedAt).getFullYear())
-                    $('#lbl_last_update').html(escapeHtml(datetime))
-                    $('#lbl_address').html(escapeHtml(response.post.city + ', ' + response.post.state + ' ' + response.post.code))
-                    $('#lbl_salary').html(escapeHtml(response.post.price != 0 ? ('$' + formatMoney(response.post.price)) : 'Contact owner'))
-
-                    $('#lbl_content').html(escapeHtml(response.post.content))
-
-                    $("#lbl_content").attr("style", 'line-height: 2;position: relative;min-height: 100px;')
-                    if (response.post.status == 0) {
-                        $("#lbl_content").attr("style", 'opacity: 0.5 !important;line-height: 2;position: relative;min-height: 100px;')
-                        $('#container_contact').hide()
-                        $('#lbl_content').append('<div style="width: 50%;"><img style="position: absolute;top: 0;bottom:0;left: 0;right: 0;margin: auto;height: 100px;" src="../views/client/dist/images/expired.png"></div>')
-                    }
-
-                    $('#lbl_phone').html(escapeHtml(response.post.phone))
-
-                    $('#lbl_email').html(escapeHtml(response.post.email))
-                    $('#btn_call').attr('href', 'tel:' + escapeHtml(response.post.phone))
-                    $('#map').attr('src', 'https://maps.google.com/maps?q=' + response.post.location.coordinates[1] + ', ' + response.post.location.coordinates[0] + '&z=15&output=embed')
-                    $('#container_clear_filter').css('display', 'block')
-                    
-                    if (isDefine(response.post.images) && response.post.images.length > 0) {
-                        reloadSlickImages()
-                    }
-
-                    if (isDefine(response.related)) {
-                        let prefix
-                        prefix = '../posts-sell-salons/'
-                        urlImage = urlImagePostSellsSalonsIcon
-                        for (let i = 0; i < response.related.length; i++) {
-                            if (response.related[i].images != null && response.related[i].images.length > 0) {
-                                $('#container_related').append('<a href="' + (prefix + escapeHtml(response.related[i].link_slug)) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(' + (urlImage) + escapeHtml(response.related[i].images[0]) + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + ((response.related[i].price != 0 ? ('$' + formatMoney(response.related[i].price)) : 'Contact owner')) + ' </span><div class="ml-4" style="display: flex;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance) + '</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
+                socket.emit('featured', null, (response) => {
+                    if (response) {
+                        $('#slick_2').empty()
+                        for (let i = 0; i < response.length; i++) {
+                            let urlImage
+                            if (response[i].type == 1 && isDefine(response[i].images) && response[i].images.length > 0) {
+                                urlImage = urlImagePostJobsIcon + response[i].images[0]
+                            } else if (response[i].type == 2 && isDefine(response[i].images) && response[i].images.length > 0) {
+                                urlImage = urlImagePostSellsSalonsIcon + response[i].images[0]
+                            } else if (response[i].type == 3 && isDefine(response[i].images) && response[i].images.length > 0) {
+                                urlImage = urlImagePostNailSuppliesIcon + response[i].images[0]
                             } else {
-                                $('#container_related').append('<a href="' + (prefix + escapeHtml(response.related[i].link_slug)) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(../views/admin/dist/images/no-image.png);height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + (response.related[i].price != 0 ? ('$' + formatMoney(response.related[i].price)) : 'Contact owner') + ' </span><div class="ml-4" style="display: flex;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance) + '</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="fas fa-map-marker-alt color-primary mr-2"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
+                                urlImage = '../views/admin/dist/images/no-image.png'
+                            }
+                            let prefix
+                            if (response[i].type == 1) {
+                                prefix = '../posts-jobs/'
+                            } else if (response[i].type == 2) {
+                                prefix = '../posts-sell-salons/'
+                            } else if (response[i].type == 3) {
+                                prefix = '../posts-nail-supplies/'
+                            }
+                            $('#slick_2').append('<a href="' + escapeHtml(prefix + response[i].link_slug) + '"><div class="slide intro-y"> <div class="panel panel-default box"> <img style="border-top-right-radius: 0.5rem;border-top-left-radius: 0.5rem;height: 7rem;width: 100%;object-fit: cover;" src="' + escapeHtml(urlImage) + '" class="img-responsive" /> <div class="panel-body" style="position: relative;"> <h3 class="mt-2 font-medium ellipsis-1">' + escapeHtml(response[i].title || 'Unknown') + '</h3> <div class="ellipsis-2" style="font-size: 0.8rem;">' + removeHTMLTags(escapeHtml(response[i].content)) + '</div> <div class="grid grid-cols-12 mt-2"> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="mr-2 fas fa-phone-alt color-primary"></i> ' + escapeHtml(response[i].phone || 'Unknown') + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response[i].city || 'Unknown') + ' </div> </div> <span class="text-white font-medium" style="position: absolute;right: 10px;top: -15px;margin: auto;background: #6bab44;padding: 0.5rem;border-radius: 1rem;font-size: 0.7rem;">' + escapeHtml(response[i].type == 1 ? ((response[i].cost != 0 ? ('$' + formatMoney(response[i].cost)) : 'Contact owner')) : ((response[i].price != 0 ? ('$' + formatMoney(response[i].price)) : 'Contact owner'))) + '</span> </div> </div> </div> </a>')
+                        }
+                        reloadSlick_2()
+                    }
+                })
+
+                function reloadSlickCountry() {
+                    $('#slick_country').slick({
+                        autoplay: true,
+                        autoplaySpeed: 10000,
+                        draggable: true,
+                        pauseOnHover: false,
+                        infinite: true,
+                        dots: false,
+                        arrows: false,
+                        speed: 1000,
+
+                        mobileFirst: true,
+
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+
+                        responsive: [{
+                            breakpoint: breakpoint.xs,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        }, {
+                            breakpoint: breakpoint.sm,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        }, {
+                            breakpoint: breakpoint.md,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        }, {
+                            breakpoint: breakpoint.lg,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        }]
+                    });
+                }
+
+                function detailPost(latitude, longitude) {
+                    var response = '<%- object %>'
+                    console.log(response)
+                    response = JSON.parse(response)
+
+                    post = response.post
+                        // try{
+                        //     if (typeof initMap !== 'undefined') {
+                        //         //initMap()
+                        //         console.log('undefined')
+                        //     }
+                        // }catch(err){
+                        //     console.log(err)
+                        // }
+
+                    if (isDefine(response)) {
+                        for (let i = 0; i < response.nearCountry.length; i++) {
+                            $('#slick_country').append('<div onclick="search(' + tryParseInt(response.nearCountry[i][0]) + ')" class="slide"> <div class="panel panel-default" style="background: #737172;opacity: 0.9; cursor: pointer; position: relative;"> <img src="../views/client/dist/images/bg-relate-city.png" class="img-responsive" style="opacity: 0.1;max-height: 2rem;object-fit: cover;width: 100%;" /> <p class="text-white" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;height: 1rem;text-align: center;"> ' + response.nearCountry[i][3] + ', ' + response.nearCountry[i][4] + ' ' + response.nearCountry[i][0] + '</p> </div> </div>')
+                        }
+                        reloadSlickCountry()
+
+                        $('#keyword').val(response.post.city + ', ' + response.post.state + ' ' + response.post.code)
+                        if (isDefine(response.post.images) && response.post.images.length > 0) {
+                            for (let i = 0; i < response.post.images.length; i++) {
+                                $('#slick_images').append('<div class="slide"> <div class="panel panel-default" style="cursor: pointer; position: relative;"> <img onclick="slideImage(' + i + ')" src="' + escapeHtml(urlImagePostSellsSalonsIcon + response.post.images[i]) + '" class="img-responsive" style="height: 20rem;object-fit: cover;width: 100%;" /> </div> </div>')
                             }
                         }
-                    }
-                } else {
-                    $('#container_content').html('No Result!')
-                }
-            }
+                        $('#lbl_name_salon').html(escapeHtml(response.post.name_salon))
+                        $('#lbl_title').html(escapeHtml(response.post.title))
+                        let datetime = (('0' + (new Date(response.post.updatedAt).getMonth() + 1)).substring(('0' + (new Date(response.post.updatedAt).getMonth() + 1)).length - 2, ('0' + (new Date(response.post.updatedAt).getMonth() + 1)).length) + '/' + new Date(response.post.updatedAt).getDate() + '/' + new Date(response.post.updatedAt).getFullYear())
+                        $('#lbl_last_update').html(escapeHtml(datetime))
+                        $('#lbl_address').html(escapeHtml(response.post.city + ', ' + response.post.state + ' ' + response.post.code))
+                        $('#lbl_salary').html(escapeHtml(response.post.price != 0 ? ('$' + formatMoney(response.post.price)) : 'Contact owner'))
 
-            detailPost()
+                        $('#lbl_content').html(escapeHtml(response.post.content))
 
-            function copyEmail() {
-                toggleModalSubmitEmail()
-                copyToClipboard('lbl_email')
-                $(".toastify").show(300)
-                $(function () {
-                    setTimeout(function () {
-                        $(".toastify").hide(800)
-                    }, 4000)
-                })
-            }
-
-            function toggleModalSubmitEmail() {
-                $('#modal_submit_email').css('display', 'block');
-                $('#modal_submit_email').css('margin-top', '0px');
-                $('#modal_submit_email').css('margin-left', '0px');
-                $('#modal_submit_email').css('z-index', '1000');
-                if ($("#modal_submit_email").hasClass("show")) {
-                    $('#modal_submit_email').removeClass('show');
-                    $('body').removeClass('overflow-y-hidden');
-                } else {
-                    $('#modal_submit_email').addClass('show');
-                }
-            }
-
-            function slideImage(index) {
-                var container = [];
-                let indexProductPhotoSwipe = 0;
-                for (let i = 0; post.images != undefined && i < post.images.length; i++) {
-                    var item = {
-                        src: urlImagePostSellsSalons + post.images[i],
-                        w: 0,
-                        h: 0,
-                    };
-                    container.push(item);
-
-                    // if ($('#ImageShow').attr('src').includes(post.images[i])) {
-                    //     indexProductPhotoSwipe = i;
-                    // }
-                    indexProductPhotoSwipe = index;
-                }
-                if (container.length == 0) return;
-                //event.preventDefault();
-                var $pswp = $('.pswp')[0],
-                    options = {
-                        index: indexProductPhotoSwipe,
-                        bgOpacity: 0.85,
-                        preloaderEl: true,
-                    };
-                var gallery = new PhotoSwipe($pswp, PhotoSwipeUI_Default, container, options);
-
-                gallery.listen('gettingData', function (index, item) {
-                    if (item.w < 1 || item.h < 1) { // unknown size
-                        var img = new Image();
-                        img.onload = function () { // will get size after load
-                            item.w = this.width; // set image width
-                            item.h = this.height; // set image height
-                            gallery.invalidateCurrItems(); // reinit Items
-                            gallery.updateSize(true); // reinit Items
+                        $("#lbl_content").attr("style", 'line-height: 2;position: relative;min-height: 100px;')
+                        if (response.post.status == 0) {
+                            $("#lbl_content").attr("style", 'opacity: 0.5 !important;line-height: 2;position: relative;min-height: 100px;')
+                            $('#container_contact').hide()
+                            $('#lbl_content').append('<div style="width: 50%;"><img style="position: absolute;top: 0;bottom:0;left: 0;right: 0;margin: auto;height: 100px;" src="../views/client/dist/images/expired.png"></div>')
                         }
-                        img.src = item.src; // let's download image
+
+                        $('#lbl_phone').html(escapeHtml(response.post.phone))
+
+                        $('#lbl_email').html(escapeHtml(response.post.email))
+                        $('#btn_call').attr('href', 'tel:' + escapeHtml(response.post.phone))
+                        $('#map').attr('src', 'https://maps.google.com/maps?q=' + response.post.location.coordinates[1] + ', ' + response.post.location.coordinates[0] + '&z=15&output=embed')
+                        $('#container_clear_filter').css('display', 'block')
+
+                        if (isDefine(response.post.images) && response.post.images.length > 0) {
+                            reloadSlickImages()
+                        }
+
+                        if (isDefine(response.related)) {
+                            let prefix
+                            prefix = '../posts-sell-salons/'
+                            urlImage = urlImagePostSellsSalonsIcon
+                            for (let i = 0; i < response.related.length; i++) {
+                                if (response.related[i].images != null && response.related[i].images.length > 0) {
+                                    $('#container_related').append('<a href="' + (prefix + escapeHtml(response.related[i].link_slug)) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(' + (urlImage) + escapeHtml(response.related[i].images[0]) + ');height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + ((response.related[i].price != 0 ? ('$' + formatMoney(response.related[i].price)) : 'Contact owner')) + ' </span><div class="ml-4" style="display: flex;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance) + '</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1"> <i class="fas fa-map-marker-alt color-primary"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
+                                } else {
+                                    $('#container_related').append('<a href="' + (prefix + escapeHtml(response.related[i].link_slug)) + '" class="intro-x mt-5 zoom-in col-span-12 lg:col-span-6 grid grid-cols-3 box" style="border-radius: 1rem;box-shadow: 0px 1px 6px #bdbdbd"> <div class="col-span-1"> <div  style="background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url(../views/admin/dist/images/no-image.png);height: 100%; border-top-left-radius: 1rem;border-bottom-left-radius: 1rem;" </div></div> </div><div class="col-span-2"> <div class="p-2"> <div class="font-medium ellipsis-1"> ' + escapeHtml(response.related[i].title) + ' </div> <div class="ellipsis-2"> ' + removeHTMLTags(escapeHtml(response.related[i].content)) + ' </div> </div> <div style="display: flex;"> <span class="text-white font-medium" style="background: #6bab44;padding: 0.5rem;border-top-right-radius: 1rem;border-bottom-right-radius: 1rem;font-size: 0.7rem;">' + (response.related[i].price != 0 ? ('$' + formatMoney(response.related[i].price)) : 'Contact owner') + ' </span><div class="ml-4" style="display: flex;align-items: center;justify-content: center;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit block mx-auto"> <circle cx="12" cy="12" r="4"></circle> <line x1="1.05" y1="12" x2="7" y2="12"></line> <line x1="17.01" y1="12" x2="22.96" y2="12"></line> </svg> <span class="ml-1">' + escapeHtml(response.related[i].distance) + '</span> </div> </div> <div class="p-2 grid grid-cols-12" style="gap: 0.5rem;"> <div class="col-span-6 font-medium ellipsis-1" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"> <i class="fas fa-phone-alt color-primary"></i> ' + escapeHtml(response.related[i].phone) + ' </div> <div class="col-span-6 font-medium ellipsis-1" style="display: flex;"> <i class="fas fa-map-marker-alt color-primary mr-2"></i> ' + escapeHtml(response.related[i].city) + ' </div> </div> </div> </a>')
+                                }
+                            }
+                        }
+                    } else {
+                        $('#container_content').html('No Result!')
                     }
-                });
+                }
 
-                gallery.init();
-            }
+                detailPost()
 
-            function showImage(link) {
-                $('#ImageShow').prop("src", link);
-            }
-        </script>
+                function copyEmail() {
+                    toggleModalSubmitEmail()
+                    copyToClipboard('lbl_email')
+                    $(".toastify").show(300)
+                    $(function() {
+                        setTimeout(function() {
+                            $(".toastify").hide(800)
+                        }, 4000)
+                    })
+                }
 
-        <%- include("direction-post"); %>
-        <%- include("footer"); %>
+                function toggleModalSubmitEmail() {
+                    $('#modal_submit_email').css('display', 'block');
+                    $('#modal_submit_email').css('margin-top', '0px');
+                    $('#modal_submit_email').css('margin-left', '0px');
+                    $('#modal_submit_email').css('z-index', '1000');
+                    if ($("#modal_submit_email").hasClass("show")) {
+                        $('#modal_submit_email').removeClass('show');
+                        $('body').removeClass('overflow-y-hidden');
+                    } else {
+                        $('#modal_submit_email').addClass('show');
+                    }
+                }
+
+                function slideImage(index) {
+                    var container = [];
+                    let indexProductPhotoSwipe = 0;
+                    for (let i = 0; post.images != undefined && i < post.images.length; i++) {
+                        var item = {
+                            src: urlImagePostSellsSalons + post.images[i],
+                            w: 0,
+                            h: 0,
+                        };
+                        container.push(item);
+
+                        // if ($('#ImageShow').attr('src').includes(post.images[i])) {
+                        //     indexProductPhotoSwipe = i;
+                        // }
+                        indexProductPhotoSwipe = index;
+                    }
+                    if (container.length == 0) return;
+                    //event.preventDefault();
+                    var $pswp = $('.pswp')[0],
+                        options = {
+                            index: indexProductPhotoSwipe,
+                            bgOpacity: 0.85,
+                            preloaderEl: true,
+                        };
+                    var gallery = new PhotoSwipe($pswp, PhotoSwipeUI_Default, container, options);
+
+                    gallery.listen('gettingData', function(index, item) {
+                        if (item.w < 1 || item.h < 1) { // unknown size
+                            var img = new Image();
+                            img.onload = function() { // will get size after load
+                                item.w = this.width; // set image width
+                                item.h = this.height; // set image height
+                                gallery.invalidateCurrItems(); // reinit Items
+                                gallery.updateSize(true); // reinit Items
+                            }
+                            img.src = item.src; // let's download image
+                        }
+                    });
+
+                    gallery.init();
+                }
+
+                function showImage(link) {
+                    $('#ImageShow').prop("src", link);
+                }
+            </script>
+
+            <%- include("direction-post"); %>
+                <%- include("footer"); %>

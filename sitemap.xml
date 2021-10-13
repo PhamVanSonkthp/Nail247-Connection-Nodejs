@@ -6,23 +6,38 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
 <loc>https://nail.okechua.com/</loc>
-<lastmod>Wed Oct 13 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Wed Oct 13 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>1.00</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/search?categories=find-job</loc>
-<lastmod>Wed Oct 13 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Wed Oct 13 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/search?categories=sell-salon</loc>
-<lastmod>Wed Oct 13 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Wed Oct 13 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/search?categories=nail-supply</loc>
-<lastmod>Wed Oct 13 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Wed Oct 13 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.80</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/posts-jobs/test-map-3-19</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/posts-jobs/test-map2-18</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/posts-jobs/test-map-17</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/posts-jobs/23432-16</loc>
@@ -110,7 +125,27 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
+<loc>https://nail.okechua.com/posts-sell-salons/test-map-6-3</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/posts-sell-salons/test-map-5-2</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/posts-sell-salons/tesp-map-4-1</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
 <loc>https://nail.okechua.com/posts-sell-salons/123-0</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/posts-nail-supplies/test-map-7-4</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
@@ -136,17 +171,17 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 </url>
 <url>
 <loc>https://nail.okechua.com/privacy-policy</loc>
-<lastmod>Wed Oct 13 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Wed Oct 13 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Wed Oct 13 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Wed Oct 13 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.10</priority>
 </url>
 </urlset>

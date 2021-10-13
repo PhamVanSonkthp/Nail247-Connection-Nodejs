@@ -199,23 +199,23 @@ app.get('/posts-jobs/:slug', async function(req, res) {
             }
 
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-            resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
-            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "")
-            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "")
-            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "")
+            resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
+            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
+            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
+            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
-        object.content = object.content.replaceAll("\"", "")
-        object.title = object.title.replaceAll("\"", "")
-        object.name_salon = object.name_salon.replaceAll("\"", "")
-        object.address_salon = object.address_salon.replaceAll("\"", "")
+        object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
+        object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
+        object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
+        object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
         object = {
             post: object,
             related: resultRelated,
             nearCountry: nearCountry
         }
-        res.render('./client/posts-jobs', { object: JSON.stringify(object), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+        res.render('./client/posts-jobs', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
     } catch (err) {
         helper.throwError(err)
         res.redirect(domain + 'search?categories=find-job')
@@ -265,10 +265,6 @@ app.get('/posts-sell-salons/:slug', async function(req, res) {
         object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
         object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
 
-        for (let i = 0; i < nearCountry.length; i++) {
-
-        }
-
         object = {
             post: object,
             related: resultRelated,
@@ -312,24 +308,24 @@ app.get('/posts-nail-supplies/:slug', async function(req, res) {
             }
 
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-            resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
-            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "")
-            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "")
-            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "")
+            resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
+            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
+            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
+            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
-        object.content = object.content.replaceAll("\"", "")
-        object.title = object.title.replaceAll("\"", "")
-        object.name_salon = object.name_salon.replaceAll("\"", "")
-        object.address_salon = object.address_salon.replaceAll("\"", "")
+        object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
+        object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
+        object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
+        object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
         object = {
             post: object,
             related: resultRelated,
             nearCountry: nearCountry
         }
 
-        res.render('./client/posts-nail-supplies', { object: JSON.stringify(object), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0] })
+        res.render('./client/posts-nail-supplies', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0] })
     } catch (err) {
         helper.throwError(err)
         res.redirect(domain + 'search?categories=nail-supply')

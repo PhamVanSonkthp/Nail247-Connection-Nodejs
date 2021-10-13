@@ -419,22 +419,17 @@
             }
 
             function detailPost(latitude, longitude) {
-                console.log('detailPost')
                 var response = '<%- object %>'
-
-                console.log(response)
-
                 response = JSON.parse(response)
-
                 post = response.post
-                    // try{
-                    //     if (typeof initMap !== 'undefined') {
-                    //         //initMap()
-                    //         console.log('undefined')
-                    //     }
-                    // }catch(err){
-                    //     console.log(err)
-                    // }
+
+                try {
+                    if (typeof initMap !== 'undefined') {
+                        initMap()
+                    }
+                } catch (err) {
+                    console.log(err)
+                }
 
 
                 if (isDefine(response)) {

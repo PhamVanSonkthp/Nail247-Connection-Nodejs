@@ -406,10 +406,16 @@
 
                 function detailPost(latitude, longitude) {
                     var response = '<%- object %>'
-                    console.log(response)
                     response = JSON.parse(response)
-
                     post = response.post
+
+                    try {
+                        if (typeof initMap !== 'undefined') {
+                            initMap()
+                        }
+                    } catch (err) {
+                        console.log(err)
+                    }
 
                     if (isDefine(response)) {
                         for (let i = 0; i < response.nearCountry.length; i++) {

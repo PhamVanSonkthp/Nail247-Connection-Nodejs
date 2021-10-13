@@ -26,33 +26,33 @@ function reloadSlick() {
         slidesToShow: 1,
         slidesToScroll: 1,
         responsive: [{
-            breakpoint: breakpoint.xs,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
+                breakpoint: breakpoint.xs,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: breakpoint.sm,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                }
+            },
+            {
+                breakpoint: breakpoint.md,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4
+                }
+            },
+            {
+                breakpoint: breakpoint.lg,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 5
+                }
             }
-        },
-        {
-            breakpoint: breakpoint.sm,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3
-            }
-        },
-        {
-            breakpoint: breakpoint.md,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 4
-            }
-        },
-        {
-            breakpoint: breakpoint.lg,
-            settings: {
-                slidesToShow: 5,
-                slidesToScroll: 5
-            }
-        }
         ]
     });
 
@@ -78,26 +78,26 @@ function reloadSlick_2() {
         slidesToScroll: 1,
 
         responsive: [{
-            breakpoint: breakpoint.xs,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
-            }
-        },
-        {
-            breakpoint: breakpoint.sm,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3
-            }
-        },
-        {
-            breakpoint: breakpoint.md,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 4
-            }
-        },
+                breakpoint: breakpoint.xs,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: breakpoint.sm,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                }
+            },
+            {
+                breakpoint: breakpoint.md,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4
+                }
+            },
         ]
     })
 }
@@ -220,11 +220,11 @@ function changeSalary(val) {
 querySearch = { code: code, categories: categories, distance: distance, salary: salary, limit: limit, offset: offset, title: title, type_search: typeSearch }
 
 function searchProduct() {
-    if(isDefine(code) && tryParseInt(code) > 0 && !categories.includes('nail-supply')){
+    if (isDefine(code) && tryParseInt(code) > 0 && !categories.includes('nail-supply')) {
         $('#lbl_type_nearest').show()
         $('#lbl_div').show()
         $('#container_filter_ranger').show()
-    }else{
+    } else {
         $('#container_filter_ranger').hide()
         $('#lbl_type_nearest').hide()
         $('#lbl_div').hide()
@@ -329,14 +329,6 @@ function countProduct() {
 
 
         if (isDefine(response)) {
-            // count = response
-            // if ((count / limit) - parseInt(count / limit) > 0) {
-            //     count = parseInt(count / limit) + 1;
-            // }
-            // else {
-            //     count = count / limit;
-            // }
-
             numberPage = response
 
             paginator(numberPage)
@@ -381,8 +373,8 @@ socket.emit('name-country-by-code', { code: code }, (response) => {
     }
 })
 
-$(document).ready(function () {
-    $('#keyword').keypress(function (e) {
+$(document).ready(function() {
+    $('#keyword').keypress(function(e) {
         if (e.which == 13 && categories.includes('nail-supply') && $('#keyword').val().length > 0) {
             search($('#keyword').val())
             $("#container_drop_result").hide()

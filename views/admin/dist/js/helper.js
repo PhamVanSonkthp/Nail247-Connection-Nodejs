@@ -208,7 +208,60 @@ function CopyToClipboard(containerid) {
 	}
 }
 
-function paginator() {
+// function paginator() {
+
+// 	let page = '<div class="row dataTables_wrapper">';
+
+// 	page += '<div class="col-sm-12"><div style="margin-top:10px;" class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">';
+// 	page += '<ul class="pagination">';
+
+// 	let selected = 0;
+
+// 	styleCenter = 'display:table;margin:0px auto 0px auto;';
+
+// 	for (let i = 0; i < count; i++) {
+// 		if (count >= 2 && i == 0) // nếu có 2 trang trở lên thì sẽ có previous
+// 		{
+// 			if (offset != 0)	// nếu offset khác 0 thì previous sẽ có thể click đc
+// 				page += '<li style="' + styleCenter + '" onclick="loadmoreProduct(0)" class="paginate_button page-item previous" id="dataTable_previous"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" style="color:red;">First</a></li>';
+// 			else //nếu  offset == 0 previous sẽ ko thể click đc
+// 				page += '<li style="' + styleCenter + '" class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">First</a></li>';
+// 		}
+// 		if (i == (parseInt((offset / limit))))		// nếu i nào bằng điều kiện trong if thì sẽ sáng màu xanh và ngược lại
+// 		{
+// 			selected = i;
+// 			page += '<li style="' + styleCenter + '" onclick="loadmoreProduct(' + i + ')" class="paginate_button page-item active"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
+// 			if (i == count - 1 && count >= 3) {
+// 				page += '<li style="' + styleCenter + '" class="paginate_button page-item next disabled" id="dataTable_next"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Last</a></li>';
+// 			}
+// 		}
+// 		else {
+// 			if (i <= 2 || i == count - 1) // hiện 5 trang First vaf trang Last
+// 			{
+// 				page += '<li style="' + styleCenter + '" onclick="loadmoreProduct(' + i + ')" class="paginate_button page-item"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
+// 				if (i == count - 1) {
+// 					page += '<li style="' + styleCenter + '" onclick="loadmoreProduct(' + i + ')" class="paginate_button page-item next" id="dataTable_next"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Last</a></li>';
+// 				}
+// 			}
+// 			else {
+// 				if (i >= isShow - 1 && i <= isShow + 1) {
+// 					page += '<li style="' + styleCenter + '" onclick="loadmoreProduct(' + i + ')" class="paginate_button page-item"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
+// 				}
+// 				else {
+// 					if (i == isShow - 2 || i == isShow + 3) {
+// 						page += '<li style="' + styleCenter + '" onclick="loadmoreProduct(' + (selected + count) / 2 + ')" class="paginate_button page-item"><a href="javascript:void(0);" class="page-link">...</a></li>';
+// 					}
+// 				}
+// 			}
+// 		}
+
+// 	}
+// 	page += '</ul></div></div></div>';
+// 	$("#pagePatigation").addClass("mb-3");
+// 	$("#pagePatigation").html(page);
+// }
+
+function paginator(data) {
 
 	let page = '<div class="row dataTables_wrapper">';
 
@@ -217,17 +270,24 @@ function paginator() {
 
 	let selected = 0;
 
-	styleCenter = 'display:table;margin:0px auto 0px auto;';
+	styleCenter = 'display:table;margin:0px auto 0px auto;padding:0;cursor: no-drop;';
+	count = data;
+	if ((count / limit) - parseInt(count / limit) > 0) {
+		count = parseInt(count / limit) + 1;
+	} else {
+		count = count / limit;
+	}
+	count = parseInt(count)
 
 	for (let i = 0; i < count; i++) {
-		if (count >= 2 && i == 0) // nếu có 2 trang trở lên thì sẽ có previous
+		if (count >= 2 && i == 0) // náº¿u cĂ³ 2 trang trá»Ÿ lĂªn thĂ¬ sáº½ cĂ³ previous
 		{
-			if (offset != 0)	// nếu offset khác 0 thì previous sẽ có thể click đc
+			if (offset != 0)	// náº¿u offset khĂ¡c 0 thĂ¬ previous sáº½ cĂ³ thá»ƒ click Ä‘c
 				page += '<li style="' + styleCenter + '" onclick="loadmoreProduct(0)" class="paginate_button page-item previous" id="dataTable_previous"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" style="color:red;">First</a></li>';
-			else //nếu  offset == 0 previous sẽ ko thể click đc
+			else //náº¿u  offset == 0 previous sáº½ ko thá»ƒ click Ä‘c
 				page += '<li style="' + styleCenter + '" class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">First</a></li>';
 		}
-		if (i == (parseInt((offset / limit))))		// nếu i nào bằng điều kiện trong if thì sẽ sáng màu xanh và ngược lại
+		if (i == (parseInt((offset / limit))))		// náº¿u i nĂ o báº±ng Ä‘iá»u kiá»‡n trong if thĂ¬ sáº½ sĂ¡ng mĂ u xanh vĂ  ngÆ°á»£c láº¡i
 		{
 			selected = i;
 			page += '<li style="' + styleCenter + '" onclick="loadmoreProduct(' + i + ')" class="paginate_button page-item active"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
@@ -236,7 +296,7 @@ function paginator() {
 			}
 		}
 		else {
-			if (i <= 2 || i == count - 1) // hiện 5 trang First vaf trang Last
+			if (i <= 2 || i == count - 1) // hiá»‡n 5 trang First vaf trang Last
 			{
 				page += '<li style="' + styleCenter + '" onclick="loadmoreProduct(' + i + ')" class="paginate_button page-item"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
 				if (i == count - 1) {
@@ -260,99 +320,3 @@ function paginator() {
 	$("#pagePatigation").addClass("mb-3");
 	$("#pagePatigation").html(page);
 }
-
-//function paginator() {
-	// let page = '<div class="row dataTables_wrapper">';
-
-	// page += '<div class="col-sm-12 col-md-7"><div style="margin-top:10px;" class="intro-y w-10 h-10 rounded-full btn btn-primary" id="dataTable_paginate">';
-	// page += '<ul>';
-
-	// let selected = 0;
-
-	// for (let i = 0; i < count; i++) {
-	// 	if (count >= 2 && i == 0) // nếu có 2 trang trở lên thì sẽ có previous
-	// 	{
-	// 		if (offset != 0)	// nếu offset khác 0 thì previous sẽ có thể click đc
-	// 			page += '<li onclick="loadmoreClient(0)" class="paginate_button page-item previous" id="dataTable_previous"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">First</a></li>';
-	// 		else //nếu  offset == 0 previous sẽ ko thể click đc
-	// 			page += '<li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">First</a></li>';
-	// 	}
-	// 	if (i == (parseInt((offset / limit))))		// nếu i nào bằng điều kiện trong if thì sẽ sáng màu xanh và ngược lại
-	// 	{
-	// 		selected = i;
-	// 		page += '<li onclick="loadmoreClient(' + i + ')" class="paginate_button page-item active"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
-	// 		if (i == count - 1 && count >= 3) {
-	// 			page += '<li class="paginate_button page-item next disabled" id="dataTable_next"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Last</a></li>';
-	// 		}
-	// 	}
-	// 	else {
-	// 		if (i <= 2 || i == count - 1) // hiện 5 trang First vaf trang Last
-	// 		{
-	// 			page += '<li  onclick="loadmoreClient(' + i + ')" class="paginate_button page-item"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
-	// 			if (i == count - 1) {
-	// 				page += '<li  onclick="loadmoreClient(' + i + ')" class="paginate_button page-item next" id="dataTable_next"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Last</a></li>';
-	// 			}
-	// 		}
-	// 		else {
-	// 			if (i >= isShow - 1 && i <= isShow + 1) {
-	// 				page += '<li  onclick="loadmoreClient(' + i + ')" class="paginate_button page-item"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
-	// 			}
-	// 			else {
-	// 				if (i == isShow - 2 || i == isShow + 3) {
-	// 					page += '<li onclick="loadmoreClient(' + (selected + count) / 2 + ')" class="paginate_button page-item"><a href="javascript:void(0);" class="page-link">...</a></li>';
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-
-	// }
-	// page += '</ul></div></div></div>';
-	// $("#pagePatigation").html(page);
-
-// 	let page = '<div class="row dataTables_wrapper">';
-
-// 	page += '<div class="col-sm-12 col-md-7"><div style="margin-top:10px;" class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">';
-// 	page += '<ul class="pagination">';
-
-// 	let selected = 0;
-
-// 	for (let i = 0; i < count; i++) {
-// 		if (count >= 2 && i == 0) // nếu có 2 trang trở lên thì sẽ có previous
-// 		{
-// 			if (offset != 0)	// nếu offset khác 0 thì previous sẽ có thể click đc
-// 				page += '<li onclick="loadmoreClient(0)" class="paginate_button page-item previous" id="dataTable_previous"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" style="color:red;">First</a></li>';
-// 			else //nếu  offset == 0 previous sẽ ko thể click đc
-// 				page += '<li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">First</a></li>';
-// 		}
-// 		if (i == (parseInt((offset / limit))))		// nếu i nào bằng điều kiện trong if thì sẽ sáng màu xanh và ngược lại
-// 		{
-// 			selected = i;
-// 			page += '<li onclick="loadmoreClient(' + i + ')" class="paginate_button page-item active"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
-// 			if (i == count - 1 && count >= 3) {
-// 				page += '<li class="paginate_button page-item next disabled" id="dataTable_next"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Last</a></li>';
-// 			}
-// 		}
-// 		else {
-// 			if (i <= 2 || i == count - 1) // hiện 5 trang First vaf trang Last
-// 			{
-// 				page += '<li  onclick="loadmoreClient(' + i + ')" class="paginate_button page-item"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
-// 				if (i == count - 1) {
-// 					page += '<li  onclick="loadmoreClient(' + i + ')" class="paginate_button page-item next" id="dataTable_next"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Last</a></li>';
-// 				}
-// 			}
-// 			else {
-// 				if (i >= isShow - 1 && i <= isShow + 1) {
-// 					page += '<li  onclick="loadmoreClient(' + i + ')" class="paginate_button page-item"><a href="javascript:void(0);" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">' + (i + 1) + '</a></li>';
-// 				}
-// 				else {
-// 					if (i == isShow - 2 || i == isShow + 3) {
-// 						page += '<li onclick="loadmoreClient(' + (selected + count) / 2 + ')" class="paginate_button page-item"><a href="javascript:void(0);" class="page-link">...</a></li>';
-// 					}
-// 				}
-// 			}
-// 		}
-
-// 	}
-// 	page += '</ul></div></div></div>';
-// 	$("#pagePatigation").html(page);
-// }

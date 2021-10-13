@@ -5,44 +5,49 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
-<<<<<<< HEAD
 <loc>https://247nailsalons.com/</loc>
-<lastmod>Wed Oct 13 2021 04:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 05:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>1.00</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=find-job</loc>
-<lastmod>Wed Oct 13 2021 04:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 05:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=sell-salon</loc>
-<lastmod>Wed Oct 13 2021 04:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 05:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=nail-supply</loc>
-<lastmod>Wed Oct 13 2021 04:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
-=======
-<loc>https://nail.okechua.com/</loc>
-<lastmod>Wed Oct 13 2021 11:23:00 GMT+0700 (Indochina Time)</lastmod>
-<priority>1.00</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/search?categories=find-job</loc>
-<lastmod>Wed Oct 13 2021 11:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Wed Oct 13 2021 05:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
-<loc>https://nail.okechua.com/search?categories=sell-salon</loc>
-<lastmod>Wed Oct 13 2021 11:23:00 GMT+0700 (Indochina Time)</lastmod>
-<priority>0.80</priority>
+<loc>https://247nailsalons.com/posts-jobs/can-nhieu-tho-nail-nu-tiem-rat-dong-khach-o-turnerville-va-west-berlin-new-jesey--216</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
 </url>
 <url>
-<loc>https://nail.okechua.com/search?categories=nail-supply</loc>
-<lastmod>Wed Oct 13 2021 11:23:00 GMT+0700 (Indochina Time)</lastmod>
->>>>>>> 7cce60c6113f0381a579f21646807ddae9e96b59
-<priority>0.80</priority>
+<loc>https://247nailsalons.com/posts-jobs/ca-n-tho-nail-va-quan-ly-215</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-nail-nu-hoac-cap-vo-chong-tay-nghe-on-dinh-lam-viec-co-tam-can-phai-co-xe-luong-cao-tu-8-000-thang-quanh-nam-214</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/tiem-can-tho-nail-gioi-lam-bot-bao-luong-1500-and-up-tuan-hon-an-chia-6-4-213</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-nail-khu-niagara-falls-ny-14304-212</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/posts-jobs/can-tho-bao-luong-2-100-tuan-hon-an-chia-ca-nam--211</loc>
@@ -190,7 +195,6 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
-<<<<<<< HEAD
 <loc>https://247nailsalons.com/posts-jobs/can-tho-gap-gap-income-on-dinh-khu-vuc-allen-09-2021-208</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
@@ -271,27 +275,37 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/can-gap-nhieu-tho-nails-194</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/do-viec-gia-dinh-can-move-gap-sang-tieu-bang-khac-nen-minh-muon-sang-lai-tiem-nail-tam-huyet-cua-minh-21</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/can-tim-tho-nail-khong-can-kinh-nghiem-193</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/tiem-nail-trong-mall-o-saratoga-springs-ny--20</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-nails--201</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/tiem-moi-remodel-sach-dep-tiem-co-6-ghe-7-ban-va-hien-tai-co-7-tho--19</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/bao-luong-8000-thang--200</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/tonawanda-ny-white-area-busy-store-for-sale-18</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/can-nhieu-tho-nail-gap-bao-luong-1200-tuan-we-need-nail-technicians-1200-week-197</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/can-sang-tiem-magic-nails-o-james-island-khu-shopping-lon-nhat-vung-17</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-sell-salons/-tiem-dep-va-rong-nhat-o-charleston-sc-16</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-sell-salons/-can-ban-tiem-nail-rat-dong-khach-ngay-sat-vung-bien-khu-my-trang-15</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
@@ -371,32 +385,23 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
+<loc>https://247nailsalons.com/posts-nail-supplies/son-mau-do-0</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
 <loc>https://247nailsalons.com/privacy-policy</loc>
-<lastmod>Wed Oct 13 2021 04:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 05:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 04:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 05:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 04:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
-=======
-<loc>https://nail.okechua.com/privacy-policy</loc>
-<lastmod>Wed Oct 13 2021 11:23:00 GMT+0700 (Indochina Time)</lastmod>
-<priority>0.10</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 11:23:00 GMT+0700 (Indochina Time)</lastmod>
-<priority>0.10</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 11:23:00 GMT+0700 (Indochina Time)</lastmod>
->>>>>>> 7cce60c6113f0381a579f21646807ddae9e96b59
+<lastmod>Wed Oct 13 2021 05:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 </urlset>

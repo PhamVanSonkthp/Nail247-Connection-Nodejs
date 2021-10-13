@@ -265,12 +265,16 @@ app.get('/posts-sell-salons/:slug', async function(req, res) {
         object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
         object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
 
+        for (let i = 0; i < nearCountry.length; i++) {
+
+        }
+
         object = {
             post: object,
             related: resultRelated,
             nearCountry: nearCountry
         }
-        res.render('./client/posts-sell-salons', { object: JSON.stringify(object), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-sells-salons/' + object.post.images[0] })
+        res.render('./client/posts-sell-salons', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-sells-salons/' + object.post.images[0] })
     } catch (err) {
         helper.throwError(err)
         res.redirect(domain + 'search?categories=sell-salon')

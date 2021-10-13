@@ -671,10 +671,19 @@ io.sockets.on('connection', (socket) => {
                 }
 
                 let result = await UserModel.find(query).limit(data.limit).skip(data.offset).sort(filter)
-
+                
                 for (let i = 0; i < result.length; i++) {
                     if (new Date(result[i].expiration_date) < new Date(Date.now())) {
                         result[i].status = 0
+                    }
+
+                    const agency = await AgencyModel.findById(result[i].id_agency)
+                    if(helper.isDefine(agency)){
+                        result[i] = {
+                            ...result[i]._doc,
+                            agency :agency
+                        }
+                        
                     }
                 }
 
@@ -730,17 +739,35 @@ io.sockets.on('connection', (socket) => {
                     }
                 }
 
-                UserModel.find(query, (err, result) => {
-                    helper.throwError(err)
-                    for (let i = 0; i < result.length; i++) {
-                        if (new Date(result[i].expiration_date) < new Date(Date.now())) {
-                            result[i].status = 0
-                        }
-                        result[i].code = helper.formatZipCode(result[i].code)
+                // UserModel.find(query, (err, result) => {
+                //     helper.throwError(err)
+                //     for (let i = 0; i < result.length; i++) {
+                //         if (new Date(result[i].expiration_date) < new Date(Date.now())) {
+                //             result[i].status = 0
+                //         }
+                //         result[i].code = helper.formatZipCode(result[i].code)
+                //     }
+
+                //     callback(result)
+                // }).limit((data.limit)).skip((data.offset)).sort(filter);
+
+
+                let result = await UserModel.find(query).limit(data.limit).skip(data.offset).sort(filter)
+
+                for (let i = 0; i < result.length; i++) {
+                    if (new Date(result[i].expiration_date) < new Date(Date.now())) {
+                        result[i].status = 0
                     }
 
-                    callback(result)
-                }).limit((data.limit)).skip((data.offset)).sort(filter);;
+                    const agency = await AgencyModel.findById(result[i].id_agency)
+                    if(helper.isDefine(agency)){
+                        result[i] = {
+                            ...result[i]._doc,
+                            agency :agency
+                        }
+                    }
+                }
+                callback(result)
             } else {
                 callback(null);
             }
@@ -792,16 +819,34 @@ io.sockets.on('connection', (socket) => {
                     }
                 }
 
-                UserModel.find(query, (err, result) => {
-                    helper.throwError(err)
-                    for (let i = 0; i < result.length; i++) {
-                        if (new Date(result[i].expiration_date) < new Date(Date.now())) {
-                            result[i].status = 0
-                        }
-                        result[i].code = helper.formatZipCode(result[i].code)
+                // UserModel.find(query, (err, result) => {
+                //     helper.throwError(err)
+                //     for (let i = 0; i < result.length; i++) {
+                //         if (new Date(result[i].expiration_date) < new Date(Date.now())) {
+                //             result[i].status = 0
+                //         }
+                //         result[i].code = helper.formatZipCode(result[i].code)
+                //     }
+                //     callback(result)
+                // }).limit((data.limit)).skip((data.offset)).sort(filter);;
+                let result = await UserModel.find(query).limit(data.limit).skip(data.offset).sort(filter)
+                
+                for (let i = 0; i < result.length; i++) {
+                    if (new Date(result[i].expiration_date) < new Date(Date.now())) {
+                        result[i].status = 0
                     }
-                    callback(result)
-                }).limit((data.limit)).skip((data.offset)).sort(filter);;
+
+                    const agency = await AgencyModel.findById(result[i].id_agency)
+                    if(helper.isDefine(agency)){
+                        result[i] = {
+                            ...result[i]._doc,
+                            agency :agency
+                        }
+                        
+                    }
+                }
+
+                callback(result)
             } else {
                 callback(null);
             }

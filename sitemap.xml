@@ -6,23 +6,28 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
 <loc>https://247nailsalons.com/</loc>
-<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 03:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>1.00</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=find-job</loc>
-<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 03:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=sell-salon</loc>
-<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 03:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=nail-supply</loc>
-<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 03:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-bao-luong-2-100-tuan-hon-an-chia-ca-nam--211</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/posts-jobs/can-tho-nails-gap--210</loc>
@@ -270,11 +275,6 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/tiem-nails-lon-nhat-vung-buford-bang-ga-tren-xa-lo-85-vao-exit-115-gan-mall-of-georgia-nam-giua-best-buy-va-target-rat-dong-khach-dang-can-nhieu-tho-bot-tho-tay-chan-nuoc-se-bao-luong-tuy-theo-tay-nghe-tu-900-1200-mot-tuan-cho-tho-lam-bot-gioi-biet-design-dip-sns-tcn-hoac-lam-duoc-eyelashes-facial-massage-biet-nhieu-thu-cang-tot-co-nhieu-uu-dai-cho-tho-biet-build-khach-co-2-managers-quan-ly-tiem-co-nguoi-don-dep-clean-up-sau-khi-tho-lam-xong-khong-khi-tiem-nhu-gia-dinh-khong-tranh-chap-co-phong-tro-cho-tho-o-xa-welcome-cap-doi-hay-vo-chong-chung-toi-co-them-nhieu-tiem-nails-chi-nhanh-o-bang-ga-sc-rat-dong-khach-dang-can-rat-nhieu-tho-va-nhan-vien-tap-vu-xin-lien-lac-anh-quang-so-864-201-5555-de-biet-them-chi-tiet-mong-duoc-hop-tac-vui-ve--196</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
 <loc>https://247nailsalons.com/posts-sell-salons/-can-sang-tiem-geneva-il-35</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
@@ -351,17 +351,17 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 </url>
 <url>
 <loc>https://247nailsalons.com/privacy-policy</loc>
-<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 03:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 03:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 03:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 </urlset>

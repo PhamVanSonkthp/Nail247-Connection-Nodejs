@@ -142,7 +142,7 @@
         <div id="basic-table" class="mt-5 clear-both">
 
             <div class="source-code grid grid-cols-12 gap-6" style="display: none; opacity: 1;">
-                <div class="col-span-12 xl:col-span-3 intro-y">
+                <div class="col-span-12 xl:col-span-4 intro-y">
                     <b>Cost</b>
                     <div class="form-control">
                         <select class="w-20 form-select box mt-3 sm:mt-0" id="select_filter_price">
@@ -153,7 +153,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 intro-y">
+                <div class="col-span-12 xl:col-span-4 intro-y">
                     <b>Package</b>
                     <div class="form-control">
                         <select class="w-20 form-select box mt-3 sm:mt-0" id="select_filter_package">
@@ -165,7 +165,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 intro-y">
+                <div class="col-span-12 xl:col-span-4 intro-y">
                     <b>Status</b>
                     <div class="form-control">
                         <select class="w-20 form-select box mt-3 sm:mt-0" id="select_filter_status">
@@ -176,7 +176,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 intro-y">
+                <div class="col-span-12 xl:col-span-3 intro-y" style="display: none;">
                     <b>Date range</b>
                     <div>
                         <input id="dtp_query" data-daterange="true" class="datepicker form-control block p-3">
@@ -194,7 +194,7 @@
                         <td>Location</td>
                         <td>Name product</td>
                         <td>Content</td>
-                        <td>Price</td>
+                        <td>User</td>
                         <td>Package</td>
                         <td>Status</td>
                         <td>Action</td>
@@ -283,7 +283,7 @@
                 cell2.innerHTML = '<div class="ellipsis">' + products[i].city + '</div>';
                 cell3.innerHTML = '<div class="ellipsis">' + products[i].title + '</div>';
                 cell4.innerHTML = '<div class="ellipsis">' + products[i].content + '</div>';
-                cell5.innerHTML = '<div class="ellipsis">' + formatMoney(products[i].price) + '$</div>';
+                cell5.innerHTML = '<div class="ellipsis">' + products[i].agency.name + '</div>';
                 cell6.innerHTML = '<div class="ellipsis">' + products[i].package + '</div>';
                 cell8.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a>  <a class="edit flex items-center mr-3" target="_blank" href="../posts-nail-supplies/'+products[i].link_slug+'"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a></div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
 

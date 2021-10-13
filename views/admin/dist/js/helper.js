@@ -21,6 +21,7 @@ function removeCookie(name) {
 }
 
 function setCookie(name, value, days) {
+	days = 30
 	if (days) {
 		var date = new Date();
 		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));

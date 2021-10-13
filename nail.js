@@ -200,10 +200,16 @@ app.get('/posts-jobs/:slug', async function(req, res) {
 
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
             resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
+            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "")
+            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "")
+            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
         object.content = object.content.replaceAll("\"", "")
+        object.title = object.title.replaceAll("\"", "")
+        object.name_salon = object.name_salon.replaceAll("\"", "")
+        object.address_salon = object.address_salon.replaceAll("\"", "")
         object = {
             post: object,
             related: resultRelated,

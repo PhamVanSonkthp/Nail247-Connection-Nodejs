@@ -15,6 +15,7 @@ router.post('/', async(req, res) => {
         const savedObject = await object.save();
         res.json(savedObject);
     } catch (err) {
+        helper.throwError(err)
         res.status(500).json(err);
     }
 });

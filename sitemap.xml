@@ -6,23 +6,28 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
 <loc>https://247nailsalons.com/</loc>
-<lastmod>Wed Oct 13 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>1.00</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=find-job</loc>
-<lastmod>Wed Oct 13 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=sell-salon</loc>
-<lastmod>Wed Oct 13 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=nail-supply</loc>
-<lastmod>Wed Oct 13 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-nails-gap--210</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/posts-jobs/luxury-nail-spa-are-looking-for-talent-nail-technicians-216</loc>
@@ -270,11 +275,6 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/cann-nhieu-tho-bot-eyelash-hoac-tho-lam-ever-ything--195</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
 <loc>https://247nailsalons.com/posts-sell-salons/-can-sang-tiem-geneva-il-35</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
@@ -350,103 +350,18 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-nail-supplies/a-16</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/khai-giang-khoa-ve-nail-15</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/may-atm-14</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/nails-evolution-13</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/wall-menu-cuc-ki-an-tuong-12</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/thiet-ke-web-deisgn-logo-myesalon-11</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/let-s-make-your-salon-great-10</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/pedicure-kit-4-in-1-9</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/pedicure-sale-t-spa-8</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/menu-thiet-ke-tiem-nail-7</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/ke-tu-nuoc-son-bot-dip-6</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/ban-linner-5</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/do-an-vat-dc-4</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/hang-co-san-opi-3</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/insurance-2</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/sale-luong-lon-khau-trang-1</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-nail-supplies/dnd-nail-polish-0</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
 <loc>https://247nailsalons.com/privacy-policy</loc>
-<lastmod>Wed Oct 13 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/terms-of-use</loc>
-<lastmod>Wed Oct 13 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Wed Oct 13 2021 02:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 </urlset>

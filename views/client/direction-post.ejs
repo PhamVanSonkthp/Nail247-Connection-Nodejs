@@ -4,6 +4,12 @@
 
     <script>
         function initMap() {
+
+            if(!isDefine(post)) {
+                $('#map2').hide()
+                return
+            }
+
             const uluru = { lat: post.location.coordinates[1], lng: post.location.coordinates[0] };
             const map = new google.maps.Map(document.getElementById("map2"), {
                 zoom: 15,

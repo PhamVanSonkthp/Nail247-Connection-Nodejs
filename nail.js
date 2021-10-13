@@ -671,19 +671,19 @@ io.sockets.on('connection', (socket) => {
                 }
 
                 let result = await UserModel.find(query).limit(data.limit).skip(data.offset).sort(filter)
-                
+
                 for (let i = 0; i < result.length; i++) {
                     if (new Date(result[i].expiration_date) < new Date(Date.now())) {
                         result[i].status = 0
                     }
 
                     const agency = await AgencyModel.findById(result[i].id_agency)
-                    if(helper.isDefine(agency)){
+                    if (helper.isDefine(agency)) {
                         result[i] = {
                             ...result[i]._doc,
-                            agency :agency
+                            agency: agency
                         }
-                        
+
                     }
                 }
 
@@ -760,10 +760,10 @@ io.sockets.on('connection', (socket) => {
                     }
 
                     const agency = await AgencyModel.findById(result[i].id_agency)
-                    if(helper.isDefine(agency)){
+                    if (helper.isDefine(agency)) {
                         result[i] = {
                             ...result[i]._doc,
-                            agency :agency
+                            agency: agency
                         }
                     }
                 }
@@ -830,19 +830,19 @@ io.sockets.on('connection', (socket) => {
                 //     callback(result)
                 // }).limit((data.limit)).skip((data.offset)).sort(filter);;
                 let result = await UserModel.find(query).limit(data.limit).skip(data.offset).sort(filter)
-                
+
                 for (let i = 0; i < result.length; i++) {
                     if (new Date(result[i].expiration_date) < new Date(Date.now())) {
                         result[i].status = 0
                     }
 
                     const agency = await AgencyModel.findById(result[i].id_agency)
-                    if(helper.isDefine(agency)){
+                    if (helper.isDefine(agency)) {
                         result[i] = {
                             ...result[i]._doc,
-                            agency :agency
+                            agency: agency
                         }
-                        
+
                     }
                 }
 
@@ -1269,13 +1269,13 @@ io.sockets.on('connection', (socket) => {
 
                 let results = [0, 0, 0, 0]
 
-                let query = {};
-                if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-                    query = {
-                        ...query,
-                        $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-                    }
-                }
+                let query = {}
+                    // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+                    //     query = {
+                    //         ...query,
+                    //         $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+                    //     }
+                    // }
 
                 if (helper.isDefine(data.package)) {
                     query = {

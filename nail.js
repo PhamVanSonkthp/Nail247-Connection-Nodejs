@@ -251,20 +251,19 @@ app.get('/posts-sell-salons/:slug', async function(req, res) {
         for (let i = 0; i < resultRelated.length; i++) {
             if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
                 resultRelated[i].status = 0
-                resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
             }
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-            resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
-            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "")
-            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "")
-            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "")
+            resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
+            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
+            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
+            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
-        object.content = object.content.replaceAll("\"", "")
-        object.title = object.title.replaceAll("\"", "")
-        object.name_salon = object.name_salon.replaceAll("\"", "")
-        object.address_salon = object.address_salon.replaceAll("\"", "")
+        object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
+        object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
+        object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
+        object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
 
         object = {
             post: object,
@@ -306,7 +305,6 @@ app.get('/posts-nail-supplies/:slug', async function(req, res) {
         for (let i = 0; i < resultRelated.length; i++) {
             if ((new Date(Date.now())) > (new Date(resultRelated[i].expiration_date))) {
                 resultRelated[i].status = 0
-                resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "")
             }
 
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)

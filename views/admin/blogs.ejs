@@ -14,24 +14,45 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="mt-2">
-                        <b>Title:</b>
-                        <input id="EdtTitleProduct" class="form-control" disabled>
-                    </div>
+                    <form id="form_upload_blog_update" enctype="multipart/form-data" method="post">
 
-                    <div class="mt-2">
-                        <b>Content:</b>
-                        <div id="EdtContentProduct" class="form-control" disabled></div>
-                    </div>
+                        <input id="id_post" name="id_post" class="form-control" style="display: none;">
+                        <div class="mt-2">
+                            <b>Image title:</b>
+                            <div>
+                                <input autocomplete="off" type="file" name="avatar" id="inputSelectMoreImageUpdate" accept="image/*" onchange="onChangeImageUpdate()" multiple>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <img id="ImageTitleProduct" style="max-height: 200px;" />
+                        </div>
 
-                    <div class="form-group mt-2">
-                        <b>Delete:</b>
-                        <button type="button" onclick="deleteProduct()" class="btn btn-sm btn-danger ml-2">Delete</button>
-                        <span class="ml-2">click to delete this post</span>
-                    </div>
+                        <div class="mt-2">
+                            <b>Title:</b>
+                            <input id="EdtTitleProduct" name="title" class="form-control">
+                        </div>
 
+                        <div class="mt-2">
+                            <b>Content:</b>
+                            <textarea id="EdtContentProduct" class="form-control"></textarea>
+                            <input id="EdtContentProductHiden" name="content" class="form-control" style="display: none;">
+                        </div>
+
+                        <div class="mt-2">
+                            <b>Tags:</b>
+                            <input id="EdtTags" name="tags" class="form-control">
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <b>Delete:</b>
+                            <button type="button" onclick="deleteProduct()" class="btn btn-sm btn-danger ml-2">Delete</button>
+                            <span class="ml-2">click to delete this blog</span>
+                        </div>
+                    </form>
                 </div>
+
                 <div class="mt-5 modal-footer border-top-0 d-flex justify-content-between">
+                    <button onclick="updateBlog()" type="button" class="btn btn-warning float-left text-white">Update</button>
                     <button onclick="toggleModalAddProduct()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -68,20 +89,19 @@
                         <div class="mt-2">
                             <b>Content:</b>
                             <textarea id="editor"></textarea>
-                            <input id="blog_content" name="content" class="form-control">
+                            <input id="blog_content" name="content" class="form-control" style="display: none;">
                         </div>
 
                         <div class="mt-2">
                             <b>Tags:</b>
                             <input id="blog_tags" name="tags" placeholder="Split by: ' , ' " class="form-control">
-
                         </div>
                     </form>
                 </div>
                 <div class="mt-5 modal-footer border-top-0 d-flex justify-content-between">
                     <button type="button" onclick="submitBlog()" class="btn btn-success" style="float: left;">POST</button>
 
-                    <button onclick="toggleModalAddProduct()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button onclick="toggleModalAddBlog()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -217,6 +237,7 @@
         var count = 0;
         var products = [];
         var index_edit;
+        var numberPage = 0
 
         function onShowFilter() {
             if ($("#basic-table > div").hasClass("d-grid")) {
@@ -352,7 +373,7 @@
             toggleModalAddProduct();
 
             showLoading();
-            socket.emit('delete-posts-jobs', {
+            socket.emit('delete-posts-blog', {
                 _id: getCookie('_id'),
                 password: getCookie('password'),
                 id_product: products[index_edit]._id
@@ -368,45 +389,27 @@
         }
 
         function editProduct(i) {
-            index_edit = i;
-            $('#EdtNameProduct').val(products[i].name_salon);
-            $('#EdtPhoneProduct').val(products[i].phone);
-            $('#EdtEmailProduct').val(products[i].email);
-            $('#EdtAddressProduct').val(products[i].city);
-            $('#EdtCodeProduct').val(products[i].code);
-            $('#EdtTitleProduct').val(products[i].title);
-            $('#EdtContentProduct').html(products[i].content);
-            $('#lbl_cost_product').html(formatMoney(products[i].cost) + ' $ / Week');
+            index_edit = i
+            $('#id_post').val(products[i]._id)
+            $('#ImageTitleProduct').attr('src', '../public/images-blogs/' + products[i].image_title)
+            $('#EdtTitleProduct').val(products[i].title)
 
-            $('#container_images_products').empty();
-            if (!empty(products[i].images)) {
-                $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
+            myEditorUpdate.data.set(products[i].content)
 
-                for (let j = 0; j < products[i].images.length; j++) {
-                    $('#container_images_products').append(' <div class="h-45 px-2 tns-item" id="tns4-item3" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <img src="' + urlImagePostJobs + products[i].images[j] + '" data-action="zoom" class="w-full rounded-md"> </div> </div>');
+            let tags = ''
+            for (let j = 0; isDefine(products[i].tag) && j < products[i].tag.length; j++) {
+                if (j != products[i].tag.length - 1) {
+                    tags += products[i].tag[j] + ', '
+                } else {
+                    tags += products[i].tag[j]
                 }
-
-                $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
-                $('#container_images_products').append('<<div class="h-45 px-2 tns-item tns-slide-cloned tns-transparent" aria-hidden="true" tabindex="-1"> <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md"> <h3 class="h-full font-medium flex items-center justify-center text-2xl">1</h3> </div> </div>');
             }
+            $('#EdtTags').val(tags)
 
-            toggleModalAddProduct();
-
-            if (products[i].status == 1) {
-                $('#btn_active').html('Active');
-                $('#btn_active').addClass('btn-success');
-                $('#btn_active').removeClass('btn-danger');
-            } else {
-                $('#btn_active').html('Not Active');
-                $('#btn_active').addClass('btn-danger');
-                $('#btn_active').removeClass('btn-success');
-            }
+            toggleModalAddProduct()
         }
 
         $(document).ready(function() {
-
-
             const dateObj = new Date();
             const month = monthNames[dateObj.getMonth()];
             const day = String(dateObj.getDate()).padStart(2, '0');
@@ -434,7 +437,7 @@
     <script src="../views/admin/dist/ckeditor5-build-classic/ckeditor.js"></script>
 
     <script>
-        var myEditor;
+        var myEditor, myEditorUpdate
 
         ClassicEditor
             .create(document.querySelector('#editor'), {
@@ -450,11 +453,31 @@
             .catch(err => {
                 console.error(err.stack);
             });
+
+        ClassicEditor
+            .create(document.querySelector('#EdtContentProduct'), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+                // ckfinder: {
+                //     uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                // }
+
+            })
+            .then(editor => {
+                myEditorUpdate = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
     </script>
 
 
     <script>
         function onChangeImage() {
+            $('.imageuploadify-container').remove()
+            checkFileBig()
+        }
+
+        function onChangeImageUpdate() {
             $('.imageuploadify-container').remove()
             checkFileBig()
         }
@@ -481,6 +504,66 @@
         function isMaxFile() {
             return $('#inputSelectMoreImage').prop('files').length > 1
         }
+
+        function isMaxFileUpdate() {
+            return $('#inputSelectMoreImageUpdate').prop('files').length > 1
+        }
+
+
+        function updateBlog() {
+
+            if (isMaxFileUpdate()) {
+                alert('Please choose only one image title')
+                $('.imageuploadify-container').remove()
+                return
+            }
+
+            if ($('#EdtTitleProduct').val().length <= 0) {
+                alert('Title is not allow empty')
+                return
+            }
+
+            if (myEditorUpdate.getData().length <= 0) {
+                alert('Content is not allow empty')
+                return
+            }
+
+            $('#EdtContentProductHiden').val(myEditorUpdate.getData())
+
+
+            showLoading()
+            toggleModalAddProduct()
+            $('#form_upload_blog_update').unbind()
+
+            $('#form_upload_blog_update').on('submit', (function(e) {
+                e.preventDefault()
+                var formData = new FormData(this)
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/blog',
+                    headers: {
+                        token: 'infinifyltd'
+                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        location.reload()
+                    },
+                    error: function(data) {
+                        alert('error')
+                        toggleModalAddProduct()
+                        hideLoading()
+                    }
+                })
+
+            }))
+
+            $('#form_upload_blog_update').submit()
+        }
+
 
         function submitBlog() {
             if (isEmptyFile()) {

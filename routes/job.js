@@ -349,19 +349,20 @@ router.get('/featured', async (req, res) => {
 
         let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
 
-        const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page);
-
+        //const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page);
+        const result = await ObjectModel.aggregate([{ $match: query }, { $sample: { size: Math.max(limit , 50) } }])
+        
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             for (let i = 0; i < result.length; i++) {
                 result[i] = {
-                    ...result[i]._doc,
+                    ...result[i],
                     distance: helper.getDistanceFromLatLonInKm(result[i].location.coordinates[0], result[i].location.coordinates[1], latitude, longitude)
                 }
             }
         } else {
             for (let i = 0; i < result.length; i++) {
                 result[i] = {
-                    ...result[i]._doc,
+                    ...result[i],
                     distance: 'Unknown'
                 }
             }

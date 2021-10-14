@@ -20,7 +20,7 @@ const SellSalonPostModel = require('./models/SellSalon')
 const NailSupplyPostModel = require('./models/NailSupply')
 const AgencyModel = require('./models/Agency')
 const ContactModel = require('./models/ContactUs')
-
+const BlogModel = require('./models/Blog')
 
 //#endregion
 app.set('views', './views')
@@ -199,17 +199,17 @@ app.get('/posts-jobs/:slug', async function(req, res) {
             }
 
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-            if(helper.isDefine(resultRelated[i].content)) resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
-            if(helper.isDefine(resultRelated[i].title)) resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
-            if(helper.isDefine(resultRelated[i].name_salon)) resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
-            if(helper.isDefine(resultRelated[i].address_salon)) resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].content)) resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].title)) resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].name_salon)) resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].address_salon)) resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
-        if(helper.isDefine(object.content)) object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
-        if(helper.isDefine(object.title)) object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
-        if(helper.isDefine(object.name_salon)) object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
-        if(helper.isDefine(object.address_salon)) object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.content)) object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.title)) object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.name_salon)) object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.address_salon)) object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
 
         object = {
             post: object,
@@ -254,17 +254,17 @@ app.get('/posts-sell-salons/:slug', async function(req, res) {
                 resultRelated[i].status = 0
             }
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-            if(helper.isDefine(resultRelated[i].content)) resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
-            if(helper.isDefine(resultRelated[i].title)) resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
-            if(helper.isDefine(resultRelated[i].name_salon)) resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
-            if(helper.isDefine(resultRelated[i].address_salon)) resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].content)) resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].title)) resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].name_salon)) resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].address_salon)) resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
-        if(helper.isDefine(object.content)) object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
-        if(helper.isDefine(object.title)) object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
-        if(helper.isDefine(object.name_salon)) object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
-        if(helper.isDefine(object.address_salon)) object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.content)) object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.title)) object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.name_salon)) object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.address_salon)) object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
 
         object = {
             post: object,
@@ -309,17 +309,17 @@ app.get('/posts-nail-supplies/:slug', async function(req, res) {
             }
 
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-            if(helper.isDefine(resultRelated[i].content)) resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
-            if(helper.isDefine(resultRelated[i].title)) resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
-            if(helper.isDefine(resultRelated[i].name_salon)) resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
-            if(helper.isDefine(resultRelated[i].address_salon)) resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].content)) resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].title)) resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].name_salon)) resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if (helper.isDefine(resultRelated[i].address_salon)) resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
-        if(helper.isDefine(object.content)) object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
-        if(helper.isDefine(object.title)) object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
-        if(helper.isDefine(object.name_salon)) object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
-        if(helper.isDefine(object.address_salon)) object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.content)) object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.title)) object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.name_salon)) object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if (helper.isDefine(object.address_salon)) object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
         object = {
             post: object,
             related: resultRelated,
@@ -357,12 +357,45 @@ app.get('/privacy-policy', function(req, res) {
     res.render('./client/privacy-policy')
 })
 
-app.get('/blog', function(req, res) {
-    res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain })
+app.get('/blog', async function(req, res) {
+    const relate = await BlogModel.find().sort({ _id: -1 }).limit(9)
+
+    for (let i = 0; i < relate.length; i++) {
+        if (helper.isDefine(relate[i].title)) relate[i].title = relate[i].title.replaceAll("\"").replaceAll("\'")
+        if (helper.isDefine(relate[i].image_title)) relate[i].image_title = relate[i].image_title.replaceAll("\"").replaceAll("\'")
+        if (helper.isDefine(relate[i].content)) relate[i].content = relate[i].content.replaceAll("\"").replaceAll("\'")
+        if (helper.isDefine(relate[i].tag)) {
+            for (let j = 0; j < relate[i].tag.length; j++) {
+                relate[i].tag[j] = relate[i].tag[j].replaceAll("\"").replaceAll("\'")
+            }
+        }
+    }
+
+    res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate) })
 })
 
-app.get('/blog/:slug', function(req, res) {
-    res.render('./client/detail-blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain })
+app.get('/blog/:slug', async function(req, res) {
+    try {
+        const result = await BlogModel.findOne({ link_slug: req.params.slug })
+        const relate = await BlogModel.aggregate([{ $sample: { size: 5 } }])
+
+        for (let i = 0; i < relate.length; i++) {
+            if (helper.isDefine(relate[i].title)) relate[i].title = relate[i].title.replaceAll("\"").replaceAll("\'")
+            if (helper.isDefine(relate[i].image_title)) relate[i].image_title = relate[i].image_title.replaceAll("\"").replaceAll("\'")
+            if (helper.isDefine(relate[i].content)) relate[i].content = relate[i].content.replaceAll("\"").replaceAll("\'")
+            if (helper.isDefine(relate[i].tag)) {
+                for (let j = 0; j < relate[i].tag.length; j++) {
+                    relate[i].tag[j] = relate[i].tag[j].replaceAll("\"").replaceAll("\'")
+                }
+            }
+        }
+
+        res.render('./client/detail-blog', { url: domain + 'blog' + result.link_slug, title: result.title, content: result.content, image: domain + 'public/images-blogs/' + result.image_title, tags: result.tag, createdAt: result.createdAt, relate: JSON.stringify(relate) })
+    } catch (err) {
+        helper.throwError(err)
+        res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain })
+    }
+
 })
 
 app.get('/contact', async(req, res) => {
@@ -1587,6 +1620,26 @@ io.sockets.on('connection', (socket) => {
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
                 const UserModel = require('./models/Job');
+                let query = { _id: sanitize(data.id_product) }
+
+                UserModel.deleteOne(query, (err, result) => {
+                    if (err) helper.throwError(err);
+                    callback(result);
+                });
+            } else {
+                callback(null);
+            }
+        } catch (e) {
+            helper.throwError(e);
+            callback(null);
+        }
+    })
+
+    socket.on('delete-posts-blog', async(data, callback) => {
+        trafficsSocket(socket)
+        try {
+            if (data != null && await helper.checkLogin(data._id, data.password)) {
+                const UserModel = require('./models/Blog');
                 let query = { _id: sanitize(data.id_product) }
 
                 UserModel.deleteOne(query, (err, result) => {

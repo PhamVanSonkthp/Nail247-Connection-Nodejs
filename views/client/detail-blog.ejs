@@ -20,7 +20,9 @@
         <meta property="og:description" content="<%- removeHTMLTags(content) %>" />
         <meta property="og:image" content="<%- image %>" />
 
-        <title>247 Nail Salons - Tim Tho Nail | Ban Tiem Nail | Mua Ban Nail Supply</title>
+        <title>
+            <%- title %>
+        </title>
         <link href="../views/client/dist/images/icon.png" rel="shortcut icon">
 
         <!-- BEGIN: CSS Assets-->
@@ -29,6 +31,9 @@
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
         <!-- END: CSS Assets-->
+
+        <script src="../views/client/dist/js/jquery.min.js"></script>
+
     </head>
 
     <body>
@@ -54,32 +59,23 @@
                     <div class="grid grid-cols-12 gap-6">
                         <div class="col-span-12 xl:col-span-9" style="position: relative;">
 
-                            <a class="post-category-item" href="https://demo.artureanec.com/themes/cosmecos-new/category/body-care/">BodyCare</a>
+                            <a class="post-category-item">BodyCare</a>
 
                             <div>
-                                <img src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/beautiful-face-young-adult-woman-with-clean-fresh-skin-isolated-white-2-1170x538.jpg" />
+                                <img src="<%- image %>" />
                             </div>
 
-                            <div class="post-meta-header mb-5 mt-5">
-                                <div class="post-meta-item post-meta-item-date"><a href="https://demo.artureanec.com/themes/cosmecos-new/2020/12/01/">December 1, 2020</a></div>
-                                <div class="post-meta-item post-meta-item-author">By <a href="https://demo.artureanec.com/themes/cosmecos-new/author/admin/">admin</a></div>
-                            </div>
-
-                            <h3 class="post-title">Color Correcy with Loose Setting Powder</h3>
-
-                            <div class="post-content">
-
-                                <p>False brotula viperfish tenpounder tube-eye capelin flathead central mudminnow sillago; crocodile shark featherfin knifefish piranha cod icefish bullhead, wasp fish. Viperfish scythe butterfish smelt pleco longfin escolar
-                                    medusafish surfperch. Australian herring: Pacific viperfish grenadier orangestriped hatchetfish pearl danio leatherjacket. Butterflyfish crocodile shark zebra shark sergeant major peladillo ziege gunnel sea bream cavefish
-                                    cobbler electric catfish medaka central mudminnow wasp fish jewel tetra.</p>
-
-
-
-                                <p>Snakehead hillstream loach salmon: black dragonfish man-of-war fish flyingfish yellow-and-black triplefin, mouthbrooder, orbicular velvetfish emperor bream sprat, wrasse thorny catfish. Gurnard leatherjacket nase tenuis
-                                    flagfish zebra trout collared carpetshark, yellow-and-black triplefin ayu yellow jack.</p>
-
+                            <div class="post-meta-header mb-5 mt-5" id="container_date_post">
 
                             </div>
+
+                            <h1 class="post-title" style="font-size: 38px;line-height: 1.4737em;">
+                                <%- title %>
+                            </h1>
+
+                            <h3 class="post-content">
+                                <%- content %>
+                            </h3>
 
                         </div>
 
@@ -89,92 +85,16 @@
                                 <span style="font-size: 2rem;">Latest Posts</span>
                             </h4>
 
-                            <div class="grid grid-cols-3 gap-6 mt-4">
-                                <div class="col-span-1">
-                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
-                                </div>
-                                <div class="col-span-2">
-                                    <div>
-                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
-                                    </div>
-                                    <div class="featured-posts-item-date mt-4">
-                                        DECEMBER 2, 2020
-                                    </div>
-                                </div>
+                            <div id="container_blogs_relate">
+
                             </div>
-                            <div class="grid grid-cols-3 gap-6 mt-4">
-                                <div class="col-span-1">
-                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
-                                </div>
-                                <div class="col-span-2">
-                                    <div>
-                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
-                                    </div>
-                                    <div class="featured-posts-item-date mt-4">
-                                        DECEMBER 2, 2020
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-6 mt-4">
-                                <div class="col-span-1">
-                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
-                                </div>
-                                <div class="col-span-2">
-                                    <div>
-                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
-                                    </div>
-                                    <div class="featured-posts-item-date mt-4">
-                                        DECEMBER 2, 2020
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-6 mt-4">
-                                <div class="col-span-1">
-                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
-                                </div>
-                                <div class="col-span-2">
-                                    <div>
-                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
-                                    </div>
-                                    <div class="featured-posts-item-date mt-4">
-                                        DECEMBER 2, 2020
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-6 mt-4">
-                                <div class="col-span-1">
-                                    <img width="100%" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2020/11/thoughtful-thinking-attractive-young-lady-with-make-up-perfect-hairstyle-2-100x100.jpg" />
-                                </div>
-                                <div class="col-span-2">
-                                    <div>
-                                        <a class="featured-posts-item-link" href="#">Choose Your Foundation Cream</a>
-                                    </div>
-                                    <div class="featured-posts-item-date mt-4">
-                                        DECEMBER 2, 2020
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="widget-wrapper">
                                 <h4 class="widget-title mt-5">
                                     <span style="font-size: 2rem;">Tags</span>
                                 </h4>
-                                <div class="tagcloud">
-                                    <h2 class="tag-cloud-link">
-                                        Cosmetic
-                                    </h2>
-                                    <h2 class="tag-cloud-link">
-                                        Cosmetic
-                                    </h2>
-                                    <h2 class="tag-cloud-link">
-                                        Cosmetic
-                                    </h2>
-                                    <h2 class="tag-cloud-link">
-                                        Cosmetic
-                                    </h2>
-                                    <h2 class="tag-cloud-link">
-                                        Cosmetic
-                                    </h2>
+                                <div class="tagcloud" id="container_tags">
                                 </div>
                             </div>
 
@@ -191,6 +111,30 @@
                 </div>
             </div>
 
+            <script>
+                let related = '<%- relate %>'
+                let tags = '<%- tags %>'
+                related = JSON.parse(related)
+                let pageRelate = ''
+                let pageTags = ''
+                for (let i = 0; i < related.length; i++) {
+                    pageRelate += '<div class="grid grid-cols-3 gap-6 mt-4"><div class="col-span-1"><img width="100%" src="../public/images-blogs/' + related[i].image_title + '" /></div><div class="col-span-2"><div><a class="featured-posts-item-link" href="../blog/' + related[i].link_slug + '">' + related[i].title + '</a></div><div class="featured-posts-item-date mt-4">' + new Date(related[i].createdAt) + '</div></div></div>'
+                }
+
+                $('#container_blogs_relate').html(pageRelate)
+
+                if (tags) {
+                    tags = tags.split(',')
+                    for (let i = 0; i < tags.length; i++) {
+                        pageTags += '<h2 class="tag-cloud-link">' + tags[i] + '</h2>'
+                        $('#container_tags').html(pageTags)
+                    }
+                }
+
+                let createdAtBlog = '<%- createdAt %>'
+
+                $('#container_date_post').html('<div class="post-meta-item post-meta-item-date"><a>' + new Date(createdAtBlog) + ' by admin</a></div>')
+            </script>
     </body>
 
 </html>

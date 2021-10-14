@@ -6,751 +6,696 @@ function removeHTMLTags(html) {
 	return html.replace(regX, "")
 }
 %>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Infinity ltd">
-    <meta name="keyword" content="<%- title %>">
-    <meta name="promotion" content="<%- removeHTMLTags(content) %>">
-    <meta name="Description" content="<%- removeHTMLTags(content) %>">
 
-    <meta property="og:url" content="<%- url %>" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="<%- title %>" />
-    <meta property="og:description" content="<%- removeHTMLTags(content) %>" />
-    <meta property="og:image" content="<%- image %>" />
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Infinity ltd">
+        <meta name="keyword" content="<%- title %>">
+        <meta name="promotion" content="<%- removeHTMLTags(content) %>">
+        <meta name="Description" content="<%- removeHTMLTags(content) %>">
 
-    <title>247 Nail Salons - Tim Tho Nail | Ban Tiem Nail | Mua Ban Nail Supply</title>
-    <link href="../views/client/dist/images/icon.png" rel="shortcut icon">
+        <meta property="og:url" content="<%- url %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="<%- title %>" />
+        <meta property="og:description" content="<%- removeHTMLTags(content) %>" />
+        <meta property="og:image" content="<%- image %>" />
 
-    <!-- BEGIN: CSS Assets-->
-    <link rel="stylesheet" href="../views/client/dist/css/app.css" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <!-- END: CSS Assets-->
+        <title>247 Nail Salons - Tim Tho Nail | Ban Tiem Nail | Mua Ban Nail Supply</title>
+        <link href="../views/client/dist/images/icon.png" rel="shortcut icon">
 
-    <script src="../views/client/dist/js/jquery.min.js"></script>
+        <!-- BEGIN: CSS Assets-->
+        <link rel="stylesheet" href="../views/client/dist/css/app.css" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+        <!-- END: CSS Assets-->
 
-    <script src="./../../node_modules/socket.io/client-dist/socket.io.js"></script>
-    <script src="../views/client/dist/js/helper.js"></script>
-    <script src="../views/client/dist/js/sha512.min.js"></script>
+        <script src="../views/client/dist/js/jquery.min.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+        <script src="./../../node_modules/socket.io/client-dist/socket.io.js"></script>
+        <script src="../views/client/dist/js/helper.js"></script>
+        <script src="../views/client/dist/js/sha512.min.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
 
 
 
-    <script>
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyByAN0Lwe4gjsXn3oSUqIIHdkZYrYKVCqY",
-            authDomain: "nailsalons-60488.firebaseapp.com",
-            projectId: "nailsalons-60488",
-            storageBucket: "nailsalons-60488.appspot.com",
-            messagingSenderId: "385953410674",
-            appId: "1:385953410674:web:93eb4c5025e5e1a3891ceb",
-            measurementId: "G-V62BPYJJXX"
-        }
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-    </script>
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                    apiKey: "AIzaSyByAN0Lwe4gjsXn3oSUqIIHdkZYrYKVCqY",
+                    authDomain: "nailsalons-60488.firebaseapp.com",
+                    projectId: "nailsalons-60488",
+                    storageBucket: "nailsalons-60488.appspot.com",
+                    messagingSenderId: "385953410674",
+                    appId: "1:385953410674:web:93eb4c5025e5e1a3891ceb",
+                    measurementId: "G-V62BPYJJXX"
+                }
+                // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
 
-    <style>
-        html,
-        body {
-            height: 100%;
-            /* background-color: #fafbfe; */
-            background: white;
-            padding: 0 !important;
-            line-height: normal !important;
-        }
-
-        .border-gold {
-            border-radius: 1rem;
-            box-shadow: 0px 4px 6px rgb(186 148 62) !important
-        }
-
-        .border-silver {
-            border-radius: 1rem;
-            box-shadow: 0px 4px 6px #bdbdbd;
-        }
-
-        .border-normal {
-            border-radius: 1rem;
-            box-shadow: 0px 4px 6px #bdbdbd;
-        }
-
-        .text-gold {
-            /* font-size: 5vw; */
-            text-transform: uppercase;
-            font-weight: bold;
-            line-height: 1;
-            text-align: center;
-            background: linear-gradient(90deg, rgba(186, 148, 62, 1) 0%, rgba(236, 172, 32, 1) 20%, rgba(186, 148, 62, 1) 39%, rgba(249, 244, 180, 1) 50%, rgba(186, 148, 62, 1) 60%, rgba(236, 172, 32, 1) 80%, rgba(186, 148, 62, 1) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 3s infinite;
-            background-size: 200%;
-            background-position: left;
-
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
-
-        .color-placeholder:focus {
-            outline: none !important;
-            border: 1px solid red !important;
-            /* box-shadow: 0 0 10px #719ECE; */
-        }
-
-        .ellipsis-1 {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 1 !important;
-            /* number of lines to show */
-            -webkit-box-orient: vertical;
-        }
-
-        .ellipsis-2 {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2 !important;
-            /* number of lines to show */
-            -webkit-box-orient: vertical;
-        }
-
-        .slick-slide,
-        .slick-track {
-            min-width: 10rem;
-        }
-
-        .no-border {
-            border: 0 !important;
-            box-shadow: none !important;
-            /* You may want to include this as bootstrap applies these styles too */
-        }
-
-        .header {
-            background-image: url("../views/client/dist/images/bg.png");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .logo>a>img {
-            width: 80%;
-            max-width: 20rem;
-        }
-
-        .wrap-download-app {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .wrap-download-app>a>img {
-            max-width: 10rem;
-            margin: 0.5rem;
-        }
-
-        .search-box {
-            max-width: 50rem;
-            margin: auto;
-        }
-
-        .color-primary {
-            color: #ef4c8c !important;
-        }
-
-        .bg-primary {
-            background-color: #eb1b6c !important;
-        }
-
-        .active {
-            border-color: #eb1b6c !important;
-        }
-
-        #container_drop_result {
-            position: relative;
-
-        }
-
-        #container_drop_result>div {
-            position: absolute;
-            z-index: 100;
-            max-height: 28rem;
-            overflow-y: auto;
-        }
-
-        #container_drop_result>div>div:hover {
-            background-color: #ef4c8c;
-            color: white;
-        }
-
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
-
-        .sidenav a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .sidenav a:hover {
-            color: #f1f1f1;
-        }
-
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-            z-index: 1000;
-        }
-
-        ul {
-            list-style-type: circle;
-            padding-left: 2rem;
-        }
-
-        .divider {
-            position: relative;
-            margin-top: 3rem;
-            height: 0.1rem;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #e6e6e6;
-        }
-
-        .div-transparent:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 5%;
-            right: 5%;
-            width: 90%;
-            height: 1px;
-            background-image: linear-gradient(to right, transparent, rgb(48, 49, 51), transparent);
-        }
-
-        .color-placeholder::-webkit-input-placeholder {
-            color: #eb1b6c
-        }
-
-        .pagination {
-            display: -ms-flexbox;
-            display: flex;
-            padding-left: 0;
-            list-style: none;
-            border-radius: 0.25rem;
-        }
-
-        .page-item:first-child .page-link {
-            margin-left: 0;
-            border-top-left-radius: 0.25rem;
-            border-bottom-left-radius: 0.25rem;
-        }
-
-        .page-item:last-child .page-link {
-            border-top-right-radius: 0.25rem;
-            border-bottom-right-radius: 0.25rem;
-        }
-
-        .page-item.active .page-link {
-            z-index: 3;
-            color: #fff;
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-        .page-item.disabled .page-link {
-            color: #6c757d;
-            pointer-events: none;
-            cursor: auto;
-            background-color: #fff;
-            border-color: #dee2e6;
-        }
-
-        .pagination-lg .page-item:first-child .page-link {
-            border-top-left-radius: 0.3rem;
-            border-bottom-left-radius: 0.3rem;
-        }
-
-        .pagination-lg .page-item:last-child .page-link {
-            border-top-right-radius: 0.3rem;
-            border-bottom-right-radius: 0.3rem;
-        }
-
-        .pagination-sm .page-link {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
-            line-height: 1.5;
-        }
-
-        .pagination-sm .page-item:first-child .page-link {
-            border-top-left-radius: 0.2rem;
-            border-bottom-left-radius: 0.2rem;
-        }
-
-        .pagination-sm .page-item:last-child .page-link {
-            border-top-right-radius: 0.2rem;
-            border-bottom-right-radius: 0.2rem;
-        }
-
-        .page-link {
-            position: relative;
-            display: block;
-            padding: 0.5rem 0.75rem;
-            margin-left: -1px;
-            line-height: 1.25;
-            color: #007bff;
-            background-color: #fff;
-            border: 1px solid #dee2e6;
-        }
-
-        .page-link:hover {
-            z-index: 2;
-            color: #0056b3;
-            text-decoration: none;
-            background-color: #e9ecef;
-            border-color: #dee2e6;
-        }
-
-        .page-link:focus {
-            z-index: 3;
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-
-        .page-item:first-child .page-link {
-            margin-left: 0;
-            border-top-left-radius: 0.25rem;
-            border-bottom-left-radius: 0.25rem;
-        }
-
-        .page-item:last-child .page-link {
-            border-top-right-radius: 0.25rem;
-            border-bottom-right-radius: 0.25rem;
-        }
-
-        .page-item.active .page-link {
-            z-index: 3;
-            color: #fff;
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-        .page-item.disabled .page-link {
-            color: #6c757d;
-            pointer-events: none;
-            cursor: auto;
-            background-color: #fff;
-            border-color: #dee2e6;
-        }
-
-        .pagination-lg .page-link {
-            padding: 0.75rem 1.5rem;
-            font-size: 1.25rem;
-            line-height: 1.5;
-        }
-
-        .pagination-lg .page-item:first-child .page-link {
-            border-top-left-radius: 0.3rem;
-            border-bottom-left-radius: 0.3rem;
-        }
-
-        .pagination-lg .page-item:last-child .page-link {
-            border-top-right-radius: 0.3rem;
-            border-bottom-right-radius: 0.3rem;
-        }
-
-        .pagination-sm .page-link {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
-            line-height: 1.5;
-        }
-
-        .pagination-sm .page-item:first-child .page-link {
-            border-top-left-radius: 0.2rem;
-            border-bottom-left-radius: 0.2rem;
-        }
-
-        .pagination-sm .page-item:last-child .page-link {
-            border-top-right-radius: 0.2rem;
-            border-bottom-right-radius: 0.2rem;
-        }
-
-        .container {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        @media screen and (max-height: 450px) {
-            .sidenav {
-                padding-top: 15px;
+        <style>
+            html,
+            body {
+                height: 100%;
+                /* background-color: #fafbfe; */
+                background: white;
+                padding: 0 !important;
+                line-height: normal !important;
             }
-
-            .sidenav a {
-                font-size: 18px;
+            
+            .border-gold {
+                border-radius: 1rem;
+                box-shadow: 0px 4px 6px rgb(186 148 62) !important
             }
-        }
-
-        @media (max-width:640px) {
-
-            #container_search {
-                padding-bottom: 1rem;
-                margin-top: 1rem;
+            
+            .border-silver {
+                border-radius: 1rem;
+                box-shadow: 0px 4px 6px #bdbdbd;
             }
-
-            .menu-right {
-                display: none;
+            
+            .border-normal {
+                border-radius: 1rem;
+                box-shadow: 0px 4px 6px #bdbdbd;
             }
-
-            h1 {
-                padding: 2rem;
+            
+            .text-gold {
+                /* font-size: 5vw; */
+                text-transform: uppercase;
+                font-weight: bold;
+                line-height: 1;
+                text-align: center;
+                background: linear-gradient(90deg, rgba(186, 148, 62, 1) 0%, rgba(236, 172, 32, 1) 20%, rgba(186, 148, 62, 1) 39%, rgba(249, 244, 180, 1) 50%, rgba(186, 148, 62, 1) 60%, rgba(236, 172, 32, 1) 80%, rgba(186, 148, 62, 1) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: shine 3s infinite;
+                background-size: 200%;
+                background-position: left;
             }
-
+            
+             ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+            
+             ::-webkit-scrollbar {
+                width: 5px;
+            }
+            
+             ::-webkit-scrollbar-thumb {
+                background: #888;
+            }
+            
+            .color-placeholder:focus {
+                outline: none !important;
+                border: 1px solid red !important;
+                /* box-shadow: 0 0 10px #719ECE; */
+            }
+            
+            .ellipsis-1 {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1 !important;
+                /* number of lines to show */
+                -webkit-box-orient: vertical;
+            }
+            
+            .ellipsis-2 {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2 !important;
+                /* number of lines to show */
+                -webkit-box-orient: vertical;
+            }
+            
+            .slick-slide,
+            .slick-track {
+                min-width: 10rem;
+            }
+            
+            .no-border {
+                border: 0 !important;
+                box-shadow: none !important;
+                /* You may want to include this as bootstrap applies these styles too */
+            }
+            
             .header {
-                min-height: 8rem !important;
+                background-image: url("../views/client/dist/images/bg.png");
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
             }
-
-            .header>div {
-                padding: 0;
-            }
-
-            .logo {
-                position: static;
-            }
-
+            
             .logo>a>img {
-                position: relative;
-                left: 0;
-                right: 0;
-                margin: auto;
-                height: 5rem;
-                object-fit: contain;
+                width: 80%;
+                max-width: 20rem;
             }
-
-            /* .search-box {
+            
+            .wrap-download-app {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .wrap-download-app>a>img {
+                max-width: 10rem;
+                margin: 0.5rem;
+            }
+            
+            .search-box {
+                max-width: 50rem;
+                margin: auto;
+            }
+            
+            .color-primary {
+                color: #ef4c8c !important;
+            }
+            
+            .bg-primary {
+                background-color: #eb1b6c !important;
+            }
+            
+            .active {
+                border-color: #eb1b6c !important;
+            }
+            
+            #container_drop_result {
+                position: relative;
+            }
+            
+            #container_drop_result>div {
+                position: absolute;
+                z-index: 100;
+                max-height: 28rem;
+                overflow-y: auto;
+            }
+            
+            #container_drop_result>div>div:hover {
+                background-color: #ef4c8c;
+                color: white;
+            }
+            
+            .sidenav {
+                height: 100%;
+                width: 0;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background-color: #111;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 60px;
+            }
+            
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+                transition: 0.3s;
+            }
+            
+            .sidenav a:hover {
+                color: #f1f1f1;
+            }
+            
+            .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+                z-index: 1000;
+            }
+            
+            ul {
+                list-style-type: circle;
+                padding-left: 2rem;
+            }
+            
+            .divider {
+                position: relative;
+                margin-top: 3rem;
+                height: 0.1rem;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #e6e6e6;
+            }
+            
+            .div-transparent:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 5%;
+                right: 5%;
+                width: 90%;
+                height: 1px;
+                background-image: linear-gradient(to right, transparent, rgb(48, 49, 51), transparent);
+            }
+            
+            .color-placeholder::-webkit-input-placeholder {
+                color: #eb1b6c
+            }
+            
+            .pagination {
+                display: -ms-flexbox;
+                display: flex;
+                padding-left: 0;
+                list-style: none;
+                border-radius: 0.25rem;
+            }
+            
+            .page-item:first-child .page-link {
+                margin-left: 0;
+                border-top-left-radius: 0.25rem;
+                border-bottom-left-radius: 0.25rem;
+            }
+            
+            .page-item:last-child .page-link {
+                border-top-right-radius: 0.25rem;
+                border-bottom-right-radius: 0.25rem;
+            }
+            
+            .page-item.active .page-link {
+                z-index: 3;
+                color: #fff;
+                background-color: #007bff;
+                border-color: #007bff;
+            }
+            
+            .page-item.disabled .page-link {
+                color: #6c757d;
+                pointer-events: none;
+                cursor: auto;
+                background-color: #fff;
+                border-color: #dee2e6;
+            }
+            
+            .pagination-lg .page-item:first-child .page-link {
+                border-top-left-radius: 0.3rem;
+                border-bottom-left-radius: 0.3rem;
+            }
+            
+            .pagination-lg .page-item:last-child .page-link {
+                border-top-right-radius: 0.3rem;
+                border-bottom-right-radius: 0.3rem;
+            }
+            
+            .pagination-sm .page-link {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+            }
+            
+            .pagination-sm .page-item:first-child .page-link {
+                border-top-left-radius: 0.2rem;
+                border-bottom-left-radius: 0.2rem;
+            }
+            
+            .pagination-sm .page-item:last-child .page-link {
+                border-top-right-radius: 0.2rem;
+                border-bottom-right-radius: 0.2rem;
+            }
+            
+            .page-link {
+                position: relative;
+                display: block;
+                padding: 0.5rem 0.75rem;
+                margin-left: -1px;
+                line-height: 1.25;
+                color: #007bff;
+                background-color: #fff;
+                border: 1px solid #dee2e6;
+            }
+            
+            .page-link:hover {
+                z-index: 2;
+                color: #0056b3;
+                text-decoration: none;
+                background-color: #e9ecef;
+                border-color: #dee2e6;
+            }
+            
+            .page-link:focus {
+                z-index: 3;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+            
+            .page-item:first-child .page-link {
+                margin-left: 0;
+                border-top-left-radius: 0.25rem;
+                border-bottom-left-radius: 0.25rem;
+            }
+            
+            .page-item:last-child .page-link {
+                border-top-right-radius: 0.25rem;
+                border-bottom-right-radius: 0.25rem;
+            }
+            
+            .page-item.active .page-link {
+                z-index: 3;
+                color: #fff;
+                background-color: #007bff;
+                border-color: #007bff;
+            }
+            
+            .page-item.disabled .page-link {
+                color: #6c757d;
+                pointer-events: none;
+                cursor: auto;
+                background-color: #fff;
+                border-color: #dee2e6;
+            }
+            
+            .pagination-lg .page-link {
+                padding: 0.75rem 1.5rem;
+                font-size: 1.25rem;
+                line-height: 1.5;
+            }
+            
+            .pagination-lg .page-item:first-child .page-link {
+                border-top-left-radius: 0.3rem;
+                border-bottom-left-radius: 0.3rem;
+            }
+            
+            .pagination-lg .page-item:last-child .page-link {
+                border-top-right-radius: 0.3rem;
+                border-bottom-right-radius: 0.3rem;
+            }
+            
+            .pagination-sm .page-link {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+            }
+            
+            .pagination-sm .page-item:first-child .page-link {
+                border-top-left-radius: 0.2rem;
+                border-bottom-left-radius: 0.2rem;
+            }
+            
+            .pagination-sm .page-item:last-child .page-link {
+                border-top-right-radius: 0.2rem;
+                border-bottom-right-radius: 0.2rem;
+            }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            @media screen and (max-height: 450px) {
+                .sidenav {
+                    padding-top: 15px;
+                }
+                .sidenav a {
+                    font-size: 18px;
+                }
+            }
+            
+            @media (max-width:640px) {
+                #container_search {
+                    padding-bottom: 1rem;
+                    margin-top: 1rem;
+                }
+                .menu-right {
+                    display: none;
+                }
+                h1 {
+                    padding: 2rem;
+                }
+                .header {
+                    min-height: 8rem !important;
+                }
+                .header>div {
+                    padding: 0;
+                }
+                .logo {
+                    position: static;
+                }
+                .logo>a>img {
+                    position: relative;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    height: 5rem;
+                    object-fit: contain;
+                }
+                /* .search-box {
                 margin-left: 2rem;
                 margin-right: 2rem;
             } */
-
-            .menu-right {
-                position: static;
-                text-align: center;
+                .menu-right {
+                    position: static;
+                    text-align: center;
+                }
+                .menu-right>button {
+                    padding: 0.7rem;
+                    display: none;
+                }
+                .wrap-download-app>a>img {
+                    max-width: 8rem;
+                }
+                .wrap-download-app {
+                    margin-top: 3rem;
+                    padding-bottom: 2rem;
+                }
+                .footer {
+                    padding-left: 2rem;
+                    padding-right: 2rem;
+                }
+                .modal {
+                    overflow-y: auto;
+                }
+                .modal-lg {
+                    max-width: 80% !important;
+                }
+                .modal-dialog {
+                    width: 80% !important;
+                }
+                .modal-content {
+                    /* height: auto !important; */
+                    border-radius: 0.5rem;
+                    height: 100% !important;
+                    overflow-y: auto;
+                }
+                .modal-dialog {
+                    /* height: 80%; */
+                    display: flex;
+                    align-items: center;
+                }
+                .modal-content {
+                    margin: 0 auto;
+                }
             }
-
-            .menu-right>button {
-                padding: 0.7rem;
-                display: none;
+            
+            .breadcrumb {
+                color: #7c7b7c;
             }
-
-            .wrap-download-app>a>img {
-                max-width: 8rem;
-            }
-
-            .wrap-download-app {
-                margin-top: 3rem;
-                padding-bottom: 2rem;
-            }
-
-            .footer {
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
-
-            .modal {
-                overflow-y: auto;
-            }
-
-            .modal-lg {
-                max-width: 80% !important;
-            }
-
-            .modal-dialog {
-                width: 80% !important;
-            }
-
-            .modal-content {
-                /* height: auto !important; */
-                border-radius: 0.5rem;
-                height: 100% !important;
-                overflow-y: auto;
-            }
-
-            .modal-dialog {
-                /* height: 80%; */
-                display: flex;
-                align-items: center;
-            }
-
-            .modal-content {
-                margin: 0 auto;
-            }
-        }
-
-        .breadcrumb {
-            color: #7c7b7c;
-        }
-
-        @media (min-width:641px) {
-
-            #container_search {
-                position: absolute;
-                top: 1rem;
-                right: 0;
-                left: 0;
-                margin: auto;
-            }
-
-            .contenter {
-                padding-left: 15rem;
-                padding-right: 15rem;
-            }
-
-            @media (max-width:1600px) {
+            
+            @media (min-width:641px) {
                 #container_search {
-                    position: relative;
-                    /* padding-top: 6rem; */
-                    /* padding-bottom: 4rem; */
-                    margin-bottom: 1rem;
+                    position: absolute;
+                    top: 1rem;
+                    right: 0;
+                    left: 0;
+                    margin: auto;
                 }
-
-                .header {
-                    height: auto !important;
-                }
-
                 .contenter {
+                    padding-left: 15rem;
+                    padding-right: 15rem;
+                }
+                @media (max-width:1600px) {
+                    #container_search {
+                        position: relative;
+                        /* padding-top: 6rem; */
+                        /* padding-bottom: 4rem; */
+                        margin-bottom: 1rem;
+                    }
+                    .header {
+                        height: auto !important;
+                    }
+                    .contenter {
+                        padding-left: 5rem;
+                        padding-right: 5rem;
+                    }
+                }
+                .header {
+                    /* padding-bottom: 5rem; */
+                    height: 10rem;
+                }
+                .modal {
+                    overflow-y: auto;
+                }
+                .modal-lg {
+                    max-width: 50% !important;
+                }
+                .modal-dialog {
+                    width: 50% !important;
+                }
+                .modal-content {
+                    height: auto !important;
+                    border-radius: 0.5rem;
+                }
+                .modal-dialog {
+                    /* height: 80%; */
+                    display: flex;
+                    align-items: center;
+                }
+                .modal-content {
+                    margin: 0 auto;
+                }
+                h1 {
+                    padding-bottom: 3rem;
+                    padding-top: 3rem;
+                }
+                .footer {
                     padding-left: 5rem;
                     padding-right: 5rem;
                 }
+                /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+                .header>div {
+                    padding-left: 5rem;
+                    padding-right: 5rem;
+                }
+                .logo {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+                .menu-right {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                }
+                .wrap-download-app {
+                    margin-top: 2rem;
+                    padding-bottom: 2rem;
+                }
             }
-
-            .header {
-                /* padding-bottom: 5rem; */
-                height: 10rem;
+            
+            .page-item.active .page-link {
+                z-index: 3;
+                color: #fff;
+                background-color: #eb1b6c !important;
+                border-color: #eb1b6c !important;
             }
-
-            .modal {
-                overflow-y: auto;
+            
+            @media (min-width:1601px) {
+                #container_search {
+                    top: 3rem;
+                }
             }
-
-            .modal-lg {
-                max-width: 50% !important;
+            
+            @media (max-width:1110px) {
+                #container_nearby_city {
+                    display: none;
+                }
+                #btn_call {
+                    width: 100%;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+                #lbl_title {
+                    margin: 0;
+                }
             }
-
-            .modal-dialog {
-                width: 50% !important;
+            
+            @media (min-width:961px) {
+                /* tablet, landscape iPad, lo-res laptops ands desktops */
             }
-
-            .modal-content {
-                height: auto !important;
-                border-radius: 0.5rem;
+            
+            @media (min-width:1025px) {
+                /* big landscape tablets, laptops, and desktops */
             }
-
-            .modal-dialog {
-                /* height: 80%; */
-                display: flex;
-                align-items: center;
+            
+            @media (min-width:1281px) {
+                /* hi-res laptops and desktops */
             }
+        </style>
+    </head>
 
-            .modal-content {
-                margin: 0 auto;
-            }
+    <body class="main">
 
-            h1 {
-                padding-bottom: 3rem;
-                padding-top: 3rem;
-            }
-
-            .footer {
-                padding-left: 5rem;
-                padding-right: 5rem;
-            }
-
-            /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-            .header>div {
-                padding-left: 5rem;
-                padding-right: 5rem;
-            }
-
-            .logo {
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-
-            .menu-right {
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-            }
-
-            .wrap-download-app {
-                margin-top: 2rem;
-                padding-bottom: 2rem;
-            }
-        }
-
-        .page-item.active .page-link {
-            z-index: 3;
-            color: #fff;
-            background-color: #eb1b6c !important;
-            border-color: #eb1b6c !important;
-        }
-
-        @media (min-width:1601px) {
-            #container_search {
-                top: 3rem;
-            }
-        }
-
-        @media (max-width:1110px) {
-            #container_nearby_city {
-                display: none;
-            }
-
-            #btn_call {
-                width: 100%;
-                padding-left: 0;
-                padding-right: 0;
-            }
-
-            #lbl_title {
-                margin: 0;
-            }
-        }
-
-        @media (min-width:961px) {
-            /* tablet, landscape iPad, lo-res laptops ands desktops */
-        }
-
-        @media (min-width:1025px) {
-            /* big landscape tablets, laptops, and desktops */
-        }
-
-        @media (min-width:1281px) {
-            /* hi-res laptops and desktops */
-        }
-    </style>
-</head>
-
-<body class="main">
-
-    <div class="toastify on  toastify-right toastify-top"
-        style="transform: translate(0px, 0px); top: 15px;display: none;">
-        <div id="success-notification-content" class="toastify-content flex">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                class="feather feather-check-circle text-theme-9">
+        <div class="toastify on  toastify-right toastify-top" style="transform: translate(0px, 0px); top: 15px;display: none;">
+            <div id="success-notification-content" class="toastify-content flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle text-theme-9">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
-            <div class="ml-4 mr-4">
-                <div class="font-medium">Copied email</div>
+                <div class="ml-4 mr-4">
+                    <div class="font-medium">Copied email</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <%- include("tag-install-app"); %>
+        <%- include("tag-install-app"); %>
 
-        <div class="header" style="min-height: 10rem;">
-            <div>
+            <div class="header" style="min-height: 10rem;">
                 <div>
-                    <div style="position: relative;">
-                        <div class="logo pt-5">
-                            <a href="/">
-                                <img src="../views/client/dist/images/logo.png" />
-                            </a>
+                    <div>
+                        <div style="position: relative;">
+                            <div class="logo pt-5">
+                                <a href="/">
+                                    <img src="../views/client/dist/images/logo.png" />
+                                </a>
 
-                        </div>
+                            </div>
 
-                        <div class="mt-10 menu-right">
-                            <button id="btn_toggle_dialog" class="btn btn-rounded-success mr-5 text-white p-3"
-                                style="background-color: #6bab44;">
+                            <div class="mt-10 menu-right">
+                                <button id="btn_toggle_dialog" class="btn btn-rounded-success mr-5 text-white p-3" style="background-color: #6bab44;">
                                 <i class="far fa-user mr-2"></i>Sign in / Sign up
                             </button>
 
-                            <a style="position: absolute; cursor: pointer;" onclick="openNav()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-align-left block mx-auto">
+                                <a style="position: absolute; cursor: pointer;" onclick="openNav()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-align-left block mx-auto">
                                     <line x1="17" y1="10" x2="3" y2="10"></line>
                                     <line x1="21" y1="6" x2="3" y2="6"></line>
                                     <line x1="21" y1="14" x2="3" y2="14"></line>
                                     <line x1="17" y1="18" x2="3" y2="18"></line>
                                 </svg>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="container_search" class="mt-20" style="max-width: 60rem;">
-            <div class="container sm:px-10">
-                <div class="box grid grid-cols-12 pt-1 pb-1 search-box">
-                    <div class="col-span-12 xl:col-span-3 box">
-                        <select id="select_categories" class="form-select p-3 no-border"
-                            style="background-color: white;" aria-label="Default select example">
+            <div id="container_search" class="mt-20" style="max-width: 60rem;">
+                <div class="container sm:px-10">
+                    <div class="box grid grid-cols-12 pt-1 pb-1 search-box">
+                        <div class="col-span-12 xl:col-span-3 box">
+                            <select id="select_categories" class="form-select p-3 no-border" style="background-color: white;" aria-label="Default select example">
                             <option value="find-job">Find a Job</option>
                             <option value="sell-salon">Salon for Sale</option>
                             <option value="nail-supply">Nail Supplies</option>
                         </select>
-                    </div>
+                        </div>
 
-                    <div class="col-span-12 xl:col-span-9">
-                        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-                            <div class="relative text-gray-700 dark:text-gray-300">
-                                <svg style="z-index: 100;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="ml-4 feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 lefr-0">
+                        <div class="col-span-12 xl:col-span-9">
+                            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+                                <div class="relative text-gray-700 dark:text-gray-300">
+                                    <svg style="z-index: 100;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ml-4 feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 lefr-0">
                                     <circle cx="11" cy="11" r="8"></circle>
                                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                 </svg>
-                                <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)"
-                                    style="padding-right: 4.5rem;"
-                                    class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
-                                    placeholder="Search a Job by City or zipcode">
-                                <span>
+                                    <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)" style="padding-right: 4.5rem;" class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border" placeholder="Search a Job by City or zipcode">
+                                    <span>
                                     <svg style="cursor: pointer;" onclick="showFilter()"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="#ef4c8c" stroke-width="1.5" stroke-linecap="round"
@@ -759,7 +704,7 @@ function removeHTMLTags(html) {
                                         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                                     </svg>
                                 </span>
-                                <span id="container_clear_filter" style="display: none;">
+                                    <span id="container_clear_filter" style="display: none;">
                                     <svg style="cursor: pointer;position: absolute;right: 2rem !important;"
                                         onclick="clearFilter()" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -769,86 +714,76 @@ function removeHTMLTags(html) {
                                         <line x1="6" y1="6" x2="18" y2="18"></line>
                                     </svg>
                                 </span>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-12" id="container_fillter" style=" display: none;">
-                            <div class="col-span-6" >
-                                <div class="relative text-gray-700 dark:text-gray-300 ml-4" id="container_filter_ranger"
-                                    onclick="filterRanger()">
-                                    <img class="mt-2"
-                                        style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
-                                        src="../views/client/dist/images/distance.png">
-                                    <input type="text" style="cursor: pointer; background: white;" disabled
-                                        class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
-                                        value="Radius Ranger">
                                 </div>
                             </div>
 
-                            <div class="col-span-12">
-                                <div class="relative text-gray-700 dark:text-gray-300 ml-4">
-                                    <img class="mt-2"
-                                        style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
-                                        src="../views/client/dist/images/salary.png">
-                                    <select class="form-select p-3 no-border pl-5" id="select_range_salary"
-                                        style="background-color: white;" aria-label="Default select example"
-                                        onchange="if (typeof changeSalary != 'undefined') changeSalary(tryParseInt(this.value))">
+                            <div class="grid grid-cols-12" id="container_fillter" style=" display: none;">
+                                <div class="col-span-6">
+                                    <div class="relative text-gray-700 dark:text-gray-300 ml-4" id="container_filter_ranger" onclick="filterRanger()">
+                                        <img class="mt-2" style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;" src="../views/client/dist/images/distance.png">
+                                        <input type="text" style="cursor: pointer; background: white;" disabled class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border" value="Radius Range">
+                                    </div>
+                                </div>
+
+                                <div class="col-span-12">
+                                    <div class="relative text-gray-700 dark:text-gray-300 ml-4">
+                                        <img class="mt-2" style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;" src="../views/client/dist/images/salary.png">
+                                        <select class="form-select p-3 no-border pl-5" id="select_range_salary" style="background-color: white;" aria-label="Default select example" onchange="if (typeof changeSalary != 'undefined') changeSalary(tryParseInt(this.value))">
                                         <option value="0" selected="">Salary</option>
                                         <option value="1">0$ - 500$</option>
                                         <option value="2">500$ - 1,000$</option>
                                         <option value="3">1,000$ - 2,000$</option>
                                         <option value="4">2,000$+</option>
                                     </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="search-box" id="container_drop_result">
-                    <div class="relative text-gray-700 dark:text-gray-300"
-                        style="right: 0; left: 0;display: none;box-shadow: rgb(64 60 67 / 24%) 0px 9px 8px -3px, rgb(64 60 67 / 24%) 8px 0px 8px -7px, rgb(64 60 67 / 24%) -8px 0px 8px -7px;">
+                    <div class="search-box" id="container_drop_result">
+                        <div class="relative text-gray-700 dark:text-gray-300" style="right: 0; left: 0;display: none;box-shadow: rgb(64 60 67 / 24%) 0px 9px 8px -3px, rgb(64 60 67 / 24%) 8px 0px 8px -7px, rgb(64 60 67 / 24%) -8px 0px 8px -7px;">
+                        </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
-        </div>
+            </div>
 
-        <script>
-            const urlParams = new URLSearchParams(window.location.search)
-            const url = document.location.toString()
-            let distance = urlParams.get('distance') || 0
-            let salary = urlParams.get('salary') || 0
-            let code = urlParams.get('code') || 0
-            let title = urlParams.get('title')
-            let typeSearch = 0
+            <script>
+                const urlParams = new URLSearchParams(window.location.search)
+                const url = document.location.toString()
+                let distance = urlParams.get('distance') || 0
+                let salary = urlParams.get('salary') || 0
+                let code = urlParams.get('code') || 0
+                let title = urlParams.get('title')
+                let typeSearch = 0
 
-            if (isDefine(title)) {
-                $('#keyword').val(title)
-            }
+                if (isDefine(title)) {
+                    $('#keyword').val(title)
+                }
 
-            if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'find-job') {
-                $('#select_categories').val("find-job").change()
-            } else if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'sell-salon') {
-                $('#select_categories').val("sell-salon").change()
-            } else if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'nail-supply') {
-                $('#select_categories').val("nail-supply").change()
-            } else if (isDefine(url) && url.includes('posts-jobs')) {
-                $('#select_categories').val("find-job").change()
-            } else if (isDefine(url) && url.includes('posts-sell-salons')) {
-                $('#select_categories').val("sell-salon").change()
-            } else if (isDefine(url) && url.includes('posts-nail-supplies')) {
-                $('#select_categories').val("nail-supply").change()
-            }
+                if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'find-job') {
+                    $('#select_categories').val("find-job").change()
+                } else if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'sell-salon') {
+                    $('#select_categories').val("sell-salon").change()
+                } else if (isDefine(urlParams.get('categories')) && urlParams.get('categories') == 'nail-supply') {
+                    $('#select_categories').val("nail-supply").change()
+                } else if (isDefine(url) && url.includes('posts-jobs')) {
+                    $('#select_categories').val("find-job").change()
+                } else if (isDefine(url) && url.includes('posts-sell-salons')) {
+                    $('#select_categories').val("sell-salon").change()
+                } else if (isDefine(url) && url.includes('posts-nail-supplies')) {
+                    $('#select_categories').val("nail-supply").change()
+                }
 
-            function clearFilter() {
-                $('#keyword').val('')
-                $("#keyword").focus();
-                $('#container_clear_filter').hide()
-            }
-        </script>
+                function clearFilter() {
+                    $('#keyword').val('')
+                    $("#keyword").focus();
+                    $('#container_clear_filter').hide()
+                }
+            </script>
 
-        <script>
-            $('#select_range_salary').val(salary).change()
-        </script>
+            <script>
+                $('#select_range_salary').val(salary).change()
+            </script>

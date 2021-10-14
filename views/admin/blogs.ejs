@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        POST STATUS INFORMATION
+                        BLOG INFORMATION
                     </h5>
 
                     <button style="position: absolute;right: 10px;top: 10px; height: auto !important;" onclick="toggleModalAddProduct()" type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
@@ -14,34 +14,6 @@
                 </div>
 
                 <div class="modal-body">
-
-                    <div class="grid grid-cols-12 gap-6">
-                        <div class="form-group col-span-12 lg:col-span-4">
-                            <p>Name salon:</p>
-                            <input id="EdtNameProduct" class="form-control" disabled>
-                        </div>
-                        <div class="form-group col-span-12 lg:col-span-4">
-                            <p>Telephone:</p>
-                            <input id="EdtPhoneProduct" class="form-control" disabled>
-                        </div>
-                        <div class="form-group col-span-12 lg:col-span-4">
-                            <p>Email:</p>
-                            <input id="EdtEmailProduct" class="form-control" disabled>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-6">
-                        <div class="form-group col-span-2">
-                            <p>Address:</p>
-                            <input id="EdtAddressProduct" class="form-control" disabled>
-                        </div>
-                        <div class="form-group col-span-1">
-                            <p>Zip Code:</p>
-                            <input id="EdtCodeProduct" class="form-control" disabled>
-                        </div>
-                    </div>
-
-
                     <div class="mt-2">
                         <b>Title:</b>
                         <input id="EdtTitleProduct" class="form-control" disabled>
@@ -50,40 +22,6 @@
                     <div class="mt-2">
                         <b>Content:</b>
                         <div id="EdtContentProduct" class="form-control" disabled></div>
-                    </div>
-
-                    <div class="mt-2">
-                        <b>Images:</b>
-                        <div class="mx-6 pb-8 mt-2">
-                            <div class="responsive-mode" id="container_images_products">
-
-                                <div class="h-45 px-2">
-                                    <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md">
-                                        <h3 class="h-full font-medium flex items-center justify-center text-2xl">Image
-                                        </h3>
-                                    </div>
-                                </div>
-
-                                <div class="h-45 px-2">
-                                    <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md">
-                                        <h3 class="h-full font-medium flex items-center justify-center text-2xl">Image
-                                        </h3>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group float-right mt-2">
-                        <b>COST</b>
-                        <b id="lbl_cost_product" class="form-control number text-danger"></b>
-                    </div>
-
-                    <div class="form-group mt-2">
-                        <b>Status:</b>
-                        <button id="btn_active" type="button" onclick="changeStatusProduct()" class="btn btn-sm btn-success ml-2"></button>
-                        <span class="ml-2">click to change status</span>
                     </div>
 
                     <div class="form-group mt-2">
@@ -130,7 +68,7 @@
                         <div class="mt-2">
                             <b>Content:</b>
                             <textarea id="editor"></textarea>
-
+                            <input id="blog_content" name="content" class="form-control">
                         </div>
 
                         <div class="mt-2">
@@ -170,7 +108,7 @@
                 </div>
             </div>
 
-            <div class="flex mt-5 sm:mt-0">
+            <div class="flex mt-5 sm:mt-0" style="display: none;">
                 <div class="w-full sm:w-auto flex items-center sm:ml-auto float-right">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter block mx-auto mr-2">
                         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
@@ -181,7 +119,7 @@
             </div>
         </div>
 
-        <div id="basic-table" class="mt-5 clear-both">
+        <div id="basic-table" class="mt-5 clear-both" style="display: none;">
 
             <div class="source-code grid grid-cols-12 gap-6" style="display: none; opacity: 1;">
                 <div class="col-span-12 xl:col-span-3 intro-y">
@@ -232,14 +170,9 @@
             <table id="TblProduct" class="w-full table" cellspacing="0">
                 <thead class="tabulator-header">
                     <tr>
-                        <th>Name <br> <small>phone</small></td>
-                            <th>Location</td>
-                                <th>Title</td>
-                                    <th>Content</td>
-                                        <th>Cost (Week)</td>
-                                            <th>Package</td>
-                                                <th>Status</td>
-                                                    <th>Action</td>
+                        <th>Title</td>
+                            <th>Content</td>
+                                <th>Action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -305,27 +238,13 @@
                     row.style.backgroundColor = '#e2e8f0';
 
                 }
-                let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
-                let cell3 = row.insertCell(2);
-                let cell4 = row.insertCell(3);
-                let cell5 = row.insertCell(4);
-                let cell6 = row.insertCell(5);
-                let cell7 = row.insertCell(6);
-                let cell8 = row.insertCell(7);
+                let cell1 = row.insertCell(0)
+                let cell2 = row.insertCell(1)
+                let cell3 = row.insertCell(2)
 
-                if (data[i].status == 1) {
-                    cell7.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"><div class="flex items-center lg:justify-center text-theme-9"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg> Active </div><div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>';
-                } else {
-                    cell7.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex items-center lg:justify-center text-theme-6"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Inactive </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
-                }
-                cell1.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="name" title="" style=" display: inline-flex; "> <div> <div class="font-medium whitespace-nowrap">' + products[i].name_salon + '</div> <div class="text-gray-600 text-xs whitespace-nowrap">' + products[i].phone + '</div> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
-                cell2.innerHTML = '<div class="ellipsis">' + products[i].city + '</div>';
-                cell3.innerHTML = '<div class="ellipsis">' + products[i].title + '</div>';
-                cell4.innerHTML = '<div class="ellipsis">' + products[i].content + '</div>';
-                cell5.innerHTML = '<div class="ellipsis">' + formatMoney(products[i].cost) + '$</div>';
-                cell6.innerHTML = '<div class="ellipsis">' + products[i].package + '</div>';
-                cell8.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a> <a class="edit flex items-center mr-3" target="_blank" href="../posts-jobs/' + products[i].link_slug + '"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a></div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
+                cell1.innerHTML = '<div class="ellipsis">' + products[i].title + '</div>'
+                cell2.innerHTML = '<div class="ellipsis">' + products[i].content + '</div>'
+                cell3.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a> <a class="edit flex items-center mr-3" target="_blank" href="../blog/' + products[i].link_slug + '"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a></div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
             }
         }
 
@@ -339,17 +258,12 @@
             minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
             maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
 
-            socket.emit('post-jobs', {
+            socket.emit('post-blogs', {
                 _id: getCookie('_id'),
                 password: getCookie('password'),
                 limit: limit,
                 offset: offset,
                 input: $('#edt_search').val(),
-                minDate: minDate,
-                maxDate: maxDate,
-                cost: $('#select_filter_cost').val(),
-                package: $('#select_filter_package').val(),
-                status: $('#select_filter_status').val()
             }, (response) => {
                 $("#SpnLoading").hide()
 
@@ -372,7 +286,7 @@
             minDate = minDate[2] + '-' + nameMonthToNumber(minDate[1]) + '-' + (minDate[0] < 10 ? '0' + minDate[0] : minDate[0]) + ' 00:00:00'
             maxDate = maxDate[2] + '-' + nameMonthToNumber(maxDate[1]) + '-' + (maxDate[0] < 10 ? '0' + maxDate[0] : maxDate[0]) + ' 23:59:59'
 
-            socket.emit('count-post-jobs', {
+            socket.emit('count-post-blogs', {
                 _id: getCookie('_id'),
                 password: getCookie('password'),
                 limit: limit,
@@ -432,29 +346,6 @@
                 $('#add-blog-modal').addClass('show');
                 $('#add-blog-modal').addClass('overflow-y-auto');
             }
-        }
-
-        function changeStatusProduct() {
-            toggleModalAddProduct();
-            if (products[index_edit].status == 1) {
-                products[index_edit].status = 0;
-            } else {
-                products[index_edit].status = 1;
-            }
-            showLoading();
-            socket.emit('update-posts-jobs', {
-                _id: getCookie('_id'),
-                password: getCookie('password'),
-                id_product: products[index_edit]._id,
-                status: products[index_edit].status
-            }, (response) => {
-                hideLoading()
-                if (response != null) {
-                    canvasTableProduct(products);
-                } else {
-                    toggleModalAddProduct();
-                }
-            })
         }
 
         function deleteProduct() {
@@ -617,6 +508,7 @@
                 return
             }
 
+            $('#blog_content').val(content)
             showLoading()
             toggleModalAddBlog()
             $('#form_upload_blog').unbind()
@@ -636,7 +528,7 @@
                     contentType: false,
                     processData: false,
                     success: function(data) {
-
+                        location.reload()
                     },
                     error: function(data) {
                         alert('error')

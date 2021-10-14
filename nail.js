@@ -199,17 +199,18 @@ app.get('/posts-jobs/:slug', async function(req, res) {
             }
 
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-            resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
-            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
-            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
-            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].content)) resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].title)) resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].name_salon)) resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].address_salon)) resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
-        object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
-        object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
-        object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
-        object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.content)) object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.title)) object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.name_salon)) object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.address_salon)) object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
+
         object = {
             post: object,
             related: resultRelated,
@@ -253,17 +254,17 @@ app.get('/posts-sell-salons/:slug', async function(req, res) {
                 resultRelated[i].status = 0
             }
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-            resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
-            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
-            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
-            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].content)) resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].title)) resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].name_salon)) resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].address_salon)) resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
-        object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
-        object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
-        object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
-        object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.content)) object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.title)) object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.name_salon)) object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.address_salon)) object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
 
         object = {
             post: object,
@@ -308,17 +309,17 @@ app.get('/posts-nail-supplies/:slug', async function(req, res) {
             }
 
             resultRelated[i].distance = helper.getDistanceFromLatLonInKm(resultRelated[i].location.coordinates[0], resultRelated[i].location.coordinates[1], lng, lat)
-            resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
-            resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
-            resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
-            resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].content)) resultRelated[i].content = resultRelated[i].content.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].title)) resultRelated[i].title = resultRelated[i].title.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].name_salon)) resultRelated[i].name_salon = resultRelated[i].name_salon.replaceAll("\"", "").replaceAll("\'", "")
+            if(helper.isDefine(resultRelated[i].address_salon)) resultRelated[i].address_salon = resultRelated[i].address_salon.replaceAll("\"", "").replaceAll("\'", "")
         }
 
         const nearCountry = nearCountryByCode(object.code)
-        object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
-        object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
-        object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
-        object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.content)) object.content = object.content.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.title)) object.title = object.title.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.name_salon)) object.name_salon = object.name_salon.replaceAll("\"", "").replaceAll("\'", "")
+        if(helper.isDefine(object.address_salon)) object.address_salon = object.address_salon.replaceAll("\"", "").replaceAll("\'", "")
         object = {
             post: object,
             related: resultRelated,
@@ -711,7 +712,7 @@ io.sockets.on('connection', (socket) => {
             helper.throwError(err);
             callback(null);
         }
-    });
+    })
 
     socket.on('post-sell-salons', async(data, callback) => {
         trafficsSocket(socket)
@@ -870,7 +871,47 @@ io.sockets.on('connection', (socket) => {
             helper.throwError(err);
             callback(null);
         }
-    });
+    })
+
+    socket.on('post-blogs', async(data, callback) => {
+        trafficsSocket(socket)
+        try {
+            if (data != null && await helper.checkLogin(data._id, data.password)) {
+                const UserModel = require('./models/Blog');
+                let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } }
+
+                let filter = { _id: -1 }
+
+                let result = await UserModel.find(query).limit(data.limit).skip(data.offset).sort(filter)
+
+                callback(result)
+            } else {
+                callback(null);
+            }
+        } catch (err) {
+            helper.throwError(err);
+            callback(null);
+        }
+    })
+
+    socket.on('count-post-blogs', async(data, callback) => {
+        trafficsSocket(socket)
+        try {
+            if (data != null && await helper.checkLogin(data._id, data.password)) {
+
+                const UserModel = require('./models/Blog');
+                let query = { title: { $regex: ".*" + sanitize(data.input != undefined ? data.input : '') + ".*", $options: "$i" } }
+
+                const object = await UserModel.find(query).countDocuments();
+                callback(object)
+            } else {
+                callback(null);
+            }
+        } catch (e) {
+            helper.throwError(e);
+            callback(null);
+        }
+    })
 
     socket.on('options-posts', async(data, callback) => {
         trafficsSocket(socket)

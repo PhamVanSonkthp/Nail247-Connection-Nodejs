@@ -8,9 +8,12 @@ const object = mongoose.Schema({
     },
     image_title: {
         ...helper.schemaString,
-        ...helper.schemaRequired,
     },
     content: {
+        ...helper.schemaString,
+        ...helper.schemaRequired,
+    },
+    link_slug: {
         ...helper.schemaString,
         ...helper.schemaRequired,
     },

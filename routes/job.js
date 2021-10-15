@@ -21,6 +21,7 @@ async function uploadImage(req, res, isWeb) {
             cb(null, pathStorage);
         },
         filename: function (req, file, cb) {
+            console.log(file)
             cb(null, file.fieldname + '-' + Date.now().toString() + path.extname(file.originalname))
         }
     });
@@ -237,6 +238,7 @@ async function updatePostMobile(req, res) {
             cb(null, pathStorage);
         },
         filename: function (req, file, cb) {
+            console.log(file)
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
     });

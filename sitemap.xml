@@ -5,44 +5,124 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
-<<<<<<< HEAD
 <loc>https://247nailsalons.com/</loc>
-<lastmod>Thu Oct 14 2021 09:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Fri Oct 15 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>1.00</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=find-job</loc>
-<lastmod>Thu Oct 14 2021 09:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Fri Oct 15 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=sell-salon</loc>
-<lastmod>Thu Oct 14 2021 09:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Fri Oct 15 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/search?categories=nail-supply</loc>
-<lastmod>Thu Oct 14 2021 09:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
-=======
-<loc>https://nail.okechua.com/</loc>
-<lastmod>Thu Oct 14 2021 15:23:00 GMT+0700 (Indochina Time)</lastmod>
-<priority>1.00</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/search?categories=find-job</loc>
-<lastmod>Thu Oct 14 2021 15:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Fri Oct 15 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
-<loc>https://nail.okechua.com/search?categories=sell-salon</loc>
-<lastmod>Thu Oct 14 2021 15:23:00 GMT+0700 (Indochina Time)</lastmod>
-<priority>0.80</priority>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-bot-lam-6-ngay-tuan-244</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
 </url>
 <url>
-<loc>https://nail.okechua.com/search?categories=nail-supply</loc>
-<lastmod>Thu Oct 14 2021 15:23:00 GMT+0700 (Indochina Time)</lastmod>
->>>>>>> cacc685236feb89fcc34265de28a6643f04b7096
-<priority>0.80</priority>
+<loc>https://247nailsalons.com/posts-jobs/gap-can-tho-nail-vung-alexandria-va-243</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-nails-242</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-gap--241</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tuyen-tho-nail-hiring-a-nail-technician-240</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-nail-tiem-lon-sang-trong-239</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-gap-tho-fulltime-partime-238</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/nail-tech-needed-in-john-s-creek-237</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tuyen-thoe-gap-ctn-dip-biet-bot-236</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/kiem-tho-1200-1800-tuan-235</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-gap-tho-nail-khu-dong-khach-good-tip-234</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/tiem-dang-can-rat-nhieu-tho-bot-233</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/nail-tech-eyelashes-facial-wax--232</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-nail-down-town-annapolis-231</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/tiem-can-tho-230</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-nails-biet-lam-nhieu-viec-de-nhan-nhieu-tien-229</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-nails-theo-lam-mong-gan-pechanga-casino-temecula--228</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/tien-dem-khong-xue-neu-ban-cham-chi-227</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/can-tho-bot-ctn-lam-viec-o-tiem-nhu-o-nha-226</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-jobs/quan-em-bao-viec-225</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/posts-jobs/can-tho-nails-250</loc>
@@ -190,108 +270,37 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
-<<<<<<< HEAD
 <loc>https://247nailsalons.com/posts-jobs/dang-can-gap-nhieu-tho-nail-nam-nu-full-time-220</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-nails-fredericksburg-va-219</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/can-sang-tiem-nails-khu-my-trang-30</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/can-gap-nhieu-tho-co-kinh-nghiem-lam-everything-va-tho-ctn--218</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/can-ban-tiem-location-mudelein-il-29</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/-tiem-nail-lon-nhat-vung-el-paso-tx-dang-can-rat-nhieu-tho-cung-tieu-bang-hoac-xuyen-bang-deu-duoc--217</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/ban-tum-thuong-28</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/can-nhieu-tho-nail-nu-tiem-rat-dong-khach-o-turnerville-va-west-berlin-new-jesey--216</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/can-sang-tiem-nail-4-600-sqf-tai-augusta-mall-27</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/ca-n-tho-nail-va-quan-ly-215</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/can-ban-tiem-gap-income-tren-20k-week-26</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-nail-nu-hoac-cap-vo-chong-tay-nghe-on-dinh-lam-viec-co-tam-can-phai-co-xe-luong-cao-tu-8-000-thang-quanh-nam-214</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/tiem-can-tho-nail-gioi-lam-bot-bao-luong-1500-and-up-tuan-hon-an-chia-6-4-213</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-nail-khu-niagara-falls-ny-14304-212</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-bao-luong-2-100-tuan-hon-an-chia-ca-nam--211</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-nails-gap--210</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/luxury-nail-spa-are-looking-for-talent-nail-technicians-216</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-nail-216</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/tiem-e-o-fredericksburg-virgina-dang-can-nhieu-tho-gap-chan-tay-nuoc-hay-bot-deu-duoc-income-khong-duoi-1-5k-tuan--216</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/tiem-em-dang-can-tim-tho-gap--215</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/-can-gap-tho-nails--214</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-gap-cho-2-tiem-nails--213</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-kinh-nghiem-biet-lam-du-thu-bot-gel-dipping-powder-chan-tay-nuoc-wax-lash--212</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/can-tho-nails-gap--211</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/pg-nails-and-spa-dang-ca-n-ga-p-tho-nam-nu-co-kinh-nghie-p-bo-t-sns-no-i-mi-va-wax--210</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://247nailsalons.com/posts-jobs/can-gap-tho-nail-nam-nu-biet-bot-dip-209</loc>
+<loc>https://247nailsalons.com/posts-sell-salons/sang-lease-sang-tiem-nail--25</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
@@ -421,37 +430,38 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
+<loc>https://247nailsalons.com/posts-nail-supplies/tin-thuong-3</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-nail-supplies/t-gild-2</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
+<loc>https://247nailsalons.com/posts-nail-supplies/banh-free-1</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
+</url>
+<url>
 <loc>https://247nailsalons.com/posts-nail-supplies/son-mau-do-0</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/privacy-policy</loc>
-<lastmod>Thu Oct 14 2021 09:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Fri Oct 15 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/terms-of-use</loc>
-<lastmod>Thu Oct 14 2021 09:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+<lastmod>Fri Oct 15 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://247nailsalons.com/terms-of-use</loc>
-<lastmod>Thu Oct 14 2021 09:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
-=======
-<loc>https://nail.okechua.com/privacy-policy</loc>
-<lastmod>Thu Oct 14 2021 15:23:00 GMT+0700 (Indochina Time)</lastmod>
-<priority>0.10</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/terms-of-use</loc>
-<lastmod>Thu Oct 14 2021 15:23:00 GMT+0700 (Indochina Time)</lastmod>
-<priority>0.10</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/terms-of-use</loc>
-<lastmod>Thu Oct 14 2021 15:23:00 GMT+0700 (Indochina Time)</lastmod>
->>>>>>> cacc685236feb89fcc34265de28a6643f04b7096
+<lastmod>Fri Oct 15 2021 01:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>0.10</priority>
 </url>
 </urlset>

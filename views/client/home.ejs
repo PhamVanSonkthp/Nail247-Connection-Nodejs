@@ -1,145 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%
+<%
     function removeHTMLTags(html) {
         var regX = /(<([^>]+)>)/ig;
         return html.replace(regX, "")
     }
     %>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Infinity ltd">
-    <meta name="keyword" content="<%- title %>">
-    <meta name="promotion" content="<%- removeHTMLTags(promotion) %>">
-    <meta name="Description" content="<%- removeHTMLTags(content) %>">
 
-    <meta property="og:url" content="<%- url %>" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="<%- title %>" />
-    <meta property="og:description" content="<%- removeHTMLTags(content) %>" />
-    <meta property="og:image" content="<%- image %>" />
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Infinity ltd">
+        <meta name="keyword" content="<%- title %>">
+        <meta name="promotion" content="<%- removeHTMLTags(promotion) %>">
+        <meta name="Description" content="<%- removeHTMLTags(content) %>">
 
-    <link href="../views/client/dist/images/icon.png" rel="shortcut icon">
-    <title>247 Nail Salons - Tim Tho Nail | Ban Tiem Nail | Mua Ban Nail Supply</title>
+        <meta property="og:url" content="<%- url %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="<%- title %>" />
+        <meta property="og:description" content="<%- removeHTMLTags(content) %>" />
+        <meta property="og:image" content="<%- image %>" />
 
-    <!-- BEGIN: CSS Assets-->
-    <link rel="stylesheet" href="../views/client/dist/css/app.css" />
-    <link rel="stylesheet" href="../views/client/dist/css/home.css" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <!-- END: CSS Assets-->
+        <link href="../views/client/dist/images/icon.png" rel="shortcut icon">
+        <title>247 Nail Salons - Tim Tho Nail | Ban Tiem Nail | Mua Ban Nail Supply</title>
 
-    <script src="../views/client/dist/js/jquery.min.js"></script>
-    <script src="./../../node_modules/socket.io/client-dist/socket.io.js"></script>
-    <script src="../views/client/dist/js/helper.js"></script>
+        <!-- BEGIN: CSS Assets-->
+        <link rel="stylesheet" href="../views/client/dist/css/app.css" />
+        <link rel="stylesheet" href="../views/client/dist/css/home.css" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+        <!-- END: CSS Assets-->
 
-    <script src="../views/client/dist/js/sha512.min.js"></script>
+        <script src="../views/client/dist/js/jquery.min.js"></script>
+        <script src="./../../node_modules/socket.io/client-dist/socket.io.js"></script>
+        <script src="../views/client/dist/js/helper.js"></script>
+
+        <script src="../views/client/dist/js/sha512.min.js"></script>
 
 
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+        <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
 
 
-    <script>
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyByAN0Lwe4gjsXn3oSUqIIHdkZYrYKVCqY",
-            authDomain: "nailsalons-60488.firebaseapp.com",
-            projectId: "nailsalons-60488",
-            storageBucket: "nailsalons-60488.appspot.com",
-            messagingSenderId: "385953410674",
-            appId: "1:385953410674:web:93eb4c5025e5e1a3891ceb",
-            measurementId: "G-V62BPYJJXX"
-        }
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-    </script>
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                    apiKey: "AIzaSyByAN0Lwe4gjsXn3oSUqIIHdkZYrYKVCqY",
+                    authDomain: "nailsalons-60488.firebaseapp.com",
+                    projectId: "nailsalons-60488",
+                    storageBucket: "nailsalons-60488.appspot.com",
+                    messagingSenderId: "385953410674",
+                    appId: "1:385953410674:web:93eb4c5025e5e1a3891ceb",
+                    measurementId: "G-V62BPYJJXX"
+                }
+                // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
 
 
-</head>
+    </head>
 
-<body class="main">
+    <body class="main">
 
-    <%- include("tag-install-app"); %>
-    
-    <div class="header">
-        <div>
-            <div>
-                <div style="position: relative; height: 12rem;">
-                    <div class="logo pt-5">
-                        <a href="/">
-                            <img src="../views/client/dist/images/logo.png" />
-                        </a>
+        <%- include("tag-install-app"); %>
 
-                    </div>
+            <div class="header">
+                <div>
+                    <div>
+                        <div style="position: relative; height: 12rem;">
+                            <div class="logo pt-5">
+                                <a href="/">
+                                    <img src="../views/client/dist/images/logo.png" />
+                                </a>
 
-                    <div class="mt-10 menu-right">
-                        <button id="btn_toggle_dialog" class="btn btn-rounded-success mr-5 text-white p-3"
-                            style="background-color: #6bab44;">
+                            </div>
+
+                            <div class="mt-10 menu-right">
+                                <button id="btn_toggle_dialog" class="btn btn-rounded-success mr-5 text-white p-3" style="background-color: #6bab44;">
                             <i class="far fa-user mr-2"></i>Sign in / Sign up
                         </button>
 
-                        <a style="position: absolute; cursor: pointer;" onclick="openNav()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-align-left block mx-auto">
+                                <a style="position: absolute; cursor: pointer;" onclick="openNav()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-align-left block mx-auto">
                                 <line x1="17" y1="10" x2="3" y2="10"></line>
                                 <line x1="21" y1="6" x2="3" y2="6"></line>
                                 <line x1="21" y1="14" x2="3" y2="14"></line>
                                 <line x1="17" y1="18" x2="3" y2="18"></line>
                             </svg>
-                        </a>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <h1 class="text-center font-medium mt-5 intro-y" style="font-size: 3rem;">
-                Make Everything As Simple
-            </h1>
+                    <h1 class="text-center font-medium mt-5 intro-y" style="font-size: 3rem;">
+                        Make Everything As Simple
+                    </h1>
 
-            <h2 class="text-center font-small mt-8 intro-y"
-                style="font-size: 1rem; margin-left: 2rem; margin-right: 2rem;">
-                Find a Job, Salon for Sale, Nail Supply and more
-            </h2>
+                    <h2 class="text-center font-small mt-8 intro-y" style="font-size: 1rem; margin-left: 2rem; margin-right: 2rem;">
+                        Find a Job, Salon for Sale, Nail Supply and more
+                    </h2>
 
-            <div class="mt-10 intro-y" style="z-index: 1000;">
-                <div class="container sm:px-10">
-                    <div class="box grid grid-cols-12 pt-1 pb-1 search-box">
-                        <div class="col-span-12 xl:col-span-3 box">
-                            <select id="select_categories" class="form-select p-3 no-border"
-                                style="background-color: white;" aria-label="Default select example">
+                    <div class="mt-10 intro-y" style="z-index: 1000;">
+                        <div class="container sm:px-10">
+                            <div class="box grid grid-cols-12 pt-1 pb-1 search-box">
+                                <div class="col-span-12 xl:col-span-3 box">
+                                    <select id="select_categories" class="form-select p-3 no-border" style="background-color: white;" aria-label="Default select example">
                                 <option value="find-job">Find a Job</option>
                                 <option value="sell-salon">Salon for Sale</option>
                                 <option value="nail-supply">Nail Supplies</option>
                             </select>
-                        </div>
+                                </div>
 
-                        <div class="col-span-12 xl:col-span-9">
-                            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-                                <div class="relative text-gray-700 dark:text-gray-300">
-                                    <svg style="z-index: 100;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="ml-4 feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 lefr-0">
+                                <div class="col-span-12 xl:col-span-9">
+                                    <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+                                        <div class="relative text-gray-700 dark:text-gray-300">
+                                            <svg style="z-index: 100;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ml-4 feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 lefr-0">
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                     </svg>
-                                    <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)"
-                                        style="padding-right: 4.5rem;" name="prevent_autofill" autocorrect="off"
-                                        aria-autocomplete="both" aria-haspopup="false" autocapitalize="off"
-                                        role="presentation"
-                                        class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
-                                        placeholder="Search a Job by City or Zipcode">
-                                    <span>
+                                            <input id="keyword" autocomplete="off" type="text" oninput="onSearch(this.value)" style="padding-right: 4.5rem;" name="prevent_autofill" autocorrect="off" aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" role="presentation" class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
+                                                placeholder="Search a Job by City or Zipcode">
+                                            <span>
                                         <svg style="cursor: pointer;" onclick="showFilter()"
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="#ef4c8c" stroke-width="1.5"
@@ -148,7 +136,7 @@
                                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                                         </svg>
                                     </span>
-                                    <span id="container_clear_filter" style="display: none;">
+                                            <span id="container_clear_filter" style="display: none;">
                                         <svg style="cursor: pointer;position: absolute;right: 2rem !important;"
                                             onclick="clearFilter()" xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -158,161 +146,144 @@
                                             <line x1="6" y1="6" x2="18" y2="18"></line>
                                         </svg>
                                     </span>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-12" id="container_fillter" style=" display: none;">
-                                <div class="col-span-6">
-                                    <div class="relative text-gray-700 dark:text-gray-300 ml-4"
-                                        id="container_filter_ranger" onclick="filterRanger()">
-                                        <img class="mt-2"
-                                            style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
-                                            src="../views/client/dist/images/distance.png" />
-                                        <input type="text" style="cursor: pointer;background: white;" disabled
-                                            class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
-                                            value="Radius Ranger">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-span-12">
-                                    <div class="relative text-gray-700 dark:text-gray-300 ml-4">
-                                        <img class="mt-2"
-                                            style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;"
-                                            src="../views/client/dist/images/salary.png" />
-                                        <select class="form-select p-3 no-border pl-5" id="select_range_salary"
-                                            style="background-color: white;" aria-label="Default select example">
+                                    <div class="grid grid-cols-12" id="container_fillter" style=" display: none;">
+                                        <div class="col-span-6">
+                                            <div class="relative text-gray-700 dark:text-gray-300 ml-4" id="container_filter_ranger" onclick="filterRanger()">
+                                                <img class="mt-2" style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;" src="../views/client/dist/images/distance.png" />
+                                                <input type="text" style="cursor: pointer;background: white;" disabled class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border" value="Radius Range">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-span-12">
+                                            <div class="relative text-gray-700 dark:text-gray-300 ml-4">
+                                                <img class="mt-2" style="cursor: pointer;z-index: 100; width: auto; height: 24px; position: absolute;" src="../views/client/dist/images/salary.png" />
+                                                <select class="form-select p-3 no-border pl-5" id="select_range_salary" style="background-color: white;" aria-label="Default select example">
                                             <option value="0" selected>Salary</option>
                                             <option value="1">0$ - 500$</option>
                                             <option value="2">500$ - 1,000$</option>
                                             <option value="3">1,000$ - 2,000$</option>
                                             <option value="4">2,000$ up</option>
                                         </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="search-box" id="container_drop_result">
+                                <div class="relative text-gray-700 dark:text-gray-300" style="right: 0; left: 0;display: none;">
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div class="search-box" id="container_drop_result">
-                        <div class="relative text-gray-700 dark:text-gray-300" style="right: 0; left: 0;display: none;">
-                        </div>
-                    </div>
+                    <h2 class="text-center mt-8 intro-y" style="font-size: 0.8rem;margin-left: 2rem;margin-right: 2rem;">
+                        Click on the filter to search by salary and city
+                    </h2>
 
+                    <div class="text-center wrap-download-app intro-y" style="margin-left: 2rem;
+            margin-right: 2rem;">
+                        <a href="https://apps.apple.com/app/id1586456191">
+                            <img src="../views/client/dist/images/AS.png">
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.smartsalonsllc.nailsalons247">
+                            <img src="../views/client/dist/images/GGP.png">
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <h2 class="text-center mt-8 intro-y" style="font-size: 0.8rem;margin-left: 2rem;margin-right: 2rem;">
-                Click on the filter to search by salary and city
-            </h2>
+            <div class="footer box intro-y">
+                <div class="text-center font-medium pt-10 pb-10" style="font-size: 2rem;">
+                    More Information
+                </div>
 
-            <div class="text-center wrap-download-app intro-y" style="margin-left: 2rem;
-            margin-right: 2rem;">
-                <a href="https://apps.apple.com/app/id1586456191">
-                    <img src="../views/client/dist/images/AS.png">
-                </a>
-                <a href="https://play.google.com/store/apps/details?id=com.smartsalonsllc.nailsalons247">
-                    <img src="../views/client/dist/images/GGP.png">
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer box intro-y">
-        <div class="text-center font-medium pt-10 pb-10" style="font-size: 2rem;">
-            More Information
-        </div>
-
-        <div class="grid grid-cols-12 gap-6 pb-10">
-            <div class="col-span-12 xl:col-span-4">
-                <a href="../search?categories=find-job" style="position: relative;">
-                    <img loading="lazy" class="w-full" src="../views/client/dist/images//album-post-1.png">
-                    <div class="text-center">
-                        <h2 style="font-size: 1.1rem;font-weight: bold;">Find a Job</h2>
+                <div class="grid grid-cols-12 gap-6 pb-10">
+                    <div class="col-span-12 xl:col-span-4">
+                        <a href="../search?categories=find-job" style="position: relative;">
+                            <img loading="lazy" class="w-full" src="../views/client/dist/images//album-post-1.png">
+                            <div class="text-center">
+                                <h2 style="font-size: 1.1rem;font-weight: bold;">Find a Job</h2>
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
-            <div class="col-span-12 xl:col-span-4">
-                <a href="../search?categories=sell-salon" style="position: relative;">
-                    <img loading="lazy" class="w-full" src="../views/client/dist/images//album-post-2.png">
-                    <div class="text-center">
-                        <h2 style="font-size: 1.1rem;font-weight: bold;">Salon for Sale</h2>
+                    <div class="col-span-12 xl:col-span-4">
+                        <a href="../search?categories=sell-salon" style="position: relative;">
+                            <img loading="lazy" class="w-full" src="../views/client/dist/images//album-post-2.png">
+                            <div class="text-center">
+                                <h2 style="font-size: 1.1rem;font-weight: bold;">Salon for Sale</h2>
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
-            <div class="col-span-12 xl:col-span-4">
-                <a href="../search?categories=nail-supply" style="position: relative;">
-                    <img loading="lazy" class="w-full" src="../views/client/dist/images//album-post-3.png">
-                    <div class="text-center">
-                        <h2 style="font-size: 1.1rem;font-weight: bold;">Nail Supply</h2>
+                    <div class="col-span-12 xl:col-span-4">
+                        <a href="../search?categories=nail-supply" style="position: relative;">
+                            <img loading="lazy" class="w-full" src="../views/client/dist/images//album-post-3.png">
+                            <div class="text-center">
+                                <h2 style="font-size: 1.1rem;font-weight: bold;">Nail Supply</h2>
+                            </div>
+                        </a>
                     </div>
-                </a>
+
+                </div>
+
+                <div class="text-center p-4" style="font-size: 9pt;color: #999;text-align: center;clear: both;font-family: Arial;margin-bottom: 10px;">
+                    Copyright © 247 Nail Salons. All rights reserved
+                </div>
             </div>
 
-        </div>
+            <%- include("nav-left"); %>
 
-        <div class="text-center p-4"
-            style="font-size: 9pt;color: #999;text-align: center;clear: both;font-family: Arial;margin-bottom: 10px;">
-            Copyright © 247 Nail Salons. All rights reserved
-        </div>
-    </div>
+                <div id="modal_signin_signup" class="modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
 
-    <%- include("nav-left"); %>
+                            <div class="grid grid-cols-12">
+                                <div class="col-span-12 xl:col-span-6 bg-primary" style="border-radius: 0.5rem; padding: 2rem;">
+                                    <h2 id="lbl_welcome" class="text-white font-medium my-5" style="font-size: 1.5rem;">
+                                    </h2>
 
-        <div id="modal_signin_signup" class="modal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <div class="grid grid-cols-12">
-                        <div class="col-span-12 xl:col-span-6 bg-primary" style="border-radius: 0.5rem; padding: 2rem;">
-                            <h2 id="lbl_welcome" class="text-white font-medium my-5" style="font-size: 1.5rem;">
-                            </h2>
-
-                            <h1 id="lbl_name" class="text-white font-medium" style="font-size: 2rem;padding-bottom: 3rem;
+                                    <h1 id="lbl_name" class="text-white font-medium" style="font-size: 2rem;padding-bottom: 3rem;
                         padding-top: 0rem;">
-                            </h1>
+                                    </h1>
 
-                            <h2 id="lbl_title" class="text-white font-medium" style="font-size: 1rem;">
-                            </h2>
+                                    <h2 id="lbl_title" class="text-white font-medium" style="font-size: 1rem;">
+                                    </h2>
 
-                            <ul class="mt-2" id="lbl_contents">
+                                    <ul class="mt-2" id="lbl_contents">
 
-                            </ul>
-                        </div>
+                                    </ul>
+                                </div>
 
-                        <form class="col-span-12 xl:col-span-6">
+                                <form class="col-span-12 xl:col-span-6">
 
 
-                            <div style="border-radius: 0.5rem; padding: 2rem;">
-                                <button style="position: absolute;right: 0.7rem;top: 0.3rem;"
-                                    onclick="toggleModalSignInSignUp()" type="button" class="close no-border"
-                                    data-dismiss="modal" aria-label="Close">
+                                    <div style="border-radius: 0.5rem; padding: 2rem;">
+                                        <button style="position: absolute;right: 0.7rem;top: 0.3rem;" onclick="toggleModalSignInSignUp()" type="button" class="close no-border" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" class="no-border" style="font-size: 1.3rem;">&times;</span>
                                 </button>
 
-                                <div class="text-dark" style="font-size: 1.1rem;">
-                                    Sign In / Sign Up
-                                </div>
+                                        <div class="text-dark" style="font-size: 1.1rem;">
+                                            Sign In / Sign Up
+                                        </div>
 
-                                <div class="text-dark divider" style="font-size: 0.8rem;">
-                                    <span style="background: white;padding: 0.4rem;">
+                                        <div class="text-dark divider" style="font-size: 0.8rem;">
+                                            <span style="background: white;padding: 0.4rem;">
                                         OR
                                     </span>
-                                </div>
+                                        </div>
 
-                                <div class="nav nav-tabs flex-col sm:flex-row justify-center lg:justify-start"
-                                    role="tablist" style="display: flex;">
-                                    <a onclick="changeSignIn()" id="dashboard-tab" data-toggle="tab"
-                                        data-target="#dashboard" href="javascript:;" class="pb-2 pt-5 active" role="tab"
-                                        aria-controls="dashboard" style="flex: 1;" aria-selected="true">Sign In</a>
-                                    <a onclick="changeSignUp()" id="account-and-profile-tab" data-toggle="tab"
-                                        data-target="#account-and-profile" style="flex: 1;" href="javascript:;"
-                                        class="pb-2 pt-5" role="tab" aria-selected="false">Sign Up</a>
-                                </div>
+                                        <div class="nav nav-tabs flex-col sm:flex-row justify-center lg:justify-start" role="tablist" style="display: flex;">
+                                            <a onclick="changeSignIn()" id="dashboard-tab" data-toggle="tab" data-target="#dashboard" href="javascript:;" class="pb-2 pt-5 active" role="tab" aria-controls="dashboard" style="flex: 1;" aria-selected="true">Sign In</a>
+                                            <a onclick="changeSignUp()" id="account-and-profile-tab" data-toggle="tab" data-target="#account-and-profile" style="flex: 1;" href="javascript:;" class="pb-2 pt-5" role="tab" aria-selected="false">Sign Up</a>
+                                        </div>
 
-                                <div class="w-full sm:w-auto mt-3 box mt-2">
-                                    <div class="relative text-gray-700 dark:text-gray-300 box" style="display: flex;">
-                                        <select name="countryCode" id="select_phone_country" class="box p-3"
-                                            style="max-width: 7rem;">
+                                        <div class="w-full sm:w-auto mt-3 box mt-2">
+                                            <div class="relative text-gray-700 dark:text-gray-300 box" style="display: flex;">
+                                                <select name="countryCode" id="select_phone_country" class="box p-3" style="max-width: 7rem;">
                                             <option data-countryCode="GB" value="44">UK (+44)</option>
                                             <option data-countryCode="US" selected value="1">USA (+1)</option>
                                             <option data-countryCode="DZ" value="213">Algeria (+213)</option>
@@ -542,105 +513,75 @@
                                             <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
                                         </select>
 
-                                        <input id="edt_phone" autocomplete="off" type="text"
-                                            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                            placeholder="* Phone number" name="phone">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                                <input id="edt_phone" autocomplete="off" type="text" class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border" placeholder="* Phone number" name="phone">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                             <path
                                                 d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
                                             </path>
                                         </svg>
-                                    </div>
-                                    <div id="lbl_error_phone" class="text-right color-primary mt-2"
-                                        style="display: none;">
-                                        Invalid phone or password</div>
-                                </div>
+                                            </div>
+                                            <div id="lbl_error_phone" class="text-right color-primary mt-2" style="display: none;">
+                                                Invalid phone or password</div>
+                                        </div>
 
-                                <div id="container_email" class="w-full sm:w-auto mt-3 box mt-2" style="display: none;">
-                                    <div class="relative text-gray-700 dark:text-gray-300 box">
-                                        <input id="edt_email" autocomplete="off" type="text" name="email"
-                                            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                            placeholder="* Email">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                        <div id="container_email" class="w-full sm:w-auto mt-3 box mt-2" style="display: none;">
+                                            <div class="relative text-gray-700 dark:text-gray-300 box">
+                                                <input id="edt_email" autocomplete="off" type="text" name="email" class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border" placeholder="* Email">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                             <path
                                                 d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
                                             </path>
                                             <polyline points="22,6 12,13 2,6"></polyline>
                                         </svg>
-                                    </div>
-                                </div>
+                                            </div>
+                                        </div>
 
-                                <div class="w-full sm:w-auto mt-3 box mt-2">
-                                    <div class="relative text-gray-700 dark:text-gray-300 box">
-                                        <svg style="z-index: 100;" xmlns="http://www.w3.org/2000/svg" width="24"
-                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                            class="ml-4 feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 lefr-0">
+                                        <div class="w-full sm:w-auto mt-3 box mt-2">
+                                            <div class="relative text-gray-700 dark:text-gray-300 box">
+                                                <svg style="z-index: 100;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ml-4 feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 lefr-0">
                                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                         </svg>
-                                        <input id="edt_password" autocomplete="off" type="password" name="password"
-                                            class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border"
-                                            placeholder="* Password">
-                                        <svg id="icon_show" onclick="showPassword()" style="cursor: pointer;"
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                                <input id="edt_password" autocomplete="off" type="password" name="password" class="p-3 h-full form-control pl-10 w-full box pr-10 placeholder-theme-13 no-border" placeholder="* Password">
+                                                <svg id="icon_show" onclick="showPassword()" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                             <path
                                                 d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
                                             </path>
                                             <line x1="1" y1="1" x2="23" y2="23"></line>
                                         </svg>
-                                    </div>
-                                </div>
+                                            </div>
+                                        </div>
 
-                                <div id="container_phone_code" class="w-full sm:w-auto mt-3 box mt-2"
-                                    style="display: none;">
-                                    <div class="relative text-gray-700 dark:text-gray-300 box">
-                                        <input oninput="onConfirmCode()" id="edt_phone_code" autocomplete="off"
-                                            type="text"
-                                            class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border"
-                                            placeholder="Enter code sent to your phone"
-                                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                            onpaste="return false">
-                                        <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24"
-                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
+                                        <div id="container_phone_code" class="w-full sm:w-auto mt-3 box mt-2" style="display: none;">
+                                            <div class="relative text-gray-700 dark:text-gray-300 box">
+                                                <input oninput="onConfirmCode()" id="edt_phone_code" autocomplete="off" type="text" class="p-3 h-full form-control pl-5 w-full box pr-10 placeholder-theme-13 no-border" placeholder="Enter code sent to your phone" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                                    onpaste="return false">
+                                                <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0">
                                             <line x1="22" y1="2" x2="11" y2="13"></line>
                                             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                                         </svg>
+                                            </div>
+                                        </div>
+
+                                        <button id="btn_sign" onclick="onSign()" type="button" class="btn btn-rounded-success w-24 mr-1 mb-2 mt-5" style="width: 100% !important;background-color: #6bab44;">Sign In</button>
+
+                                        <div class="text-center" style="color: #0870ca;">
+                                            <a href="../forgot-password">Forgot your password?</a>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
 
-                                <button id="btn_sign" onclick="onSign()" type="button"
-                                    class="btn btn-rounded-success w-24 mr-1 mb-2 mt-5"
-                                    style="width: 100% !important;background-color: #6bab44;">Sign In</button>
-
-                                <div class="text-center" style="color: #0870ca;">
-                                    <a href="../forgot-password">Forgot your password?</a>
-                                </div>
                             </div>
-                        </form>
 
+                        </div>
                     </div>
 
+
                 </div>
-            </div>
 
 
-        </div>
-
-
-        <script src="../views/client/dist/js/app.js"></script>
-        <script src="../views/client/dist/js/home.js"></script>
-</body>
+                <script src="../views/client/dist/js/app.js"></script>
+                <script src="../views/client/dist/js/home.js"></script>
+    </body>
 
 </html>

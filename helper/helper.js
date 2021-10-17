@@ -509,6 +509,7 @@ exports.paymentPostJob = async function (req, res) {
                 code: req.body.code,
                 location: exports.tryParseLocation(req.body.location),
                 title: req.body.title,
+                title_search: exports.stringToSlug(req.body.title).replaceAll('-',' '),
                 content: req.body.content,
                 email: req.body.email,
                 link_slug: exports.stringToSlug(req.body.title) + '-' + index,

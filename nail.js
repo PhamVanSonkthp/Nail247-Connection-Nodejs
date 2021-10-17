@@ -40,85 +40,85 @@ app.use(cors(corsOptions))
 //app.use(express.static("views"));
 app.use(express.static(__dirname));
 
-app.get('/admin/sign-in', function(req, res) {
+app.get('/admin/sign-in', function (req, res) {
     res.render('./admin/sign-in');
 });
 
-app.get('/admin/home', function(req, res) {
+app.get('/admin/home', function (req, res) {
     res.render('./admin/home');
 });
 
-app.get('/admin', function(req, res) {
+app.get('/admin', function (req, res) {
     res.render('./admin/home');
 });
 
-app.get('/admin/posts-jobs', function(req, res) {
+app.get('/admin/posts-jobs', function (req, res) {
     res.render('./admin/posts-jobs');
 });
 
-app.get('/admin/posts-sell-salons', function(req, res) {
+app.get('/admin/posts-sell-salons', function (req, res) {
     res.render('./admin/posts-sell-salons');
 });
 
-app.get('/admin/posts-nail-supplies', function(req, res) {
+app.get('/admin/posts-nail-supplies', function (req, res) {
     res.render('./admin/posts-nail-supplies');
 });
 
-app.get('/admin/options-posts', function(req, res) {
+app.get('/admin/options-posts', function (req, res) {
     res.render('./admin/options-posts');
 });
 
-app.get('/admin/payments-stripe', function(req, res) {
+app.get('/admin/payments-stripe', function (req, res) {
     res.render('./admin/payments-stripe');
 });
 
-app.get('/admin/users', function(req, res) {
+app.get('/admin/users', function (req, res) {
     res.render('./admin/users');
 });
 
-app.get('/admin/users-profile', function(req, res) {
+app.get('/admin/users-profile', function (req, res) {
     res.render('./admin/users-profile');
 });
 
-app.get('/admin/history-payments', function(req, res) {
+app.get('/admin/history-payments', function (req, res) {
     res.render('./admin/history-payments');
 });
 
-app.get('/admin/blogs', function(req, res) {
+app.get('/admin/blogs', function (req, res) {
     res.render('./admin/blogs');
 });
 
-app.get('/admin/wellcome-nail', function(req, res) {
+app.get('/admin/wellcome-nail', function (req, res) {
     res.render('./admin/wellcome-nail')
 })
 
-app.get('/admin/contact-us', function(req, res) {
+app.get('/admin/contact-us', function (req, res) {
     res.render('./admin/contact-us')
 })
 
-app.get('/admin/terms-of-use', function(req, res) {
+app.get('/admin/terms-of-use', function (req, res) {
     res.render('./admin/terms-of-use')
 })
 
-app.get('/admin/privacy-policy', function(req, res) {
+app.get('/admin/privacy-policy', function (req, res) {
     res.render('./admin/privacy-policy')
 })
 
-app.get('/admin/phone-support', function(req, res) {
+app.get('/admin/phone-support', function (req, res) {
     res.render('./admin/phone-support')
 })
 
-app.get('/admin/remind-email', function(req, res) {
+app.get('/admin/remind-email', function (req, res) {
     res.render('./admin/remind-email')
 })
 
-app.get('/admin/seo-keyword', function(req, res) {
+app.get('/admin/seo-keyword', function (req, res) {
     res.render('./admin/seo-keyword')
 })
 
 //----------Start Clients Area---------//
 
-app.get('/', async function(req, res) {
+app.get('/', async function (req, res) {
     let result
     try {
         const UserModel = require('./models/ContactUs')
@@ -130,11 +130,11 @@ app.get('/', async function(req, res) {
     res.render('./client/home', { url: domain, title: result.keyword, content: result.description, image: domain + 'views/client/dist/images/banner.jpg', keyword: result.keyword, description: result.description, promotion: result.promotion })
 })
 
-app.get('/forgot-password', function(req, res) {
+app.get('/forgot-password', function (req, res) {
     res.render('./client/forgot-password', { url: domain + 'search/', title: 'Forgot password', content: 'Find a job, sell salon, nail supply', image: domain });
 })
 
-app.get('/search', function(req, res) {
+app.get('/search', function (req, res) {
     res.render('./client/search', { url: domain + 'search/', title: 'Find a job | sell salon | nail supply', content: 'Find a job, sell salon, nail supply', image: domain });
 })
 
@@ -167,7 +167,7 @@ function nearCountryByCode(code) {
     return result
 }
 
-app.get('/posts-jobs/:slug', async function(req, res) {
+app.get('/posts-jobs/:slug', async function (req, res) {
     try {
         const jobModel = require('./models/Job')
         let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
@@ -223,7 +223,7 @@ app.get('/posts-jobs/:slug', async function(req, res) {
     }
 })
 
-app.get('/posts-sell-salons/:slug', async function(req, res) {
+app.get('/posts-sell-salons/:slug', async function (req, res) {
     try {
         const jobModel = require('./models/SellSalon')
         let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
@@ -278,7 +278,7 @@ app.get('/posts-sell-salons/:slug', async function(req, res) {
     }
 })
 
-app.get('/posts-nail-supplies/:slug', async function(req, res) {
+app.get('/posts-nail-supplies/:slug', async function (req, res) {
     try {
         const jobModel = require('./models/NailSupply')
         let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
@@ -333,31 +333,31 @@ app.get('/posts-nail-supplies/:slug', async function(req, res) {
     }
 })
 
-app.get('/agency/account', function(req, res) {
+app.get('/agency/account', function (req, res) {
     res.render('./client/agency-account');
 });
 
-app.get('/agency/change-password', function(req, res) {
+app.get('/agency/change-password', function (req, res) {
     res.render('./client/agency-change-password');
 });
 
-app.get('/agency/posts', function(req, res) {
+app.get('/agency/posts', function (req, res) {
     res.render('./client/agency-posts')
 })
 
-app.get('/contact-us', function(req, res) {
+app.get('/contact-us', function (req, res) {
     res.render('./client/contact-us')
 })
 
-app.get('/terms-of-use', function(req, res) {
+app.get('/terms-of-use', function (req, res) {
     res.render('./client/terms-of-use')
 })
 
-app.get('/privacy-policy', function(req, res) {
+app.get('/privacy-policy', function (req, res) {
     res.render('./client/privacy-policy')
 })
 
-app.get('/blog', async function(req, res) {
+app.get('/blog', async function (req, res) {
     const relate = await BlogModel.find().sort({ _id: -1 }).limit(9)
 
     for (let i = 0; i < relate.length; i++) {
@@ -374,7 +374,7 @@ app.get('/blog', async function(req, res) {
     res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate) })
 })
 
-app.get('/blog/:slug', async function(req, res) {
+app.get('/blog/:slug', async function (req, res) {
     try {
         const result = await BlogModel.findOne({ link_slug: req.params.slug })
         const relate = await BlogModel.aggregate([{ $sample: { size: 5 } }])
@@ -398,7 +398,7 @@ app.get('/blog/:slug', async function(req, res) {
 
 })
 
-app.get('/contact', async(req, res) => {
+app.get('/contact', async (req, res) => {
     try {
         const UserModel = require('./models/ContactUs');
 
@@ -448,7 +448,7 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 })
 const dbFirebase = admin.firestore();
-(async() => {
+(async () => {
     //const doc = await dbFirebase.collection('ruler').doc('ruler').get()
 
     // token = doc._fieldsProto.key.stringValue
@@ -484,7 +484,7 @@ function connectDatabase() {
     mongoose.connect(process.env.DB_CONNECTION + process.env.DB_NAME, options).then(() => {
         console.log('nail 247 connected database!')
 
-        app.use(function(req, res, next) {
+        app.use(function (req, res, next) {
             if (!req.headers.token || req.headers.token != token) {
                 res.status(403).json({ error: 'authorization' });
             } else {
@@ -530,7 +530,7 @@ function fetchAPI(req, res) {
     const blogRoute = require('./routes/blog');
     app.use('/blog', blogRoute);
 
-    app.post('/purchase', async(req, res) => {
+    app.post('/purchase', async (req, res) => {
 
         const UserModel = require('./models/PaymentStripe')
         const result = await UserModel.findOne()
@@ -543,9 +543,9 @@ function fetchAPI(req, res) {
                 amount: helper.tryParseJson(req.headers.stripe).amount,
                 source: helper.tryParseJson(req.headers.stripe).stripeTokenId,
                 currency: 'usd'
-            }).then(function() {
+            }).then(function () {
                 return helper.paymentPostJob(req, res)
-            }).catch(function(e) {
+            }).catch(function (e) {
                 console.log('charge fail')
                 console.log(e)
                 res.status(500).end()
@@ -578,7 +578,7 @@ io.sockets.on('connection', (socket) => {
 
     //----------Start Admin Area---------//
 
-    socket.on('welcomes', async(data, callback) => {
+    socket.on('welcomes', async (data, callback) => {
         trafficsSocket(socket)
         try {
             const UserModel = require('./models/Welcome');
@@ -590,7 +590,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('save-welcome', async(data, callback) => {
+    socket.on('save-welcome', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -615,7 +615,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('login', async(obj, callback) => {
+    socket.on('login', async (obj, callback) => {
         trafficsSocket(socket)
         try {
             if (obj != undefined && obj != null) {
@@ -636,7 +636,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('recent-login', async(obj, callback) => {
+    socket.on('recent-login', async (obj, callback) => {
         trafficsSocket(socket)
         if (obj != undefined && obj != null) {
             try {
@@ -657,7 +657,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('recent-login-agency', async(obj, callback) => {
+    socket.on('recent-login-agency', async (obj, callback) => {
         trafficsSocket(socket)
         if (helper.isDefine(obj)) {
             try {
@@ -678,7 +678,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('post-jobs', async(data, callback) => {
+    socket.on('post-jobs', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -747,7 +747,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('post-sell-salons', async(data, callback) => {
+    socket.on('post-sell-salons', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -827,7 +827,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('post-nail-supplies', async(data, callback) => {
+    socket.on('post-nail-supplies', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -906,7 +906,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('post-blogs', async(data, callback) => {
+    socket.on('post-blogs', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -927,7 +927,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('count-post-blogs', async(data, callback) => {
+    socket.on('count-post-blogs', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -946,7 +946,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('options-posts', async(data, callback) => {
+    socket.on('options-posts', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -966,7 +966,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('history-payments', async(data, callback) => {
+    socket.on('history-payments', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1015,7 +1015,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('agencies', async(data, callback) => {
+    socket.on('agencies', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1056,7 +1056,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('count-post-jobs', async(data, callback) => {
+    socket.on('count-post-jobs', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1103,7 +1103,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('post-agency', async(data, callback) => {
+    socket.on('post-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -1173,7 +1173,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('count-post-agency', async(data, callback) => {
+    socket.on('count-post-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -1226,7 +1226,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('count-post-sell-salons', async(data, callback) => {
+    socket.on('count-post-sell-salons', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1272,7 +1272,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('count-post-nail-supplies', async(data, callback) => {
+    socket.on('count-post-nail-supplies', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1318,7 +1318,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('count-options-posts', async(data, callback) => {
+    socket.on('count-options-posts', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1350,7 +1350,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('count-history-payments', async(data, callback) => {
+    socket.on('count-history-payments', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1360,12 +1360,12 @@ io.sockets.on('connection', (socket) => {
                 let results = [0, 0, 0, 0]
 
                 let query = {}
-                    // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
-                    //     query = {
-                    //         ...query,
-                    //         $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
-                    //     }
-                    // }
+                // if (helper.isDefine(data.minDate) && helper.isDefine(data.maxDate)) {
+                //     query = {
+                //         ...query,
+                //         $and: [{ createdAt: { $gte: sanitize(data.minDate) } }, { createdAt: { $lte: sanitize(data.maxDate) } }],
+                //     }
+                // }
 
                 if (helper.isDefine(data.package)) {
                     query = {
@@ -1385,7 +1385,7 @@ io.sockets.on('connection', (socket) => {
 
                 for (let i = 0; i < object.length; i++) {
                     results[object[i].type + 1]++
-                        results[0]++
+                    results[0]++
                 }
 
                 callback(results);
@@ -1398,7 +1398,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('count-agencies', async(data, callback) => {
+    socket.on('count-agencies', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1438,7 +1438,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('total-money-history-payments', async(data, callback) => {
+    socket.on('total-money-history-payments', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1462,7 +1462,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('update-posts-jobs', async(data, callback) => {
+    socket.on('update-posts-jobs', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1485,7 +1485,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('update-posts-agency', async(data, callback) => {
+    socket.on('update-posts-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -1516,7 +1516,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('update-posts-sell-salons', async(data, callback) => {
+    socket.on('update-posts-sell-salons', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1539,7 +1539,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('update-posts-nail-supplies', async(data, callback) => {
+    socket.on('update-posts-nail-supplies', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1562,7 +1562,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('update-agencies', async(data, callback) => {
+    socket.on('update-agencies', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1595,7 +1595,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('delete-agencies', async(data, callback) => {
+    socket.on('delete-agencies', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1615,7 +1615,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('delete-posts-jobs', async(data, callback) => {
+    socket.on('delete-posts-jobs', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1635,7 +1635,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('delete-posts-blog', async(data, callback) => {
+    socket.on('delete-posts-blog', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1655,7 +1655,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('delete-posts-agency', async(data, callback) => {
+    socket.on('delete-posts-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -1682,7 +1682,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('delete-posts-sell-salons', async(data, callback) => {
+    socket.on('delete-posts-sell-salons', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1702,7 +1702,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('delete-posts-nail-supplies', async(data, callback) => {
+    socket.on('delete-posts-nail-supplies', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1722,7 +1722,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('counter-dashboard', async(data, callback) => {
+    socket.on('counter-dashboard', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1746,7 +1746,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('change-password-admin', async(data, callback) => {
+    socket.on('change-password-admin', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1779,7 +1779,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('update-options-posts', async(data, callback) => {
+    socket.on('update-options-posts', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1804,7 +1804,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('delete-options-posts', async(data, callback) => {
+    socket.on('delete-options-posts', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1824,7 +1824,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('enable-options-posts', async(data, callback) => {
+    socket.on('enable-options-posts', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1849,7 +1849,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('update-payments-stripe', async(data, callback) => {
+    socket.on('update-payments-stripe', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1875,7 +1875,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('payments-stripe', async(data, callback) => {
+    socket.on('payments-stripe', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1893,7 +1893,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('contact-us', async(data, callback) => {
+    socket.on('contact-us', async (data, callback) => {
         trafficsSocket(socket)
         try {
             const UserModel = require('./models/ContactUs');
@@ -1906,7 +1906,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('update-contact-us', async(data, callback) => {
+    socket.on('update-contact-us', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password, true)) {
@@ -1938,7 +1938,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('chart-sales', async(data, callback) => {
+    socket.on('chart-sales', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -1950,7 +1950,7 @@ io.sockets.on('connection', (socket) => {
 
                 for (let i = 0; i < result.length; i++) {
                     object[result[i].type]++
-                        object[result[i].type + 3] += result[i].cost
+                    object[result[i].type + 3] += result[i].cost
                     object[6] += result[i].cost
                 }
 
@@ -1965,7 +1965,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('traffics', async(data, callback) => {
+    socket.on('traffics', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLogin(data._id, data.password)) {
@@ -2054,7 +2054,7 @@ io.sockets.on('connection', (socket) => {
 
     //----------Start Clients Area---------//
 
-    socket.on('check-exist-agency', async(data, callback) => {
+    socket.on('check-exist-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null) {
@@ -2073,7 +2073,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('sign-up-agency', async(data, callback) => {
+    socket.on('sign-up-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null) {
@@ -2096,7 +2096,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('sign-in-agency', async(data, callback) => {
+    socket.on('sign-in-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null) {
@@ -2116,7 +2116,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('reset-password-agency', async(data, callback) => {
+    socket.on('reset-password-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null) {
@@ -2143,7 +2143,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('search', async(data, callback) => {
+    socket.on('search', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (helper.isDefine(data)) {
@@ -2160,15 +2160,16 @@ io.sockets.on('connection', (socket) => {
 
                 //let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
                 let query = { status: 1 }
-                    //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
+                //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
                 let querySearched = { title: data.title, status: 1 }
 
                 if (helper.isDefine(data.title) && data.title.length > 0) {
-                    data.title = data.title.trim().replaceAll('  ', ' ')
+                    data.title = data.title.trim()
+                    data.title = helper.stringToSlug(data.title).replaceAll('-', ' ')
                     let menus = data.title.split(' ')
                     let queryTitle = []
                     for (let i = 0; i < menus.length; i++) {
-                        queryTitle.push({ title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" } })
+                        queryTitle.push({ title_search: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } } )
                     }
                     query = {
                         ...query,
@@ -2332,7 +2333,7 @@ io.sockets.on('connection', (socket) => {
                         }
 
                         if (helper.isDefine(data.type_search) && helper.tryParseInt(data.type_search) > 0)
-                            object.sort(function(a, b) {
+                            object.sort(function (a, b) {
                                 return parseFloat(a.distance) - parseFloat(b.distance);
                             })
                     }
@@ -2346,11 +2347,23 @@ io.sockets.on('connection', (socket) => {
                     }
                 }
 
+                let hightLights = []
+                let normals = []
+
                 for (let i = 0; i < object.length; i++) {
                     if ((new Date(Date.now())) > (new Date(object[i].expiration_date))) {
                         object[i].status = 0
                     }
+
+                    // higlt light time
+                    if (new Date(Date.now()).getTime() < (new Date(object[i].createdAt).getTime() + (1 * 60 * 60 * 1000))) {
+                        hightLights.push(object[i])
+                    } else {
+                        normals.push(object[i])
+                    }
                 }
+
+                object = hightLights.concat(normals)
 
                 if (helper.isDefine(data.type_search) && data.type_search) {
                     let tempObject = []
@@ -2371,7 +2384,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('count-search', async(data, callback) => {
+    socket.on('count-search', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (helper.isDefine(data)) {
@@ -2388,15 +2401,16 @@ io.sockets.on('connection', (socket) => {
 
                 //let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
                 let query = { status: 1 }
-                    //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
+                //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
                 let querySearched = { title: data.title, status: 1 }
 
                 if (helper.isDefine(data.title) && data.title.length > 0) {
-                    data.title = data.title.trim().replaceAll('  ', ' ')
+                    data.title = data.title.trim()
+                    data.title = helper.stringToSlug(data.title).replaceAll('-', ' ')
                     let menus = data.title.split(' ')
                     let queryTitle = []
                     for (let i = 0; i < menus.length; i++) {
-                        queryTitle.push({ title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" } })
+                        queryTitle.push({ title_search: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } } )
                     }
                     query = {
                         ...query,
@@ -2551,7 +2565,7 @@ io.sockets.on('connection', (socket) => {
 
 
 
-    socket.on('search-country', async(data, callback) => {
+    socket.on('search-country', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (helper.isDefine(data)) {
@@ -2614,12 +2628,29 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('search-nail-supply', async(data, callback) => {
+    socket.on('search-nail-supply', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (helper.isDefine(data)) {
                 //let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
-                let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, status: 1 }
+
+
+                //let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, status: 1 }
+
+                let query = { status: 1 }
+                let title = data.val
+                title = title.trim()
+                title = helper.stringToSlug(title).replaceAll('-', ' ')
+                let menus = title.split(' ')
+                let queryTitle = []
+                for (let i = 0; i < menus.length; i++) {
+                    queryTitle.push( {title_search: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } })
+                }
+                query = {
+                    ...query,
+                    $or: queryTitle,
+                }
+
                 const nailSupplyModel = require('./models/NailSupply')
                 const results = await nailSupplyModel.find(query).limit(10)
                 callback(results)
@@ -2632,7 +2663,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('name-country-by-code', async(data, callback) => {
+    socket.on('name-country-by-code', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (helper.isDefine(data)) {
@@ -2674,7 +2705,7 @@ io.sockets.on('connection', (socket) => {
         }
     });
 
-    socket.on('featured', async(data, callback) => {
+    socket.on('featured', async (data, callback) => {
         trafficsSocket(socket)
         try {
             const jobModel = require('./models/Job')
@@ -2715,7 +2746,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('update-changed-agency', async(data, callback) => {
+    socket.on('update-changed-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -2740,7 +2771,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('options-posts-jobs-agency', async(data, callback) => {
+    socket.on('options-posts-jobs-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -2760,7 +2791,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('options-posts-sell-salon-agency', async(data, callback) => {
+    socket.on('options-posts-sell-salon-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -2780,7 +2811,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('options-posts-nail-supply-agency', async(data, callback) => {
+    socket.on('options-posts-nail-supply-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -2800,7 +2831,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('payments-stripes', async(data, callback) => {
+    socket.on('payments-stripes', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -2819,7 +2850,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('change-password-agency', async(data, callback) => {
+    socket.on('change-password-agency', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null) {
@@ -2848,7 +2879,7 @@ io.sockets.on('connection', (socket) => {
         }
     })
 
-    socket.on('on-update-images-post', async(data, callback) => {
+    socket.on('on-update-images-post', async (data, callback) => {
         trafficsSocket(socket)
         try {
             if (data != null && await helper.checkLoginAgency(data._id, data.password)) {
@@ -2916,7 +2947,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-croner.schedule('* * * * *', async() => {
+croner.schedule('* * * * *', async () => {
     try {
         const results = await ReminderPostModel.find()
         const resultContact = await ContactModel.findOne()
@@ -2971,7 +3002,7 @@ croner.schedule('* * * * *', async() => {
     }
 })
 
-croner.schedule('23 * * * *', async() => {
+croner.schedule('23 * * * *', async () => {
     try {
         const fs = require('fs')
 
@@ -3059,7 +3090,7 @@ croner.schedule('23 * * * *', async() => {
 
         page += '</urlset>'
 
-        fs.writeFile('sitemap.xml', page, function(err) {
+        fs.writeFile('sitemap.xml', page, function (err) {
 
         })
     } catch (err) {

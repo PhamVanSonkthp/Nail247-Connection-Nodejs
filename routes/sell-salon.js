@@ -474,11 +474,22 @@ router.get('/', async (req, res) => {
             }
         }
 
+        let hightLights = []
+        let normals = []
+
         for (let i = 0; i < result.length; i++) {
             if ((new Date(Date.now())) > (new Date(result[i].expiration_date))) {
                 result[i].status = 0
             }
+            // higlt light time
+            if (new Date(Date.now()).getTime() < ( new Date(result[i].createdAt).getTime() + (1 * 60 * 60 * 1000) ) ) {
+                hightLights.push(result[i])
+            }else{
+                normals.push(result[i])
+            }
         }
+
+        result = hightLights.concat(normals)
 
         if (helper.isDefine(req.query.type_search) && req.query.type_search) {
             let tempObject = []
@@ -491,7 +502,7 @@ router.get('/', async (req, res) => {
         return res.json(result);
     } catch (err) {
         helper.throwError(err)
-        return res.status(400).json(err);
+        return res.status(500).json(err);
     }
 });
 

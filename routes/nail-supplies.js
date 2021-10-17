@@ -49,6 +49,7 @@ async function uploadImage(req, res, isWeb) {
                 code: req.body.code,
                 location: location,
                 title: req.body.title,
+                title_search: helper.stringToSlug(req.body.title).replaceAll('-', ' '),
                 content: req.body.content,
                 email: req.body.email,
                 link_slug: helper.stringToSlug(req.body.title) + '-' + index,
@@ -120,12 +121,9 @@ async function uploadImage(req, res, isWeb) {
                     // end upload images
                     try {
                         for (let i = 0; i < arr.length; i++) {
-                            await ObjectModel.updateOne(
-                                { _id: savedObject._id },
-                                {
-                                    $push: { images: arr[i] },
-                                }
-                            );
+                            await ObjectModel.updateOne({ _id: savedObject._id }, {
+                                $push: { images: arr[i] },
+                            });
                             savedObject.images.push(arr[i])
                         }
 
@@ -178,9 +176,7 @@ router.put('/re-post', async (req, res) => {
 
             objForUpdate = { $set: objForUpdate }
 
-            const result = await ObjectModel.updateOne(
-                { _id: helper.tryParseJson(req.headers.values).id_post }, objForUpdate, helper.optsValidator
-            )
+            const result = await ObjectModel.updateOne({ _id: helper.tryParseJson(req.headers.values).id_post }, objForUpdate, helper.optsValidator)
 
             const query = {
                 id_post: helper.tryParseJson(req.headers.values).id_post,
@@ -209,9 +205,7 @@ router.put('/re-post', async (req, res) => {
 
             objForUpdate = { $set: objForUpdate }
 
-            const result = await ObjectModel.updateOne(
-                { _id: req.body.id_post }, objForUpdate, helper.optsValidator
-            )
+            const result = await ObjectModel.updateOne({ _id: req.body.id_post }, objForUpdate, helper.optsValidator)
 
             const query = {
                 id_post: req.body.id_post,
@@ -261,7 +255,10 @@ async function updatePostMobile(req, res) {
                 if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city
                 if (helper.isDefine(req.body.state) && req.body.state) objForUpdate.state = req.body.state
                 if (helper.isDefine(req.body.code)) objForUpdate.code = req.body.code
-                if (helper.isDefine(req.body.title)) objForUpdate.title = req.body.title
+                if (helper.isDefine(req.body.title)) {
+                    objForUpdate.title = req.body.title
+                    objForUpdate.title_search = helper.stringToSlug(req.body.title).replaceAll('-', ' ')
+                }
                 if (helper.isDefine(req.body.content)) objForUpdate.content = req.body.content
                 if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email
                 if (helper.isDefine(req.body.price)) objForUpdate.price = req.body.price
@@ -274,9 +271,7 @@ async function updatePostMobile(req, res) {
 
                 objForUpdate = { $set: objForUpdate }
 
-                const savedObject = await ObjectModel.findOneAndUpdate(
-                    { _id: req.params.objectId }, objForUpdate, helper.optsValidator
-                )
+                const savedObject = await ObjectModel.findOneAndUpdate({ _id: req.params.objectId }, objForUpdate, helper.optsValidator)
 
                 const query = {
                     id_post: savedObject._id,
@@ -309,12 +304,9 @@ async function updatePostMobile(req, res) {
 
                     try {
                         for (let i = 0; i < arr.length; i++) {
-                            await ObjectModel.updateOne(
-                                { _id: req.params.objectId },
-                                {
-                                    $push: { images: arr[i] },
-                                }
-                            )
+                            await ObjectModel.updateOne({ _id: req.params.objectId }, {
+                                $push: { images: arr[i] },
+                            })
 
                             savedObject.images.push(arr[i])
                         }
@@ -370,7 +362,7 @@ router.get('/featured', async (req, res) => {
         }
 
         //const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page);
-        const result = await ObjectModel.aggregate([{ $match: query }, { $sample: { size: Math.max(limit , 50) } }])
+        const result = await ObjectModel.aggregate([{ $match: query }, { $sample: { size: Math.max(limit, 50) } }])
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             for (let i = 0; i < result.length; i++) {
@@ -410,11 +402,12 @@ router.get('/', async (req, res) => {
         let querySearched = { title: title, status: 1 }
 
         if (helper.isDefine(title) && title.length > 0) {
-            title = title.trim().replaceAll('  ', ' ')
+            title = title.trim()
+            title = helper.stringToSlug(title).replaceAll('-', ' ')
             let menus = title.split(' ')
             let queryTitle = []
             for (let i = 0; i < menus.length; i++) {
-                queryTitle.push({ title: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } })
+                queryTitle.push( {title_search: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } })
             }
             query = {
                 ...query,
@@ -495,11 +488,11 @@ router.get('/', async (req, res) => {
         let leftObjects = []
         let rightObjects = []
         for (let i = 0; i < result.length; i++) {
-          if (new Date(result[i]._doc.createdAt).getDay() == new Date().getDay() && result[i]._doc.package == 'Gold') {
-            leftObjects.push(result[i])
-          } else {
-            rightObjects.push(result[i])
-          }
+            if (new Date(result[i]._doc.createdAt).getDay() == new Date().getDay() && result[i]._doc.package == 'Gold') {
+                leftObjects.push(result[i])
+            } else {
+                rightObjects.push(result[i])
+            }
         }
         result = leftObjects.concat(rightObjects)
 
@@ -583,7 +576,10 @@ async function updateImage(req, res, isWeb) {
                 if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city;
                 if (helper.isDefine(req.body.code)) objForUpdate.code = req.body.code;
                 if (helper.isDefine(location)) objForUpdate.location = location
-                if (helper.isDefine(req.body.title)) objForUpdate.title = req.body.title;
+                if (helper.isDefine(req.body.title)) {
+                    objForUpdate.title = req.body.title
+                    objForUpdate.title_search = helper.stringToSlug(req.body.title).replaceAll('-', ' ')
+                }
                 if (helper.isDefine(req.body.content)) objForUpdate.content = req.body.content;
                 if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email;
                 if (helper.isDefine(req.body.cost)) objForUpdate.price = req.body.cost;
@@ -592,9 +588,7 @@ async function updateImage(req, res, isWeb) {
 
                 objForUpdate = { $set: objForUpdate }
 
-                const savedObject = await ObjectModel.findOneAndUpdate(
-                    { _id: req.body.id_post }, objForUpdate, helper.optsValidator
-                )
+                const savedObject = await ObjectModel.findOneAndUpdate({ _id: req.body.id_post }, objForUpdate, helper.optsValidator)
 
                 if (req.fileValidationError) {
                     if (isWeb) {
@@ -627,12 +621,9 @@ async function updateImage(req, res, isWeb) {
                     // end upload images
                     try {
                         for (let i = 0; i < arr.length; i++) {
-                            await ObjectModel.updateOne(
-                                { _id: req.body.id_post },
-                                {
-                                    $push: { images: arr[i] },
-                                }
-                            )
+                            await ObjectModel.updateOne({ _id: req.body.id_post }, {
+                                $push: { images: arr[i] },
+                            })
 
                             savedObject.images.push(arr[i])
                         }

@@ -381,8 +381,10 @@ router.get('/', async (req, res) => {
     try {
         const limit = helper.tryParseInt(req.query.limit)
         const page = helper.tryParseInt(req.query.page)
-        const code = req.query.code;
-        const cost = req.query.cost;
+        const code = req.query.code
+        const cost = req.query.cost
+
+        const highLightTime = 1 * 60 * 60 * 1000
 
         let query = { status: 1 }
 
@@ -453,7 +455,6 @@ router.get('/', async (req, res) => {
             }
         }
 
-
         let result
         if (helper.isDefine(req.query.type_search) && helper.tryParseInt(req.query.type_search) > 0) {
             result = await ObjectModel.find(query)
@@ -490,11 +491,22 @@ router.get('/', async (req, res) => {
             }
         }
 
+        let hightLights = []
+        let normals = []
+
         for (let i = 0; i < result.length; i++) {
             if ((new Date(Date.now())) > (new Date(result[i].expiration_date))) {
                 result[i].status = 0
             }
+            // higlt light time
+            if (new Date(Date.now()).getTime() < ( new Date(result[i].createdAt).getTime() + (1 * 60 * 60 * 1000) ) ) {
+                hightLights.push(result[i])
+            }else{
+                normals.push(result[i])
+            }
         }
+        
+        result = hightLights.concat(normals)
 
         if (helper.isDefine(req.query.type_search) && req.query.type_search) {
             let tempObject = []
@@ -504,7 +516,7 @@ router.get('/', async (req, res) => {
             result = tempObject
         }
 
-        return res.json(result);
+        return res.json(result)
     } catch (err) {
         helper.throwError(err)
         return res.status(500).json(err);

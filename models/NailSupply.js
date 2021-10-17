@@ -29,8 +29,8 @@ const object = mongoose.Schema({
     code: {
         ...helper.schemaNumber,
     },
-    location:{
-        type: { 
+    location: {
+        type: {
             type: String,
             ...helper.schemaRequired,
             default: 'Point',
@@ -38,7 +38,7 @@ const object = mongoose.Schema({
         coordinates: {
             type: [Number],
             ...helper.schemaRequired,
-            default: [0,0],
+            default: [0, 0],
         },
     },
     title: {
@@ -70,7 +70,7 @@ const object = mongoose.Schema({
     },
     status: {
         ...helper.schemaNumber,
-        default:1,
+        default: 1,
     },
     package: {
         ...helper.schemaString,
@@ -93,6 +93,6 @@ const object = mongoose.Schema({
 
 object.set('toObject', { getters: true, setters: true });
 object.set('toJSON', { getters: true, setters: true });
-object.index({location: '2dsphere' });
-
+object.index({ location: '2dsphere' });
+object.index({ title: 'text' });
 module.exports = mongoose.model('NailSupply', object);

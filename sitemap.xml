@@ -6,23 +6,28 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
 <loc>https://nail.okechua.com/</loc>
-<lastmod>Fri Oct 15 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Sun Oct 17 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>1.00</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/search?categories=find-job</loc>
-<lastmod>Fri Oct 15 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Sun Oct 17 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/search?categories=sell-salon</loc>
-<lastmod>Fri Oct 15 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Sun Oct 17 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/search?categories=nail-supply</loc>
-<lastmod>Fri Oct 15 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Sun Oct 17 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.80</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/posts-jobs/hallo-20</loc>
+<lastmod>Invalid Date</lastmod>
+<priority>0.70</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/posts-jobs/test-map-3-19</loc>
@@ -145,43 +150,23 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
-<loc>https://nail.okechua.com/posts-nail-supplies/test-map-7-4</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/posts-nail-supplies/123-3</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/posts-nail-supplies/123-2</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/posts-nail-supplies/123123213-1</loc>
-<lastmod>Invalid Date</lastmod>
-<priority>0.70</priority>
-</url>
-<url>
-<loc>https://nail.okechua.com/posts-nail-supplies/123-0</loc>
+<loc>https://nail.okechua.com/posts-nail-supplies/tuyen-dung-tho-nail-0</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/privacy-policy</loc>
-<lastmod>Fri Oct 15 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Sun Oct 17 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/terms-of-use</loc>
-<lastmod>Fri Oct 15 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Sun Oct 17 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.10</priority>
 </url>
 <url>
 <loc>https://nail.okechua.com/terms-of-use</loc>
-<lastmod>Fri Oct 15 2021 08:23:00 GMT+0700 (Indochina Time)</lastmod>
+<lastmod>Sun Oct 17 2021 09:23:00 GMT+0700 (Indochina Time)</lastmod>
 <priority>0.10</priority>
 </url>
 </urlset>

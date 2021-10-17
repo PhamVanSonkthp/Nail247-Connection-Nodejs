@@ -4,7 +4,7 @@ const ObjectModel = require('../models/NailSupply');
 const helper = require('../helper/helper');
 const ReminderPostModel = require('../models/ReminderPosts')
 
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
     return await uploadImage(req, res)
 })
 
@@ -17,17 +17,17 @@ async function uploadImage(req, res, isWeb) {
     const pathStorage = 'public/images-nail-supplies/'
 
     const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
+        destination: function(req, file, cb) {
             cb(null, pathStorage);
         },
-        filename: function (req, file, cb) {
+        filename: function(req, file, cb) {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
     });
 
     let upload = multer({ storage: storage }).array('avatar', 100);
-    upload(req, res, function (err) {
-        (async () => {
+    upload(req, res, function(err) {
+        (async() => {
 
             let location = {
                 "type": "Point",
@@ -120,12 +120,9 @@ async function uploadImage(req, res, isWeb) {
                     // end upload images
                     try {
                         for (let i = 0; i < arr.length; i++) {
-                            await ObjectModel.updateOne(
-                                { _id: savedObject._id },
-                                {
-                                    $push: { images: arr[i] },
-                                }
-                            );
+                            await ObjectModel.updateOne({ _id: savedObject._id }, {
+                                $push: { images: arr[i] },
+                            });
                             savedObject.images.push(arr[i])
                         }
 
@@ -156,7 +153,7 @@ async function uploadImage(req, res, isWeb) {
     });
 };
 
-router.put('/re-post', async (req, res) => {
+router.put('/re-post', async(req, res) => {
     try {
         if (helper.isDefine(helper.tryParseJson(req.headers.values))) {
             if (helper.tryParseJson(req.headers.values).cost && helper.tryParseJson(req.headers.values).cost > 0) {
@@ -174,13 +171,11 @@ router.put('/re-post', async (req, res) => {
             if (helper.isDefine(helper.tryParseJson(req.headers.values).package)) objForUpdate.package = helper.tryParseJson(req.headers.values).package
             if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.months_provider = helper.tryParseJson(req.headers.values).months_provider
             if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 30 * 24 * 60 * 60 * 1000
-            //if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 60 * 1000
+                //if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 60 * 1000
 
             objForUpdate = { $set: objForUpdate }
 
-            const result = await ObjectModel.updateOne(
-                { _id: helper.tryParseJson(req.headers.values).id_post }, objForUpdate, helper.optsValidator
-            )
+            const result = await ObjectModel.updateOne({ _id: helper.tryParseJson(req.headers.values).id_post }, objForUpdate, helper.optsValidator)
 
             const query = {
                 id_post: helper.tryParseJson(req.headers.values).id_post,
@@ -205,13 +200,11 @@ router.put('/re-post', async (req, res) => {
             if (helper.isDefine(req.body.package)) objForUpdate.package = req.body.package
             if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
             if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
-            //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
+                //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
 
             objForUpdate = { $set: objForUpdate }
 
-            const result = await ObjectModel.updateOne(
-                { _id: req.body.id_post }, objForUpdate, helper.optsValidator
-            )
+            const result = await ObjectModel.updateOne({ _id: req.body.id_post }, objForUpdate, helper.optsValidator)
 
             const query = {
                 id_post: req.body.id_post,
@@ -227,7 +220,7 @@ router.put('/re-post', async (req, res) => {
     }
 })
 
-router.put('/:objectId', async (req, res) => {
+router.put('/:objectId', async(req, res) => {
     return await updatePostMobile(req, res)
 })
 
@@ -240,17 +233,17 @@ async function updatePostMobile(req, res) {
     const pathStorage = 'public/images-nail-supplies/'
 
     const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
+        destination: function(req, file, cb) {
             cb(null, pathStorage);
         },
-        filename: function (req, file, cb) {
+        filename: function(req, file, cb) {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
     });
 
     let upload = multer({ storage: storage }).array('avatar', 100);
-    upload(req, res, function (err) {
-        (async () => {
+    upload(req, res, function(err) {
+        (async() => {
             try {
 
                 let objForUpdate = {}
@@ -270,13 +263,11 @@ async function updatePostMobile(req, res) {
                 if (helper.isDefine(req.body.status)) objForUpdate.status = req.body.status
                 if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
                 if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
-                //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
+                    //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
 
                 objForUpdate = { $set: objForUpdate }
 
-                const savedObject = await ObjectModel.findOneAndUpdate(
-                    { _id: req.params.objectId }, objForUpdate, helper.optsValidator
-                )
+                const savedObject = await ObjectModel.findOneAndUpdate({ _id: req.params.objectId }, objForUpdate, helper.optsValidator)
 
                 const query = {
                     id_post: savedObject._id,
@@ -309,12 +300,9 @@ async function updatePostMobile(req, res) {
 
                     try {
                         for (let i = 0; i < arr.length; i++) {
-                            await ObjectModel.updateOne(
-                                { _id: req.params.objectId },
-                                {
-                                    $push: { images: arr[i] },
-                                }
-                            )
+                            await ObjectModel.updateOne({ _id: req.params.objectId }, {
+                                $push: { images: arr[i] },
+                            })
 
                             savedObject.images.push(arr[i])
                         }
@@ -335,7 +323,7 @@ async function updatePostMobile(req, res) {
     });
 }
 
-router.delete('/:objectId', async (req, res) => {
+router.delete('/:objectId', async(req, res) => {
     try {
         const object = await ObjectModel.deleteOne({ _id: req.params.objectId });
         return res.json(object);
@@ -344,7 +332,7 @@ router.delete('/:objectId', async (req, res) => {
     }
 });
 
-router.get('/featured', async (req, res) => {
+router.get('/featured', async(req, res) => {
     try {
         const limit = helper.tryParseInt(req.query.limit)
         const page = helper.tryParseInt(req.query.page)
@@ -352,7 +340,7 @@ router.get('/featured', async (req, res) => {
         const longitude = req.query.longitude;
 
         let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
-        //let query = { package: 'Gold', status: 1 }
+            //let query = { package: 'Gold', status: 1 }
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             query = {
@@ -370,7 +358,7 @@ router.get('/featured', async (req, res) => {
         }
 
         //const result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page);
-        const result = await ObjectModel.aggregate([{ $match: query }, { $sample: { size: Math.max(limit , 50) } }])
+        const result = await ObjectModel.aggregate([{ $match: query }, { $sample: { size: Math.max(limit, 50) } }])
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             for (let i = 0; i < result.length; i++) {
@@ -395,7 +383,7 @@ router.get('/featured', async (req, res) => {
     }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
     try {
         const limit = helper.tryParseInt(req.query.limit)
         const page = helper.tryParseInt(req.query.page)
@@ -406,7 +394,7 @@ router.get('/', async (req, res) => {
 
         //let query = { expiration_date: { $gte: new Date() }, status: 1 }
         let query = { status: 1 }
-        //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: title }
+            //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: title }
         let querySearched = { title: title, status: 1 }
 
         if (helper.isDefine(title) && title.length > 0) {
@@ -414,14 +402,18 @@ router.get('/', async (req, res) => {
             let menus = title.split(' ')
             let queryTitle = []
             for (let i = 0; i < menus.length; i++) {
+
                 queryTitle.push({ title: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } })
+                //queryTitle.push({ $or: [{ $text: { $search: (menus[i]) } }, { title: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } }] })
+                // queryTitle.push({ $text: { $search: menus[i] } })
+
             }
             query = {
                 ...query,
                 title: { $ne: title },
                 $or: queryTitle,
             }
-        }
+        } - 0
 
         if (helper.isDefine(price)) {
 
@@ -495,11 +487,11 @@ router.get('/', async (req, res) => {
         let leftObjects = []
         let rightObjects = []
         for (let i = 0; i < result.length; i++) {
-          if (new Date(result[i]._doc.createdAt).getDay() == new Date().getDay() && result[i]._doc.package == 'Gold') {
-            leftObjects.push(result[i])
-          } else {
-            rightObjects.push(result[i])
-          }
+            if (new Date(result[i]._doc.createdAt).getDay() == new Date().getDay() && result[i]._doc.package == 'Gold') {
+                leftObjects.push(result[i])
+            } else {
+                rightObjects.push(result[i])
+            }
         }
         result = leftObjects.concat(rightObjects)
 
@@ -540,7 +532,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/form-web/', async (req, res) => {
+router.post('/form-web/', async(req, res) => {
     return await uploadImage(req, res, true)
 })
 
@@ -554,17 +546,17 @@ async function updateImage(req, res, isWeb) {
     const pathStorage = 'public/images-nail-supplies/'
 
     const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
+        destination: function(req, file, cb) {
             cb(null, pathStorage);
         },
-        filename: function (req, file, cb) {
+        filename: function(req, file, cb) {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
     });
 
     let upload = multer({ storage: storage }).array('avatar', 100);
-    upload(req, res, function (err) {
-        (async () => {
+    upload(req, res, function(err) {
+        (async() => {
             try {
                 let location = {
                     "type": "Point",
@@ -592,9 +584,7 @@ async function updateImage(req, res, isWeb) {
 
                 objForUpdate = { $set: objForUpdate }
 
-                const savedObject = await ObjectModel.findOneAndUpdate(
-                    { _id: req.body.id_post }, objForUpdate, helper.optsValidator
-                )
+                const savedObject = await ObjectModel.findOneAndUpdate({ _id: req.body.id_post }, objForUpdate, helper.optsValidator)
 
                 if (req.fileValidationError) {
                     if (isWeb) {
@@ -627,12 +617,9 @@ async function updateImage(req, res, isWeb) {
                     // end upload images
                     try {
                         for (let i = 0; i < arr.length; i++) {
-                            await ObjectModel.updateOne(
-                                { _id: req.body.id_post },
-                                {
-                                    $push: { images: arr[i] },
-                                }
-                            )
+                            await ObjectModel.updateOne({ _id: req.body.id_post }, {
+                                $push: { images: arr[i] },
+                            })
 
                             savedObject.images.push(arr[i])
                         }
@@ -664,7 +651,7 @@ async function updateImage(req, res, isWeb) {
     });
 };
 
-router.post('/update-post/', async (req, res) => {
+router.post('/update-post/', async(req, res) => {
     return await updateImage(req, res)
 })
 

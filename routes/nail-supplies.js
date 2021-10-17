@@ -397,7 +397,7 @@ router.get('/', async (req, res) => {
         const price = req.query.price;
 
         //let query = { expiration_date: { $gte: new Date() }, status: 1 }
-        let query = { status: 1 }
+        let query = { status: 1 , title: { $ne: title }}
         //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: title }
         let querySearched = { title: title, status: 1 }
 
@@ -411,7 +411,6 @@ router.get('/', async (req, res) => {
             }
             query = {
                 ...query,
-                title: { $ne: title },
                 $or: queryTitle,
             }
         }

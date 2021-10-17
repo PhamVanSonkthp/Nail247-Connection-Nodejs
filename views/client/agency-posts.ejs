@@ -1463,7 +1463,7 @@
                         return
                     }
 
-                    if (!$('#modal_post_job_edt_filter_country_update').val().length || !codePostJob) {
+                    if ((!$('#modal_post_job_edt_filter_country_update').val().length || !codePostJob) && isSort != 3) {
                         $('#modal_post_job_edt_filter_country_update').focus()
                         $('#modal_post_job_edt_filter_country_update').before('<p class="removed" style="color:red">City is require</p>')
                         return

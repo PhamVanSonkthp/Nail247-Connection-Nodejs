@@ -46,6 +46,10 @@ const object = mongoose.Schema({
         ...helper.schemaRequired,
         ...helper.schemaCapitalizeFirstLetter,
     },
+    title_search: {
+        ...helper.schemaString,
+        ...helper.schemaRequired,
+    },
     content: {
         ...helper.schemaString,
         ...helper.schemaRequired,

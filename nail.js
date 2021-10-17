@@ -2164,11 +2164,12 @@ io.sockets.on('connection', (socket) => {
                 let querySearched = { title: data.title, status: 1 }
 
                 if (helper.isDefine(data.title) && data.title.length > 0) {
-                    data.title = data.title.trim().replaceAll('  ', ' ')
+                    data.title = data.title.trim()
+                    data.title = helper.stringToSlug(data.title).replaceAll('-', ' ')
                     let menus = data.title.split(' ')
                     let queryTitle = []
                     for (let i = 0; i < menus.length; i++) {
-                        queryTitle.push({ title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" } })
+                        queryTitle.push({ title_search: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } } )
                     }
                     query = {
                         ...query,
@@ -2404,11 +2405,12 @@ io.sockets.on('connection', (socket) => {
                 let querySearched = { title: data.title, status: 1 }
 
                 if (helper.isDefine(data.title) && data.title.length > 0) {
-                    data.title = data.title.trim().replaceAll('  ', ' ')
+                    data.title = data.title.trim()
+                    data.title = helper.stringToSlug(data.title).replaceAll('-', ' ')
                     let menus = data.title.split(' ')
                     let queryTitle = []
                     for (let i = 0; i < menus.length; i++) {
-                        queryTitle.push({ title: { $regex: ".*" + sanitize(menus[i]) + ".*", $options: "$i" } })
+                        queryTitle.push({ title_search: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } } )
                     }
                     query = {
                         ...query,
@@ -2631,7 +2633,24 @@ io.sockets.on('connection', (socket) => {
         try {
             if (helper.isDefine(data)) {
                 //let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
-                let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, status: 1 }
+
+
+                //let query = { title: { $regex: ".*" + sanitize(data.val != undefined ? data.val : '') + ".*", $options: "$i" }, status: 1 }
+
+                let query = { status: 1 }
+                let title = data.val
+                title = title.trim()
+                title = helper.stringToSlug(title).replaceAll('-', ' ')
+                let menus = title.split(' ')
+                let queryTitle = []
+                for (let i = 0; i < menus.length; i++) {
+                    queryTitle.push( {title_search: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } })
+                }
+                query = {
+                    ...query,
+                    $or: queryTitle,
+                }
+
                 const nailSupplyModel = require('./models/NailSupply')
                 const results = await nailSupplyModel.find(query).limit(10)
                 callback(results)

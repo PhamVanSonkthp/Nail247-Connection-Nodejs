@@ -4,7 +4,7 @@ const ObjectModel = require('../models/NailSupply');
 const helper = require('../helper/helper');
 const ReminderPostModel = require('../models/ReminderPosts')
 
-router.post('/', async(req, res) => {
+router.post('/', async (req, res) => {
     return await uploadImage(req, res)
 })
 
@@ -17,17 +17,17 @@ async function uploadImage(req, res, isWeb) {
     const pathStorage = 'public/images-nail-supplies/'
 
     const storage = multer.diskStorage({
-        destination: function(req, file, cb) {
+        destination: function (req, file, cb) {
             cb(null, pathStorage);
         },
-        filename: function(req, file, cb) {
+        filename: function (req, file, cb) {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
     });
 
     let upload = multer({ storage: storage }).array('avatar', 100);
-    upload(req, res, function(err) {
-        (async() => {
+    upload(req, res, function (err) {
+        (async () => {
 
             let location = {
                 "type": "Point",
@@ -49,6 +49,7 @@ async function uploadImage(req, res, isWeb) {
                 code: req.body.code,
                 location: location,
                 title: req.body.title,
+                title_search: helper.stringToSlug(req.body.title).replaceAll('-', ' '),
                 content: req.body.content,
                 email: req.body.email,
                 link_slug: helper.stringToSlug(req.body.title) + '-' + index,
@@ -153,7 +154,7 @@ async function uploadImage(req, res, isWeb) {
     });
 };
 
-router.put('/re-post', async(req, res) => {
+router.put('/re-post', async (req, res) => {
     try {
         if (helper.isDefine(helper.tryParseJson(req.headers.values))) {
             if (helper.tryParseJson(req.headers.values).cost && helper.tryParseJson(req.headers.values).cost > 0) {
@@ -171,7 +172,7 @@ router.put('/re-post', async(req, res) => {
             if (helper.isDefine(helper.tryParseJson(req.headers.values).package)) objForUpdate.package = helper.tryParseJson(req.headers.values).package
             if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.months_provider = helper.tryParseJson(req.headers.values).months_provider
             if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 30 * 24 * 60 * 60 * 1000
-                //if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 60 * 1000
+            //if (helper.isDefine(helper.tryParseJson(req.headers.values).months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(helper.tryParseJson(req.headers.values).months_provider) * 60 * 1000
 
             objForUpdate = { $set: objForUpdate }
 
@@ -200,7 +201,7 @@ router.put('/re-post', async(req, res) => {
             if (helper.isDefine(req.body.package)) objForUpdate.package = req.body.package
             if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
             if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
-                //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
+            //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
 
             objForUpdate = { $set: objForUpdate }
 
@@ -220,7 +221,7 @@ router.put('/re-post', async(req, res) => {
     }
 })
 
-router.put('/:objectId', async(req, res) => {
+router.put('/:objectId', async (req, res) => {
     return await updatePostMobile(req, res)
 })
 
@@ -233,17 +234,17 @@ async function updatePostMobile(req, res) {
     const pathStorage = 'public/images-nail-supplies/'
 
     const storage = multer.diskStorage({
-        destination: function(req, file, cb) {
+        destination: function (req, file, cb) {
             cb(null, pathStorage);
         },
-        filename: function(req, file, cb) {
+        filename: function (req, file, cb) {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
     });
 
     let upload = multer({ storage: storage }).array('avatar', 100);
-    upload(req, res, function(err) {
-        (async() => {
+    upload(req, res, function (err) {
+        (async () => {
             try {
 
                 let objForUpdate = {}
@@ -254,7 +255,10 @@ async function updatePostMobile(req, res) {
                 if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city
                 if (helper.isDefine(req.body.state) && req.body.state) objForUpdate.state = req.body.state
                 if (helper.isDefine(req.body.code)) objForUpdate.code = req.body.code
-                if (helper.isDefine(req.body.title)) objForUpdate.title = req.body.title
+                if (helper.isDefine(req.body.title)) {
+                    objForUpdate.title = req.body.title
+                    objForUpdate.title_search = helper.stringToSlug(req.body.title).replaceAll('-', ' ')
+                }
                 if (helper.isDefine(req.body.content)) objForUpdate.content = req.body.content
                 if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email
                 if (helper.isDefine(req.body.price)) objForUpdate.price = req.body.price
@@ -263,7 +267,7 @@ async function updatePostMobile(req, res) {
                 if (helper.isDefine(req.body.status)) objForUpdate.status = req.body.status
                 if (helper.isDefine(req.body.months_provider)) objForUpdate.months_provider = req.body.months_provider
                 if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 30 * 24 * 60 * 60 * 1000
-                    //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
+                //if (helper.isDefine(req.body.months_provider)) objForUpdate.expiration_date = Date.now() + helper.tryParseInt(req.body.months_provider) * 60 * 1000
 
                 objForUpdate = { $set: objForUpdate }
 
@@ -323,7 +327,7 @@ async function updatePostMobile(req, res) {
     });
 }
 
-router.delete('/:objectId', async(req, res) => {
+router.delete('/:objectId', async (req, res) => {
     try {
         const object = await ObjectModel.deleteOne({ _id: req.params.objectId });
         return res.json(object);
@@ -332,7 +336,7 @@ router.delete('/:objectId', async(req, res) => {
     }
 });
 
-router.get('/featured', async(req, res) => {
+router.get('/featured', async (req, res) => {
     try {
         const limit = helper.tryParseInt(req.query.limit)
         const page = helper.tryParseInt(req.query.page)
@@ -340,7 +344,7 @@ router.get('/featured', async(req, res) => {
         const longitude = req.query.longitude;
 
         let query = { expiration_date: { $gte: new Date() }, package: 'Gold', status: 1 }
-            //let query = { package: 'Gold', status: 1 }
+        //let query = { package: 'Gold', status: 1 }
 
         if (helper.isDefine(latitude) && helper.isDefine(longitude) && helper.isNumber(latitude) && helper.isNumber(longitude)) {
             query = {
@@ -383,7 +387,7 @@ router.get('/featured', async(req, res) => {
     }
 });
 
-router.get('/', async(req, res) => {
+router.get('/', async (req, res) => {
     try {
         const limit = helper.tryParseInt(req.query.limit)
         const page = helper.tryParseInt(req.query.page)
@@ -394,26 +398,23 @@ router.get('/', async(req, res) => {
 
         //let query = { expiration_date: { $gte: new Date() }, status: 1 }
         let query = { status: 1 }
-            //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: title }
+        //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: title }
         let querySearched = { title: title, status: 1 }
 
         if (helper.isDefine(title) && title.length > 0) {
-            title = title.trim().replaceAll('  ', ' ')
+            title = title.trim()
+            title = helper.stringToSlug(title).replaceAll('-', ' ')
             let menus = title.split(' ')
             let queryTitle = []
             for (let i = 0; i < menus.length; i++) {
-
-                queryTitle.push({ title: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } })
-                //queryTitle.push({ $or: [{ $text: { $search: (menus[i]) } }, { title: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } }] })
-                // queryTitle.push({ $text: { $search: menus[i] } })
-
+                queryTitle.push( {title_search: { $regex: ".*" + (menus[i]) + ".*", $options: "$i" } })
             }
             query = {
                 ...query,
                 title: { $ne: title },
                 $or: queryTitle,
             }
-        } - 0
+        }
 
         if (helper.isDefine(price)) {
 
@@ -532,7 +533,7 @@ router.get('/', async(req, res) => {
     }
 });
 
-router.post('/form-web/', async(req, res) => {
+router.post('/form-web/', async (req, res) => {
     return await uploadImage(req, res, true)
 })
 
@@ -546,17 +547,17 @@ async function updateImage(req, res, isWeb) {
     const pathStorage = 'public/images-nail-supplies/'
 
     const storage = multer.diskStorage({
-        destination: function(req, file, cb) {
+        destination: function (req, file, cb) {
             cb(null, pathStorage);
         },
-        filename: function(req, file, cb) {
+        filename: function (req, file, cb) {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
     });
 
     let upload = multer({ storage: storage }).array('avatar', 100);
-    upload(req, res, function(err) {
-        (async() => {
+    upload(req, res, function (err) {
+        (async () => {
             try {
                 let location = {
                     "type": "Point",
@@ -575,7 +576,10 @@ async function updateImage(req, res, isWeb) {
                 if (helper.isDefine(req.body.city) && req.body.city) objForUpdate.city = req.body.city;
                 if (helper.isDefine(req.body.code)) objForUpdate.code = req.body.code;
                 if (helper.isDefine(location)) objForUpdate.location = location
-                if (helper.isDefine(req.body.title)) objForUpdate.title = req.body.title;
+                if (helper.isDefine(req.body.title)) {
+                    objForUpdate.title = req.body.title
+                    objForUpdate.title_search = helper.stringToSlug(req.body.title).replaceAll('-', ' ')
+                }
                 if (helper.isDefine(req.body.content)) objForUpdate.content = req.body.content;
                 if (helper.isDefine(req.body.email)) objForUpdate.email = req.body.email;
                 if (helper.isDefine(req.body.cost)) objForUpdate.price = req.body.cost;
@@ -651,7 +655,7 @@ async function updateImage(req, res, isWeb) {
     });
 };
 
-router.post('/update-post/', async(req, res) => {
+router.post('/update-post/', async (req, res) => {
     return await updateImage(req, res)
 })
 

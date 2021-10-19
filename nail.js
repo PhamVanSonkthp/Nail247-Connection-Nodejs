@@ -2159,7 +2159,7 @@ io.sockets.on('connection', (socket) => {
                 }
 
                 //let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
-                let query = { status: 1 }
+                let query = { status: 1 , title: { $ne: data.title }}
                 //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
                 let querySearched = { title: data.title, status: 1 }
 
@@ -2173,7 +2173,6 @@ io.sockets.on('connection', (socket) => {
                     }
                     query = {
                         ...query,
-                        title: { $ne: data.title },
                         $or: queryTitle,
                     }
                 }
@@ -2400,7 +2399,7 @@ io.sockets.on('connection', (socket) => {
                 }
 
                 //let query = { expiration_date: { $gte: new Date(Date.now()) }, status: 1 }
-                let query = { status: 1 }
+                let query = { status: 1 , title: { $ne: data.title }}
                 //let querySearched = { expiration_date: { $gte: new Date(Date.now()) }, status: 1, title: data.title }
                 let querySearched = { title: data.title, status: 1 }
 
@@ -2414,7 +2413,6 @@ io.sockets.on('connection', (socket) => {
                     }
                     query = {
                         ...query,
-                        title: { $ne: data.title },
                         $or: queryTitle,
                     }
                 }

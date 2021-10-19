@@ -10,21 +10,6 @@
     <title>247 Nail Salons - Contact us</title>
     <!-- BEGIN: CSS Assets-->
     <link rel="stylesheet" href="../views/client/dist/css/app.css" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <!-- END: CSS Assets-->
-
-    <script src="../views/client/dist/js/jquery.min.js"></script>
-    <script src="./../../node_modules/socket.io/client-dist/socket.io.js"></script>
-    <script src="../views/client/dist/js/helper.js"></script>
-
-    <script src="../views/client/dist/js/sha512.min.js"></script>
-
-
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-    <!-- <script src="https://checkout.stripe.com/checkout.js" defer></script> -->
-    <script src="https://checkout.stripe.com/checkout.js"></script>
 
     <style>
         body,
@@ -37,30 +22,17 @@
 
 <body>
 
-    <h1 class="text-dark text-center font-medium" style="font-size: 1.1rem; padding:0;">
+    <div class="text-dark text-center font-medium" style="font-size: 1.1rem; padding:0;">
         Privacy policy 247NailSalons
-    </h1>
+    </div>
 
-    <div class="text-dark divider" style="font-size: 0.8rem;margin-top: 1rem;position: relative;
-    margin-top: 1rem;
-    height: 0.1rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #e6e6e6;">
+    <div class="text-dark divider" style="font-size: 0.8rem;margin-top: 1rem;position: relative;margin-top: 1rem;height: 0.1rem;text-align: center;display: flex;justify-content: center;align-items: center;background-color: #e6e6e6;">
 
     </div>
 
-    <div id="content" class="mt-2">
-
+    <div class="mt-2">
+        <%- content %>
     </div>
-
-    <script>
-        socket.emit('contact-us', null, (response) => {
-            $('#content').html(response.privacy_policy)
-        })
-    </script>
 </body>
 
 </html>

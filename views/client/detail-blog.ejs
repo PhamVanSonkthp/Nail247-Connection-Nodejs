@@ -118,7 +118,7 @@
                 let pageRelate = ''
                 let pageTags = ''
                 for (let i = 0; i < related.length; i++) {
-                    pageRelate += '<div class="grid grid-cols-3 gap-6 mt-4"><div class="col-span-1"><img width="100%" src="../public/images-blogs/' + related[i].image_title + '" /></div><div class="col-span-2"><div><a class="featured-posts-item-link" href="../blog/' + related[i].link_slug + '">' + related[i].title + '</a></div><div class="featured-posts-item-date mt-4">' + new Date(related[i].createdAt) + '</div></div></div>'
+                    pageRelate += '<div class="grid grid-cols-3 gap-6 mt-4"><div class="col-span-1"><img width="100%" src="../public/images-blogs/' + related[i].image_title + '" /></div><div class="col-span-2"><div><a class="featured-posts-item-link" href="../blog/' + related[i].link_slug + '">' + related[i].title + '</a></div><div class="featured-posts-item-date mt-1">' + new Date(related[i].createdAt) + '</div></div></div>'
                 }
 
                 $('#container_blogs_relate').html(pageRelate)

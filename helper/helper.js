@@ -11,7 +11,7 @@ function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
 
-exports.getDistanceFromLatLonInKm = function (lat1, lon1, lat2, lon2) {
+exports.getDistanceFromLatLonInKm = function ( lon1 , lat1, lon2, lat2) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(lat2 - lat1);  // deg2rad below
     var dLon = deg2rad(lon2 - lon1);
@@ -27,6 +27,13 @@ exports.getDistanceFromLatLonInKm = function (lat1, lon1, lat2, lon2) {
 
     // calculate miles
     const miles = d * factor
+
+    // console.log(lat1)
+    // console.log(lon1)
+    // console.log(lat2)
+    // console.log(lon2)
+
+    // console.log(miles.toFixed(2) + ' miles')
 
     return miles.toFixed(2) + ' miles';
 }

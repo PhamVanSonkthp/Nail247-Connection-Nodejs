@@ -405,7 +405,7 @@ app.get('/blog/:slug', async function(req, res) {
                 }
             }
 
-            res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate) })
+            return res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate) })
         }
 
         const relate = await BlogModel.aggregate([{ $sample: { size: 5 } }])

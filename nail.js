@@ -391,6 +391,23 @@ app.get('/blog', async function(req, res) {
 app.get('/blog/:slug', async function(req, res) {
     try {
         const result = await BlogModel.findOne({ link_slug: req.params.slug })
+        if (!result) {
+            const relate = await BlogModel.find().sort({ _id: -1 }).limit(9)
+
+            for (let i = 0; i < relate.length; i++) {
+                if (helper.isDefine(relate[i].title)) relate[i].title = relate[i].title.replaceAll("\"").replaceAll("\'")
+                if (helper.isDefine(relate[i].image_title)) relate[i].image_title = relate[i].image_title.replaceAll("\"").replaceAll("\'")
+                if (helper.isDefine(relate[i].content)) relate[i].content = relate[i].content.replaceAll("\"").replaceAll("\'")
+                if (helper.isDefine(relate[i].tag)) {
+                    for (let j = 0; j < relate[i].tag.length; j++) {
+                        relate[i].tag[j] = relate[i].tag[j].replaceAll("\"").replaceAll("\'")
+                    }
+                }
+            }
+
+            res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate) })
+        }
+
         const relate = await BlogModel.aggregate([{ $sample: { size: 5 } }])
 
         for (let i = 0; i < relate.length; i++) {

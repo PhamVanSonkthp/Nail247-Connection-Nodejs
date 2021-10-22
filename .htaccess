@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <IfModule mod_deflate.c>
 
   AddOutputFilterByType DEFLATE text/html
@@ -51,3 +52,10 @@
   BrowserMatch bMSIE !no-gzip !gzip-only-text/html
 
 </IfModule>
+=======
+RewriteEngine On
+RewriteRule ^index.html$ http://nail.okechua.com:32145/ [P,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ http://nail.okechua.com:32145/$1 [P,L]
+>>>>>>> b5d31823e0c2bf66a2ed8e4e9fe9e567f7b16118

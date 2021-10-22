@@ -45,8 +45,8 @@
 
                     <div style="min-height: 500px;display: flex;align-items: center;">
                         <div>
-                            <h2 style="font-family: 'Quentin', sans-serif;font-weight: 400;font-size: 35px;">247 Beauty</h2>
-                            <h1 style="font-family: 'Raleway', sans-serif;font-weight: 200;font-size: 80px;line-height: 1.2em;">
+                            <h2 class="text-white intro-y" style="font-family: 'Quentin', sans-serif;font-weight: 400;font-size: 35px;">247 Beauty</h2>
+                            <h1 class="text-white intro-y" style="font-family: 'Raleway', sans-serif;font-weight: 200;font-size: 80px;line-height: 1.2em;">
                                 Blog</h1>
                         </div>
                     </div>
@@ -57,12 +57,12 @@
                 <div class="container p-5">
 
                     <div class="grid grid-cols-12 gap-6">
-                        <div class="col-span-12 xl:col-span-9" style="position: relative;">
+                        <div class="col-span-12 xl:col-span-9 intro-y" style="position: relative;">
 
-                            <a class="post-category-item">BodyCare</a>
+                            <a class="post-category-item intro-x">BodyCare</a>
 
                             <div>
-                                <img src="<%- image %>" />
+                                <img class="w-full" src="<%- image %>" />
                             </div>
 
                             <div class="post-meta-header mb-5 mt-5" id="container_date_post">
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
 
-                            <div class="widget-wrapper">
+                            <div class="widget-wrapper intro-y">
                                 <div class="banner-widget-wrapper" style="position: relative; max-width: 250px;margin-top: 120px;">
                                     <img style="z-index: -1;top: -100px;" src="https://g2h4v2c9.stackpathcdn.com/themes/cosmecos-new/wp-content/uploads/2021/02/bg-banner-standard.jpg">
 
@@ -118,7 +118,7 @@
                 let pageRelate = ''
                 let pageTags = ''
                 for (let i = 0; i < related.length; i++) {
-                    pageRelate += '<div class="grid grid-cols-3 gap-6 mt-4"><div class="col-span-1"><img width="100%" src="../public/images-blogs/' + related[i].image_title + '" /></div><div class="col-span-2"><div><a class="featured-posts-item-link" href="../blog/' + related[i].link_slug + '">' + related[i].title + '</a></div><div class="featured-posts-item-date mt-1">' + new Date(related[i].createdAt) + '</div></div></div>'
+                    pageRelate += '<div class="grid grid-cols-3 gap-6 mt-4 intro-x"><div class="col-span-1"><img width="100%" src="../public/images-blogs/' + related[i].image_title + '" /></div><div class="col-span-2"><div><a class="featured-posts-item-link" href="../blog/' + related[i].link_slug + '">' + related[i].title + '</a></div><div class="featured-posts-item-date mt-1">' + new Date(related[i].createdAt) + '</div></div></div>'
                 }
 
                 $('#container_blogs_relate').html(pageRelate)

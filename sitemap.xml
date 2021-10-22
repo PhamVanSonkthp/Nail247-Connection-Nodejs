@@ -5,6 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+<<<<<<< HEAD
 <loc>https://247nailsalons.com/</loc>
 <lastmod>Fri Oct 22 2021 13:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
 <priority>1.00</priority>
@@ -22,6 +23,25 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
 <loc>https://247nailsalons.com/search?categories=nail-supply</loc>
 <lastmod>Fri Oct 22 2021 13:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+=======
+<loc>https://nail.okechua.com/</loc>
+<lastmod>Fri Oct 22 2021 20:23:00 GMT+0700 (Indochina Time)</lastmod>
+<priority>1.00</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/search?categories=find-job</loc>
+<lastmod>Fri Oct 22 2021 20:23:00 GMT+0700 (Indochina Time)</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/search?categories=sell-salon</loc>
+<lastmod>Fri Oct 22 2021 20:23:00 GMT+0700 (Indochina Time)</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/search?categories=nail-supply</loc>
+<lastmod>Fri Oct 22 2021 20:23:00 GMT+0700 (Indochina Time)</lastmod>
+>>>>>>> 5ce32c1b879b9b48e612719b131d92e695b67dcc
 <priority>0.80</priority>
 </url>
 <url>
@@ -160,6 +180,7 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <priority>0.70</priority>
 </url>
 <url>
+<<<<<<< HEAD
 <loc>https://247nailsalons.com/posts-jobs/can-tho-nail-co-kinh-nghiem-lam-sns-pink-white-va-tho-chan-tay-nuoc-486</loc>
 <lastmod>Invalid Date</lastmod>
 <priority>0.70</priority>
@@ -587,6 +608,20 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
 <loc>https://247nailsalons.com/terms-of-use</loc>
 <lastmod>Fri Oct 22 2021 13:23:00 GMT+0000 (Coordinated Universal Time)</lastmod>
+=======
+<loc>https://nail.okechua.com/privacy-policy</loc>
+<lastmod>Fri Oct 22 2021 20:23:00 GMT+0700 (Indochina Time)</lastmod>
+<priority>0.10</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/terms-of-use</loc>
+<lastmod>Fri Oct 22 2021 20:23:00 GMT+0700 (Indochina Time)</lastmod>
+<priority>0.10</priority>
+</url>
+<url>
+<loc>https://nail.okechua.com/terms-of-use</loc>
+<lastmod>Fri Oct 22 2021 20:23:00 GMT+0700 (Indochina Time)</lastmod>
+>>>>>>> 5ce32c1b879b9b48e612719b131d92e695b67dcc
 <priority>0.10</priority>
 </url>
 </urlset>

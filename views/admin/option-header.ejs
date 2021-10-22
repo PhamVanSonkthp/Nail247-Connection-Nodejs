@@ -1,0 +1,62 @@
+<%- include("header", {tab: "home" , title: "Trang chủ" }); %>
+    <!-- BEGIN: Content -->
+
+
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            Settings > payments stripes
+        </h2>
+        <!-- <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+            <button class="btn btn-primary shadow-md mr-2">Add New Osptions</button>
+        </div> -->
+    </div>
+
+    <div class="intro-y box p-5 mt-5">
+
+        <div class="form-group col-span-2">
+            <p>Add code to header:</p>
+            <input oninput="showSaveButton()" id="edt_option_header" class="form-control" autocomplete="off">
+        </div>
+
+        <button id="btn_save" style="display: none;" onclick="saveKey()" type="button" class="btn btn-success mt-5">Save</button>
+    </div>
+
+    <!-- END: Content -->
+
+    </div>
+    <!-- BEGIN: SCRIPT -->
+
+    <script>
+
+        function saveKey(){
+            socket.emit('update-contact-us', { _id: getCookie('_id'), password: getCookie('password') , option_header : $('#edt_option_header').val() }, (response) => {
+                if(response){
+                    hideSaveButton()
+                }
+            });
+        }
+
+        function showSaveButton(){
+            $('#btn_save').show()
+        }
+
+        function hideSaveButton(){
+            $('#btn_save').hide()
+        }
+
+        $(document).ready(function () {
+            $('#draw_5').addClass('side-menu--active')
+            $('#draw_5').addClass('side-menu--open')
+            $('#draw_5_10').addClass('side-menu--active')
+            $('#draw_5_wrap').addClass('side-menu__sub-open')
+
+            socket.emit('contact-us', { _id: getCookie('_id'), password: getCookie('password') }, (response) => {
+                if (response != null) {
+                    $('#edt_option_header').val(response.option_header)
+                }
+            });
+        });
+
+    </script>
+    <!-- END: SCRIPT -->
+    <%- include("footer"); %>

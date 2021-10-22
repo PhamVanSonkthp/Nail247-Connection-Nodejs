@@ -3,4 +3,3 @@ RewriteRule ^index.html$ http://nail.okechua.com:32145/ [P,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ http://nail.okechua.com:32145/$1 [P,L]
-

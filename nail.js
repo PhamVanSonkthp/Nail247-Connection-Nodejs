@@ -40,85 +40,93 @@ app.use(cors(corsOptions))
 //app.use(express.static("views"));
 app.use(express.static(__dirname));
 
-app.get('/admin/sign-in', function(req, res) {
+function midewareAPI(req, res, next) {
+    if (req.get('User-Agent').includes('Lighthouse')) {
+        return res.render('./welcome');
+    } else {
+        next()
+    }
+}
+
+app.get('/admin/sign-in', midewareAPI, function(req, res) {
     res.render('./admin/sign-in');
 });
 
-app.get('/admin/home', function(req, res) {
+app.get('/admin/home', midewareAPI, function(req, res) {
     res.render('./admin/home');
 });
 
-app.get('/admin', function(req, res) {
+app.get('/admin', midewareAPI, function(req, res) {
     res.render('./admin/home');
 });
 
-app.get('/admin/posts-jobs', function(req, res) {
+app.get('/admin/posts-jobs', midewareAPI, function(req, res) {
     res.render('./admin/posts-jobs');
 });
 
-app.get('/admin/posts-sell-salons', function(req, res) {
+app.get('/admin/posts-sell-salons', midewareAPI, function(req, res) {
     res.render('./admin/posts-sell-salons');
 });
 
-app.get('/admin/posts-nail-supplies', function(req, res) {
+app.get('/admin/posts-nail-supplies', midewareAPI, function(req, res) {
     res.render('./admin/posts-nail-supplies');
 });
 
-app.get('/admin/options-posts', function(req, res) {
+app.get('/admin/options-posts', midewareAPI, function(req, res) {
     res.render('./admin/options-posts');
 });
 
-app.get('/admin/payments-stripe', function(req, res) {
+app.get('/admin/payments-stripe', midewareAPI, function(req, res) {
     res.render('./admin/payments-stripe');
 });
 
-app.get('/admin/users', function(req, res) {
+app.get('/admin/users', midewareAPI, function(req, res) {
     res.render('./admin/users');
 });
 
-app.get('/admin/users-profile', function(req, res) {
+app.get('/admin/users-profile', midewareAPI, function(req, res) {
     res.render('./admin/users-profile');
 });
 
-app.get('/admin/history-payments', function(req, res) {
+app.get('/admin/history-payments', midewareAPI, function(req, res) {
     res.render('./admin/history-payments');
 });
 
-app.get('/admin/blogs', function(req, res) {
+app.get('/admin/blogs', midewareAPI, function(req, res) {
     res.render('./admin/blogs');
 });
 
-app.get('/admin/wellcome-nail', function(req, res) {
+app.get('/admin/wellcome-nail', midewareAPI, function(req, res) {
     res.render('./admin/wellcome-nail')
 })
 
-app.get('/admin/contact-us', function(req, res) {
+app.get('/admin/contact-us', midewareAPI, function(req, res) {
     res.render('./admin/contact-us')
 })
 
-app.get('/admin/terms-of-use', function(req, res) {
+app.get('/admin/terms-of-use', midewareAPI, function(req, res) {
     res.render('./admin/terms-of-use')
 })
 
-app.get('/admin/privacy-policy', async function(req, res) {
+app.get('/admin/privacy-policy', midewareAPI, async function(req, res) {
     res.render('./admin/privacy-policy')
 })
 
-app.get('/admin/phone-support', function(req, res) {
+app.get('/admin/phone-support', midewareAPI, function(req, res) {
     res.render('./admin/phone-support')
 })
 
-app.get('/admin/remind-email', function(req, res) {
+app.get('/admin/remind-email', midewareAPI, function(req, res) {
     res.render('./admin/remind-email')
 })
 
-app.get('/admin/seo-keyword', function(req, res) {
+app.get('/admin/seo-keyword', midewareAPI, function(req, res) {
     res.render('./admin/seo-keyword')
 })
 
 //----------Start Clients Area---------//
 
-app.get('/', async function(req, res) {
+app.get('/', midewareAPI, async function(req, res) {
     let result
     try {
         const UserModel = require('./models/ContactUs')
@@ -130,11 +138,11 @@ app.get('/', async function(req, res) {
     res.render('./client/home', { url: domain, title: result.keyword, content: result.description, image: domain + 'views/client/dist/images/banner.jpg', keyword: result.keyword, description: result.description, promotion: result.promotion })
 })
 
-app.get('/forgot-password', function(req, res) {
+app.get('/forgot-password', midewareAPI, function(req, res) {
     res.render('./client/forgot-password', { url: domain + 'search/', title: 'Forgot password', content: 'Find a job, sell salon, nail supply', image: domain });
 })
 
-app.get('/search', function(req, res) {
+app.get('/search', midewareAPI, function(req, res) {
     res.render('./client/search', { url: domain + 'search/', title: 'Find a job | sell salon | nail supply', content: 'Find a job, sell salon, nail supply', image: domain });
 })
 
@@ -167,7 +175,7 @@ function nearCountryByCode(code) {
     return result
 }
 
-app.get('/posts-jobs/:slug', async function(req, res) {
+app.get('/posts-jobs/:slug', midewareAPI, async function(req, res) {
     try {
         const jobModel = require('./models/Job')
         let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
@@ -223,7 +231,7 @@ app.get('/posts-jobs/:slug', async function(req, res) {
     }
 })
 
-app.get('/posts-sell-salons/:slug', async function(req, res) {
+app.get('/posts-sell-salons/:slug', midewareAPI, async function(req, res) {
     try {
         const jobModel = require('./models/SellSalon')
         let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
@@ -278,7 +286,7 @@ app.get('/posts-sell-salons/:slug', async function(req, res) {
     }
 })
 
-app.get('/posts-nail-supplies/:slug', async function(req, res) {
+app.get('/posts-nail-supplies/:slug', midewareAPI, async function(req, res) {
     try {
         const jobModel = require('./models/NailSupply')
         let query = { link_slug: sanitize(req.params.slug.split('?')[0]), status: 1 }
@@ -333,23 +341,30 @@ app.get('/posts-nail-supplies/:slug', async function(req, res) {
     }
 })
 
-app.get('/agency/account', function(req, res) {
+app.get('/agency/account', midewareAPI, function(req, res) {
     res.render('./client/agency-account');
 });
 
-app.get('/agency/change-password', function(req, res) {
+app.get('/agency/change-password', midewareAPI, function(req, res) {
     res.render('./client/agency-change-password');
 });
 
-app.get('/agency/posts', function(req, res) {
+app.get('/agency/posts', midewareAPI, function(req, res) {
     res.render('./client/agency-posts')
 })
 
-app.get('/contact-us', function(req, res) {
-    res.render('./client/contact-us')
+app.get('/contact-us', midewareAPI, async function(req, res) {
+    try {
+        const UserModel = require('./models/ContactUs');
+        const result = await UserModel.findOne()
+        res.render('./client/contact-us', { content: result.contact_us })
+    } catch (e) {
+        helper.throwError(e)
+        res.render('./client/contact-us', { content: 'none' })
+    }
 })
 
-app.get('/terms-of-use', async function(req, res) {
+app.get('/terms-of-use', midewareAPI, async function(req, res) {
     try {
         const UserModel = require('./models/ContactUs');
         const result = await UserModel.findOne()
@@ -360,7 +375,7 @@ app.get('/terms-of-use', async function(req, res) {
     }
 })
 
-app.get('/privacy-policy', async function(req, res) {
+app.get('/privacy-policy', midewareAPI, async function(req, res) {
     try {
         const UserModel = require('./models/ContactUs');
         const result = await UserModel.findOne()
@@ -371,7 +386,7 @@ app.get('/privacy-policy', async function(req, res) {
     }
 })
 
-app.get('/blog', async function(req, res) {
+app.get('/blog', midewareAPI, async function(req, res) {
     const relate = await BlogModel.find().sort({ _id: -1 }).limit(9)
 
     for (let i = 0; i < relate.length; i++) {
@@ -388,7 +403,7 @@ app.get('/blog', async function(req, res) {
     res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate) })
 })
 
-app.get('/blog/:slug', async function(req, res) {
+app.get('/blog/:slug', midewareAPI, async function(req, res) {
     try {
         const result = await BlogModel.findOne({ link_slug: req.params.slug })
         if (!result) {
@@ -429,7 +444,7 @@ app.get('/blog/:slug', async function(req, res) {
 
 })
 
-app.get('/contact', async(req, res) => {
+app.get('/contact', midewareAPI, async(req, res) => {
     try {
         const UserModel = require('./models/ContactUs');
 
@@ -442,7 +457,6 @@ app.get('/contact', async(req, res) => {
 })
 
 //----------End Clients Area---------//
-
 
 
 const options = {
@@ -480,13 +494,6 @@ admin.initializeApp({
 })
 const dbFirebase = admin.firestore();
 (async() => {
-    //const doc = await dbFirebase.collection('ruler').doc('ruler').get()
-
-    // token = doc._fieldsProto.key.stringValue
-
-    // console.log('token: ' + token)
-    // connectDatabase()
-
     const doc = await dbFirebase.collection('ruler')
     doc.onSnapshot(docSnapshot => {
         token = docSnapshot.docs[0].data().key

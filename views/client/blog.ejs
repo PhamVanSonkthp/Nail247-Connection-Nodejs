@@ -22,18 +22,28 @@
 
         <!-- Facebook Pixel Code -->
         <script>
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
+            ! function(f, b, e, v, n, t, s) {
+                if (f.fbq) return;
+                n = f.fbq = function() {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = '2.0';
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '594895905094062');
             fbq('track', 'PageView');
-            </script>
-            <noscript><img height="1" width="1" style="display:none"
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=594895905094062&ev=PageView&noscript=1"/></noscript>
         <!-- End Facebook Pixel Code -->
 
@@ -54,10 +64,10 @@
             <div style="background-image: url(../views/client/dist/images/blog-bg.jpg);background-position: center;background-repeat: no-repeat;background-size: cover;">
                 <div class="container p-5">
 
-                    <div style="min-height: 500px;display: flex;align-items: center;">
+                    <div id="container_theme">
                         <div>
-                            <h2 class="text-white intro-y" style="font-family: 'Quentin', sans-serif;font-weight: 400;font-size: 35px;">247 Beauty</h2>
-                            <h1 class="text-white intro-y" style="font-family: 'Raleway', sans-serif;font-weight: 200;font-size: 80px;line-height: 1.2em;">
+                            <h2 class="text-white intro-y" style="font-family: 'Quentin', sans-serif;font-weight: 400;">247 Beauty</h2>
+                            <h1 class="text-white intro-y" style="font-family: 'Raleway', sans-serif;font-weight: 200;line-height: 1.2em;">
                                 Blog Grid</h1>
                         </div>
                     </div>
@@ -89,7 +99,7 @@
                 let pageBlogs = ''
 
                 for (let i = 0; i < blogs.length; i++) {
-                    pageBlogs += '<div class="col-span-12 sm:col-span-6 xl:col-span-4 box p-10 intro-y"><a class="post-category-item intro-x">BodyCare</a><div class="zoom-in"><div><a href="../blog/' + blogs[i].link_slug + '"><img src="../public/images-blogs/' + blogs[i].image_title + '" /></a></div></div><div class="grid grid-cols-12 mt-10"><div class="col-span-12" style="text-transform: uppercase;color: #969696;">' + new Date(blogs[i].createdAt) + '</div></div><div class="mt-5"><a class="ellipsis-2" href="../blog/' + blogs[i].link_slug + '" style="box-shadow: none;text-decoration: none;color: #232323;line-height: 1.5em;font-weight: 400;font-size: 24px;">' + blogs[i].title + '</a></div><div class="mt-5"><a class="read_more_tag" href="../blog/' + blogs[i].link_slug + '" style="color: #eaaa85;text-transform: uppercase;">READ MORE</a></div></div>'
+                    pageBlogs += '<div class="col-span-12 sm:col-span-6 xl:col-span-4 box p-10 intro-y"><a class="post-category-item intro-x">Nails</a><div class="zoom-in"><div><a href="../blog/' + blogs[i].link_slug + '"><img src="../public/images-blogs/' + blogs[i].image_title + '" /></a></div></div><div class="grid grid-cols-12 mt-10"><div class="col-span-12" style="text-transform: uppercase;color: #969696;">' + new Date(blogs[i].createdAt) + '</div></div><div class="mt-5"><a class="ellipsis-2" href="../blog/' + blogs[i].link_slug + '" style="box-shadow: none;text-decoration: none;color: #232323;line-height: 1.5em;font-weight: 400;font-size: 24px;">' + blogs[i].title + '</a></div><div class="mt-5"><a class="read_more_tag" href="../blog/' + blogs[i].link_slug + '" style="color: #eaaa85;text-transform: uppercase;">READ MORE</a></div></div>'
                 }
 
                 $('#container_blogs').html(pageBlogs)

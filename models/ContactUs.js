@@ -38,6 +38,10 @@ const object = mongoose.Schema({
         type: String,
         maxLength: 10000000,
     },
+    option_header: {
+        type: String,
+        maxLength: 10000000,
+    },
 }, { timestamps: true });
 
 object.set('toObject', { getters: true, setters: true });

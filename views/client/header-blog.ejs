@@ -1,17 +1,111 @@
-<div class="mobile-header mobile-header-position-above sticky-header-on mobile-header-type-1" style="height: 63px;position: fixed;background: white;width: 100%;display: flex;align-items: center;z-index: 100;">
+<style>
+    #container_menu>a {
+        font-size: 1.3rem;
+    }
+    
+    @media only screen and (max-width: 622px) {
+        #container_theme {
+            min-height: 330px !important;
+        }
+        #container_theme>div>h1 {
+            font-size: 40px !important;
+        }
+        #container_theme>div>h2 {
+            font-size: 25px !important;
+        }
+        #container_menu {
+            display: none;
+        }
+        .mobile-header {
+            justify-content: space-between;
+        }
+        .logo-link>img {
+            width: 150px !important;
+        }
+        #btn_menu {
+            display: block !important;
+        }
+    }
+    
+    .logo-link>img {
+        width: 250px;
+    }
+    
+    #container_theme {
+        min-height: 500px;
+        display: flex;
+        align-items: center;
+    }
+    
+    #container_theme>div>h1 {
+        font-size: 80px;
+    }
+    
+    #container_theme>div>h2 {
+        font-size: 35px;
+    }
+    
+    #btn_menu {
+        display: none;
+    }
+</style>
+
+<script src="../views/client/dist/js/app.js"></script>
+
+<div class="mobile-header mobile-header-position-above sticky-header-on mobile-header-type-1" style="height: 110px;position: fixed;background: white;width: 100%;display: flex;align-items: center;z-index: 100;">
     <div class="sticky-wrapper">
         <div class="mobile-header-row">
             <!-- Logo Block -->
             <div class="logo-container ml-5">
                 <div class="logo retina-logo">
-                    <a class="logo-link" href="../blog"><img width="109" height="11" src="../views/client/dist/images/logo.png" alt="Cosmecos"></a>
+                    <a class="logo-link" href="../blog"><img width="109" height="11" src="../views/client/dist/images/logo.png" alt="247NailSalons"></a>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <div class="w-full intro-x">
+    <!-- BEGIN: Slide Over Toggle -->
+    <div id="btn_menu" class="text-center mr-5">
+        <a href="javascript:;" data-toggle="modal" data-target="#basic-slide-over-preview" class="btn"><i class="fas fa-bars"></i></a>
+    </div>
+    <!-- END: Slide Over Toggle -->
+    <!-- BEGIN: Slide Over Content -->
+    <div id="basic-slide-over-preview" class="modal modal-slide-over" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="w-full intro-x">
+                    <div>
+                        <a href="../search?categories=nail-supply" class="p-5 float-right font-medium ">
+                            Nail Supply
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="../search?categories=sell-salon" class="p-5 float-right font-medium ">
+                            Salon for Sale
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="../search?categories=find-job" class="p-5 float-right font-medium ">
+                            Find a Job
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="../" class="p-5 float-right font-medium ">
+                            Home
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Slide Over Content -->
+    <div id="container_menu" class="w-full intro-x">
         <a href="../search?categories=nail-supply" class="p-5 float-right font-medium ">
             Nail Supply
         </a>
@@ -24,7 +118,7 @@
         <a href="../" class="p-5 float-right font-medium ">
             Home
         </a>
-        
+
     </div>
-    
+
 </div>

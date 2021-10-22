@@ -21,6 +21,10 @@ const NailSupplyPostModel = require('./models/NailSupply')
 const AgencyModel = require('./models/Agency')
 const ContactModel = require('./models/ContactUs')
 const BlogModel = require('./models/Blog')
+var option_header
+(async() => {
+    option_header = await ContactModel.findOne()
+})()
 
 //#endregion
 app.set('views', './views')
@@ -124,6 +128,10 @@ app.get('/admin/seo-keyword', midewareAPI, function(req, res) {
     res.render('./admin/seo-keyword')
 })
 
+app.get('/admin/option-header', midewareAPI, function(req, res) {
+    res.render('./admin/option-header')
+})
+
 //----------Start Clients Area---------//
 
 app.get('/', midewareAPI, async function(req, res) {
@@ -134,16 +142,15 @@ app.get('/', midewareAPI, async function(req, res) {
     } catch (e) {
         helper.throwError(e)
     }
-
-    res.render('./client/home', { url: domain, title: result.keyword, content: result.description, image: domain + 'views/client/dist/images/banner.jpg', keyword: result.keyword, description: result.description, promotion: result.promotion })
+    res.render('./client/home', { url: domain, title: result.keyword, content: result.description, image: domain + 'views/client/dist/images/banner.jpg', keyword: result.keyword, description: result.description, promotion: result.promotion , option_header : option_header})
 })
 
 app.get('/forgot-password', midewareAPI, function(req, res) {
-    res.render('./client/forgot-password', { url: domain + 'search/', title: 'Forgot password', content: 'Find a job, sell salon, nail supply', image: domain });
+    res.render('./client/forgot-password', { url: domain + 'search/', title: 'Forgot password', content: 'Find a job, sell salon, nail supply', image: domain , option_header : option_header})
 })
 
 app.get('/search', midewareAPI, function(req, res) {
-    res.render('./client/search', { url: domain + 'search/', title: 'Find a job | sell salon | nail supply', content: 'Find a job, sell salon, nail supply', image: domain });
+    res.render('./client/search', { url: domain + 'search/', title: 'Find a job | sell salon | nail supply', content: 'Find a job, sell salon, nail supply', image: domain , option_header : option_header});
 })
 
 function nearCountryByCode(code) {
@@ -224,7 +231,7 @@ app.get('/posts-jobs/:slug', midewareAPI, async function(req, res) {
             related: resultRelated,
             nearCountry: nearCountry
         }
-        res.render('./client/posts-jobs', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] })
+        res.render('./client/posts-jobs', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] , option_header : option_header})
     } catch (err) {
         helper.throwError(err)
         res.redirect(domain + 'search?categories=find-job')
@@ -279,7 +286,7 @@ app.get('/posts-sell-salons/:slug', midewareAPI, async function(req, res) {
             related: resultRelated,
             nearCountry: nearCountry
         }
-        res.render('./client/posts-sell-salons', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-sells-salons/' + object.post.images[0] })
+        res.render('./client/posts-sell-salons', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-sells-salons/' + object.post.images[0] , option_header : option_header})
     } catch (err) {
         helper.throwError(err)
         res.redirect(domain + 'search?categories=sell-salon')
@@ -334,7 +341,7 @@ app.get('/posts-nail-supplies/:slug', midewareAPI, async function(req, res) {
             nearCountry: nearCountry
         }
 
-        res.render('./client/posts-nail-supplies', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0] })
+        res.render('./client/posts-nail-supplies', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0] , option_header : option_header})
     } catch (err) {
         helper.throwError(err)
         res.redirect(domain + 'search?categories=nail-supply')
@@ -400,7 +407,7 @@ app.get('/blog', midewareAPI, async function(req, res) {
         }
     }
 
-    res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate) })
+    res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate) , option_header : option_header})
 })
 
 app.get('/blog/:slug', midewareAPI, async function(req, res) {
@@ -436,10 +443,10 @@ app.get('/blog/:slug', midewareAPI, async function(req, res) {
             }
         }
 
-        res.render('./client/detail-blog', { url: domain + 'blog' + result.link_slug, title: result.title, content: result.content, image: domain + 'public/images-blogs/' + result.image_title, tags: result.tag, createdAt: result.createdAt, relate: JSON.stringify(relate) })
+        res.render('./client/detail-blog', { url: domain + 'blog' + result.link_slug, title: result.title, content: result.content, image: domain + 'public/images-blogs/' + result.image_title, tags: result.tag, createdAt: result.createdAt, relate: JSON.stringify(relate) , option_header : option_header})
     } catch (err) {
         helper.throwError(err)
-        res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain })
+        res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain , option_header : option_header})
     }
 
 })
@@ -2090,13 +2097,14 @@ io.sockets.on('connection', (socket) => {
                 if (helper.isDefine(data.keyword)) objForUpdate.keyword = sanitize(data.keyword)
                 if (helper.isDefine(data.description)) objForUpdate.description = sanitize(data.description)
                 if (helper.isDefine(data.promotion)) objForUpdate.promotion = sanitize(data.promotion)
+                if (helper.isDefine(data.option_header)) objForUpdate.option_header = sanitize(data.option_header)
+                
                 objForUpdate = { $set: objForUpdate }
 
-                UserModel.findOneAndUpdate({}, objForUpdate, optsValidatorFindAndUpdate, (err, result) => {
-                    helper.throwError(err)
-                    callback(result);
-                });
+                const result = await UserModel.findOneAndUpdate({}, objForUpdate, optsValidatorFindAndUpdate)
 
+                option_header = await ContactModel.findOne()
+                callback(result);
             } else {
                 callback(null);
             }

@@ -3219,7 +3219,8 @@ croner.schedule('23 * * * *', async() => {
         const jobs = await JobModel.find().sort({ _id: -1 }).limit(50)
         const sellSalons = await SellSalonModel.find().sort({ _id: -1 }).limit(50)
         const nailSupplys = await NailSupplyModel.find().sort({ _id: -1 }).limit(50)
-
+        const blogs = await BlogModel.find().sort({ _id: -1 }).limit(50)
+        
         for (let i = 0; i < jobs.length; i++) {
             page += '<url>' + '\n'
             page += '<loc>' + domain + 'posts-jobs/' + jobs[i].link_slug + '</loc>' + '\n'
@@ -3240,6 +3241,14 @@ croner.schedule('23 * * * *', async() => {
             page += '<url>' + '\n'
             page += '<loc>' + domain + 'posts-nail-supplies/' + nailSupplys[i].link_slug + '</loc>' + '\n'
             page += '<lastmod>' + new Date(nailSupplys[i].updateAt).toString() + '</lastmod>' + '\n'
+            page += '<priority>0.70</priority>' + '\n'
+            page += '</url>' + '\n'
+        }
+
+        for (let i = 0; i < blogs.length; i++) {
+            page += '<url>' + '\n'
+            page += '<loc>' + domain + 'blog/' + blogs[i].link_slug + '</loc>' + '\n'
+            page += '<lastmod>' + new Date(blogs[i].updateAt).toString() + '</lastmod>' + '\n'
             page += '<priority>0.70</priority>' + '\n'
             page += '</url>' + '\n'
         }

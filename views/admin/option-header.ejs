@@ -15,7 +15,7 @@
 
         <div class="form-group col-span-2">
             <p>Add code to header:</p>
-            <input oninput="showSaveButton()" id="edt_option_header" class="form-control" autocomplete="off">
+            <textarea oninput="showSaveButton()" id="edt_option_header" class="form-control" autocomplete="off" placeholder="if empty, please insert space white" style="height: 500px;"></textarea>
         </div>
 
         <button id="btn_save" style="display: none;" onclick="saveKey()" type="button" class="btn btn-success mt-5">Save</button>
@@ -37,7 +37,11 @@
         }
 
         function showSaveButton(){
-            $('#btn_save').show()
+            if($('#edt_option_header').val().length){
+                $('#btn_save').show()
+            }else{
+                $('#btn_save').hide()
+            }
         }
 
         function hideSaveButton(){

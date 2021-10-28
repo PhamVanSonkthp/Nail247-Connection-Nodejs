@@ -2481,12 +2481,8 @@ io.sockets.on('connection', (socket) => {
                     //object = await UserModel.find(query).limit(data.limit).skip(data.offset)
                     object = await UserModel.find(query)
                 } else {
-<<<<<<< HEAD
-                    object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
-=======
                     object = await UserModel.find(query).sort({ _id: -1 })
                         //object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
->>>>>>> 92032a4040818ce31a53ed76843a5c668ac77d88
                 }
 
                 let leftObjects = []
@@ -2536,7 +2532,7 @@ io.sockets.on('connection', (socket) => {
                     }
 
                     // higlt light time
-                    if (new Date(Date.now()).getTime() < (new Date(object[i].createdAt).getTime() + (1 * 60 * 60 * 1000))) {
+                    if (new Date(Date.now()).getTime() < (new Date(object[i].createdAt).getTime() + (12 * 60 * 60 * 1000))) {
                         hightLights.push(object[i])
                     } else {
                         normals.push(object[i])
@@ -2545,13 +2541,11 @@ io.sockets.on('connection', (socket) => {
 
                 object = hightLights.concat(normals)
 
-                if (helper.isDefine(data.type_search) && data.type_search) {
-                    let tempObject = []
-                    for (let i = data.offset; i < data.limit + data.offset && i < object.length; i++) {
-                        tempObject.push(object[i])
-                    }
-                    object = tempObject
+                let tempObject = []
+                for (let i = data.offset; i < data.limit + data.offset && i < object.length; i++) {
+                    tempObject.push(object[i])
                 }
+                object = tempObject
 
                 callback(object)
 

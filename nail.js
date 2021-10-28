@@ -21,8 +21,7 @@ const NailSupplyPostModel = require('./models/NailSupply')
 const AgencyModel = require('./models/Agency')
 const ContactModel = require('./models/ContactUs')
 const BlogModel = require('./models/Blog')
-var option_header
-(async() => {
+var option_header(async() => {
     option_header = await ContactModel.findOne()
 })()
 
@@ -142,15 +141,15 @@ app.get('/', midewareAPI, async function(req, res) {
     } catch (e) {
         helper.throwError(e)
     }
-    res.render('./client/home', { url: domain, title: result.keyword, content: result.description, image: domain + 'views/client/dist/images/banner.jpg', keyword: result.keyword, description: result.description, promotion: result.promotion , option_header : option_header})
+    res.render('./client/home', { url: domain, title: result.keyword, content: result.description, image: domain + 'views/client/dist/images/banner.jpg', keyword: result.keyword, description: result.description, promotion: result.promotion, option_header: option_header })
 })
 
 app.get('/forgot-password', midewareAPI, function(req, res) {
-    res.render('./client/forgot-password', { url: domain + 'search/', title: 'Forgot password', content: 'Find a job, sell salon, nail supply', image: domain , option_header : option_header})
+    res.render('./client/forgot-password', { url: domain + 'search/', title: 'Forgot password', content: 'Find a job, sell salon, nail supply', image: domain, option_header: option_header })
 })
 
 app.get('/search', midewareAPI, function(req, res) {
-    res.render('./client/search', { url: domain + 'search/', title: 'Find a job | sell salon | nail supply', content: 'Find a job, sell salon, nail supply', image: domain , option_header : option_header});
+    res.render('./client/search', { url: domain + 'search/', title: 'Find a job | sell salon | nail supply', content: 'Find a job, sell salon, nail supply', image: domain, option_header: option_header });
 })
 
 function nearCountryByCode(code) {
@@ -231,7 +230,7 @@ app.get('/posts-jobs/:slug', midewareAPI, async function(req, res) {
             related: resultRelated,
             nearCountry: nearCountry
         }
-        res.render('./client/posts-jobs', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0] , option_header : option_header})
+        res.render('./client/posts-jobs', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-jobs/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-jobs/' + object.post.images[0], option_header: option_header })
     } catch (err) {
         helper.throwError(err)
         res.redirect(domain + 'search?categories=find-job')
@@ -286,7 +285,7 @@ app.get('/posts-sell-salons/:slug', midewareAPI, async function(req, res) {
             related: resultRelated,
             nearCountry: nearCountry
         }
-        res.render('./client/posts-sell-salons', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-sells-salons/' + object.post.images[0] , option_header : option_header})
+        res.render('./client/posts-sell-salons', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-sell-salons/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-sells-salons/' + object.post.images[0], option_header: option_header })
     } catch (err) {
         helper.throwError(err)
         res.redirect(domain + 'search?categories=sell-salon')
@@ -341,7 +340,7 @@ app.get('/posts-nail-supplies/:slug', midewareAPI, async function(req, res) {
             nearCountry: nearCountry
         }
 
-        res.render('./client/posts-nail-supplies', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0] , option_header : option_header})
+        res.render('./client/posts-nail-supplies', { object: JSON.stringify(object).replaceAll("\'", ""), url: domain + 'posts-nail-supplies/' + object.post.link_slug, title: object.post.title, content: object.post.content, image: domain + 'public/images-nail-supplies/' + object.post.images[0], option_header: option_header })
     } catch (err) {
         helper.throwError(err)
         res.redirect(domain + 'search?categories=nail-supply')
@@ -407,7 +406,7 @@ app.get('/blog', midewareAPI, async function(req, res) {
         }
     }
 
-    res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate) , option_header : option_header})
+    res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, blogs: JSON.stringify(relate), option_header: option_header })
 })
 
 app.get('/blog/:slug', midewareAPI, async function(req, res) {
@@ -443,10 +442,10 @@ app.get('/blog/:slug', midewareAPI, async function(req, res) {
             }
         }
 
-        res.render('./client/detail-blog', { url: domain + 'blog' + result.link_slug, title: result.title, content: result.content, image: domain + 'public/images-blogs/' + result.image_title, tags: result.tag, createdAt: result.createdAt, relate: JSON.stringify(relate) , option_header : option_header})
+        res.render('./client/detail-blog', { url: domain + 'blog' + result.link_slug, title: result.title, content: result.content, image: domain + 'public/images-blogs/' + result.image_title, tags: result.tag, createdAt: result.createdAt, relate: JSON.stringify(relate), option_header: option_header })
     } catch (err) {
         helper.throwError(err)
-        res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain , option_header : option_header})
+        res.render('./client/blog', { url: domain + 'blog', title: '247NailSalons Blogs', content: '247NailSalons Blogs', image: domain, option_header: option_header })
     }
 
 })
@@ -2098,7 +2097,7 @@ io.sockets.on('connection', (socket) => {
                 if (helper.isDefine(data.description)) objForUpdate.description = sanitize(data.description)
                 if (helper.isDefine(data.promotion)) objForUpdate.promotion = sanitize(data.promotion)
                 if (helper.isDefine(data.option_header)) objForUpdate.option_header = sanitize(data.option_header)
-                
+
                 objForUpdate = { $set: objForUpdate }
 
                 const result = await UserModel.findOneAndUpdate({}, objForUpdate, optsValidatorFindAndUpdate)
@@ -2481,7 +2480,12 @@ io.sockets.on('connection', (socket) => {
                     //object = await UserModel.find(query).limit(data.limit).skip(data.offset)
                     object = await UserModel.find(query)
                 } else {
+<<<<<<< HEAD
                     object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
+=======
+                    object = await UserModel.find(query).sort({ _id: -1 })
+                        //object = await UserModel.find(query).sort({ _id: -1 }).limit(data.limit).skip(data.offset)
+>>>>>>> 92032a4040818ce31a53ed76843a5c668ac77d88
                 }
 
                 let leftObjects = []
@@ -3220,7 +3224,7 @@ croner.schedule('23 * * * *', async() => {
         const sellSalons = await SellSalonModel.find().sort({ _id: -1 }).limit(50)
         const nailSupplys = await NailSupplyModel.find().sort({ _id: -1 }).limit(50)
         const blogs = await BlogModel.find().sort({ _id: -1 }).limit(50)
-        
+
         for (let i = 0; i < jobs.length; i++) {
             page += '<url>' + '\n'
             page += '<loc>' + domain + 'posts-jobs/' + jobs[i].link_slug + '</loc>' + '\n'

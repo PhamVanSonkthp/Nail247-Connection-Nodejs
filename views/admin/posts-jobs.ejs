@@ -113,7 +113,7 @@
                     <input id="edt_search" type="text" class="form-control sm:w-40 xxl:w-full mt-2 sm:mt-0" placeholder="Search...">
                 </div>
                 <div class="mt-2 xl:mt-0">
-                    <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16" onclick="searchProduct()">Go</button>
+                    <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16" onclick="changeSearch()">Go</button>
                 </div>
             </div>
 
@@ -322,7 +322,10 @@
                 offset: offset,
                 input: $('#edt_search').val(),
                 minDate: minDate,
-                maxDate: maxDate
+                maxDate: maxDate,
+                cost: $('#select_filter_cost').val(),
+                package: $('#select_filter_package').val(),
+                status: $('#select_filter_status').val()
             }, (response) => {
                 if (response != null) {
                     numberPage = response
@@ -470,6 +473,11 @@
             countProduct();
             loadmoreProduct(0);
         });
+
+        function changeSearch(){
+            countProduct();
+            loadmoreProduct(0);
+        }
     </script>
     <!-- END: SCRIPT -->
     <%- include("footer"); %>

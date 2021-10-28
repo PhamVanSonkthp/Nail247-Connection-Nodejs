@@ -1645,8 +1645,12 @@ io.sockets.on('connection', (socket) => {
                 let query = { _id: sanitize(data.id_product) }
                 let objForUpdate = {}
                 if (helper.isDefine(data.status)) objForUpdate.status = sanitize(data.status)
+                if (helper.isDefine(data.package)) objForUpdate.package = sanitize(data.package)
+                if (helper.isDefine(data.expiration_date)) objForUpdate.expiration_date = Date.now() + 3 * 30 * 24 * 60 * 60 * 1000
 
                 objForUpdate = { $set: objForUpdate }
+
+                console.log(Date.now() + 3 * 30 * 24 * 60 * 60 * 1000)
                 UserModel.updateOne(query, objForUpdate, optsValidator, (err, result) => {
                     if (err) helper.throwError(err);
                     callback(result);
@@ -1699,6 +1703,8 @@ io.sockets.on('connection', (socket) => {
                 let query = { _id: sanitize(data.id_product) }
                 let objForUpdate = {}
                 if (helper.isDefine(data.status)) objForUpdate.status = sanitize(data.status)
+                if (helper.isDefine(data.package)) objForUpdate.package = sanitize(data.package)
+                if (helper.isDefine(data.expiration_date)) objForUpdate.expiration_date = Date.now() + 3 * 30 * 24 * 60 * 60 * 1000
 
                 objForUpdate = { $set: objForUpdate };
                 UserModel.updateOne(query, objForUpdate, optsValidator, (err, result) => {
@@ -1722,6 +1728,8 @@ io.sockets.on('connection', (socket) => {
                 let query = { _id: sanitize(data.id_product) }
                 let objForUpdate = {}
                 if (helper.isDefine(data.status)) objForUpdate.status = sanitize(data.status)
+                if (helper.isDefine(data.package)) objForUpdate.package = sanitize(data.package)
+                if (helper.isDefine(data.expiration_date)) objForUpdate.expiration_date = Date.now() + 3 * 30 * 24 * 60 * 60 * 1000
 
                 objForUpdate = { $set: objForUpdate };
                 UserModel.updateOne(query, objForUpdate, optsValidator, (err, result) => {

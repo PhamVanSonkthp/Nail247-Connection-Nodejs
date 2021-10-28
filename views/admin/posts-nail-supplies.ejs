@@ -55,7 +55,7 @@
 
                     <div class="mt-2">
                         <b>Images:</b>
-                        <div class="mx-6 pb-8 mt-2">
+                        <div class="mx-6 pb-8 mt-2 mb-2" style="border: 1px #E5E5E5 solid;">
                             <div class="responsive-mode" id="container_images_products">
 
                                 <div class="h-45 px-2">
@@ -79,7 +79,18 @@
                         <b id="lbl_price_product" class="form-control number text-danger"></b>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mt-2">
+                        <b>Change to gold:</b>
+                        <button type="button" onclick="changeGoldProduct()" class="btn btn-sm btn-warning text-white ml-2">Change to GOLD</button>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <b>Repost:</b>
+                        <button type="button" onclick="repostProduct()" class="btn btn-sm btn-success ml-2">Repost</button>
+                        <span class="ml-2">click to repost post three months</span>
+                    </div>
+
+                    <div class="form-group mt-2">
                         <b>Status:</b>
                         <button id="btn_active" type="button" onclick="changeStatusProduct()" class="btn btn-sm btn-success ml-2"></button>
                         <span class="ml-2">click to change status</span>
@@ -184,7 +195,8 @@
                                 <th>Content</td>
                                     <th>Package</td>
                                         <th>Status</td>
-                                            <th>Action</td>
+                                            <th>Date expried</td>
+                                                <th>Action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -257,17 +269,19 @@
                 let cell4 = row.insertCell(3);
                 let cell5 = row.insertCell(4);
                 let cell6 = row.insertCell(5);
+                let cell7 = row.insertCell(6);
 
                 if (data[i].status == 1) {
                     cell5.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"><div class="flex items-center lg:justify-center text-theme-9"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg> Active </div><div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>';
                 } else {
                     cell5.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="status" title="" style="text-align: center; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex items-center lg:justify-center text-theme-6"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-2"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Inactive </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
                 }
-                cell1.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="name" title="" style=" display: inline-flex; "> <div> <div class="font-medium whitespace-nowrap">' + products[i].agency.name + '</div> <div class="text-gray-600 text-xs whitespace-nowrap">' + products[i].agency.phone + '</div> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
+                cell1.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="name" title="" style=" display: inline-flex; "> <div> <div class="font-medium whitespace-nowrap">' + (isDefine(products[i].agency) ? products[i].agency.name : '') + '</div> <div class="text-gray-600 text-xs whitespace-nowrap">' + (isDefine(products[i].agency) ? products[i].agency.phone : '') + '</div> </div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div>';
                 cell2.innerHTML = '<div class="ellipsis">' + products[i].title + '</div>';
                 cell3.innerHTML = '<div class="ellipsis">' + products[i].content + '</div>';
                 cell4.innerHTML = '<div class="ellipsis">' + products[i].package + '</div>';
-                cell6.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a> <a class="edit flex items-center mr-3" target="_blank" href="../posts-jobs/' + products[i].link_slug + '"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a></div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
+                cell6.innerHTML = '<div class="ellipsis">' + (('0' + (new Date(products[i].expiration_date).getMonth() + 1)).substring(('0' + (new Date(products[i].expiration_date).getMonth() + 1)).length - 2, ('0' + (new Date(products[i].expiration_date).getMonth() + 1)).length) + '/' + new Date(products[i].expiration_date).getDate() + '/' + new Date(products[i].expiration_date).getFullYear()) + '</div>';
+                cell7.innerHTML = '<div class="tabulator-cell" role="gridcell" tabulator-field="actions" title="" style="text-align: right; display: inline-flex; align-items: center; justify-content: center;"> <div class="flex lg:justify-center items-center"> <a onclick="editProduct(' + i + ')" class="edit flex items-center mr-3" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> Edit </a> <a class="edit flex items-center mr-3" target="_blank" href="../posts-jobs/' + products[i].link_slug + '"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1"> <polyline points="9 11 12 14 22 4"></polyline> <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path> </svg> View </a></div> <div class="tabulator-col-resize-handle"></div> <div class="tabulator-col-resize-handle prev"></div> </div> ';
 
             }
         }
@@ -362,6 +376,43 @@
                 $('#add-item-modal').addClass('show');
                 $('#add-item-modal').addClass('overflow-y-auto');
             }
+        }
+
+        function repostProduct() {
+            toggleModalAddProduct()
+            showLoading()
+            socket.emit('update-posts-nail-supplies', {
+                _id: getCookie('_id'),
+                password: getCookie('password'),
+                id_product: products[index_edit]._id,
+                expiration_date: true
+            }, (response) => {
+                hideLoading()
+                if (response != null) {
+                    canvasTableProduct(products);
+                } else {
+                    toggleModalAddProduct();
+                }
+            })
+        }
+
+        function changeGoldProduct() {
+            toggleModalAddProduct()
+            showLoading()
+            socket.emit('update-posts-nail-supplies', {
+                _id: getCookie('_id'),
+                password: getCookie('password'),
+                id_product: products[index_edit]._id,
+                package: 'Gold',
+            }, (response) => {
+                hideLoading()
+                if (response != null) {
+                    products[index_edit].package = 'Gold'
+                    canvasTableProduct(products);
+                } else {
+                    toggleModalAddProduct();
+                }
+            })
         }
 
         function changeStatusProduct() {

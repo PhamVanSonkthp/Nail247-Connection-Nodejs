@@ -22,10 +22,14 @@
     <!-- END: JS Assets-->
 
     <script>
-        const socket = io.connect('/', { secure: true });
+        const socket = io.connect('/', {
+            secure: true
+        });
 
         function getCookie(name) {
-            function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
+            function escape(s) {
+                return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1');
+            }
             var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
             return match ? match[1] : null;
         }
@@ -38,7 +42,10 @@
             let _id = getCookie('_id');
             let password = getCookie('password');
             $('#DialogLoading').show();
-            socket.emit('recent-login', { _id: _id, password: password }, (response) => {
+            socket.emit('recent-login', {
+                _id: _id,
+                password: password
+            }, (response) => {
                 if (response != null) {
                     window.location.replace("/admin");
                 } else {
@@ -58,8 +65,7 @@
     <div id="DialogLoading" class="text-center" style="height: 100%; width: 100%; position: fixed; z-index: 1000; ">
         <div style="position: fixed; left: 0;right: 0;top: 0;bottom: 0;opacity: 0.5;background-color: rgb(61, 73, 73);">
         </div>
-        <div style="color: white; position: absolute;width: 100%;top: 0;bottom: 0;right: 0;left: 0;margin: auto;height: 100px;"
-            class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
+        <div style="color: white; position: absolute;width: 100%;top: 0;bottom: 0;right: 0;left: 0;margin: auto;height: 100px;" class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center">
 
             <svg width="20" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8">
                 <defs>
@@ -100,26 +106,20 @@
                     <img class="-intro-x w-1/2 -mt-16" src="../views/admin/dist/images/illustration.svg">
                     <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
                         Infinity Group
-                        <br>
-                        Trust is the first!
+                        <br> Trust is the first!
                     </div>
                 </div>
             </div>
             <!-- END: Login Info -->
             <!-- BEGIN: Login Form -->
             <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
-                <div
-                    class="my-auto mx-auto xl:ml-20 bg-white dark:bg-dark-1 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
+                <div class="my-auto mx-auto xl:ml-20 bg-white dark:bg-dark-1 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
                     <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
                         Sign in
                     </h2>
                     <div class="intro-x mt-8">
-                        <input id="username" type="text"
-                            class="intro-x login__input form-control py-3 px-4 border-gray-300 block"
-                            placeholder="User name">
-                        <input id="password" type="password"
-                            class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4"
-                            placeholder="Password">
+                        <input id="username" type="text" class="intro-x login__input form-control py-3 px-4 border-gray-300 block" placeholder="User name">
+                        <input id="password" type="password" class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4" placeholder="Password">
                     </div>
                     <div class="form-group mt-2">
                         <span id="title" class="text-danger" style="color: red;display: none;">Invalid password</span>
@@ -131,14 +131,12 @@
                         </div>
                     </div>
                     <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-                        <button id="BtnLogin" onclick="login()"
-                            class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Sign in</button>
+                        <button id="BtnLogin" onclick="login()" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Sign in</button>
                     </div>
                     <div class="intro-x mt-10 xl:mt-24 text-gray-700 dark:text-gray-600 text-center xl:text-left">
                         By continuing, you agree to
                         <br>
-                        <a class="text-theme-1 dark:text-theme-10" href="">Terms of use</a> & <a
-                            class="text-theme-1 dark:text-theme-10" href="">Privacy Policy</a>
+                        <a class="text-theme-1 dark:text-theme-10" href="">Terms of use</a> & <a class="text-theme-1 dark:text-theme-10" href="">Privacy Policy</a>
                     </div>
                 </div>
             </div>
@@ -150,17 +148,6 @@
     <!-- END: JS Assets-->
 
     <script type="text/javascript" charset="utf-8">
-
-
-        // function setCookie(c_name, value, exdays) {
-        //     var exdate = new Date();
-        //     exdate.setDate(exdate.getDate() + exdays);
-        //     var c_value = escape(value) + ((exdays == null)
-        //         ? "" : "; expires=" + exdate.toUTCString())
-        //         + "; path=/";
-        //     document.cookie = c_name + "=" + c_value;
-        // }
-
         if (!getCookie('_id')) {
             $('#DialogLoading').hide();
         }
@@ -182,14 +169,18 @@
 
             $("#BtnLogin").prop('disabled', true);
             $("#title").hide();
-            socket.emit('login', { phone: phone, password: password }, (response) => {
+            socket.emit('login', {
+                phone: phone,
+                password: password
+            }, (response) => {
                 $('#DialogLoading').hide()
                 let data = response;
                 if (data != null) {
-                    setCookie('_id' , data._id)
-                    setCookie('name' , data.name)
-                    setCookie('password' , data.password)
-                    setCookie('permission' , data.permission)
+                    setCookie('_id', data._id)
+                    setCookie('name', data.name)
+                    setCookie('password', data.password)
+                    setCookie('permission', data.permission)
+
                     window.location.replace("/admin");
                 } else {
                     $("#title").show();
@@ -204,16 +195,15 @@
                 var date = new Date();
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 var expires = "; expires=" + date.toGMTString();
-            }
-            else var expires = "";
-            document.cookie = name + "=" + value + expires + "; path=./";
+            } else var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
         }
 
         function signUp() {
             window.location = ("/ui-sign-up");
         }
 
-        $(document).keypress(function (e) {
+        $(document).keypress(function(e) {
             if (e.which == 13) {
                 login();
             }

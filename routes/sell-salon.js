@@ -432,7 +432,7 @@ router.get('/', async(req, res) => {
         if (helper.isDefine(req.query.type_search) && helper.tryParseInt(req.query.type_search) > 0) {
             result = await ObjectModel.find(query)
         } else {
-            result = await ObjectModel.find(query).sort({ _id: -1 }).limit(limit).skip(page)
+            result = await ObjectModel.find(query).sort({ _id: -1 })
         }
 
         let leftObjects = []
@@ -481,13 +481,11 @@ router.get('/', async(req, res) => {
 
         result = hightLights.concat(normals)
 
-        if (helper.isDefine(req.query.type_search) && req.query.type_search) {
-            let tempObject = []
-            for (let i = page; i < limit + page && i < result.length; i++) {
-                tempObject.push(result[i])
-            }
-            result = tempObject
+        let tempObject = []
+        for (let i = page; i < limit + page && i < result.length; i++) {
+            tempObject.push(result[i])
         }
+        result = tempObject
 
         return res.json(result);
     } catch (err) {

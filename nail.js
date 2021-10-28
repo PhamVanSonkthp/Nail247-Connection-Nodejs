@@ -21,7 +21,8 @@ const NailSupplyPostModel = require('./models/NailSupply')
 const AgencyModel = require('./models/Agency')
 const ContactModel = require('./models/ContactUs')
 const BlogModel = require('./models/Blog')
-var option_header(async() => {
+var option_header;
+(async() => {
     option_header = await ContactModel.findOne()
 })()
 

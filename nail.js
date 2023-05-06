@@ -530,15 +530,15 @@ function connectDatabase() {
         console.log('nail 247 connected database!')
 
         app.use(function(req, res, next) {
-            if (!req.headers.token || req.headers.token != token) {
-                res.status(403).json({ error: 'authorization' });
-            } else {
-                fetchAPI(req, res)
-                next()
-            }
+            // if (!req.headers.token || req.headers.token != token) {
+            //     res.status(403).json({ error: 'authorization' });
+            // } else {
+            //     fetchAPI(req, res)
+            //     next()
+            // }
 
-            // fetchAPI(req, res)
-            // next()
+            fetchAPI(req, res)
+            next()
 
         });
 

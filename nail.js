@@ -3118,15 +3118,15 @@ io.sockets.on('connection', (socket) => {
 
 })
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.zoho.com",
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-        user: 'hi@247nailsalons.com',
-        pass: 'Tomhotro247@',
-    },
-});
+// const transporter = nodemailer.createTransport({
+//     host: "smtp.zoho.com",
+//     port: 465,
+//     secure: true, // true for 465, false for other ports
+//     auth: {
+//         user: 'hi@247nailsalons.com',
+//         pass: 'Tomhotro247@',
+//     },
+// });
 
 croner.schedule('* * * * *', async() => {
     try {
@@ -3166,13 +3166,13 @@ croner.schedule('* * * * *', async() => {
             }
 
             if (helper.isDefine(email)) {
-                await transporter.sendMail({
-                    from: 'hi@247nailsalons.com',
-                    to: email,
-                    subject: resultContact.title_email_remind,
-                    text: resultContact.title_email_remind,
-                    html: "<b>Hi " + name + "</b>" + resultContact.content_email_remind,
-                })
+                // await transporter.sendMail({
+                //     from: 'hi@247nailsalons.com',
+                //     to: email,
+                //     subject: resultContact.title_email_remind,
+                //     text: resultContact.title_email_remind,
+                //     html: "<b>Hi " + name + "</b>" + resultContact.content_email_remind,
+                // })
 
                 await ReminderPostModel.deleteOne({ _id: results[i]._id })
             }
